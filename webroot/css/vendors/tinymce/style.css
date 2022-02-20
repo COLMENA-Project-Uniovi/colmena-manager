@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+/* COPY ALL THIS CODE IN THE TINYMCE STYLES.CSS IN THE BACK */
+html {
+    font-size: 10px;
+}
+@media only screen and (max-width: 480px) {
+    html {
+        font-size: 9px;
+    }
+}
+@media only screen and (max-width: 350px) {
+    html {
+        font-size: 8px;
+    }
+}
+:root {
+    /* DISPLAY L FONT FAMILY, FONT SIZE, FONT WEIGHT AND LINE HEIGHT */
+    --display-l-ff: 'DM Serif Display, serif';
+    --display-l-fs: 7.2rem;
+    --display-l-fw: 300;
+    --display-l-lh: 8rem;
+    /* DISPLAY M FONT FAMILY, FONT SIZE, FONT WEIGHT AND LINE HEIGHT */
+    --display-m-ff: 'DM Serif Display, serif';
+    --display-m-fs: 5.2rem;
+    --display-m-fw: 300;
+    --display-m-lh: 6.4rem;
+    /* DISPLAY S FONT FAMILY, FONT SIZE, FONT WEIGHT AND LINE HEIGHT */
+    --display-s-ff: 'DM Serif Display, serif';
+    --display-s-fs: 4.3rem;
+    --display-s-fw: 300;
+    --display-s-lh: 4.8rem;
+    /* HEADLINE FONT FAMILY, FONT SIZE, FONT WEIGHT AND LINE HEIGHT */
+    --headline-ff: 'DM Serif Display, serif';
+    --headline-fs: 3rem;
+    --headline-fw: 600;
+    --headline-lh: 3.8rem;
+    /* TITLE FONT FAMILY, FONT SIZE, FONT WEIGHT AND LINE HEIGHT */
+    --title-ff: 'DM Serif Display, serif';
+    --title-fs: 2.5rem;
+    --title-fw: 300;
+    --title-lh: 3.5rem;
+    /* TITLE FONT FAMILY, FONT SIZE, FONT WEIGHT AND LINE HEIGHT */
+    --subtitle-ff: 'DM Serif Display, serif';
+    --subtitle-fs: 2rem;
+    --subtitle-fw: 300;
+    --subtitle-lh: 3rem;
+    /* BUTTON FONT FAMILY, FONT SIZE, FONT WEIGHT AND LINE HEIGHT */
+    --button-ff: 'DM Serif Display, serif';
+    --button-fs: 1.5rem;
+    --button-fw: 300;
+    --button-lh: 2.7rem;
+    /* BODY FONT FAMILY, FONT SIZE, FONT WEIGHT AND LINE HEIGHT */
+    --body-ff: 'DM Serif Display, serif';
+    --body-fs: 1.7rem;
+    --body-fw: 300;
+    --body-lh: 3.5rem;
+    /* CAPTION FONT FAMILY, FONT SIZE, FONT WEIGHT AND LINE HEIGHT */
+    --caption-ff: 'DM Serif Display, serif';
+    --caption-fs: 1.5rem;
+    --caption-fw: 300;
+    --caption-lh: 2.7rem;
+    /* SMALL FONT FAMILY, FONT SIZE, FONT WEIGHT AND LINE HEIGHT */
+    --small-ff: 'DM Serif Display, serif';
+    --small-fs: 1rem;
+    --small-fw: 300;
+    --small-lh: 3.5rem;
+}
+@media only screen and (max-width: 480px) {
+    :root {
+        --display-l-fs: 4.5rem;
+        --display-l-lh: 5rem;
+        --display-m-fs: 3.6rem;
+        --display-m-lh: 5.4rem;
+        --display-s-fs: 2rem;
+        --display-s-lh: 2.7rem;
+    }
+}
+.display-l {
+    font-family: var(--display-l-ff);
+    font-size: var(--display-l-fs);
+    font-weight: var(--display-l-fw);
+    line-height: var(--display-l-lh);
+}
+.display-l__bold {
+    font-family: var(--display-l-ff);
+}
+.display-m {
+    font-family: var(--display-m-ff);
+    font-size: var(--display-m-fs);
+    font-weight: var(--display-m-fw);
+    line-height: var(--display-m-lh);
+}
+.display-m__bold {
+    font-family: var(--display-m-ff);
+}
+.display-s {
+    font-family: var(--display-s-ff);
+    font-size: var(--display-s-fs);
+    font-weight: var(--display-s-fw);
+    line-height: var(--display-s-lh);
+}
+.display-s--bold {
+    font-family: var(--display-s-ff);
+}
+.headline-font {
+    font-family: var(--headline-ff);
+    font-size: var(--headline-fs);
+    font-weight: var(--headline-fw);
+    line-height: var(--headline-lh);
+}
+.headline-font--light {
+    font-weight: 300;
+}
+.title-font {
+    font-family: var(--title-ff);
+    font-size: var(--title-fs);
+    font-weight: var(--title-fw);
+    line-height: var(--title-lh);
+    font-style: italic;
+}
+.subtitle-font {
+    font-family: var(--subtitle-ff);
+    font-size: var(--subtitle-fs);
+    font-weight: var(--subtitle-fw);
+    line-height: var(--subtitle-lh);
+    font-style: italic;
+}
+.button-font {
+    font-family: var(--button-ff);
+    font-size: var(--button-fs);
+    font-weight: var(--button-fw);
+    line-height: var(--button-lh);
+}
+.button-font--bold {
+    font-weight: 700;
+}
+.button-font--light {
+    font-weight: 400;
+}
+.body-font, p {
+    font-family: var(--body-ff);
+    font-size: var(--body-fs);
+    font-style: normal;
+    font-weight: var(--body-fw);
+    line-height: var(--body-lh);
+}
+.body-font--bold {
+    font-family: var(--body-ff);
+    font-size: var(--body-fs);
+    font-style: normal;
+    font-weight: 600;
+    line-height: var(--body-lh);
+}
+strong, b {
+    font-weight: 600;
+}
+.body-font--italic, .body-font em {
+    font-family: var(--body-ff);
+    font-size: var(--body-fs);
+    font-style: italic;
+    font-weight: normal;
+    line-height: var(--body-lh);
+}
+.caption-font {
+    font-family: var(--caption-ff);
+    font-size: var(--caption-fs);
+    font-weight: var(--caption-fw);
+    line-height: var(--caption-lh);
+    letter-spacing: 1px;
+}
+.caption-font--light {
+    font-weight: 300;
+}
+.small-font {
+    font-family: var(--small-ff);
+    font-size: var(--small-fs);
+    font-weight: var(--small-fw);
+    line-height: var(--small-lh);
+    letter-spacing: 1px;
+}
+.small-font--light {
+    font-weight: 300;
+}
+.font--bold {
+    font-weight: bold;
+}
+/* -------------------------- */
+

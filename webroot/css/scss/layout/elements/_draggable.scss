@@ -1,0 +1,27 @@
+// DRAGGABLE
+.draggable {
+    .ui-sortable-handle {
+        cursor: move;
+    }
+    .ui-placeholder {
+        position: relative;
+        width: 100%;
+        height: 150px;
+        padding: $gap;
+        background-color: $yellow !important;
+
+        &:after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: 2px dashed $medium-gray;
+        }
+    }
+
+    .small-placeholder {
+        .ui-placeholder {
+            height: 100px;
+        }
+    }
+}

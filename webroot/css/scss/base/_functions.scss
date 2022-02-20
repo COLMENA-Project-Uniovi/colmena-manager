@@ -1,0 +1,30 @@
+// -------------------------- */
+// ----- NEO FUNCTIONS ------ */
+// -------------------------- */
+// ANIMATIONS
+@keyframes arrow-up {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes arrow-down {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(5px);
+  }
+}
+
+@keyframes move-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-10px);
+  }
+}

@@ -1,0 +1,290 @@
+<?php
+namespace App\Model\Behavior;
+
+use Cake\ORM\Behavior;
+use Cake\ORM\Table;
+use Cake\ORM\Query;
+use Cake\Datasource\ConnectionManager;
+
+class ImportableBehavior extends Behavior
+{
+    /**
+     * Table instance
+     *
+     * @var \Cake\ORM\Table
+     */
+    protected $_table;
+
+    /**
+     * Constants
+     */
+    private const FIELDS_TOKEN = "fields";
+    private const TABLE_TOKEN = "table";
+    private const ASSOCIATIONS_TOKEN = "relations";
+    private const DELIMITER = ".";
+    private const PENDING = "PENDING";
+
+    /**
+     * Default configuration.
+     *
+     * @var array
+     */
+    protected $_defaultConfig = [
+        'import_fields' => [
+            'id',
+            'title'
+        ]
+    ];
+
+    /**
+     * Constructor
+     *
+     * @param \Cake\ORM\Table $table The table this behavior is attached to.
+     * @param array $config The config for this behavior.
+     */
+    public function __construct(Table $table, array $config = [])
+    {
+        //Turned because duplicate fields
+        parent::__construct($table, $config);
+        $this->setConfig($config, null, false);
+    }
+
+    public function getImportableFields()
+    {
+        return $this->simplifyArray($this->_config[self::FIELDS_TOKEN]);
+    }
+    /**
+     * Import the elements from a CSV file
+     *
+     * @param  array   $file     with the file.
+     *
+     * @return boolean if the import was successfull
+     */
+    public function importCsv($file)
+    {
+        //get the csv columns converted into an array of entities
+        $generatedEntities = $this->convertCSVToArray($file);
+
+        //check if there is no errors
+        if(!$generatedEntities){
+            return false;
+        }
+
+        $connection = ConnectionManager::get('default');
+        // Execute this actions in a transactional way so, if one of them fails, rollback all of them
+        return $connection->transactional(function ($connection) use ($generatedEntities) {
+            //foreach entities block (in a same entry of the array)
+            foreach ($generatedEntities as $id => $data) {
+                //obtain the data of this group of related fields
+                foreach ($data as $entityName => $arrayEntity) {
+                    //get the alias (used for saving pursposes and table access)
+                    $entityAlias = $arrayEntity['alias'];
+
+                    //analize if the entity is the same as the table or related, for preparing the entity
+                    if ($this->_table->getAlias() != $entityAlias) {
+                        //prepare a related entity
+                        $newEntity = $this->_table->{$entityAlias}->newEntity($arrayEntity);
+                    } else {
+                        //prepare the main entity
+                        $newEntity = $this->_table->newEntity($arrayEntity);
+                    }
+
+                    //if no errors creating the entity, check if in the CSV there is id or it is updated automatically
+                    if (empty($newEntity->getErrors())) {
+                        //check the type of saving according if it is the table or related
+                        if ($this->_table->getAlias() != $entityAlias) {
+                            //check if we have pending values (for associations to assign)
+                            if(isset($generatedEntities[$id][$entityName][self::PENDING])) {
+                                //in case of yes we need to fill it with the already persisted entities of the same block
+                                $pending = $generatedEntities[$id][$entityName][self::PENDING];
+
+                                //for each pending value
+                                foreach($pending as $key => $value){
+                                    //split the array of pendings
+                                    $splittedValues = explode(self::DELIMITER, $value);
+                                    $relatedEntity = $splittedValues[0];
+                                    $relatedField = $splittedValues[1];
+                                    //look for the value in the generated entities, where it should be after saving the main entity
+                                    $newEntity->{$key} = $generatedEntities[$id][$relatedEntity][$relatedField];
+                                }
+                            }
+                            //Check if the entity has its own id (in related entities, this case, this should be uncommon)
+                            if (isset($arrayEntity["id"])) {
+                                $newEntity->id = $arrayEntity["id"];
+                            }
+                            
+                            //save the entity
+                            $this->_table->{$entityAlias}->save($newEntity);
+                        } else {
+                            //check if the entity has with the id value or it should be autogenerated
+                            if (isset($arrayEntity["id"])) {
+                                $newEntity->id = $arrayEntity["id"];
+                            }
+
+                            $display_field = isset($newEntity[$this->_table->getDisplayField()]) ? $newEntity[$this->_table->getDisplayField()] : false;
+                            if($this->_table->behaviors()->has('Seo') && $display_field) {
+                                $newEntity->_seo = [
+                                    'general' => [
+                                        'title' => $display_field,
+                                        'folder' => $display_field
+                                    ]
+                                ];
+                            } else {
+                                return false;
+                            }
+
+                            //save the entity
+                            $this->_table->save($newEntity);
+                            //update the entity for using it there is pendings in related values
+                            $generatedEntities[$id][$entityName]["id"] = $newEntity->id;
+                        }
+                    }
+                }
+            }
+
+            return true;
+        });
+    }
+
+    /**
+     * Convert the CSV into an array for creating the entities
+     *
+     * @param File $file to import
+     * @return array the processed and formed array
+     */
+    private function convertCSVToArray($file)
+    {
+        //The entities generated to store in the CSV
+        $generatedEntities = [];
+        //Parse CSV and convert it into an Array
+        $headerFileFields = false;
+
+        //Prepare the Handler, if error returns
+        $handler = fopen($file['tmp_name'], "r");
+        if (!$handler) {
+            return false;
+        }
+
+        //Each line of the CSV file
+        while (($row = fgetcsv($handler)) !== false) {
+            // First row are the fields
+            if (!$headerFileFields) {
+                //Assign the values of the read file roy to the header
+                $headerFileFields = $row;
+
+                $existingEntityFields =  $this->simplifyArray($this->_config[self::FIELDS_TOKEN]);
+
+                //Check if the all the fields read in the file exists in the Model
+                if (!empty(array_diff($headerFileFields, $existingEntityFields))) {
+                    return false;
+                }
+            } else {
+                // Convert each row into an associative array with
+                // the field names as the keys
+                if (count($row) == count($headerFileFields)) {
+                    $generatedEntity = [];
+                    $previousEntity = "";
+
+                    for ($i = 0; $i < count($row); $i++) {
+                        //parse the csv
+                        if ($row[$i] != '') {
+                            //extract the entity and the field of the fields in the CSV for creating an array
+                            $headerFileField = $headerFileFields[$i];
+                            $headerFileFieldFragments = explode(self::DELIMITER, $headerFileField);
+                            $entity = $headerFileFieldFragments[0];
+                            $field = $headerFileFieldFragments[1];
+                            $changed = false;
+
+                            if ($entity != $previousEntity) {
+                                $previousEntity = $entity;
+                                $changed = true;
+                            }
+
+                            //Obtain the Alias of the table
+                            if (!array_key_exists(self::TABLE_TOKEN, $this->_config[self::FIELDS_TOKEN][$entity])) {
+                                $tableAlias = $this->_config[self::TABLE_TOKEN];
+                                $generatedEntity[$entity]["alias"] = $tableAlias;
+                            } else {
+                                $tableAlias = $this->_config[self::FIELDS_TOKEN][$entity][self::TABLE_TOKEN];
+                                $generatedEntity[$entity]["alias"] = $tableAlias;
+                            }
+
+                            //save the value in the array
+                            $generatedEntity[$entity][$field] = $row[$i];
+
+                            //We check if there is the token, looking for relationships
+                            if (isset($this->_config[self::FIELDS_TOKEN][$entity][self::ASSOCIATIONS_TOKEN])) {
+                                //get the relations
+                                $relations = $this->_config[self::FIELDS_TOKEN][$entity][self::ASSOCIATIONS_TOKEN];
+                                //prepare as fields of the entity
+                                foreach ($relations as $id => $value) {
+                                    //in case to exits relationships, we are looking for the value in the CSV
+                                    $idToInsert = array_search($value, $headerFileFields);
+                                    //in case there was located in the CSV
+                                    if ($idToInsert !== false) {
+                                        //the entity is completed with the related values obtained from the csv
+                                        $generatedEntity[$entity][$id] = $row[$idToInsert];
+                                    } else {
+                                        //We need to set the entity with pending values for associations
+                                        $generatedEntity[$entity][self::PENDING][$id] = $value;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    //save the generated entitie
+                    array_push($generatedEntities, $generatedEntity);
+                }
+            }
+        }
+        //Closing the reading
+        fclose($handler);
+        return $generatedEntities;
+    }
+
+    /**
+     * Transform the fieldset into a plain array ordered by prefixes. Considers recursively adding arrays as fields
+     *
+     * @param  $prefix the prefix for the attributes to import
+     * @param  $fields the fields to import
+     * @return array of the records merged
+     */
+    public function simplifyArray($importableFields, $prefix = "")
+    {
+        $fields = array();
+
+        //for the fields
+        foreach ($importableFields as $id => $value) {
+            //Not consider the table config parameter
+            if ($id !== self::TABLE_TOKEN) {
+                //If its array, we throw recursive call
+                if (is_array($value)) {
+                    //avoid add allways all the prefixes
+                    if ($prefix != "") {
+                        //Remove the "field" id of the importable_config in case of related entities
+                        if ($id === self::FIELDS_TOKEN) {
+                            $prefix = $prefix;
+                        } else {
+                            $prefix = $prefix . self::DELIMITER . $id;
+                        }
+                        $fields = array_merge($fields, $this->simplifyArray($value, $prefix));
+                    } else {
+                        $fields = array_merge($fields, $this->simplifyArray($value, $id));
+                    }
+                //In case of being only id and value, not an array
+                } else {
+                    //avoid add allways all the prefixes
+                    if ($prefix != "") {
+                        array_push($fields, $prefix . self::DELIMITER . $value);
+                    } else {
+                        array_push($fields, $value);
+                    }
+                }
+            }
+        }
+        //returned element
+        return $fields;
+    }
+
+}
