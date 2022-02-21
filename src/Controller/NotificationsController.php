@@ -169,7 +169,7 @@ class NotificationsController extends AppController
     }
 
     /**
-     * Return all plugins in neo admin 3x
+     * Return all plugins in Colmena admin
      * 
      * @return array name of the plugins
      */

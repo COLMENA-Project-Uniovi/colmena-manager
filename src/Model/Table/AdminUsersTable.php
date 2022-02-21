@@ -38,12 +38,6 @@ class AdminUsersTable extends AppTable
             'className' => 'AdminUserRoles',
             'foreignKey' => 'role_id',
         ]);
-
-        $this->hasOne('Restaurant',[
-            'foreignKey' => 'id',
-            'targetForeignKey' => 'restaurant_id',
-            'className' => 'Neo/ReservationsManager.Restaurants',
-        ]);
     }
 
     /**

@@ -2,7 +2,7 @@
 
 namespace App\Utility;
 use Cake\Event\EventManager;
-use Neo\MailManager\Listener\MailsListener;
+use Colmena\MailManager\Listener\MailsListener;
 
 
 

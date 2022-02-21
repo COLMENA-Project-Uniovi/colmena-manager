@@ -33,55 +33,31 @@
     "autoload": {
         "psr-4": {
             "App\\": "src",
-            "Neo\\BlogManager\\": "./plugins/Neo/BlogManager/src",
-            "Neo\\UsersManager\\": "./plugins/Neo/UsersManager/src",
-            "Neo\\ButtonsManager\\": "./plugins/Neo/ButtonsManager/src",
-            "Neo\\DistributorsManager\\": "./plugins/Neo/DistributorsManager/src",
-            "Neo\\QuestionsManager\\": "./plugins/Neo/QuestionsManager/src",
-            "Neo\\ECommerceManager\\": "./plugins/Neo/ECommerceManager/src",
-            "Neo\\EventsManager\\": "./plugins/Neo/EventsManager/src",
-            "Neo\\FormsManager\\": "./plugins/Neo/FormsManager/src",
-            "Neo\\MediaManager\\": "./plugins/Neo/MediaManager/src",
-            "Neo\\PartsManager\\": "./plugins/Neo/PartsManager/src",
-            "Neo\\CatalogManager\\": "./plugins/Neo/CatalogManager/src",
-            "Neo\\TemplatesManager\\": "./plugins/Neo/TemplatesManager/src",
-            "Neo\\SectionsManager\\": "./plugins/Neo/SectionsManager/src",
-            "Neo\\SubscribersManager\\": "./plugins/Neo/SubscribersManager/src",
-            "Neo\\ExternalApiManager\\": "./plugins/Neo/ExternalApiManager/src",
-            "Neo\\WebUsersManager\\": "./plugins/Neo/WebUsersManager/src",
-            "Neo\\SchedulesManager\\": "./plugins/Neo/SchedulesManager/src/",
-            "Neo\\MenuManager\\": "./plugins/Neo/MenuManager/src/",
-            "Neo\\ReservationsManager\\": "./plugins/Neo/ReservationsManager/src/",
-            "Neo\\MailManager\\": "./plugins/Neo/MailManager/src/",
-            "Neo\\MailingManager\\": "./plugins/Neo/MailingManager/src/"
+            "Colmena\\UsersManager\\": "./plugins/Colmena/UsersManager/src",
+            "Colmena\\MailManager\\": "./plugins/Colmena/MailManager/src/",
+            "Colmena\\MailingManager\\": "./plugins/Colmena/MailingManager/src/",
+            "Colmena\\MediaManager\\": "./plugins/Colmena/MediaManager/src"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "App\\Test\\": "tests",
-            "Neo\\BlogManager\\Test\\": "./plugins/Neo/BlogManager/tests",
-            "Neo\\ButtonsManager\\Test\\": "./plugins/Neo/ButtonsManager/tests",
-            "Neo\\DistributorsManager\\Test\\": "./plugins/Neo/DistributorsManager/tests",
-            "Neo\\QuestionsManager\\Test\\": "./plugins/Neo/QuestionsManager/tests",
-            "Neo\\ECommerceManager\\Test\\": "./plugins/Neo/ECommerceManager/tests",
-            "Neo\\EventsManager\\Test\\": "./plugins/Neo/EventsManager/tests",
-            "Neo\\FormsManager\\Test\\": "./plugins/Neo/FormsManager/tests",
-            "Neo\\MediaManager\\Test\\": "./plugins/Neo/MediaManager/tests",
-            "Neo\\PartsManager\\Test\\": "./plugins/Neo/PartsManager/tests",
-            "Neo\\CatalogManager\\Test\\": "./plugins/Neo/CatalogManager/tests",
-            "Neo\\TemplatesManager\\Test\\": "./plugins/Neo/TemplatesManager/tests",
-            "Neo\\SectionsManager\\Test\\": "./plugins/Neo/SectionsManager/tests",
-            "Neo\\SubscribersManager\\Test\\": "./plugins/Neo/SubscribersManager/tests",
-            "Neo\\ExternalApiManager\\Test\\": "./plugins/Neo/ExternalApiManager/tests",
-            "Neo\\WebUsersManager\\Test\\": "./plugins/Neo/WebUsersManager/tests",
-            "Neo\\SchedulesManager\\Test\\": "./plugins/Neo/SchedulesManager/tests/",
-            "Neo\\ReservationsManager\\Test\\": "./plugins/Neo/ReservationsManager/tests/",
-            "Neo\\MailManager\\Test\\": "./plugins/Neo/MailManager/tests/"
+            "Colmena\\MediaManager\\Test\\": "./plugins/Colmena/MediaManager/tests",
+            "Colmena\\ExternalApiManager\\Test\\": "./plugins/Colmena/ExternalApiManager/tests",
+            "Colmena\\WebUsersManager\\Test\\": "./plugins/Colmena/WebUsersManager/tests",
+            "Colmena\\SchedulesManager\\Test\\": "./plugins/Colmena/SchedulesManager/tests/",
+            "Colmena\\ReservationsManager\\Test\\": "./plugins/Colmena/ReservationsManager/tests/",
+            "Colmena\\MailManager\\Test\\": "./plugins/Colmena/MailManager/tests/"
         }
     },
     "scripts": {
         "post-install-cmd": "App\\Console\\Installer::postInstall"
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "cakephp/plugin-installer": true
+        }
+    }
 }

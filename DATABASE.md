@@ -1,4 +1,4 @@
-# Neo Database changes Release Notes
+# Colmena Database changes Release Notes
 
 En este documento se encontrará toda la documentación y consultas relacionadas con la actualización de las bases de datos en función de la versión del CMS
 

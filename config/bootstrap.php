@@ -262,7 +262,7 @@ Configure::write(
 );
 
 /*
-* Active vendor plugins in neo-admin
+* Active vendor plugins in colmena-admin
 */
 Configure::write('vendor_plugins', [
     'Mailgun',
@@ -270,15 +270,15 @@ Configure::write('vendor_plugins', [
 ]);
 
 /*
-* Active plugins in neo-admin
+* Active plugins in colmena-admin
 */
 $pluginArr = [];
-$directory = '../plugins/Neo';
+$directory = '../plugins/Colmena';
 $files = scandir($directory);
 array_splice($files, 0, 2);
 
 foreach ($files as $plugin) {
-    $pluginPath = 'Neo/' . $plugin;
+    $pluginPath = 'Colmena/' . $plugin;
     array_push($pluginArr, $pluginPath);
 }
 
@@ -301,36 +301,26 @@ Configure::write('Session', [
 /*
  * Admin menu items
  */
-// Configure::write('Admin.menuItems', [
-//     'Administración' => [
-//         'order' => 13,
-//         'items' => [
-//             'Ver usuarios de administración' => [
-//                 'link' => [
-//                     'controller' => 'AdminUsers',
-//                     'action' => 'index',
-//                     'plugin' => false,
-//                 ],
-//                 'extra' => [
-//                     'class' => 'menu-item',
-//                 ],
-//             ],
-//             'Configuración' => [
-//                 'link' => [
-//                     'controller' => 'Caches',
-//                     'action' => 'index',
-//                     'plugin' => false,
-//                 ],
-//                 'extra' => [
-//                     'class' => 'menu-item',
-//                 ],
-//             ],
-//         ],
-//         'extra' => [
-//             'ico' => '<i class="fas fa-cog fa-lg fa-fw"></i>',
-//         ],
-//     ],
-// ]);
+Configure::write('Admin.menuItems', [
+    'Administración' => [
+        'order' => 13,
+        'items' => [
+            'Ver usuarios de administración' => [
+                'link' => [
+                    'controller' => 'AdminUsers',
+                    'action' => 'index',
+                    'plugin' => false,
+                ],
+                'extra' => [
+                    'class' => 'menu-item',
+                ],
+            ]
+        ],
+        'extra' => [
+            'ico' => '<i class="fas fa-cog fa-lg fa-fw"></i>',
+        ],
+    ],
+]);
 
 /*
  * Set the entities affected by user roles with array_merge

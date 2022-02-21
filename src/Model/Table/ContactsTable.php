@@ -35,19 +35,19 @@ class ContactsTable extends AppTable
         $this->addBehavior('Address');
 
         // Parteable Behavior
-        $this->addBehavior('Neo/PartsManager.Parteable', [
-            'baseQuery' => function ($query, $options) {
-                $query
-                    ->where(['Contacts.is_visible' => true]);
+        // $this->addBehavior('Neo/PartsManager.Parteable', [
+        //     'baseQuery' => function ($query, $options) {
+        //         $query
+        //             ->where(['Contacts.is_visible' => true]);
 
-                return $query;
-            },
-            'layouts' => [
-                'home' => [
-                    'name' => 'Oficinas',
-                ]
-            ]
-        ]);
+        //         return $query;
+        //     },
+        //     'layouts' => [
+        //         'home' => [
+        //             'name' => 'Oficinas',
+        //         ]
+        //     ]
+        // ]);
     }
 
     /**

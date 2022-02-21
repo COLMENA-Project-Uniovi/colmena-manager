@@ -56,7 +56,7 @@ class AppSearchableTable extends AppTable implements SearchableInterface
 
         // Find the entity section
         $section_folder = implode('_', $split);
-        $section_table = TableRegistry::getTableLocator()->get('Neo/SectionsManager.Sections');
+        $section_table = TableRegistry::getTableLocator()->get('Colmena/SectionsManager.Sections');
         $section = $section_table->getByUrl($section_folder, [
             'conditions' => [
                 'template' => $template,
@@ -94,43 +94,43 @@ class AppSearchableTable extends AppTable implements SearchableInterface
      *
      * @return Entity with the new SEO
      */
-    public function formatSeo($entity, $friendly_mode = false, $template = 1)
-    {
-        $sectionsTable = TableRegistry::getTableLocator()->get('Neo/SectionsManager.Sections');
-        $parent_section = $sectionsTable
-            ->find('all')
-            ->where([
-                'is_visible' => 1,
-                'id_template' => $template,
-            ])
-            ->first();
+    // public function formatSeo($entity, $friendly_mode = false, $template = 1)
+    // {
+    //     $sectionsTable = TableRegistry::getTableLocator()->get('Colmena/SectionsManager.Sections');
+    //     $parent_section = $sectionsTable
+    //         ->find('all')
+    //         ->where([
+    //             'is_visible' => 1,
+    //             'id_template' => $template,
+    //         ])
+    //         ->first();
         
-        if (!$parent_section) {
-            return false;
-        }
+    //     if (!$parent_section) {
+    //         return false;
+    //     }
         
-        // Get the full URL of the section
-        $entity_url = $sectionsTable->getSectionUrl($parent_section);
+    //     // Get the full URL of the section
+    //     $entity_url = $sectionsTable->getSectionUrl($parent_section);
 
-        if (!$entity_url) {
-            return false;
-        }
+    //     if (!$entity_url) {
+    //         return false;
+    //     }
 
-        if (is_array($entity)) {
-            $aux_entity = [];
-            foreach ($entity as $ent) {
-                $ent = $this->getEntitySeo($ent, $entity_url, $friendly_mode);
-                if ($ent) {
-                    array_push($aux_entity, $ent);
-                }
-            }
-            $entity = $aux_entity;
-        } else {
-            $entity = $this->getEntitySeo($entity, $entity_url, $friendly_mode);
-        }
+    //     if (is_array($entity)) {
+    //         $aux_entity = [];
+    //         foreach ($entity as $ent) {
+    //             $ent = $this->getEntitySeo($ent, $entity_url, $friendly_mode);
+    //             if ($ent) {
+    //                 array_push($aux_entity, $ent);
+    //             }
+    //         }
+    //         $entity = $aux_entity;
+    //     } else {
+    //         $entity = $this->getEntitySeo($entity, $entity_url, $friendly_mode);
+    //     }
 
-        return $entity;
-    }
+    //     return $entity;
+    // }
 
     /**
      * Get the SEO of a single entity

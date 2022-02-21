@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Email configuration.
  */
@@ -29,25 +30,25 @@ return [
         'email_properties' => [
             'profile' => 'mailgun',
             'test_email' => [
-                'abel.velarde@neozink.com' => 'Neosite Admin',
+                'borjarodrilore@gmail.com' => 'Colmena Admin',
             ],
             'contact.to' => [
-                'desarrollo@neozink.com' => 'Neosite Admin',
+                'borjarodrilore@gmail.com' => 'Colmena Admin',
             ],
             'contact.from' => [
-                'miguelputoamo@neozink.com' => 'Tierra Astur ',
+                'borjarodrilore@gmail.com' => 'Colmena',
             ],
             'notifications.from' => [
-                'abel.velarde@neozink.com' => 'Neosite Notifications',
+                'borjarodrilore@gmail.com' => 'Colmena Notifications',
             ],
             'notifications.replyto' => [
-                'abel.velarde@neozink.com' => 'Neosite Admin',
+                'borjarodrilore@gmail.com' => 'Colmena Admin',
             ],
             'notifications.admin' => [
-                'elmer.cortez@neozink.com' => 'Neosite Admin',
+                'borjarodrilore@gmail.com' => 'Colmena Admin',
             ],
             'shop.from' => [
-                'miguel.riesco@neozink.com' => 'Shop Admin',
+                'borjarodrilore@gmail.com' => 'Shop Admin',
             ],
         ],
     ],
