@@ -164,6 +164,7 @@ class ConfigComponent extends Component
         uasort($api_entities, function ($a, $b) {
             return $a['order'] <=> $b['order'];
         });
+
         Configure::write('API.entities', array_keys($api_entities));
 
         /*

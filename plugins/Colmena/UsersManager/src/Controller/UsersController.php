@@ -64,7 +64,7 @@ class UsersController extends AppController
     {
         parent::beforeFilter($event);
 		$this->Auth->allow([
-            ''
+            'login'
         ]);
     }
 
@@ -104,6 +104,46 @@ class UsersController extends AppController
         $this->set('_serialize', 'entities');
         $this->set('keyword', $keyword);
     }
+
+    /**
+     * Method used for making the user login request
+     *
+     * @return void
+     */
+    public function login(){
+        if (!$this->request->is('post')) {
+            throw new RequestException('Request type must be POST');
+        }
+
+        if ($this->request->is('post')) {
+            $user = $this->Auth->identify();
+            if ($user == 1) {
+                $this->Auth->setUser($user);
+                return $this->redirect($this->Auth->redirectUrl());
+            } else {
+                $this->Flash->error(
+                    'Los datos son incorrectos',
+                    [
+                        'key' => 'auth',
+                        'clear' => true
+                    ]
+                );
+            }
+
+        } else {
+            $this->Flash->default(
+                'Para acceder al portal es necesario usuario y contraseña',
+                [
+                    'key' => 'auth',
+                    'clear' => true
+                ]
+            );
+        }
+
+        // return $result;
+    }
+    
+    
     /**
      * Add method
      *

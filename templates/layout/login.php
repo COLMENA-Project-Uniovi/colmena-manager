@@ -1,11 +1,4 @@
 <?php
-/**
- * @copyright     Copyright (c) Neozink
- * @link          http://www.neozink.com Neozink Mkt No Convencional
- * @since         Neozink(tm) v 0.0.2
- * @license       All Rights Reserved
- */
-
 // Some usefull classes needed in default view
 use Cake\Cache\Cache;
 use Cake\Datasource\ConnectionManager;

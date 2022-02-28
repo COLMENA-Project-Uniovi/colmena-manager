@@ -4,7 +4,7 @@ use Cake\ORM\TableRegistry;
 
 $resources_url = Configure::read('Config.resources_url');
 
-$props_table = TableRegistry::getTableLocator()->get('Neo/SectionsManager.SiteProperties');
+$props_table = TableRegistry::getTableLocator()->get('Colmena/SectionsManager.SiteProperties');
 $props = $props_table->find('all')
     ->select('emails')
     ->first();

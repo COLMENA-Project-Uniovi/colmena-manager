@@ -90,7 +90,7 @@ if (isset($prefix) && $prefix !== '') {
                         }
 
                         echo $this->element(
-                            "Neo/MediaManager.media/" . $field_config['type'] . "-unique-block",
+                            "Colmena/MediaManager.media/" . $field_config['type'] . "-unique-block",
                             [
                                 'media_name' => $input_name,
                                 'config' => $media_config,
@@ -108,13 +108,13 @@ if (isset($prefix) && $prefix !== '') {
     </div><!-- .seo-tabs -->
 </div><!-- .form-block -->
 <?= $this->Html->script(
-    'Neo/MediaManager.media-block-functions'
+    'Colmena/MediaManager.media-block-functions'
 ); ?>
 <?= $this->element('form/codeeditor-scripts'); ?>
 <script type="text/javascript">
     Configure.write(
         'MEDIA_PLUGIN_PATH',
-        "<?= $this->Url->build(['controller' => '', 'action' => 'index', 'plugin' => 'Neo/MediaManager'], ['fullBase' => true]); ?>"
+        "<?= $this->Url->build(['controller' => '', 'action' => 'index', 'plugin' => 'Colmena/MediaManager'], ['fullBase' => true]); ?>"
     );
 
     loadMediaBlockFunctions();

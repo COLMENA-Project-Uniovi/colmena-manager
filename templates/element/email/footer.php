@@ -3,9 +3,9 @@ use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 
 $resources_url = Configure::read('Config.resources_url') . 'resources/email/social/';
-$socials_icons = Configure::read('Neo/SectionsManager.socials_icons');
+$socials_icons = Configure::read('Colmena/SectionsManager.socials_icons');
 
-$props_table = TableRegistry::getTableLocator()->get('Neo/SectionsManager.SiteProperties');
+$props_table = TableRegistry::getTableLocator()->get('Colmena/SectionsManager.SiteProperties');
 $props = $props_table->find('all')
     ->select('emails')
     ->first();

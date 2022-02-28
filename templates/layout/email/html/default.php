@@ -6,7 +6,7 @@ $client_name = Configure::read('Project.name');
 $web_url = Configure::read('Config.web_url');
 
 // Get theme color
-$properties_table = TableRegistry::getTableLocator()->get('Neo/SectionsManager.SiteProperties');
+$properties_table = TableRegistry::getTableLocator()->get('Colmena/SectionsManager.SiteProperties');
 $props = $properties_table->find('all')->first();
 $client_color = $props['seo']['general']['theme_color'];
 

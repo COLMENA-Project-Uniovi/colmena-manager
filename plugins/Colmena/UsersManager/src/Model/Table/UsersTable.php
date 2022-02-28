@@ -41,4 +41,16 @@ class UsersTable extends AppTable
         $validator = parent::validateField('name', $validator);
         return $validator;
     }
+
+    public function login($data = null) {
+        if(!isset($data) || empty($data)) {
+            throw new InvalidArgumentException('Invalid login data');
+        }
+
+        $user = $this->newEntity();
+
+        
+
+        return $user;
+    }
 }

@@ -35,7 +35,7 @@ Configure::write('Colmena/UsersManager.home_blocks', []);
 /*
  * Set the parteable entities for this plugin
  */
-Configure::write('Colmena/UsersManager.parteable_entities', []);
+// Configure::write('Colmena/UsersManager.parteable_entities', []);
 
 /*
  * Set the searchable entities for this plugin
@@ -57,23 +57,18 @@ Configure::write('Colmena/UsersManager.special_method_entity_roles', []);
 
 Configure::write('Colmena/UsersManager.api_entities', [
     'Colmena/UsersManager.Users' => [
-        'order' => 10,
-        'rest' => true
+        'order' => 1,
     ]
 ]);
-
-
 
 /*
  * Configure Products Manager API routing
  */
 Configure::write('Colmena/UsersManager.routes', [
-    '/:version/users/:controller/:action/:id' => [
+    '/:version/users/:controller/:action' => [
         'defaults' => [
             'plugin' => 'Colmena/UsersManager',
         ],
-        'options' => [
-            'pass' => ['id'],
-        ],
+        'options' => [],
     ],
 ]);

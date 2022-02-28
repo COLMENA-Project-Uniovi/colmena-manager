@@ -231,7 +231,7 @@ $logo = $this->Html->image(
 
     .input100 {
         font-size: 15px;
-        color: white;
+        color: black;
         line-height: 1.2;
         display: block;
         width: 100%;

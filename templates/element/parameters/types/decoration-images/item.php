@@ -4,7 +4,7 @@
     <span class="button parameters-block-list__remove-item"><i class="fas fa-trash"></i></span>
     <div class="flex-inputs parameters-decoration-image__path">
         <?= $this->element(
-            "Neo/MediaManager.media/unique-input",
+            "Colmena/MediaManager.media/unique-input",
             [
                 'media_name' => 'decoration-image[0][path]',
                 'config' => [

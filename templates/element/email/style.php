@@ -2,7 +2,7 @@
 <?php
 use Cake\ORM\TableRegistry;
 
-$props_table = TableRegistry::getTableLocator()->get('Neo/SectionsManager.SiteProperties');
+$props_table = TableRegistry::getTableLocator()->get('Colmena/SectionsManager.SiteProperties');
 $props = $props_table->find('all')
     ->select('emails')
     ->first();

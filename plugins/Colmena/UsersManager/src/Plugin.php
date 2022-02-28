@@ -1,6 +1,6 @@
 <?php
 
-namespace Colemena\UsersManager;
+namespace Colmena\UsersManager;
 
 use Cake\Core\BasePlugin;
 
