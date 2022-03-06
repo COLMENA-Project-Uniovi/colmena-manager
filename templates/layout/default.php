@@ -49,8 +49,9 @@ use Cake\Http\Exception\NotFoundException;
         $this->Html->script('vendors/select2/select2_locale_es', ['block' => 'vendors']);
 
         // NEO MAPS
-        $this->Html->script("https://maps.google.com/maps/api/js?key=AIzaSyDCj91m02CHBP0pFwEIqSYIWWMlmL4oTwc", ['block' => "vendors"]);
-        $this->Html->script('vendors/maps/neo-maps-3.0', ['block' => 'vendors']);
+        // $this->Html->script("https://maps.google.com/maps/api/js?key=AIzaSyDCj91m02CHBP0pFwEIqSYIWWMlmL4oTwc", ['block' => "vendors"]);
+        // $this->Html->script('vendors/maps/neo-maps-3.0', ['block' => 'vendors']);
+        
         // TINYMCE
         $this->Html->script('vendors/tinymce/tinymce.min', ['block' => 'vendors']);
         $this->Html->script('vendors/tinymce/jquery.tinymce.min', ['block' => 'vendors']);

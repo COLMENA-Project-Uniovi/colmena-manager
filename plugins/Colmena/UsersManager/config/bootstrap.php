@@ -22,7 +22,7 @@ Configure::write('Colmena/UsersManager.menuItems', [
             ],
         ],
         'extra' => [
-            'ico' => '<i class="fa-solid fa-user-alien"></i>',
+            'ico' => '<i class="fa-solid fa-user"></i>',
         ],
     ],
 ]);

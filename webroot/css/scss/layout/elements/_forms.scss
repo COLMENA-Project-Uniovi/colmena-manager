@@ -35,7 +35,7 @@
         }
 
         .input .help .info:after {
-            border-color: transparent transparent transparent $dark-blue;
+            border-color: transparent transparent transparent $navGrey;
         }
     }
 
@@ -50,7 +50,7 @@
         height: 40px;
         margin-bottom: $small-gap;
         padding: $small-gap $gap;
-        background-color: $dark-blue;
+        background-color: $navGrey;
         color: $white;
         text-align: left;
         text-transform: uppercase;
@@ -238,13 +238,13 @@
 
             .button {
                 background-color: $yellow;
-                color: $dark-blue;
+                color: $navGrey;
                 border-color: $yellow;
 
                 &:hover {
-                    background-color: $dark-blue;
+                    background-color: $navGrey;
                     color: $white;
-                    border-color: $dark-blue;
+                    border-color: $navGrey;
                 }
             }
 
@@ -362,12 +362,12 @@
 
             .info {
                 &:after {
-                    border-color: transparent transparent $dark-blue transparent;
+                    border-color: transparent transparent $navGrey transparent;
                 }
             }
 
             &:hover {
-                color: $dark-blue;
+                color: $navGrey;
             }
         }
 

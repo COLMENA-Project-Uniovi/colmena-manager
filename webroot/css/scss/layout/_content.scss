@@ -46,6 +46,10 @@ a {
 
     &.wide {
         padding-left: $menu-small-width;
+
+        p.close {
+            display: none;
+        }
     }
 }
 
@@ -277,20 +281,20 @@ strong {
         // TABLE HEADER
         thead,
         .thead {
-            background-color: $dark-blue;
+            background-color: $navGrey;
 
             th,
             .th {
                 padding: $small-gap $gap;
-                background-color: $dark-blue;
-                border: 1px solid $dark-blue;
+                background-color: $navGrey;
+                border: 1px solid $navGrey;
                 color: $white;
                 text-align: center;
                 text-transform: uppercase;
                 letter-spacing: 1px;
 
                 &:last-child {
-                    border-right: 1px solid $dark-blue;
+                    border-right: 1px solid $navGrey;
                 }
 
                 &.fa-wrapper {

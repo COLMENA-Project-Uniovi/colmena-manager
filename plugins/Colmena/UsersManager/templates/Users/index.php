@@ -55,16 +55,16 @@ $header = [
                     foreach ($entities as $entity) {
                     ?>
                         <tr class="tr">
-                            <td class="td element">
+                            <td class="td element medium">
                                 <p><?= $entity->name; ?></p>
                             </td><!-- .td -->
-                            <td class="td element">
+                            <td class="td element grow">
                                 <p><?= $entity->surnames; ?></p>
                             </td><!-- .td -->
-                            <td class="td element">
+                            <td class="td element grow">
                                 <p><?= $entity->email; ?></p>
                             </td><!-- .td -->
-                            <td class="td element">
+                            <td class="td element grow">
                                 <p><?= $entity->phone; ?></p>
                             </td><!-- .td -->
                             <?php
