@@ -1,12 +1,15 @@
 <?php
-
 namespace Colmena\UsersManager\Controller;
 
 use Colmena\UsersManager\Controller\AppController;
 use Cake\Event\Event;
+use App\Encryption\EncryptTrait;
+use Cake\Http\Exception\ForbiddenException;
 
 class UsersController extends AppController
 {
+    use EncryptTrait;
+
     public $entity_name = 'usuario';
     public $entity_name_plural = 'usuarios';
 
@@ -111,38 +114,23 @@ class UsersController extends AppController
      * @return void
      */
     public function login(){
-        if (!$this->request->is('post')) {
-            throw new RequestException('Request type must be POST');
-        }
+		$this->disableAutoRender();
+        $this->request->allowMethod(['post']);
 
-        if ($this->request->is('post')) {
-            $user = $this->Auth->identify();
-            if ($user == 1) {
-                $this->Auth->setUser($user);
-                return $this->redirect($this->Auth->redirectUrl());
-            } else {
-                $this->Flash->error(
-                    'Los datos son incorrectos',
-                    [
-                        'key' => 'auth',
-                        'clear' => true
-                    ]
-                );
-            }
+        $data = $this->request->getData(); 
+		$response = $this->response->withType('json');
 
-        } else {
-            $this->Flash->default(
-                'Para acceder al portal es necesario usuario y contraseña',
-                [
-                    'key' => 'auth',
-                    'clear' => true
-                ]
-            );
-        }
+        $user = $this->{$this->getName()}->login($data['username']);
+        $passUser = $this->decrypt($user['password']);
+		
+		if($data['password'] == $passUser){
+			$response = $response->withStringBody(json_encode($user));
+		} else {
+			throw new ForbiddenException("Incorrect login data");
+		}
 
-        // return $result;
+        return $response;
     }
-    
     
     /**
      * Add method
@@ -219,5 +207,4 @@ class UsersController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
-
 }

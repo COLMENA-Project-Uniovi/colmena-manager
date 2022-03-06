@@ -98,7 +98,7 @@ class AdminUsersController extends AppController
     ];
 
     /**
-     * Method triggered before before every action in the controller occurs.
+     * Method triggered before every action in the controller occurs.
      * Handy place to check for user autentification
      *
      * @param  \Cake\Event\Event $event

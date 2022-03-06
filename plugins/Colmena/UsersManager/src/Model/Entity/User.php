@@ -4,6 +4,7 @@ namespace Colmena\UsersManager\Model\Entity;
 
 use Cake\ORM\Entity;
 use Cake\I18n\Time;
+use Cake\Auth\DefaultPasswordHasher;
 
 /**
  * User Entity.
@@ -39,7 +40,6 @@ class User extends Entity
      * @var array
      */
     protected $_hidden = [
-        'id',
-        'category_id'
+        'id','password'
     ];
 }

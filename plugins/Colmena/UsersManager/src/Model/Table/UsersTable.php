@@ -7,6 +7,7 @@ use App\Model\Table\AppTable;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\ORM\TableRegistry;
+use App\Encryption\EncryptTrait;
 
 /**
  * Student Model.
@@ -14,6 +15,8 @@ use Cake\ORM\TableRegistry;
  */
 class UsersTable extends AppTable
 {
+    use EncryptTrait;
+    
     /**
      * Initialize method.
      *
@@ -42,14 +45,12 @@ class UsersTable extends AppTable
         return $validator;
     }
 
-    public function login($data = null) {
-        if(!isset($data) || empty($data)) {
+    public function login($data = null)
+    {
+        if (!isset($data) || empty($data)) {
             throw new InvalidArgumentException('Invalid login data');
         }
-
-        $user = $this->newEntity();
-
-        
+        $user = $this->find('all')->where(['email' => $data])->first();
 
         return $user;
     }
