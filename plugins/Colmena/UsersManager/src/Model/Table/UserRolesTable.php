@@ -13,7 +13,7 @@ use App\Encryption\EncryptTrait;
  * Student Model.
  *
  */
-class UsersTable extends AppTable
+class UsersRolesTable extends AppTable
 {
     use EncryptTrait;
     
@@ -26,13 +26,12 @@ class UsersTable extends AppTable
     {
         parent::initialize($config);
 
-        $this->setTable('um_users');
+        $this->setTable('um_user_roles');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-        $this->hasMany('UserRoles', [
-            'foreignKey' => 'role_id',
-            'className' => 'Neo/UsersManager.UserRoles',
+        $this->belongsTo('Users', [
+            'className' => 'Neo/UsersManager.Users',
         ]);
     }
 
@@ -48,5 +47,15 @@ class UsersTable extends AppTable
         $validator = parent::validateId($validator);
         $validator = parent::validateField('name', $validator);
         return $validator;
+    }
+
+    public function login($data = null)
+    {
+        if (!isset($data) || empty($data)) {
+            throw new InvalidArgumentException('Invalid login data');
+        }
+        $user = $this->find('all')->where(['email' => $data])->first();
+
+        return $user;
     }
 }

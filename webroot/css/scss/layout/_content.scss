@@ -41,7 +41,9 @@ a {
     @include default-transition(0.2s);
 
     .content {
-        padding: $gap;
+        padding: $gap*7 0;
+        width: 95%;
+        margin: auto;
     }
 
     &.wide {
@@ -109,9 +111,9 @@ strong {
     }
 }
 
-  
-.block.resume.guests{
-    .input.number{
+
+.block.resume.guests {
+    .input.number {
         justify-content: center;
     }
 }
@@ -146,7 +148,7 @@ strong {
         color: var(--bc-1);
         text-align: center;
     }
-    
+
     .reservation-date span {
         border-top: 2px solid var(--bc-1);
         border-bottom: 2px solid var(--bc-1);
@@ -316,6 +318,7 @@ strong {
 
                 tr:nth-child(1),
                 .tr:nth-child(1) {
+
                     th,
                     .th {
                         position: sticky;
@@ -328,6 +331,7 @@ strong {
 
         tbody,
         .tbody {
+
             tr,
             .tr {
                 &:nth-child(1n) {
@@ -363,6 +367,7 @@ strong {
                     }
 
                     &.arrow {
+
                         /* arrow up and down */
                         .moveup,
                         .movedown {
@@ -374,14 +379,12 @@ strong {
                         }
 
                         .moveup {
-                            background: url(../img/style/arrow_up_black.png)
-                                no-repeat center;
+                            background: url(../img/style/arrow_up_black.png) no-repeat center;
                             background-size: contain;
                         }
 
                         .movedown {
-                            background: url(../img/style/arrow_down_black.png)
-                                no-repeat center;
+                            background: url(../img/style/arrow_down_black.png) no-repeat center;
                             background-size: contain;
                         }
                     }
@@ -476,13 +479,13 @@ strong {
                     cursor: pointer;
 
                     &:hover {
-                        ~ .checkmark {
+                        ~.checkmark {
                             background-color: $black;
                         }
                     }
 
                     &:checked {
-                        ~ .checkmark {
+                        ~.checkmark {
                             background-color: $yellow;
                         }
                     }
@@ -576,6 +579,7 @@ strong {
             }
 
             .th {
+
                 &.sort,
                 &.actions,
                 &.center {
@@ -597,6 +601,6 @@ strong {
 /* -------------------------- */
 
 /* ADD STYLES */
-.hidden{
+.hidden {
     display: none !important;
 }

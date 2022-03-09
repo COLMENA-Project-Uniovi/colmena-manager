@@ -10,9 +10,19 @@ Configure::write('Colmena/UsersManager.menuItems', [
     'Usuarios' => [
         'order' => 1,
         'items' => [
-            'Alumnos' => [
+            'Usuarios' => [
                 'link' => [
                     'controller' => 'Users',
+                    'action' => 'index',
+                    'plugin' => 'Colmena/UsersManager',
+                ],
+                'extra' => [
+                    'class' => 'menu-item',
+                ],
+            ],
+            'Gestionar roles' => [
+                'link' => [
+                    'controller' => 'UserRoles',
                     'action' => 'index',
                     'plugin' => 'Colmena/UsersManager',
                 ],

@@ -5,14 +5,13 @@ use Colmena\UsersManager\Controller\AppController;
 use Cake\Event\Event;
 use App\Encryption\EncryptTrait;
 use Cake\Http\Exception\ForbiddenException;
-use Cake\ORM\TableRegistry;
 
-class UsersController extends AppController
+class UserRolesController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'usuario';
-    public $entity_name_plural = 'usuarios';
+    public $entity_name = 'rol';
+    public $entity_name_plural = 'roles';
 
     // Default pagination settings
     public $paginate = [
@@ -25,7 +24,7 @@ class UsersController extends AppController
     protected $table_buttons = [
         'Editar' => [
             'url' => [
-                'controller' => 'Users',
+                'controller' => 'Roles',
                 'action' => 'edit',
                 'plugin' => 'Colmena/UsersManager'
             ],
@@ -35,21 +34,21 @@ class UsersController extends AppController
         ],
         'Borrar' => [
             'url' => [
-                'controller' => 'Users',
+                'controller' => 'Roles',
                 'action' => 'delete',
                 'plugin' => 'Colmena/UsersManager'
             ],
             'options' => [
-                'confirm' => '¿Está seguro de que desea eliminar el usuario?',
+                'confirm' => '¿Está seguro de que desea eliminar el rol?',
                 'class' => 'button'
             ]
         ]
     ];
 
     protected $header_actions = [
-        'Añadir usuario' => [
+        'Añadir rol' => [
             'url' => [
-                'controller' => 'Users',
+                'controller' => 'UserRoles',
                 'plugin' => 'Colmena/UsersManager',
                 'action' => 'add'
             ]
@@ -70,30 +69,6 @@ class UsersController extends AppController
 		$this->Auth->allow([
             'login'
         ]);
-    }
-
-    /**
-     * Method used for making the user login request
-     *
-     * @return void
-     */
-    public function login(){
-		$this->disableAutoRender();
-        $this->request->allowMethod(['post']);
-
-        $data = $this->request->getData(); 
-		$response = $this->response->withType('json');
-
-        $user = $this->{$this->getName()}->login($data['username']);
-        $passUser = $this->decrypt($user['password']);
-		
-		if($data['password'] == $passUser){
-			$response = $response->withStringBody(json_encode($user));
-		} else {
-			throw new UnauthorizedException("Incorrect login data");
-		}
-
-        return $response;
     }
 
     /**
@@ -145,10 +120,10 @@ class UsersController extends AppController
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
 
             if ($this->{$this->getName()}->save($entity)) {
-                $this->Flash->success('El usuario se ha guardado correctamente.');
+                $this->Flash->success('El rol se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id]);
             } else {
-                $error_msg = '<p>El usuario no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+                $error_msg = '<p>El rol no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
                 foreach ($entity->errors() as $field => $error) {
                     $error_msg .= '<p>' . $error['message'] . '</p>';
                 }
@@ -156,9 +131,7 @@ class UsersController extends AppController
             }
         }
 
-        $roles = $this->{$this->getName()}->UserRoles->find('list')->order(['name' => 'ASC']);
-
-        $this->set(compact('entity', 'roles'));
+        $this->set(compact('entity'));
     }
 
     /**
@@ -177,10 +150,10 @@ class UsersController extends AppController
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
 
             if ($this->{$this->getName()}->save($entity)) {
-                $this->Flash->success('El usuario se ha guardado correctamente.');
+                $this->Flash->success('El rol se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
             } else {
-                $error_msg = '<p>El usuario no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+                $error_msg = '<p>El rol no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
                 foreach ($entity->errors() as $field => $error) {
                     $error_msg .= '<p>' . $error['message'] . '</p>';
                 }
@@ -188,10 +161,8 @@ class UsersController extends AppController
             }
         }
 
-        $roles = $this->{$this->getName()}->UserRoles->find('all')->order(['name' => 'ASC'])->toArray();
-
         $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
-        $this->set(compact('entity','roles'));
+        $this->set(compact('entity'));
     }
 
     /**
@@ -206,9 +177,9 @@ class UsersController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $entity = $this->{$this->getName()}->get($id);
         if ($this->{$this->getName()}->delete($entity)) {
-            $this->Flash->success('El usuario se ha borrado correctamente.');
+            $this->Flash->success('El rol se ha borrado correctamente.');
         } else {
-            $this->Flash->error('El usuario no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
+            $this->Flash->error('El rol no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
         }
         return $this->redirect(['action' => 'index']);
     }
