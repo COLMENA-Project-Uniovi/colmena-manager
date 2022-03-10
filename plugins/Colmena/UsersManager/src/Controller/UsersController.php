@@ -5,6 +5,7 @@ use Colmena\UsersManager\Controller\AppController;
 use Cake\Event\Event;
 use App\Encryption\EncryptTrait;
 use Cake\Http\Exception\ForbiddenException;
+use Cake\Http\Exception\UnauthorizedException;
 use Cake\ORM\TableRegistry;
 
 class UsersController extends AppController
@@ -188,7 +189,7 @@ class UsersController extends AppController
             }
         }
 
-        $roles = $this->{$this->getName()}->UserRoles->find('all')->order(['name' => 'ASC'])->toArray();
+        $roles = $this->{$this->getName()}->UserRoles->find('list')->order(['name' => 'ASC'])->toArray();
 
         $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
         $this->set(compact('entity','roles'));

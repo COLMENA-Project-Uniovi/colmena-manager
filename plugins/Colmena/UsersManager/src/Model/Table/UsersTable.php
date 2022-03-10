@@ -32,7 +32,7 @@ class UsersTable extends AppTable
 
         $this->hasMany('UserRoles', [
             'foreignKey' => 'role_id',
-            'className' => 'Neo/UsersManager.UserRoles',
+            'className' => 'Colmena/UsersManager.UserRoles',
         ]);
     }
 
@@ -49,4 +49,16 @@ class UsersTable extends AppTable
         $validator = parent::validateField('name', $validator);
         return $validator;
     }
+
+
+    public function login($data = null)
+    {
+        if (!isset($data) || empty($data)) {
+            throw new InvalidArgumentException('Invalid login data');
+        }
+        $user = $this->find('all')->where(['email' => $data])->first();
+
+        return $user;
+    }
+
 }

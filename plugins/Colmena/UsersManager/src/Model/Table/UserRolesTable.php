@@ -13,7 +13,7 @@ use App\Encryption\EncryptTrait;
  * Student Model.
  *
  */
-class UsersRolesTable extends AppTable
+class UserRolesTable extends AppTable
 {
     use EncryptTrait;
     
@@ -31,7 +31,7 @@ class UsersRolesTable extends AppTable
         $this->setPrimaryKey('id');
 
         $this->belongsTo('Users', [
-            'className' => 'Neo/UsersManager.Users',
+            'className' => 'Colmena/UsersManager.Users',
         ]);
     }
 
