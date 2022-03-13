@@ -24,10 +24,10 @@ $header = [
         <?php
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
-            <table class="table draggable">
+            <table class="table">
                 <thead class="thead">
                     <tr class="tr">
-                        <th class="th">
+                        <th class="th grow">
                             Nombre
                         </th><!-- .th -->
                         <?php
@@ -46,7 +46,7 @@ $header = [
                     foreach ($entities as $entity) {
                     ?>
                         <tr class="tr">
-                            <td class="td element">
+                            <td class="td element grow">
                                 <p><?= $entity->name; ?></p>
                             </td><!-- .td -->
                             <?php

@@ -49,8 +49,8 @@ a {
     &.wide {
         padding-left: $menu-small-width;
 
-        p.close {
-            display: none;
+        header {
+            width: calc(100% - 50px);
         }
     }
 }
@@ -343,7 +343,7 @@ strong {
                 }
 
                 &.alert {
-                    background-color: $yellow;
+                    background-color: $orange;
                 }
 
                 &:hover {
@@ -442,7 +442,7 @@ strong {
                     }
 
                     &.is_active {
-                        background-color: $yellow;
+                        background-color: $orange;
                         color: $black;
 
                         &:hover {
@@ -486,7 +486,7 @@ strong {
 
                     &:checked {
                         ~.checkmark {
-                            background-color: $yellow;
+                            background-color: $orange;
                         }
                     }
                 }

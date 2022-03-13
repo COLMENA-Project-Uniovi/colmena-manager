@@ -13,6 +13,7 @@ use Cake\Utility\Inflector;
                     "/" ,
                     ['escape' => false]
                 ); ?>
+                <p class="close"><i class="fa fa-bars"></i></p>
             </div><!-- .logo -->
 
             <div class="items">

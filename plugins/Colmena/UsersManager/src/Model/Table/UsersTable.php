@@ -31,8 +31,9 @@ class UsersTable extends AppTable
         $this->setPrimaryKey('id');
 
         $this->hasMany('UserRoles', [
-            'foreignKey' => 'role_id',
-            'className' => 'Colmena/UsersManager.UserRoles',
+            'foreignKey' => 'id',
+            'bindingKey' => 'role_id',
+            'className' => 'Colmena/UsersManager.UserRoles'
         ]);
     }
 

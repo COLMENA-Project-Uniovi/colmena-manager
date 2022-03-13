@@ -237,9 +237,9 @@
             border-top: 1px solid $gray-d;
 
             .button {
-                background-color: $yellow;
+                background-color: $orange;
                 color: $navGrey;
-                border-color: $yellow;
+                border-color: $orange;
 
                 &:hover {
                     background-color: $navGrey;
@@ -470,7 +470,7 @@
                 }
 
                 &.yellow {
-                    color: $yellow;
+                    color: $orange;
                 }
 
                 &.red {

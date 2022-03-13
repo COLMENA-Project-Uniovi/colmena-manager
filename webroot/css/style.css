@@ -189,8 +189,8 @@ a {
   padding-left: 50px;
 }
 
-#main-content.wide p.close {
-  display: none;
+#main-content.wide header {
+  width: calc(100% - 50px);
 }
 
 .no-results {
@@ -690,7 +690,7 @@ strong {
 .results .table tbody .tr.alert,
 .results .table .tbody tr.alert,
 .results .table .tbody .tr.alert {
-  background-color: #fab437;
+  background-color: #F59D03;
 }
 
 .results table tbody tr:hover,
@@ -951,7 +951,7 @@ strong {
 .results table .tbody .locks .lock.is_active,
 .results .table tbody .locks .lock.is_active,
 .results .table .tbody .locks .lock.is_active {
-  background-color: #fab437;
+  background-color: #F59D03;
   color: #000000;
 }
 
@@ -1012,7 +1012,7 @@ strong {
 .results table .tbody .user-perms input[type="radio"]:checked ~ .checkmark,
 .results .table tbody .user-perms input[type="radio"]:checked ~ .checkmark,
 .results .table .tbody .user-perms input[type="radio"]:checked ~ .checkmark {
-  background-color: #fab437;
+  background-color: #F59D03;
 }
 
 .results table tbody .user-perms .checkmark,
@@ -1432,9 +1432,9 @@ strong {
 }
 
 .admin-form .form-block.save-block .button {
-  background-color: #fab437;
+  background-color: #F59D03;
   color: #3e4550;
-  border-color: #fab437;
+  border-color: #F59D03;
 }
 
 .admin-form .form-block.save-block .button:hover {
@@ -1685,7 +1685,7 @@ strong {
 }
 
 .admin-form .input.text .max.yellow, .admin-form .input.email .max.yellow, .admin-form .input.url .max.yellow, .admin-form .input.password .max.yellow, .admin-form .input.textarea .max.yellow, .admin-form .input.date .max.yellow, .admin-form .input.time .max.yellow {
-  color: #fab437;
+  color: #F59D03;
 }
 
 .admin-form .input.text .max.red, .admin-form .input.email .max.red, .admin-form .input.url .max.red, .admin-form .input.password .max.red, .admin-form .input.textarea .max.red, .admin-form .input.date .max.red, .admin-form .input.time .max.red {
@@ -1997,8 +1997,8 @@ strong {
 
 .button:hover {
   color: #000000;
-  background-color: #fab437;
-  border-color: #fab437;
+  background-color: #F59D03;
+  border-color: #F59D03;
 }
 
 .draggable .ui-sortable-handle {
@@ -2010,7 +2010,7 @@ strong {
   width: 100%;
   height: 150px;
   padding: 20px;
-  background-color: #fab437 !important;
+  background-color: #F59D03 !important;
 }
 
 .draggable .ui-placeholder:after {
@@ -2124,7 +2124,7 @@ strong {
 
 .tabs .tabs-header .tab.current {
   color: #000000;
-  border-bottom: 5px solid #fab437;
+  border-bottom: 5px solid #F59D03;
 }
 
 .tabs .tabs-content {
@@ -2222,7 +2222,7 @@ header.home h1 {
 }
 
 .top-header .left-header .breadcrumbs li:last-child a {
-  color: #fab437;
+  color: #F59D03;
 }
 
 .top-header .languages a {
@@ -2240,7 +2240,7 @@ header.home h1 {
 
 .top-header .languages a.current {
   color: #000000;
-  background-color: #fab437;
+  background-color: #F59D03;
 }
 
 .mid-header {
@@ -2383,7 +2383,7 @@ header.home h1 {
 }
 
 .mid-header .dropdown .options .action:hover {
-  background-color: #fab437;
+  background-color: #F59D03;
 }
 
 .mid-header .dropdown .options.three {
@@ -2510,7 +2510,7 @@ header.home h1 {
 
 .header-tabs .content-tabs .tab.current {
   color: #000000;
-  border-bottom: 5px solid #fab437;
+  border-bottom: 5px solid #F59D03;
 }
 
 .search-results {
@@ -2530,7 +2530,7 @@ nav {
   height: 100%;
   position: fixed;
   z-index: 10;
-  background-color: #3e4550;
+  background-color: #3e4450;
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
@@ -2544,14 +2544,13 @@ nav .content-nav {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  min-height: 0;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   height: 100%;
 }
 
@@ -2559,16 +2558,12 @@ nav .logo {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   width: 100%;
-  min-height: 150px;
+  min-height: 50px;
   padding: 10px;
-  outline: none !important;
 }
 
 nav .logo a {
@@ -2577,12 +2572,19 @@ nav .logo a {
           flex-grow: 1;
 }
 
+nav .logo .close {
+  padding: 0 10px;
+  color: #FFFFFF;
+  text-align: center;
+  cursor: pointer;
+  font-size: 1.6em;
+}
+
 nav .logo img {
   display: block;
   margin: auto;
   max-width: 100%;
   max-height: 100%;
-  width: 80%;
 }
 
 nav .items {
@@ -2590,6 +2592,17 @@ nav .items {
       -ms-flex-positive: 1;
           flex-grow: 1;
   overflow-y: auto;
+}
+
+nav .items .accordion {
+  /*&:after{
+                content: '';
+                display: block;
+                width: 80%;
+                margin: $small-gap auto;
+                border-bottom: 5px solid $dark-gray;
+                border-radius: 2px;
+            }*/
 }
 
 nav .items .accordion .header {
@@ -2639,7 +2652,7 @@ nav .items .accordion .content {
 }
 
 nav .items .accordion.is_active .header {
-  color: #fab437;
+  color: #F59D03;
 }
 
 nav .items .accordion.is_active .header .arrow .fa-caret-right {
@@ -2652,7 +2665,7 @@ nav .items .accordion.is_active .content {
 }
 
 nav .items .accordion:hover .header {
-  color: #fab437;
+  color: #F59D03;
 }
 
 nav .items .menu-title {
@@ -2667,26 +2680,22 @@ nav .items .menu-item {
   position: relative;
   display: block;
   padding: 0 20px;
+  margin: 20px 0;
   border-left: 0px solid #FFFFFF;
-  color: #AAAAAA;
+  color: #FFFFFF;
   text-decoration: none;
   overflow: hidden;
-  padding: 0.7rem 1.5rem 0.7rem 3.5rem;
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
 
 nav .items .menu-item:hover {
-  border-left: 5px solid #fab437;
-  color: #fab437;
+  border-left: 5px solid #FFFFFF;
 }
 
 nav .items .menu-item.current {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  color: #fab437;
-  border-left: 5px solid #fab437;
+  color: #F59D03;
+  border-left: 5px solid #F59D03;
   font-weight: 600;
 }
 
@@ -2711,7 +2720,7 @@ nav .logout a {
 }
 
 nav .logout a:hover {
-  color: #fab437;
+  color: #F59D03;
 }
 
 nav.small {
@@ -2783,7 +2792,7 @@ nav.small .items .menu-icon .sub-menu {
   width: 280px;
   border: 1px solid #DDDDDD;
   background-color: #FFFFFF;
-  color: #3e4550;
+  color: #232B2D;
   -webkit-transition: visibility 0s linear 0.2s, opacity 0.2s ease-out 0s, -webkit-transform 0s ease-out 0.2s;
   transition: visibility 0s linear 0.2s, opacity 0.2s ease-out 0s, -webkit-transform 0s ease-out 0.2s;
   transition: visibility 0s linear 0.2s, opacity 0.2s ease-out 0s, transform 0s ease-out 0.2s;
@@ -2800,12 +2809,12 @@ nav.small .items .menu-icon .sub-menu .name {
 }
 
 nav.small .items .menu-icon .sub-menu .menu-item {
-  margin: 10px 0;
+  margin: 15px 0;
   color: inherit;
 }
 
 nav.small .items .menu-icon .sub-menu .menu-item:hover {
-  border-color: #fab437;
+  border-color: #F59D03;
 }
 
 nav.small .items .menu-icon .sub-menu.show {
@@ -2814,13 +2823,13 @@ nav.small .items .menu-icon .sub-menu.show {
 }
 
 nav.small .items .menu-icon:hover .icon {
-  color: #fab437;
+  color: #F59D03;
 }
 
 nav.small .items .menu-icon.is_active .icon {
   padding: 10px;
-  border-left: 5px solid #fab437;
-  color: #fab437;
+  border-left: 5px solid #F59D03;
+  color: #F59D03;
   font-weight: 600;
 }
 
@@ -2939,7 +2948,7 @@ nav.small .logout {
   padding: 5px 20px;
   line-height: 1em;
   font-size: 4em;
-  color: #fab437;
+  color: #F59D03;
 }
 
 .blocks .block .header .title .text {
@@ -2947,7 +2956,7 @@ nav.small .logout {
   text-transform: uppercase;
   font-size: 1.6em;
   line-height: 1.2em;
-  color: #fab437;
+  color: #F59D03;
 }
 
 .blocks .block .header .title .text span {
@@ -3285,7 +3294,7 @@ nav.small .logout {
   overflow: visible;
   width: 50px;
   height: 50px;
-  fill: #fab437;
+  fill: #F59D03;
   -webkit-animation: 1.5s rotateWithBoost cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
           animation: 1.5s rotateWithBoost cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
 }

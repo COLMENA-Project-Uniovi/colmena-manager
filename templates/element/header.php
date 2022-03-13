@@ -8,7 +8,6 @@
     ?>
         <div class="top-header">
             <div class="left-header">
-                <p class="close"><i class="fa fa-bars"></i></p>
                 <?= $this->Breadcrumbs->render(
                     ['class' => 'breadcrumbs'],
                     ['separator' => ' &raquo; ']

@@ -1,4 +1,5 @@
 <?php
+
 namespace Colmena\UsersManager\Controller;
 
 use Colmena\UsersManager\Controller\AppController;
@@ -21,6 +22,9 @@ class UsersController extends AppController
         'order' => [
             'User.id' => 'ASC'
         ],
+        'contain' => [
+            'UserRoles'
+        ]
     ];
 
     protected $table_buttons = [
@@ -68,7 +72,7 @@ class UsersController extends AppController
     public function beforeFilter(\Cake\Event\EventInterface $event)
     {
         parent::beforeFilter($event);
-		$this->Auth->allow([
+        $this->Auth->allow([
             'login'
         ]);
     }
@@ -78,21 +82,22 @@ class UsersController extends AppController
      *
      * @return void
      */
-    public function login(){
-		$this->disableAutoRender();
+    public function login()
+    {
+        $this->disableAutoRender();
         $this->request->allowMethod(['post']);
 
-        $data = $this->request->getData(); 
-		$response = $this->response->withType('json');
+        $data = $this->request->getData();
+        $response = $this->response->withType('json');
 
         $user = $this->{$this->getName()}->login($data['username']);
         $passUser = $this->decrypt($user['password']);
-		
-		if($data['password'] == $passUser){
-			$response = $response->withStringBody(json_encode($user));
-		} else {
-			throw new UnauthorizedException("Incorrect login data");
-		}
+
+        if ($data['password'] == $passUser) {
+            $response = $response->withStringBody(json_encode($user));
+        } else {
+            throw new UnauthorizedException("Incorrect login data");
+        }
 
         return $response;
     }
@@ -127,13 +132,18 @@ class UsersController extends AppController
         $this->paginate = $settings;
         $entities = $this->paginate($this->modelClass);
 
+        foreach ($entities as $entity) {
+            if (isset($entity['role_id']))
+                $entity['role_name'] = $this->{$this->getName()}->UserRoles->get($entity['role_id'])->name;
+        }
+
         $this->set('header_actions', $this->getHeaderActions());
         $this->set('table_buttons', $this->getTableButtons());
         $this->set('entities', $entities);
         $this->set('_serialize', 'entities');
         $this->set('keyword', $keyword);
     }
-    
+
     /**
      * Add method
      *
@@ -192,7 +202,7 @@ class UsersController extends AppController
         $roles = $this->{$this->getName()}->UserRoles->find('list')->order(['name' => 'ASC'])->toArray();
 
         $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
-        $this->set(compact('entity','roles'));
+        $this->set(compact('entity', 'roles'));
     }
 
     /**

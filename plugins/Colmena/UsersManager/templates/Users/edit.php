@@ -30,29 +30,40 @@ $header = [
             <?= $this->Form->control(
                 'name',
                 [
-                    'label' => 'Nombre del estudiante',
+                    'label' => 'Nombre del usuario',
                     'type' => 'text'
                 ]
             ); ?>
             <?= $this->Form->control(
                 'surnames',
                 [
-                    'label' => 'Apellidos del estudiante',
+                    'label' => 'Apellidos del usuario',
                     'type' => 'text'
                 ]
             ); ?>
             <?= $this->Form->control(
                 'email',
                 [
-                    'label' => 'Email del estudiante',
+                    'label' => 'Email del usuario',
                     'type' => 'email'
                 ]
             ); ?>
             <?= $this->Form->control(
                 'phone',
                 [
-                    'label' => 'Teléfono del estudiante',
+                    'label' => 'Teléfono del usuario',
                     'type' => 'number'
+                ]
+            ); ?>
+
+            <?= $this->Form->control(
+                'role_id',
+                [
+                    'label' => 'Rol',
+                    'options' => $roles,
+                    'templateVars' => [
+                        'help' => 'Selecciona el rol del usuario'
+                    ]
                 ]
             ); ?>
         </div><!-- .form-block -->

@@ -3,7 +3,7 @@
 use Cake\Core\Configure;
 
 $logo = $this->Html->image(
-    'logo.png',
+    'logo.svg',
     ['alt' => 'logo', 'class' => 'card__image']
 );
 ?>
@@ -188,7 +188,7 @@ $logo = $this->Html->image(
         box-shadow: 0 10px 35px 0 rgb(54 33 0 / 65%);
         border-radius: 10px;
         overflow: hidden;
-        padding: 80px 60px;
+        padding: 60px 60px;
         box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
         -moz-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
         -webkit-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
@@ -196,11 +196,14 @@ $logo = $this->Html->image(
         -ms-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
     }
 
+    .card__image{
+        width: 70%;
+    }
+
     .logo {
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 50px;
     }
 
     /*------------------------------------------------------------------

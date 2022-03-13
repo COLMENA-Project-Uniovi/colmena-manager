@@ -2,7 +2,6 @@
 /* ----- HEADER LAYOUT ------ */
 /* -------------------------- */
 header {
-    //border-bottom: 1px solid $gray-9;
     background-color: $light-gray;
     position: fixed;
     height: 120px;
@@ -63,7 +62,7 @@ header {
 
                 &:last-child {
                     a {
-                        color: $yellow;
+                        color: $orange;
                     }
                 }
             }
@@ -84,7 +83,7 @@ header {
 
             &.current {
                 color: $black;
-                background-color: $yellow;
+                background-color: $orange;
             }
         }
     }
@@ -195,7 +194,7 @@ header {
                 }
 
                 &:hover {
-                    background-color: $yellow;
+                    background-color: $orange;
                 }
             }
 
@@ -315,7 +314,7 @@ header {
 
             &.current {
                 color: $black;
-                border-bottom: 5px solid $yellow;
+                border-bottom: 5px solid $orange;
             }
         }
     }

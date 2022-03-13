@@ -24,20 +24,17 @@ $header = [
         <?php
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
-            <table class="table draggable">
+            <table class="table">
                 <thead class="thead">
                     <tr class="tr">
                         <th class="th medium">
-                            Nombre
-                        </th><!-- .th -->
-                        <th class="th grow">
-                            Apellidos
+                            Nombre y apellidos
                         </th><!-- .th -->
                         <th class="th grow">
                             Email
                         </th><!-- .th -->
                         <th class="th grow">
-                            Teléfono
+                            Rol
                         </th><!-- .th -->
                         <?php
                         if (!empty($table_buttons)) {
@@ -56,16 +53,13 @@ $header = [
                     ?>
                         <tr class="tr">
                             <td class="td element medium">
-                                <p><?= $entity->name; ?></p>
-                            </td><!-- .td -->
-                            <td class="td element grow">
-                                <p><?= $entity->surnames; ?></p>
+                                <p><?= $entity->name . ' ' . $entity->surnames; ?></p>
                             </td><!-- .td -->
                             <td class="td element grow">
                                 <p><?= $entity->email; ?></p>
                             </td><!-- .td -->
                             <td class="td element grow">
-                                <p><?= $entity->phone; ?></p>
+                                <p><?= $entity->role_name; ?></p>
                             </td><!-- .td -->
                             <?php
                             if (!empty($table_buttons)) {

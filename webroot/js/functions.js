@@ -17,7 +17,8 @@
         initialize();
 
         function initialize() {
-            nav.find("main-content .close").click(() => {
+            nav.find("nav .close").click(() => {
+                console.log("pene")
                 AjaxStorage.register("menu");
                 $.post(settings.urlPost)
                     .done((data, status, response) => {
