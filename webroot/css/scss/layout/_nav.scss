@@ -85,6 +85,7 @@ nav {
             &.is_active {
                 .header {
                     color: $orange;
+
                     .arrow {
                         .fa-caret-right {
                             transform: rotate(90deg);
@@ -128,10 +129,12 @@ nav {
             @include default-transition(0.2s);
 
             &:hover {
-                border-left: 5px solid $white;
+                border-left: 5px solid $orange;
+                color: $orange;
             }
 
             &.current {
+                display: flex;
                 color: $orange;
                 border-left: 5px solid $orange;
                 font-weight: 600;

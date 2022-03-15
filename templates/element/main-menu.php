@@ -7,7 +7,7 @@ use Cake\Utility\Inflector;
             <div class="logo">
                 <?= $this->Html->link(
                     $this->Html->image(
-                        'logo.png',
+                        'logo.svg',
                         ['alt' => 'logo']
                     ),
                     "/" ,

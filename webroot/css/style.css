@@ -690,7 +690,7 @@ strong {
 .results .table tbody .tr.alert,
 .results .table .tbody tr.alert,
 .results .table .tbody .tr.alert {
-  background-color: #F59D03;
+  background-color: #F3933D;
 }
 
 .results table tbody tr:hover,
@@ -951,7 +951,7 @@ strong {
 .results table .tbody .locks .lock.is_active,
 .results .table tbody .locks .lock.is_active,
 .results .table .tbody .locks .lock.is_active {
-  background-color: #F59D03;
+  background-color: #F3933D;
   color: #000000;
 }
 
@@ -1012,7 +1012,7 @@ strong {
 .results table .tbody .user-perms input[type="radio"]:checked ~ .checkmark,
 .results .table tbody .user-perms input[type="radio"]:checked ~ .checkmark,
 .results .table .tbody .user-perms input[type="radio"]:checked ~ .checkmark {
-  background-color: #F59D03;
+  background-color: #F3933D;
 }
 
 .results table tbody .user-perms .checkmark,
@@ -1432,9 +1432,9 @@ strong {
 }
 
 .admin-form .form-block.save-block .button {
-  background-color: #F59D03;
+  background-color: #F3933D;
   color: #3e4550;
-  border-color: #F59D03;
+  border-color: #F3933D;
 }
 
 .admin-form .form-block.save-block .button:hover {
@@ -1685,7 +1685,7 @@ strong {
 }
 
 .admin-form .input.text .max.yellow, .admin-form .input.email .max.yellow, .admin-form .input.url .max.yellow, .admin-form .input.password .max.yellow, .admin-form .input.textarea .max.yellow, .admin-form .input.date .max.yellow, .admin-form .input.time .max.yellow {
-  color: #F59D03;
+  color: #F3933D;
 }
 
 .admin-form .input.text .max.red, .admin-form .input.email .max.red, .admin-form .input.url .max.red, .admin-form .input.password .max.red, .admin-form .input.textarea .max.red, .admin-form .input.date .max.red, .admin-form .input.time .max.red {
@@ -1997,8 +1997,8 @@ strong {
 
 .button:hover {
   color: #000000;
-  background-color: #F59D03;
-  border-color: #F59D03;
+  background-color: #F3933D;
+  border-color: #F3933D;
 }
 
 .draggable .ui-sortable-handle {
@@ -2010,7 +2010,7 @@ strong {
   width: 100%;
   height: 150px;
   padding: 20px;
-  background-color: #F59D03 !important;
+  background-color: #F3933D !important;
 }
 
 .draggable .ui-placeholder:after {
@@ -2124,7 +2124,7 @@ strong {
 
 .tabs .tabs-header .tab.current {
   color: #000000;
-  border-bottom: 5px solid #F59D03;
+  border-bottom: 5px solid #F3933D;
 }
 
 .tabs .tabs-content {
@@ -2222,7 +2222,7 @@ header.home h1 {
 }
 
 .top-header .left-header .breadcrumbs li:last-child a {
-  color: #F59D03;
+  color: #F3933D;
 }
 
 .top-header .languages a {
@@ -2240,7 +2240,7 @@ header.home h1 {
 
 .top-header .languages a.current {
   color: #000000;
-  background-color: #F59D03;
+  background-color: #F3933D;
 }
 
 .mid-header {
@@ -2383,7 +2383,7 @@ header.home h1 {
 }
 
 .mid-header .dropdown .options .action:hover {
-  background-color: #F59D03;
+  background-color: #F3933D;
 }
 
 .mid-header .dropdown .options.three {
@@ -2510,7 +2510,7 @@ header.home h1 {
 
 .header-tabs .content-tabs .tab.current {
   color: #000000;
-  border-bottom: 5px solid #F59D03;
+  border-bottom: 5px solid #F3933D;
 }
 
 .search-results {
@@ -2652,7 +2652,7 @@ nav .items .accordion .content {
 }
 
 nav .items .accordion.is_active .header {
-  color: #F59D03;
+  color: #F3933D;
 }
 
 nav .items .accordion.is_active .header .arrow .fa-caret-right {
@@ -2665,7 +2665,7 @@ nav .items .accordion.is_active .content {
 }
 
 nav .items .accordion:hover .header {
-  color: #F59D03;
+  color: #F3933D;
 }
 
 nav .items .menu-title {
@@ -2690,12 +2690,16 @@ nav .items .menu-item {
 }
 
 nav .items .menu-item:hover {
-  border-left: 5px solid #FFFFFF;
+  border-left: 5px solid #F3933D;
+  color: #F3933D;
 }
 
 nav .items .menu-item.current {
-  color: #F59D03;
-  border-left: 5px solid #F59D03;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: #F3933D;
+  border-left: 5px solid #F3933D;
   font-weight: 600;
 }
 
@@ -2720,7 +2724,7 @@ nav .logout a {
 }
 
 nav .logout a:hover {
-  color: #F59D03;
+  color: #F3933D;
 }
 
 nav.small {
@@ -2814,7 +2818,7 @@ nav.small .items .menu-icon .sub-menu .menu-item {
 }
 
 nav.small .items .menu-icon .sub-menu .menu-item:hover {
-  border-color: #F59D03;
+  border-color: #F3933D;
 }
 
 nav.small .items .menu-icon .sub-menu.show {
@@ -2823,13 +2827,13 @@ nav.small .items .menu-icon .sub-menu.show {
 }
 
 nav.small .items .menu-icon:hover .icon {
-  color: #F59D03;
+  color: #F3933D;
 }
 
 nav.small .items .menu-icon.is_active .icon {
   padding: 10px;
-  border-left: 5px solid #F59D03;
-  color: #F59D03;
+  border-left: 5px solid #F3933D;
+  color: #F3933D;
   font-weight: 600;
 }
 
@@ -2948,7 +2952,7 @@ nav.small .logout {
   padding: 5px 20px;
   line-height: 1em;
   font-size: 4em;
-  color: #F59D03;
+  color: #F3933D;
 }
 
 .blocks .block .header .title .text {
@@ -2956,7 +2960,7 @@ nav.small .logout {
   text-transform: uppercase;
   font-size: 1.6em;
   line-height: 1.2em;
-  color: #F59D03;
+  color: #F3933D;
 }
 
 .blocks .block .header .title .text span {
@@ -3294,7 +3298,7 @@ nav.small .logout {
   overflow: visible;
   width: 50px;
   height: 50px;
-  fill: #F59D03;
+  fill: #F3933D;
   -webkit-animation: 1.5s rotateWithBoost cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
           animation: 1.5s rotateWithBoost cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
 }
