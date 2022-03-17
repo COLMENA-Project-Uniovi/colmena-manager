@@ -64,6 +64,12 @@ use Cake\Utility\Inflector;
             <div class="logout">
                 <span class="user">
                     <i class="fas fa-user"></i>
+                    <?php
+                        if (!isset($user)) {
+                            header('Location: ' . 'https://' . $_SERVER['HTTP_HOST'] . '/admin');
+                            die();
+                        }
+                    ?>
                     <?= $user['username']; ?> - <?= $user_role['name'] ?>
                 </span>
                 <?= $this->Html->link(

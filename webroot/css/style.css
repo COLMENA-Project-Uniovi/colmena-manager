@@ -874,6 +874,47 @@ strong {
   padding: 5px;
 }
 
+.results table tbody td.actions .td-content,
+.results table tbody .td.actions .td-content,
+.results table .tbody td.actions .td-content,
+.results table .tbody .td.actions .td-content,
+.results .table tbody td.actions .td-content,
+.results .table tbody .td.actions .td-content,
+.results .table .tbody td.actions .td-content,
+.results .table .tbody .td.actions .td-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 30%;
+  margin: auto;
+  font-size: 1.4rem;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.results table tbody td.actions .td-content .green-icon,
+.results table tbody .td.actions .td-content .green-icon,
+.results table .tbody td.actions .td-content .green-icon,
+.results table .tbody .td.actions .td-content .green-icon,
+.results .table tbody td.actions .td-content .green-icon,
+.results .table tbody .td.actions .td-content .green-icon,
+.results .table .tbody td.actions .td-content .green-icon,
+.results .table .tbody .td.actions .td-content .green-icon {
+  color: #53C7AD;
+}
+
+.results table tbody td.actions .td-content .red-icon,
+.results table tbody .td.actions .td-content .red-icon,
+.results table .tbody td.actions .td-content .red-icon,
+.results table .tbody .td.actions .td-content .red-icon,
+.results .table tbody td.actions .td-content .red-icon,
+.results .table tbody .td.actions .td-content .red-icon,
+.results .table .tbody td.actions .td-content .red-icon,
+.results .table .tbody .td.actions .td-content .red-icon {
+  color: red;
+}
+
 .results table tbody .check,
 .results table .tbody .check,
 .results .table tbody .check,
@@ -2594,17 +2635,6 @@ nav .items {
   overflow-y: auto;
 }
 
-nav .items .accordion {
-  /*&:after{
-                content: '';
-                display: block;
-                width: 80%;
-                margin: $small-gap auto;
-                border-bottom: 5px solid $dark-gray;
-                border-radius: 2px;
-            }*/
-}
-
 nav .items .accordion .header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2690,14 +2720,10 @@ nav .items .menu-item {
 }
 
 nav .items .menu-item:hover {
-  border-left: 5px solid #F3933D;
-  color: #F3933D;
+  border-left: 5px solid #FFFFFF;
 }
 
 nav .items .menu-item.current {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   color: #F3933D;
   border-left: 5px solid #F3933D;
   font-weight: 600;

@@ -64,9 +64,6 @@ $header = [
                             <td class="td element grow">
                                 <p><?= $entity->role_name; ?></p>
                             </td><!-- .td -->
-                            <td class="td element grow">
-                                <p><?= $entity->role_name; ?></p>
-                            </td><!-- .td -->
                             <?php
                             if (!empty($table_buttons)) {
                             ?>
@@ -77,13 +74,13 @@ $header = [
                                             array_push($value['url'], $entity->id);
                                             if ($value['url']['action'] != 'delete') {
                                                 echo $this->Html->link(
-                                                    $key,
+                                                    $value['icon'],
                                                     $value['url'],
                                                     $value['options']
                                                 );
                                             } else {
                                                 echo $this->Form->postLink(
-                                                    $key,
+                                                    $value['icon'],
                                                     $value['url'],
                                                     $value['options']
                                                 );

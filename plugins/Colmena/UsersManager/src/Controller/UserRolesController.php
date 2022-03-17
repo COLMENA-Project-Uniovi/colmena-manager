@@ -23,16 +23,19 @@ class UserRolesController extends AppController
 
     protected $table_buttons = [
         'Editar' => [
+            'icon' => '<i class="fas fa-edit"></i>',
             'url' => [
                 'controller' => 'Roles',
                 'action' => 'edit',
                 'plugin' => 'Colmena/UsersManager'
             ],
             'options' => [
-                'class' => 'button'
+                'class' => 'green-icon',
+                'escape' => false
             ]
         ],
         'Borrar' => [
+            'icon' => '<i class="fas fa-trash"></i>',
             'url' => [
                 'controller' => 'Roles',
                 'action' => 'delete',
@@ -40,7 +43,8 @@ class UserRolesController extends AppController
             ],
             'options' => [
                 'confirm' => '¿Está seguro de que desea eliminar el rol?',
-                'class' => 'button'
+                'class' => 'red-icon',
+                'escape' => false
             ]
         ]
     ];

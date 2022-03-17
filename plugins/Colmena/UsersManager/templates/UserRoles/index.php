@@ -59,13 +59,13 @@ $header = [
                                             array_push($value['url'], $entity->id);
                                             if ($value['url']['action'] != 'delete') {
                                                 echo $this->Html->link(
-                                                    $key,
+                                                    $value['icon'],
                                                     $value['url'],
                                                     $value['options']
                                                 );
                                             } else {
                                                 echo $this->Form->postLink(
-                                                    $key,
+                                                    $value['icon'],
                                                     $value['url'],
                                                     $value['options']
                                                 );

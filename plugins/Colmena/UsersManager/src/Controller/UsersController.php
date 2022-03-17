@@ -29,16 +29,19 @@ class UsersController extends AppController
 
     protected $table_buttons = [
         'Editar' => [
+            'icon' => '<i class="fas fa-edit"></i>',
             'url' => [
                 'controller' => 'Users',
                 'action' => 'edit',
                 'plugin' => 'Colmena/UsersManager'
             ],
             'options' => [
-                'class' => 'button'
+                'class' => 'green-icon',
+                'escape' => false
             ]
         ],
         'Borrar' => [
+            'icon' => '<i class="fas fa-trash-alt"></i>',
             'url' => [
                 'controller' => 'Users',
                 'action' => 'delete',
@@ -46,7 +49,8 @@ class UsersController extends AppController
             ],
             'options' => [
                 'confirm' => '¿Está seguro de que desea eliminar el usuario?',
-                'class' => 'button'
+                'class' => 'red-icon',
+                'escape' => false
             ]
         ]
     ];
@@ -73,7 +77,7 @@ class UsersController extends AppController
     {
         parent::beforeFilter($event);
         $this->Auth->allow([
-            'login'
+            'login','register'
         ]);
     }
 
@@ -94,6 +98,33 @@ class UsersController extends AppController
         $passUser = $this->decrypt($user['password']);
 
         if ($data['password'] == $passUser) {
+            $response = $response->withStringBody(json_encode($user));
+        } else {
+            throw new UnauthorizedException("Incorrect login data");
+        }
+
+        return $response;
+    }
+
+    /**
+     * Method used for making the user login request
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->disableAutoRender();
+        $this->request->allowMethod(['post']);
+
+        $data = $this->request->getData();
+        $response = $this->response->withType('json');
+
+        $entity = $this->{$this->getName()}->newEntity($data);
+
+        echo '<pre>',var_dump($this->{$this->getName()}->save($entity)),'</pre>';die;
+        $user = $this->{$this->getName()}->save($data);
+        echo '<pre>',var_dump($user),'</pre>';die;
+        if (isset($user)) {
             $response = $response->withStringBody(json_encode($user));
         } else {
             throw new UnauthorizedException("Incorrect login data");

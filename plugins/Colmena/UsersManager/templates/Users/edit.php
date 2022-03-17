@@ -61,6 +61,7 @@ $header = [
                 [
                     'label' => 'Rol',
                     'options' => $roles,
+                    'empty' => '---- Selecciona el rol del usuario ----',
                     'templateVars' => [
                         'help' => 'Selecciona el rol del usuario'
                     ]

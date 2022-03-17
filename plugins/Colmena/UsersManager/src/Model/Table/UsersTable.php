@@ -61,5 +61,4 @@ class UsersTable extends AppTable
 
         return $user;
     }
-
 }

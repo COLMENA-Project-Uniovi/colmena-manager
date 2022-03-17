@@ -396,6 +396,27 @@ strong {
                 }
             }
 
+            td,
+            .td {
+                &.actions {
+                    .td-content {
+                        display: flex;
+                        width: 30%;
+                        margin: auto;
+                        font-size: 1.4rem;
+                        justify-content: space-between;
+
+                        .green-icon {
+                            color: $iconsGreen;
+                        }
+
+                        .red-icon {
+                            color: red;
+                        }
+                    }
+                }
+            }
+
             // CHECKS
             .check {
                 border: 1px solid #999;

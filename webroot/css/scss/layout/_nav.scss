@@ -51,6 +51,7 @@ nav {
     .items {
         flex-grow: 1;
         overflow-y: auto;
+
         .accordion {
             .header {
                 display: flex;
@@ -58,13 +59,16 @@ nav {
                 align-items: center;
                 color: $gray-a;
                 @include default-transition(0.2s);
+
                 .icon {
                     padding: $gap $gap $small-gap $gap;
                 }
+
                 .name {
                     padding: $gap 0 $small-gap;
                     flex-grow: 2;
                 }
+
                 .arrow {
                     padding: $gap $gap $small-gap $small-gap;
                     font-size: 20px;
@@ -75,6 +79,7 @@ nav {
                     }
                 }
             }
+
             .content {
                 overflow: hidden;
                 max-height: 0px;
@@ -92,31 +97,26 @@ nav {
                         }
                     }
                 }
+
                 .content {
                     max-height: 300px;
                 }
             }
+
             &:hover {
                 .header {
                     color: $orange;
                 }
             }
-
-            /*&:after{
-                content: '';
-                display: block;
-                width: 80%;
-                margin: $small-gap auto;
-                border-bottom: 5px solid $dark-gray;
-                border-radius: 2px;
-            }*/
         }
+
         .menu-title {
             letter-spacing: 1px;
             cursor: pointer;
             text-transform: uppercase;
             @include default-transition(0.2s);
         }
+
         .menu-item {
             position: relative;
             display: block;
@@ -129,12 +129,10 @@ nav {
             @include default-transition(0.2s);
 
             &:hover {
-                border-left: 5px solid $orange;
-                color: $orange;
+                border-left: 5px solid $white;
             }
 
             &.current {
-                display: flex;
                 color: $orange;
                 border-left: 5px solid $orange;
                 font-weight: 600;
@@ -150,6 +148,7 @@ nav {
         border-top: 1px solid $medium-gray;
         text-align: right;
         color: $gray-a;
+
         a {
             color: inherit;
 
@@ -173,10 +172,12 @@ nav {
             cursor: pointer;
             font-size: $big-font-size;
         }
+
         .wrapper-items {
             flex-grow: 1;
             overflow-y: auto;
         }
+
         .items {
             overflow-y: visible;
 
@@ -189,12 +190,12 @@ nav {
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
-                    padding: $small-gap $small-gap $small-gap $small-gap +
-                        $tiny-gap;
+                    padding: $small-gap $small-gap $small-gap $small-gap + $tiny-gap;
                     text-align: center;
                     color: $white;
                     cursor: pointer;
                 }
+
                 .sub-menu {
                     position: fixed;
                     top: 0;
@@ -251,10 +252,12 @@ nav {
                 }
             }
         }
+
         .logout {
             padding: $tiny-gap;
             justify-content: center;
         }
     }
 }
+
 /* -------------------------- */

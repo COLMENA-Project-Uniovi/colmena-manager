@@ -30,3 +30,5 @@ webroot/css/style.min.css.map
 webroot/resize/*
 
 .idea/
+
+webroot/css/vendors/
