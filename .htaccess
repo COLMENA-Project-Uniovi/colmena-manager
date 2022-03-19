@@ -1,7 +1,5 @@
 <IfModule mod_rewrite.c>
     RewriteEngine on
-    RewriteRule    ^$    webroot/    [L]
-    RewriteRule    (.*) webroot/$1    [L]
-	
-	Header set Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
+    RewriteRule ^$ webroot/ [L]
+    RewriteRule (.*) webroot/$1 [L]
 </IfModule>

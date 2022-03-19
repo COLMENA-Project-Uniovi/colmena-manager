@@ -22,6 +22,9 @@ webroot/css/style.css.map
 webroot/css/style.min.css
 webroot/css/style.min.css.map
 
+# JS FILES
+webroot/js/functions.min.js
+
 # RESOURCES
 /webroot/resources/*
 /webroot/example/*
@@ -32,3 +35,5 @@ webroot/resize/*
 .idea/
 
 webroot/css/vendors/
+
+composer.lock
