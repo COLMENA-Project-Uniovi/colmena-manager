@@ -1,0 +1,137 @@
+.parameters {
+    $parameters: &;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &__buttons {
+        align-self: flex-end;
+
+        #{$parameters}__button {
+            display: none;
+
+            &--visible {
+                display: block;
+            }
+        }
+    }
+
+    &__wrapper {
+        margin-top: $gap;
+
+        #{$parameters}__item {
+            display: none;
+            padding-bottom: 0;
+
+            &--visible {
+                display: block;
+            }
+
+            .textarea,
+            p {
+                padding: 0;
+            }
+
+            h3 {
+                margin-bottom: 0;
+            }
+
+            #{$parameters}__content {
+                min-height: 600px;
+                padding: $gap;
+            }
+        }
+    }
+
+    .parameters-item {
+        .input {
+            padding-left: 0;
+        }
+
+        .parameters-block-list {
+            display: flex;
+            flex-direction: column;
+            margin: $gap 0;
+
+            &__title {
+                font-size: 1.5em;
+                font-weight: 400;
+                margin-bottom: 20px;
+            }
+
+            &__remove-item {
+                margin-bottom: $small-gap;
+                margin-left: $small-gap;
+            }
+
+            &__add-item {
+                margin-top: $small-gap;
+                margin-right: 0;
+            }
+        }
+
+        .parameters-variables {
+            .input {
+                flex: 1;
+
+                &:first-child {
+                    max-width: 400px;
+                }
+            }
+        }
+
+        .parameters-decoration-image {
+            &__css-editor {
+                padding-left: $gap;
+            }
+
+            &__path {
+                .media-input {
+                    width: 100%;
+                    padding-left: 0;
+                    padding-right: 0;
+
+                    .input {
+                        padding-left: 0;
+                    }
+                }
+            }
+
+            &__item {
+                position: relative;
+                border: 1px solid #DDDDDD;
+                padding: $gap $small-gap;
+                margin-bottom: $small-gap;
+                padding-top: 33px;
+
+                .flex-inputs {
+                    .input {
+                        &.checkbox {
+                            margin-top: auto;
+                            padding-bottom: $small-gap;
+                        }
+                    }
+                }
+
+                .parameters-block-list__remove-item {
+                    position: absolute;
+                    right: 5px;
+                    top: 5px;
+                }
+            }
+        }
+    }
+
+    .parameters-class-previsualization {
+        display: flex;
+        flex-wrap: wrap;
+        padding-top: $small-gap;
+        padding-bottom: $gap;
+
+        &__image {
+            display: none;
+            margin-right: $small-gap;
+            height: 80px;
+        }
+    }
+}

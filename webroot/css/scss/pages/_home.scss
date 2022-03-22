@@ -1,0 +1,112 @@
+/* -------------------------- */
+/* ---- HOME PAGE STYLES ---- */
+/* -------------------------- */
+
+// BLOQUES HOME
+.blocks{
+    display: flex;
+    flex-wrap: wrap;
+    padding: $small-gap;
+
+    .block{
+        display: flex;
+        flex-direction: column;
+        width: 33.33%;
+        padding: $small-gap;
+
+        .header{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: $navGrey;
+            color: $white;
+            padding: $small-gap + $tiny-gap;
+
+            .title{
+                display: flex;
+                align-items: center;
+                .number{
+                    padding: $tiny-gap $gap;
+                    //border: 1px solid $white;
+                    line-height: 1em;
+                    font-size: ($bigger-font-size*2) - 1;
+                    color: $orange;
+                }
+                .text{
+                    padding: $small-gap;
+                    text-transform: uppercase;
+                    font-size: $big-font-size;
+                    line-height: $line-height;
+                    color: $orange;
+
+                    span{
+                        display: block;
+                    }
+                }
+            }
+            .main-buttons{
+                align-self: flex-end;
+                .button{
+                    display: block;
+                    text-align: center;
+                    margin-bottom: $tiny-gap;
+
+                    &:last-child{
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+
+        .results{
+            flex-grow: 1;
+            margin-bottom: 0;
+            border: 1px solid $gray-d;
+            background-color: $white;
+            table{
+                margin-bottom: 0;
+                border: none;
+                .actions{
+                    width: 15%;
+                    min-width: 100px;
+                }
+                tbody {
+                    tr {
+                        &.pair {
+                            &:hover{
+                                background-color: white;
+                            }
+                        }
+                        &.odd {
+                            &:hover{
+                                background-color: $light-gray;
+                            }
+                        }
+                    }
+                }
+                td {
+                    padding: $small-gap;
+                    border: none;
+
+                    &.date{
+                        width: 100px;
+                    }
+                }
+            }
+        }
+
+        .buttons{
+            display: flex;
+            justify-content: flex-end;
+            padding: $small-gap;
+            border: 1px solid $gray-d;
+            border-top: none;
+            background-color: $white;
+
+            .button{
+                margin: 0 $tiny-gap;
+            }
+        }
+    }
+}
+/* -------------------------- */

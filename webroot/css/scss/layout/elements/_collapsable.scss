@@ -1,0 +1,49 @@
+.collapsable {
+    @include default-transition(0.2s);
+
+    &>.collapse-header,
+    &>*>.collapse-header {
+        position: relative;
+        cursor: pointer;
+
+        &>* {
+            padding-right: $big-gap;
+        }
+
+        .caret {
+            position: absolute;
+            top: 50%;
+            right: $gap;
+            transform: translate(0, -50%);
+            padding: 0;
+            color: $white;
+
+            .fa-caret-right {
+                @include default-transition(0.2s);
+            }
+        }
+    }
+
+    &>.collapse,
+    &>*>.collapse {
+        max-height: 0;
+        overflow: hidden;
+        @include default-transition(0.2s);
+    }
+
+    &.is_active {
+
+        &>*>.collapse-header,
+        &>.collapse-header {
+            .caret .fa-caret-right {
+                transform: rotate(90deg);
+            }
+        }
+
+        &>.collapse,
+        &>*>.collapse {
+            max-height: fit-content;
+            @include default-transition(0.2s);
+        }
+    }
+}

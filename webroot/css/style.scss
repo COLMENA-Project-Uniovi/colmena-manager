@@ -1,0 +1,71 @@
+@charset "utf-8";
+
+/* ---------------------------------- */
+/* ----------- BASE CONFIG ---------- */
+/* ---------------------------------- */
+// IMPORT ON TOP BECAUSE OF THE FONTS IMPORTS
+@import "scss/base/typography";
+// ALL COLORS INVOLVED IN THE WEB
+@import "scss/base/colours";
+// OUR FUNCTIONS AND MIXINS
+@import "scss/base/variables";
+@import "scss/base/functions";
+@import "scss/base/mixins";
+// DEFAULT reset css
+@import "scss/base/reset";
+/* ---------------------------------- */
+
+/* ---------------------------------- */
+/* --------- GENERAL LAYOUTS -------- */
+/* ---------------------------------- */
+// GENERAL CONTENT
+@import "scss/layout/content";
+// FORMS
+@import "scss/layout/elements/forms";
+// NOTIFICATIONS
+@import "scss/layout/elements/notification";
+// BUTTON
+@import "scss/layout/elements/button";
+// DRAGGABLE
+@import "scss/layout/elements/draggable";
+// COLOR
+@import "scss/layout/elements/color";
+// COLLAPSABLE
+@import "scss/layout/elements/collapsable";
+// TABS
+@import "scss/layout/elements/tabs";
+// HEADER
+@import "scss/layout/header";
+// SIDEBAR
+@import "scss/layout/nav";
+// FOOTER
+@import "scss/layout/footer";
+// STATISTICS
+@import "scss/layout/elements/statistics";
+
+/* ---------------------------------- */
+
+/* ---------------------------------- */
+/* ------ PAGE SPECIFIC STYLES ------ */
+/* ---------------------------------- */
+@import "scss/pages/home";
+@import "scss/pages/login";
+@import "scss/pages/parameters";
+/* ---------------------------------- */
+
+// ---------------------------------- */
+// ---------- VENDOR STYLES --------- */
+// ---------------------------------- */
+// EXAMPLE
+// @import "vendors/jquery-ui";
+@import "scss/vendors/neo/neo-spinner";
+// CODEMIRROR STYLES
+@import "scss/vendors/codemirror/style";
+@import "scss/vendors/codemirror/addon/hint/show-hint";
+@import "scss/vendors/codemirror/addon/lint/lint";
+
+// ---------------------------------- */
+// ---------- PLUGIN STYLES --------- */
+// ---------------------------------- */
+// @import "../../plugins/Colmena/UsersManager/webroot/css/style";
+// ---------------------------------- */

@@ -1,0 +1,27 @@
+// BOTON ADMINISTRADOR
+.button{
+    display: inline-block;
+    padding: $tiny-gap $small-gap;
+    margin: auto;
+    color: $medium-gray;
+    background-color: transparent;
+    border: 1px solid $gray-a;
+    border-radius: 0;
+    font-size: $small-font-size;
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+
+    &.white{
+        border-color: $white;
+        color: $white;
+    }
+    &:hover{
+        color: $black;
+        background-color: $orange;
+        border-color: $orange;
+    }
+}

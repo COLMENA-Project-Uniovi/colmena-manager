@@ -1,0 +1,362 @@
+{
+	"standard": [
+		{
+			"title": "Display L",
+			"items": [
+				{
+					"title": "h1-DL",
+					"block": "h1",
+					"attributes": {
+						"class": "display-l"
+					}
+				},
+				{
+					"title": "h2-DL",
+					"block": "h2",
+					"attributes": {
+						"class": "display-l"
+					}
+				},
+				{
+					"title": "h3-DL",
+					"block": "h3",
+					"attributes": {
+						"class": "display-l"
+					}
+				},
+				{
+					"title": "h4-DL",
+					"block": "h4",
+					"attributes": {
+						"class": "display-l"
+					}
+				}
+			]
+		},
+		{
+			"title": "Display M",
+			"items": [
+				{
+					"title": "h1-DM",
+					"block": "h1",
+					"attributes": {
+						"class": "display-m"
+					}
+				},
+				{
+					"title": "h2-DM",
+					"block": "h2",
+					"attributes": {
+						"class": "display-m"
+					}
+				},
+				{
+					"title": "h3-DM",
+					"block": "h3",
+					"attributes": {
+						"class": "display-m"
+					}
+				},
+				{
+					"title": "h4-DM",
+					"block": "h4",
+					"attributes": {
+						"class": "display-m"
+					}
+				}
+			]
+		},
+		{
+			"title": "Display S",
+			"items": [
+				{
+					"title": "h1-DS",
+					"block": "h1",
+					"attributes": {
+						"class": "display-s"
+					}
+				},
+				{
+					"title": "h2-DS",
+					"block": "h2",
+					"attributes": {
+						"class": "display-s"
+					}
+				},
+				{
+					"title": "h3-DS",
+					"block": "h3",
+					"attributes": {
+						"class": "display-s"
+					}
+				},
+				{
+					"title": "h4-DS",
+					"block": "h4",
+					"attributes": {
+						"class": "display-s"
+					}
+				}
+			]
+		},
+		{
+			"title": "Headline",
+			"items": [
+				{
+					"title": "h2-Head",
+					"block": "h2",
+					"attributes": {
+						"class": "headline-font"
+					}
+				},
+				{
+					"title": "h3-Head",
+					"block": "h3",
+					"attributes": {
+						"class": "headline-font"
+					}
+				}
+			]
+		},
+		{
+			"title": "Lead",
+			"items": [
+				{
+					"title": "h4-Lead",
+					"block": "h4",
+					"attributes": {
+						"class": "title-font"
+					}
+				}
+			]
+		},
+		{
+			"title": "Subtitle",
+			"items": [
+				{
+					"title": "h4-Subtitle",
+					"block": "h4",
+					"attributes": {
+						"class": "subtitle-font"
+					}
+				}
+			]
+		},
+		{
+			"title": "Body",
+			"items": [
+				{
+					"title": "p-Body",
+					"block": "p",
+					"attributes": {
+						"class": "body-font"
+					}
+				}
+			]
+		},
+		{
+			"title": "Caption",
+			"items": [
+				{
+					"title": "p-Caption",
+					"block": "p",
+					"attributes": {
+						"class": "caption-font"
+					}
+				}
+			]
+		},
+		{
+			"title": "Small",
+			"items": [
+				{
+					"title": "p-Small",
+					"block": "p",
+					"attributes": {
+						"class": "small-font"
+					}
+				}
+			]
+		}
+	],
+	"header": [
+		{
+			"title": "Display L",
+			"items": [
+				{
+					"title": "h1-DL",
+					"block": "h1",
+					"attributes": {
+						"class": "display-l"
+					}
+				},
+				{
+					"title": "h2-DL",
+					"block": "h2",
+					"attributes": {
+						"class": "display-l"
+					}
+				},
+				{
+					"title": "h3-DL",
+					"block": "h3",
+					"attributes": {
+						"class": "display-l"
+					}
+				},
+				{
+					"title": "h4-DL",
+					"block": "h4",
+					"attributes": {
+						"class": "display-l"
+					}
+				}
+			]
+		},
+		{
+			"title": "Display M",
+			"items": [
+				{
+					"title": "h1-DM",
+					"block": "h1",
+					"attributes": {
+						"class": "display-m"
+					}
+				},
+				{
+					"title": "h2-DM",
+					"block": "h2",
+					"attributes": {
+						"class": "display-m"
+					}
+				},
+				{
+					"title": "h3-DM",
+					"block": "h3",
+					"attributes": {
+						"class": "display-m"
+					}
+				},
+				{
+					"title": "h4-DM",
+					"block": "h4",
+					"attributes": {
+						"class": "display-m"
+					}
+				}
+			]
+		},
+		{
+			"title": "Display S",
+			"items": [
+				{
+					"title": "h1-DS",
+					"block": "h1",
+					"attributes": {
+						"class": "display-s"
+					}
+				},
+				{
+					"title": "h2-DS",
+					"block": "h2",
+					"attributes": {
+						"class": "display-s"
+					}
+				},
+				{
+					"title": "h3-DS",
+					"block": "h3",
+					"attributes": {
+						"class": "display-s"
+					}
+				},
+				{
+					"title": "h4-DS",
+					"block": "h4",
+					"attributes": {
+						"class": "display-s"
+					}
+				}
+			]
+		},
+		{
+			"title": "Headline",
+			"items": [
+				{
+					"title": "h2-Head",
+					"block": "h2",
+					"attributes": {
+						"class": "headline-font"
+					}
+				},
+				{
+					"title": "h3-Head",
+					"block": "h3",
+					"attributes": {
+						"class": "headline-font"
+					}
+				}
+			]
+		},
+		{
+			"title": "Lead",
+			"items": [
+				{
+					"title": "h4-Lead",
+					"block": "h4",
+					"attributes": {
+						"class": "title-font"
+					}
+				}
+			]
+		},
+		{
+			"title": "Subtitle",
+			"items": [
+				{
+					"title": "h4-Subtitle",
+					"block": "h4",
+					"attributes": {
+						"class": "subtitle-font"
+					}
+				}
+			]
+		},
+		{
+			"title": "Body",
+			"items": [
+				{
+					"title": "p-Body",
+					"block": "p",
+					"attributes": {
+						"class": "body-font"
+					}
+				}
+			]
+		},
+		{
+			"title": "Caption",
+			"items": [
+				{
+					"title": "p-Caption",
+					"block": "p",
+					"attributes": {
+						"class": "caption-font"
+					}
+				}
+			]
+		},
+		{
+			"title": "Small",
+			"items": [
+				{
+					"title": "p-Small",
+					"block": "p",
+					"attributes": {
+						"class": "small-font"
+					}
+				}
+			]
+		}
+	]
+}
