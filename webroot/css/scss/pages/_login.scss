@@ -1,0 +1,65 @@
+/* -------------------------- */
+/* ------- LOGIN PAGE ------- */
+/* -------------------------- */
+.login {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    max-width: 500px;
+    transform: translate(-50%, -50%);
+    padding: $gap;
+    margin: 0 auto;
+    border-radius: 2px;
+    background-color: $white;
+    box-shadow: 0px 0px 1px 1px $gray-d;
+
+    h1 {
+        margin: 0 0 $gap;
+        text-align: center;
+        img {
+            max-width: 100%;
+        }
+    }
+    p {
+        margin-bottom: $small-gap;
+        text-align: center;
+    }
+
+    .notification {
+        position: static;
+        transform: none;
+        font-size: $medium-font-size;
+        line-height: $line-height;
+        text-transform: uppercase;
+
+        &.hidden {
+            visibility: visible;
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    .login-form {
+        .input {
+            margin: 20px 0;
+            label {
+                display: block;
+                text-transform: uppercase;
+            }
+            input {
+                display: block;
+                width: 100%;
+                padding: 5px;
+                font-size: 1em;
+                font-family: $main-font;
+                font-weight: 300;
+                border: 1px solid #333;
+            }
+        }
+        .submit {
+            text-align: center;
+        }
+    }
+}
+/* -------------------------- */

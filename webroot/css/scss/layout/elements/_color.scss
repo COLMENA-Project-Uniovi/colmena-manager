@@ -1,0 +1,16 @@
+.color {
+    &--selector {
+        display: flex;
+        align-items: flex-end;
+        padding-bottom: $small-gap;
+
+        .input {
+            padding-bottom: 0;
+        }
+    }
+
+    .sp-original-input-container {
+        width: 100%;
+        order: 2;
+    }
+}

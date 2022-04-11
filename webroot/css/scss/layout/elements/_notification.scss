@@ -1,0 +1,51 @@
+/* -------------------------- */
+/* ----- ALERTS LAYOUT ------ */
+/* -------------------------- */
+.notification {
+    position: fixed;
+    z-index: 1000;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - $gap);
+    max-width: 500px;
+    padding: $gap $big-gap;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.25), 0 5px 5px rgba(0,0,0,0.22);
+    border-radius: $tiny-gap;
+    background-color: $blue;
+    color: $white;
+    text-align: center;
+    font-weight: 400;
+    transition: none;
+
+    p {
+        margin-bottom: $small-gap;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .close {
+        position: absolute;
+        top: $small-gap;
+        right: $small-gap;
+        cursor: pointer;
+    }
+    &.error {
+        background-color: $red;
+    }
+    &.success {
+        background-color: $green;
+    }
+    &.hidden {
+        visibility: hidden;
+        opacity: 0;
+        transform: translate(-50%, -100%);
+        transition:
+            opacity 0.5s cubic-bezier(0.50, 0.1, 0.5, 0.90) 0s,
+            transform 0.5s cubic-bezier(0.50, 0.1, 0.5, 0.90) 0s,
+            visibility 0s linear 0.5s;
+    }
+}
+/* -------------------------- */

@@ -1,0 +1,86 @@
+<div class="parameters-block-list__item parameters-decoration-image__item" data-item-id="{{itemID}}">
+    <span class="button parameters-block-list__remove-item"><i class="fas fa-trash"></i></span>
+    <div class="flex-inputs parameters-decoration-image__path">
+        <div class="media-input" data-name="decoration-image[{{itemID}}][path]" data-type="file" data-cardinality="unique" data-custom="1">
+            <div class="media">
+                <div class="input text">
+                    <div class="max" data-max=""></div><!-- .max -->
+                    <!-- .help -->
+                    <label for="decoration-image-{{itemID}}-path">Imagen</label><input type="text" name="decoration-image[{{itemID}}][path]" data-name="Imagen" id="decoration-image-{{itemID}}-path" value="">
+                </div><!-- .input -->
+            </div><!-- .media -->
+            <div class="links">
+                <div class="link" data-action="link" data-path="<?= $resource_path; ?>">
+                    <i class="fas fa-plus fa-lg fa-fw" title="Añadir recurso"></i>
+                </div><!-- .link -->
+            </div><!-- .links -->
+        </div>
+    </div>
+    <div class="flex-inputs four">
+        <div class="input text">
+            <label for="decoration-image-{{itemID}}-width">Ancho</label><input type="text" name="decoration-image[{{itemID}}][width]" id="decoration-image-{{itemID}}-width">
+        </div><!-- .input -->
+            
+        <div class="input text">
+            <label for="decoration-image-{{itemID}}-height">Alto</label><input type="text" name="decoration-image[{{itemID}}][height]" id="decoration-image-{{itemID}}-height">
+        </div><!-- .input -->
+            
+        <div class="input text">
+            <label for="decoration-image-{{itemID}}-transform">Transformaciones (CSS)</label><input type="text" name="decoration-image[{{itemID}}][transform]" id="decoration-image-{{itemID}}-transform">
+        </div><!-- .input -->
+            
+        <div class="input checkbox">
+            <input type="hidden" name="decoration-image[{{itemID}}][inverted]" value="0"><label for="decoration-image-{{itemID}}-inverted"><input type="checkbox" name="decoration-image[{{itemID}}][inverted]" value="1" id="decoration-image-{{itemID}}-inverted">Imagen invertida</label>
+        </div><!-- .input -->
+    </div>
+    <div class="flex-inputs two">
+        <div class="input text">
+            <label for="decoration-image-{{itemID}}-position">Posicionamiento</label><input type="text" name="decoration-image[{{itemID}}][position]" id="decoration-image-{{itemID}}-position">
+        </div><!-- .input -->
+            
+        <div class="input number">
+            <label for="decoration-image-{{itemID}}-zindex">z-index</label><input type="number" name="decoration-image[{{itemID}}][zIndex]" id="decoration-image-{{itemID}}-zindex">
+        </div><!-- .input -->
+    </div>
+    <div class="flex-inputs four">
+        
+        <div class="input text">
+            <label for="decoration-image-{{itemID}}-top">Top</label><input type="text" name="decoration-image[{{itemID}}][top]" id="decoration-image-{{itemID}}-top" value="auto">
+        </div><!-- .input -->
+            
+        <div class="input text">
+            <label for="decoration-image-{{itemID}}-bottom">Bottom</label><input type="text" name="decoration-image[{{itemID}}][bottom]" id="decoration-image-{{itemID}}-bottom" value="auto">
+        </div><!-- .input -->
+            
+        <div class="input text">
+            <label for="decoration-image-{{itemID}}-left">Left</label><input type="text" name="decoration-image[{{itemID}}][left]" id="decoration-image-{{itemID}}-left" value="auto">
+        </div><!-- .input -->
+            
+        <div class="input text">
+            <label for="decoration-image-{{itemID}}-right">Right</label><input type="text" name="decoration-image[{{itemID}}][right]" id="decoration-image-{{itemID}}-right" value="auto">
+        </div><!-- .input -->
+    </div>
+    <div class="flex-inputs four">
+        <div class="input text">
+            <label for="decoration-image-{{itemID}}-margin-top">Margen superior</label><input type="text" name="decoration-image[{{itemID}}][margin-top]" id="decoration-image-{{itemID}}-margin-top" value="0">
+        </div><!-- .input -->
+            
+        <div class="input text">
+            <label for="decoration-image-{{itemID}}-margin-bottom">Margen inferior</label><input type="text" name="decoration-image[{{itemID}}][margin-bottom]" id="decoration-image-{{itemID}}-margin-bottom" value="0">
+        </div><!-- .input -->
+            
+        <div class="input text">
+            <label for="decoration-image-{{itemID}}-margin-left">Margen izquierdo</label><input type="text" name="decoration-image[{{itemID}}][margin-left]" id="decoration-image-{{itemID}}-margin-left" value="0">
+        </div><!-- .input -->
+            
+        <div class="input text">
+            <label for="decoration-image-{{itemID}}-margin-right">Margen derecho</label><input type="text" name="decoration-image[{{itemID}}][margin-right]" id="decoration-image-{{itemID}}-margin-right" value="0">
+        </div><!-- .input -->
+    </div>
+    <div class="parameters-decoration-image__css-editor">
+        
+        <div class="input text">
+            <label for="decoration-image-{{itemID}}-style">Estilos CSS extra</label><textarea name="decoration-image[{{itemID}}][style]" class="codeeditor" data-height="100" id="decoration-image-{{itemID}}-style" rows="5"></textarea>
+        </div><!-- .input -->
+    </div>
+</div>
