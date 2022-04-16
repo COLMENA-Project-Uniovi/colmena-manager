@@ -134,7 +134,7 @@ class SubjectsController extends AppController
             }
         }
 
-        $this->set(compact('entity', 'roles'));
+        $this->set(compact('entity'));
     }
 
     /**
@@ -165,7 +165,7 @@ class SubjectsController extends AppController
         }
 
         $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
-        $this->set(compact('entity', 'roles'));
+        $this->set(compact('entity'));
     }
 
     /**

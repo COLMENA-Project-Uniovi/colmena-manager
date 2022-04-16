@@ -29,40 +29,56 @@ $header = [
             <?= $this->Form->control(
                 'name',
                 [
-                    'label' => 'Nombre del usuario',
+                    'label' => 'Nombre de la asignatura',
                     'type' => 'text'
                 ]
             ); ?>
             <?= $this->Form->control(
-                'surnames',
+                'description',
                 [
-                    'label' => 'Apellidos del usuario',
-                    'type' => 'text'
+                    'label' => 'Descripción de la asignatura',
+                    'type' => 'text',
+                    'templateVars' => [
+                        'max' =>  200
+                    ]
                 ]
             ); ?>
             <?= $this->Form->control(
-                'email',
+                'semester',
                 [
-                    'label' => 'Email del usuario',
-                    'type' => 'email'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'phone',
-                [
-                    'label' => 'Teléfono del usuario',
+                    'label' => 'Semestre de la asignatura',
                     'type' => 'number'
                 ]
             ); ?>
             <?= $this->Form->control(
-                'role_id',
+                'year',
                 [
-                    'label' => 'Rol',
-                    'options' => $roles,
-                    'empty' => 'Selecciona el rol del usuario',
-                    'templateVars' => [
-                        'help' => 'Selecciona el rol del usuario'
-                    ]
+                    'label' => 'Año de la asignatura',
+                    'type' => 'number'
+                ]
+            ); ?>
+
+            <?= $this->Form->control(
+                'academical_year',
+                [
+                    'label' => 'Año académico de la asignatura',
+                    'type' => 'number'
+                ]
+            ); ?>
+
+            <?= $this->Form->control(
+                'start_date',
+                [
+                    'label' => 'Fecha de inicio de la asignatura',
+                    'type' => 'date'
+                ]
+            ); ?>
+
+            <?= $this->Form->control(
+                'end_date',
+                [
+                    'label' => 'Fecha de fin de la asignatura',
+                    'type' => 'date'
                 ]
             ); ?>
         </div><!-- .form-block -->
