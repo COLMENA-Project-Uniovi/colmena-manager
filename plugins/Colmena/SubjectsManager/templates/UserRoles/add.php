@@ -29,7 +29,7 @@ $header = [
             <?= $this->Form->control(
                 'name',
                 [
-                    'label' => 'Nombre del estudiante',
+                    'label' => 'Nombre del rol',
                     'type' => 'text'
                 ]
             ); ?>
@@ -52,16 +52,6 @@ $header = [
                 [
                     'label' => 'Teléfono del estudiante',
                     'type' => 'number'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'role_id.ids',
-                [
-                    'label' => 'Rol',
-                    'options' => $roles,
-                    'templateVars' => [
-                        'help' => 'Selecciona el autor de la noticia'
-                    ]
                 ]
             ); ?>
         </div><!-- .form-block -->

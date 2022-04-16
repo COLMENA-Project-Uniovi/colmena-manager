@@ -54,17 +54,6 @@ $header = [
                     'type' => 'number'
                 ]
             ); ?>
-            <?= $this->Form->control(
-                'role_id',
-                [
-                    'label' => 'Rol',
-                    'options' => $roles,
-                    'empty' => 'Selecciona el rol del usuario',
-                    'templateVars' => [
-                        'help' => 'Selecciona el rol del usuario'
-                    ]
-                ]
-            ); ?>
         </div><!-- .form-block -->
     </div><!-- .primary -->
     <?= $this->element("form/save-block"); ?>
