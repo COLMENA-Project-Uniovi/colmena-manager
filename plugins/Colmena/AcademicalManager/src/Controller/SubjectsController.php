@@ -1,13 +1,9 @@
 <?php
 
-namespace Colmena\SubjectsManager\Controller;
+namespace Colmena\AcademicalManager\Controller;
 
-use Colmena\SubjectsManager\Controller\AppController;
-use Cake\Event\Event;
+use Colmena\AcademicalManager\Controller\AppController;
 use App\Encryption\EncryptTrait;
-use Cake\Http\Exception\ForbiddenException;
-use Cake\Http\Exception\UnauthorizedException;
-use Cake\ORM\TableRegistry;
 
 class SubjectsController extends AppController
 {
@@ -30,7 +26,7 @@ class SubjectsController extends AppController
             'url' => [
                 'controller' => 'Subjects',
                 'action' => 'edit',
-                'plugin' => 'Colmena/SubjectsManager'
+                'plugin' => 'Colmena/AcademicalManager'
             ],
             'options' => [
                 'class' => 'green-icon',
@@ -42,7 +38,7 @@ class SubjectsController extends AppController
             'url' => [
                 'controller' => 'Subjects',
                 'action' => 'delete',
-                'plugin' => 'Colmena/SubjectsManager'
+                'plugin' => 'Colmena/AcademicalManager'
             ],
             'options' => [
                 'confirm' => '¿Está seguro de que desea eliminar la asignatura?',
@@ -56,7 +52,7 @@ class SubjectsController extends AppController
         'Añadir asignatura' => [
             'url' => [
                 'controller' => 'Subjects',
-                'plugin' => 'Colmena/SubjectsManager',
+                'plugin' => 'Colmena/AcademicalManager',
                 'action' => 'add'
             ]
         ],

@@ -6,7 +6,7 @@ use Cake\Core\Configure;
  * Generate menu items for the application menu
  */
 
-Configure::write('Colmena/SubjectsManager.menuItems', [
+Configure::write('Colmena/AcademicalManager.menuItems', [
     'Gestión académica' => [
         'order' => 2,
         'items' => [
@@ -14,7 +14,7 @@ Configure::write('Colmena/SubjectsManager.menuItems', [
                 'link' => [
                     'controller' => 'Subjects',
                     'action' => 'index',
-                    'plugin' => 'Colmena/SubjectsManager',
+                    'plugin' => 'Colmena/AcademicalManager',
                 ],
                 'extra' => [
                     'class' => 'menu-item',
@@ -30,33 +30,33 @@ Configure::write('Colmena/SubjectsManager.menuItems', [
 /*
  * Generate home page blocks
  */
-Configure::write('Colmena/SubjectsManager.home_blocks', []);
+Configure::write('Colmena/AcademicalManager.home_blocks', []);
 
 /*
  * Set the parteable entities for this plugin
  */
-// Configure::write('Colmena/SubjectsManager.parteable_entities', []);
+// Configure::write('Colmena/AcademicalManager.parteable_entities', []);
 
 /*
  * Set the searchable entities for this plugin
  */
 Configure::write(
-    'Colmena/SubjectsManager.searchable_entities',
+    'Colmena/AcademicalManager.searchable_entities',
     []
 );
 
 /*
  * Generate rolable entities array
  */
-Configure::write('Colmena/SubjectsManager.rolable_entities', []);
+Configure::write('Colmena/AcademicalManager.rolable_entities', []);
 
 /*
  * Special roles methods
  */
-Configure::write('Colmena/SubjectsManager.special_method_entity_roles', []);
+Configure::write('Colmena/AcademicalManager.special_method_entity_roles', []);
 
-Configure::write('Colmena/SubjectsManager.api_entities', [
-    'Colmena/SubjectsManager.Users' => [
+Configure::write('Colmena/AcademicalManager.api_entities', [
+    'Colmena/AcademicalManager.Users' => [
         'order' => 1,
     ]
 ]);
@@ -64,10 +64,10 @@ Configure::write('Colmena/SubjectsManager.api_entities', [
 /*
  * Configure Products Manager API routing
  */
-Configure::write('Colmena/SubjectsManager.routes', [
+Configure::write('Colmena/AcademicalManager.routes', [
     '/:version/users/:controller/:action' => [
         'defaults' => [
-            'plugin' => 'Colmena/SubjectsManager',
+            'plugin' => 'Colmena/AcademicalManager',
         ],
         'options' => [],
     ],

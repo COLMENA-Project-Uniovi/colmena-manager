@@ -1,6 +1,6 @@
 <?php
 
-namespace Colmena\SubjectsManager\Model\Table;
+namespace Colmena\AcademicalManager\Model\Table;
 
 use App\Model\Table\AppTable;
 use Cake\Validation\Validator;
@@ -23,7 +23,7 @@ class SubjectsTable extends AppTable
     {
         parent::initialize($config);
 
-        $this->setTable('sbm_subjects');
+        $this->setTable('acm_subjects');
         $this->setDisplayField('title');
         $this->setPrimaryKey('id');
     }
