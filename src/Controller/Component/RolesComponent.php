@@ -23,11 +23,9 @@ class RolesComponent extends Component
         $special_method_entity_roles = Configure::read('Roles.special_method_entity_roles');
         $special_method_general_roles = Configure::read('Roles.special_method_general_roles');
 
-        $request = $this->getController()->getRequest();
-
-        $current_entity = $request->getParam('plugin') != null ?
-            $request->getParam('plugin') . '.' . Inflector::camelize($request->getParam('controller')) :
-            Inflector::camelize($request->getParam('controller'));
+        $current_entity = $this->request->getParam('plugin') != null ?
+            $this->request->getParam('plugin') . '.' . Inflector::camelize($this->request->getParam('controller')) :
+            Inflector::camelize($this->request->getParam('controller'));
 
         //if specific entity role exists, check if action is allowed (load from Model)
         if (isset($rolable_entities[$current_entity])) {
@@ -50,7 +48,7 @@ class RolesComponent extends Component
                      * all of the entity's actions.
                      */
                     return true;
-                } elseif (in_array($request->getParam('action'), explode(',', $allowed_actions))) {
+                } elseif (in_array($this->request->getParam('action'), explode(',', $allowed_actions))) {
                     //if user hasn't full roles, check entity specific actions
                     return true;
                 } else {
@@ -63,9 +61,9 @@ class RolesComponent extends Component
                         isset($special_method_general_roles[$allowed_actions]) ?
                         $special_method_general_roles[$allowed_actions] :
                         [];
-                    if (in_array($request->getParam('action'), $entity_special_methods)) {
+                    if (in_array($this->request->getParam('action'), $entity_special_methods)) {
                         return true;
-                    } elseif (in_array($request->getParam('action'), $general_special_methods)) {
+                    } elseif (in_array($this->request->getParam('action'), $general_special_methods)) {
                         return true;
                     }
                 }
@@ -88,7 +86,8 @@ class RolesComponent extends Component
 
         $roles_table = TableRegistry::getTableLocator()->get('AdminUserRoles');
         $role =  $roles_table->getRoleFromUser($user);
-        if ($this->getController()->getRequest()->getParam('action') != 'login' && !is_null($user) && !$role['is_admin']) {
+
+        if (isset($this->request) && $this->request->getParam('action') != 'login' && !is_null($user) && !$role['is_admin']) {
             //only check when action is not login and user is not admin
             foreach ($menuItems as $section_name => $content_menu) {
                 $items = $content_menu['items'];
@@ -126,9 +125,7 @@ class RolesComponent extends Component
         $roles_table = TableRegistry::getTableLocator()->get('AdminUserRoles');
         $role =  $roles_table->getRoleFromUser($user);
 
-        $request = $this->getController()->getRequest();
-
-        if ($request->getParam('action') == 'display' && !$role['is_admin']) {
+        if (isset($this->request) && $this->request->getParam('action') == 'display' && !$role['is_admin']) {
             //only check when action is display and user is not admin
             foreach ($home_blocks as $block_name => $content_block) {
                 if ($this->isBlockAvailable($content_block['className'])) {
@@ -224,50 +221,52 @@ class RolesComponent extends Component
         $rolable_entities = Configure::read('Roles.rolable_entities');
         $special_method_entity_roles = Configure::read('Roles.special_method_entity_roles');
         $special_method_general_roles = Configure::read('Roles.special_method_general_roles');
-        
-        $role_id = $user['role_id'];
 
-        $current_entity = (isset($item['plugin']) && ($item['plugin'] != false)) ?
-            $item['plugin'] . '.' . Inflector::camelize($item['controller']) : Inflector::camelize($item['controller']);
-            
-        //if specific entity role exists, check if action is allowed (load from Model)
-        if (isset($rolable_entities[$current_entity])) {
-            $roles_table = TableRegistry::getTableLocator()->get('AdminUserRolesPermissions');
-            $entity_roles = $roles_table->find('all', [
-                'conditions' => [
-                    'role_id' => $role_id,
-                    'model' => $current_entity
-                ]
-            ])->toArray();
+        if (isset($user)) {
+            $role_id = $user['role_id'];
 
-            if (!empty($entity_roles)) {
-                $allowed_actions = $entity_roles[0]['actions'];
+            $current_entity = (isset($item['plugin']) && ($item['plugin'] != false)) ?
+                $item['plugin'] . '.' . Inflector::camelize($item['controller']) : Inflector::camelize($item['controller']);
 
-                if (sizeof(explode(',', $allowed_actions)) == 4) {
-                    //if user has full actions (index,add,edit,delete) for entity
-                    /**
-                     * This is for special actions (like user_roles in AdminUsersController),
-                     * if user has full control over entity it must be able to access
-                     * all of the entity's actions.
-                     */
-                    return true;
-                } elseif (in_array($item['action'], explode(',', $allowed_actions))) {
-                    //if user hasn't full roles, check entity specific actions
-                    return true;
-                } else {
-                    //check special entity roles and general roles
-                    $entity_special_methods =
-                        isset($special_method_entity_roles[$allowed_actions][$current_entity]) ?
-                        $special_method_entity_roles[$allowed_actions][$current_entity] :
-                        [];
-                    $general_special_methods =
-                        isset($special_method_general_roles[$allowed_actions]) ?
-                        $special_method_general_roles[$allowed_actions] :
-                        [];
-                    if (in_array($item['action'], $entity_special_methods)) {
+            //if specific entity role exists, check if action is allowed (load from Model)
+            if (isset($rolable_entities[$current_entity])) {
+                $roles_table = TableRegistry::getTableLocator()->get('AdminUserRolesPermissions');
+                $entity_roles = $roles_table->find('all', [
+                    'conditions' => [
+                        'role_id' => $role_id,
+                        'model' => $current_entity
+                    ]
+                ])->toArray();
+
+                if (!empty($entity_roles)) {
+                    $allowed_actions = $entity_roles[0]['actions'];
+
+                    if (sizeof(explode(',', $allowed_actions)) == 4) {
+                        //if user has full actions (index,add,edit,delete) for entity
+                        /**
+                         * This is for special actions (like user_roles in AdminUsersController),
+                         * if user has full control over entity it must be able to access
+                         * all of the entity's actions.
+                         */
                         return true;
-                    } elseif (in_array($item['action'], $general_special_methods)) {
+                    } elseif (in_array($item['action'], explode(',', $allowed_actions))) {
+                        //if user hasn't full roles, check entity specific actions
                         return true;
+                    } else {
+                        //check special entity roles and general roles
+                        $entity_special_methods =
+                            isset($special_method_entity_roles[$allowed_actions][$current_entity]) ?
+                            $special_method_entity_roles[$allowed_actions][$current_entity] :
+                            [];
+                        $general_special_methods =
+                            isset($special_method_general_roles[$allowed_actions]) ?
+                            $special_method_general_roles[$allowed_actions] :
+                            [];
+                        if (in_array($item['action'], $entity_special_methods)) {
+                            return true;
+                        } elseif (in_array($item['action'], $general_special_methods)) {
+                            return true;
+                        }
                     }
                 }
             }
@@ -291,10 +290,12 @@ class RolesComponent extends Component
         $roles_table = TableRegistry::getTableLocator()->get('AdminUserRoles');
         $role =  $roles_table->getRoleFromUser($user);
 
-        if (!$role['is_admin']) {
-            foreach ($general_options as $key => $value) {
-                if (!$this->isItemAvailable($value['url'])) {
-                    unset($general_options[$key]);
+        if (isset($role) && !$role['is_admin']) {
+            if(isset($general_options)){
+                foreach ($general_options as $key => $value) {
+                    if (!$this->isItemAvailable($value['url'])) {
+                        unset($general_options[$key]);
+                    }
                 }
             }
         }
