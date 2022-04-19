@@ -36,9 +36,6 @@ $header = [
                         <th class="th grow">
                             Rol
                         </th><!-- .th -->
-                        <th class="th grow">
-                            Rol
-                        </th><!-- .th -->
                         <?php
                         if (!empty($table_buttons)) {
                         ?>
@@ -56,7 +53,7 @@ $header = [
                     ?>
                         <tr class="tr">
                             <td class="td element medium">
-                                <p><?= $entity->name . ' ' . $entity->surnames; ?></p>
+                                <p><?= $entity->name . ' ' . $entity->surname . ' ' . $entity->surname2; ?></p>
                             </td><!-- .td -->
                             <td class="td element grow">
                                 <p><?= $entity->email; ?></p>
