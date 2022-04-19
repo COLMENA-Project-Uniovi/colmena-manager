@@ -34,9 +34,16 @@ $header = [
                 ]
             ); ?>
             <?= $this->Form->control(
-                'surnames',
+                'surname',
                 [
-                    'label' => 'Apellidos del usuario',
+                    'label' => 'Primer apellido del usuario',
+                    'type' => 'text'
+                ]
+            ); ?>
+            <?= $this->Form->control(
+                'surname2',
+                [
+                    'label' => 'Segundo apellido del usuario',
                     'type' => 'text'
                 ]
             ); ?>
