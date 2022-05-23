@@ -8,6 +8,7 @@ use App\Encryption\EncryptTrait;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\UnauthorizedException;
 use Cake\ORM\TableRegistry;
+use Cake\Core\Configure;
 
 class UsersController extends AppController
 {
@@ -77,7 +78,7 @@ class UsersController extends AppController
     {
         parent::beforeFilter($event);
         $this->Auth->allow([
-            'login','register'
+            'login', 'register'
         ]);
     }
 
@@ -120,10 +121,8 @@ class UsersController extends AppController
         $response = $this->response->withType('json');
 
         $entity = $this->{$this->getName()}->newEntity($data);
-
-        echo '<pre>',var_dump($this->{$this->getName()}->save($entity)),'</pre>';die;
         $user = $this->{$this->getName()}->save($data);
-        echo '<pre>',var_dump($user),'</pre>';die;
+
         if (isset($user)) {
             $response = $response->withStringBody(json_encode($user));
         } else {

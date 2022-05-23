@@ -8,11 +8,21 @@ use Cake\Core\Configure;
 
 Configure::write('Colmena/AcademicalManager.menuItems', [
     'Gestión académica' => [
-        'order' => 2,
+        'order' => 1,
         'items' => [
             'Asignaturas' => [
                 'link' => [
                     'controller' => 'Subjects',
+                    'action' => 'index',
+                    'plugin' => 'Colmena/AcademicalManager',
+                ],
+                'extra' => [
+                    'class' => 'menu-item',
+                ],
+            ],
+            'Proyectos' => [
+                'link' => [
+                    'controller' => 'Projects',
                     'action' => 'index',
                     'plugin' => 'Colmena/AcademicalManager',
                 ],

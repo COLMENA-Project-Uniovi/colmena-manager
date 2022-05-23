@@ -4,23 +4,19 @@ namespace Colmena\AcademicalManager\Controller;
 
 use Colmena\AcademicalManager\Controller\AppController;
 use App\Encryption\EncryptTrait;
-use Cake\Core\Configure;
-use Cake\Http\Session;
 
-ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
-
-class SubjectsController extends AppController
+class ProjectsController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'asignatura';
-    public $entity_name_plural = 'asignaturas';
+    public $entity_name = 'proyecto';
+    public $entity_name_plural = 'proyectos';
 
     // Default pagination settings
     public $paginate = [
         'limit' => 20,
         'order' => [
-            'id' => 'DESC'
+            'id' => 'ASC'
         ]
     ];
 
@@ -28,7 +24,7 @@ class SubjectsController extends AppController
         'Editar' => [
             'icon' => '<i class="fas fa-edit"></i>',
             'url' => [
-                'controller' => 'Subjects',
+                'controller' => 'Projects',
                 'action' => 'edit',
                 'plugin' => 'Colmena/AcademicalManager'
             ],
@@ -40,12 +36,12 @@ class SubjectsController extends AppController
         'Borrar' => [
             'icon' => '<i class="fas fa-trash-alt"></i>',
             'url' => [
-                'controller' => 'Subjects',
+                'controller' => 'Projects',
                 'action' => 'delete',
                 'plugin' => 'Colmena/AcademicalManager'
             ],
             'options' => [
-                'confirm' => '¿Está seguro de que desea eliminar la asignatura?',
+                'confirm' => '¿Está seguro de que desea eliminar el proyecto?',
                 'class' => 'red-icon',
                 'escape' => false
             ]
@@ -53,13 +49,7 @@ class SubjectsController extends AppController
     ];
 
     protected $header_actions = [
-        'Añadir asignatura' => [
-            'url' => [
-                'controller' => 'Subjects',
-                'plugin' => 'Colmena/AcademicalManager',
-                'action' => 'add'
-            ]
-        ], 'Añadir proyecto' => [
+        'Añadir proyecto' => [
             'url' => [
                 'controller' => 'Projects',
                 'plugin' => 'Colmena/AcademicalManager',
@@ -90,9 +80,7 @@ class SubjectsController extends AppController
     public function index($keyword = null)
     {
         $projectID = $this->getSessionProject();
-        $project = $this->{$this->getName()}->find('all')
-            ->where(['project_id' => $projectID]);
-
+        
         if ($this->request->is('post')) {
             //recover the keyword
             $keyword = $this->request->getData('keyword');
@@ -101,9 +89,7 @@ class SubjectsController extends AppController
         }
 
         // Add the project id to the pagination
-        $this->paginate['where'] = [
-            'project_id' => $projectID
-        ];
+        $this->paginate['project_id'] = $projectID;
 
         // Paginator
         $settings = $this->paginate;
@@ -120,20 +106,12 @@ class SubjectsController extends AppController
 
         //prepare the pagination
         $this->paginate = $settings;
-
         $entities = $this->paginate($this->modelClass);
-        $filteredEntities = array();
-
-        foreach ($entities as $entity){
-            if($entity['project_id'] == $projectID){
-                array_push($filteredEntities, $entity);
-            }
-        }
-
+        
         $this->set('header_actions', $this->getHeaderActions());
         $this->set('table_buttons', $this->getTableButtons());
-        $this->set('entities', $filteredEntities);
-        // $this->set('_serialize', 'filteredEntities');
+        $this->set('entities', $entities);
+        $this->set('_serialize', 'entities');
         $this->set('keyword', $keyword);
     }
 
@@ -144,20 +122,15 @@ class SubjectsController extends AppController
      */
     public function add()
     {
-        $project = $this->getSessionProject();
         $entity = $this->{$this->getName()}->newEmptyEntity();
-
         if ($this->request->is('post')) {
-            $data = $this->request->getData();
-            $data['project_id'] = $project;
-
-            $entity = $this->{$this->getName()}->patchEntity($entity, $data);
+            $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
 
             if ($this->{$this->getName()}->save($entity)) {
-                $this->Flash->success('la asignatura se ha guardado correctamente.');
+                $this->Flash->success('el proyecto se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id]);
             } else {
-                $error_msg = '<p>La asignatura no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+                $error_msg = '<p>el proyecto no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
                 foreach ($entity->errors() as $field => $error) {
                     $error_msg .= '<p>' . $error['message'] . '</p>';
                 }
@@ -165,7 +138,7 @@ class SubjectsController extends AppController
             }
         }
 
-        $this->set(compact('entity', 'project'));
+        $this->set(compact('entity'));
     }
 
     /**
@@ -184,10 +157,10 @@ class SubjectsController extends AppController
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
 
             if ($this->{$this->getName()}->save($entity)) {
-                $this->Flash->success('la asignatura se ha guardado correctamente.');
+                $this->Flash->success('el proyecto se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
             } else {
-                $error_msg = '<p>La asignatura no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+                $error_msg = '<p>el proyecto no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
                 foreach ($entity->errors() as $field => $error) {
                     $error_msg .= '<p>' . $error['message'] . '</p>';
                 }
@@ -211,21 +184,20 @@ class SubjectsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $entity = $this->{$this->getName()}->get($id);
         if ($this->{$this->getName()}->delete($entity)) {
-            $this->Flash->success('la asignatura se ha borrado correctamente.');
+            $this->Flash->success('el proyecto se ha borrado correctamente.');
         } else {
-            $this->Flash->error('la asignatura no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
+            $this->Flash->error('el proyecto no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
         }
         return $this->redirect(['action' => 'index']);
     }
 
     public function list($id = null)
     {
-
+        
         return $this->{$this->getName()}->find('all');
     }
 
-    private function getSessionProject()
-    {
+    private function getSessionProject(){
         $session = $this->request->getSession();
         $projectID = $session->read('Projectid');
 

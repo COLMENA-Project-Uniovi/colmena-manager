@@ -8,7 +8,7 @@ use Cake\Core\Configure;
 
 Configure::write('Colmena/UsersManager.menuItems', [
     'Usuarios' => [
-        'order' => 1,
+        'order' => 2,
         'items' => [
             'Usuarios' => [
                 'link' => [

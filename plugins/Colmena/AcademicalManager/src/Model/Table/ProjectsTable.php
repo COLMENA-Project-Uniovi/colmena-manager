@@ -10,10 +10,10 @@ use App\Encryption\EncryptTrait;
  * Student Model.
  *
  */
-class SubjectsTable extends AppTable
+class ProjectsTable extends AppTable
 {
     use EncryptTrait;
-    
+
     /**
      * Initialize method.
      *
@@ -23,16 +23,11 @@ class SubjectsTable extends AppTable
     {
         parent::initialize($config);
 
-        $this->setTable('acm_subjects');
+        $this->setTable('acm_projects');
         $this->setDisplayField('title');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo(
-            'Projects',
-            [
-                'className' => 'Colmena/AcademicalManager.Projects',
-            ]
-        );
+        $this->hasMany('Subjects');
     }
 
     /**

@@ -2870,6 +2870,19 @@ nav.small .logout {
           justify-content: center;
 }
 
+.home-selector {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 11;
+  background: white;
+}
+
+.home-selector.visible {
+  display: block;
+}
+
 /* -------------------------- */
 /* -------------------------- */
 /* ----- FOOTER LAYOUT ------ */

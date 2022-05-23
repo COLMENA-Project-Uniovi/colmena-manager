@@ -37,7 +37,7 @@ $header = [
                 'description',
                 [
                     'label' => 'Descripción de la asignatura',
-                    'type' => 'text',
+                    'type' => 'textarea',
                     'templateVars' => [
                         'max' =>  200
                     ]
@@ -57,7 +57,6 @@ $header = [
                     'type' => 'number'
                 ]
             ); ?>
-
             <?= $this->Form->control(
                 'academical_year',
                 [
@@ -65,7 +64,6 @@ $header = [
                     'type' => 'number'
                 ]
             ); ?>
-
             <?= $this->Form->control(
                 'start_date',
                 [
@@ -73,12 +71,25 @@ $header = [
                     'type' => 'date'
                 ]
             ); ?>
-
             <?= $this->Form->control(
                 'end_date',
                 [
                     'label' => 'Fecha de fin de la asignatura',
                     'type' => 'date'
+                ]
+            ); ?>
+        </div><!-- .form-block -->
+    </div><!-- .primary -->
+    <div class="primary full">
+        <div class="form-block">
+            <h3>Proyecto asociado</h3>
+            <?= $this->Form->control(
+                'project_id',
+                [
+                    'label' => 'Proyecto',
+                    'type' => 'text',
+                    'value' => $project,
+                    'disabled' => 'disabled'
                 ]
             ); ?>
         </div><!-- .form-block -->
