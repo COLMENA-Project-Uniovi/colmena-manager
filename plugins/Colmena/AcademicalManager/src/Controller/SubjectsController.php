@@ -90,8 +90,6 @@ class SubjectsController extends AppController
     public function index($keyword = null)
     {
         $projectID = $this->getSessionProject();
-        $project = $this->{$this->getName()}->find('all')
-            ->where(['project_id' => $projectID]);
 
         if ($this->request->is('post')) {
             //recover the keyword

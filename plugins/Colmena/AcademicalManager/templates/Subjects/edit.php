@@ -30,29 +30,51 @@ $header = [
             <?= $this->Form->control(
                 'name',
                 [
-                    'label' => 'Nombre del usuario',
+                    'label' => 'Nombre',
                     'type' => 'text'
                 ]
             ); ?>
             <?= $this->Form->control(
-                'surnames',
+                'description',
                 [
-                    'label' => 'Apellidos del usuario',
-                    'type' => 'text'
+                    'label' => 'Descripción',
+                    'type' => 'textarea'
                 ]
             ); ?>
             <?= $this->Form->control(
-                'email',
+                'year',
                 [
-                    'label' => 'Email del usuario',
-                    'type' => 'email'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'phone',
-                [
-                    'label' => 'Teléfono del usuario',
+                    'label' => 'Año académico',
                     'type' => 'number'
+                ]
+            ); ?>
+            <?= $this->Form->control(
+                'semester',
+                [
+                    'label' => 'Semestre',
+                    'type' => 'number'
+                ]
+            ); ?>
+            <?= $this->Form->control(
+                'project_id',
+                [
+                    'label' => 'Proyecto',
+                    'type' => 'number',
+                    'disabled' => true
+                ]
+            ); ?>
+            <?= $this->Form->control(
+                'start_date',
+                [
+                    'label' => 'Fecha de inicio',
+                    'type' => 'date'
+                ]
+            ); ?>
+            <?= $this->Form->control(
+                'end_date',
+                [
+                    'label' => 'Fecha de fin',
+                    'type' => 'date'
                 ]
             ); ?>
         </div><!-- .form-block -->

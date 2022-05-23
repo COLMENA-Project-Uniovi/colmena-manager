@@ -27,17 +27,8 @@ $header = [
             <table class="table">
                 <thead class="thead">
                     <tr class="tr">
-                        <th class="th medium">
-                            Nombre y apellidos
-                        </th><!-- .th -->
                         <th class="th grow">
-                            Email
-                        </th><!-- .th -->
-                        <th class="th grow">
-                            Rol
-                        </th><!-- .th -->
-                        <th class="th grow">
-                            Rol
+                            Nombre del proyecto
                         </th><!-- .th -->
                         <?php
                         if (!empty($table_buttons)) {
@@ -55,14 +46,8 @@ $header = [
                     foreach ($entities as $entity) {
                     ?>
                         <tr class="tr">
-                            <td class="td element medium">
-                                <p><?= $entity->name . ' ' . $entity->surnames; ?></p>
-                            </td><!-- .td -->
                             <td class="td element grow">
-                                <p><?= $entity->email; ?></p>
-                            </td><!-- .td -->
-                            <td class="td element grow">
-                                <p><?= $entity->role_name; ?></p>
+                                <p><?= $entity->name ?></p>
                             </td><!-- .td -->
                             <?php
                             if (!empty($table_buttons)) {

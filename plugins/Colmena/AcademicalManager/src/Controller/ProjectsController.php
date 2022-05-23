@@ -122,15 +122,20 @@ class ProjectsController extends AppController
      */
     public function add()
     {
+        $userID = $this->Auth->user()['id'];
         $entity = $this->{$this->getName()}->newEmptyEntity();
+
         if ($this->request->is('post')) {
-            $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
+            $data = $this->request->getData();
+            $data['user_id'] = $userID;
+
+            $entity = $this->{$this->getName()}->patchEntity($entity, $data);
 
             if ($this->{$this->getName()}->save($entity)) {
-                $this->Flash->success('el proyecto se ha guardado correctamente.');
+                $this->Flash->success('El proyecto se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id]);
             } else {
-                $error_msg = '<p>el proyecto no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+                $error_msg = '<p>El proyecto no se ha guardado. Por favor, revisa los datos e inténtalo de nuevo.</p>';
                 foreach ($entity->errors() as $field => $error) {
                     $error_msg .= '<p>' . $error['message'] . '</p>';
                 }

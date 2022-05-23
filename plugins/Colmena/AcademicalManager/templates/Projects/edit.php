@@ -30,29 +30,8 @@ $header = [
             <?= $this->Form->control(
                 'name',
                 [
-                    'label' => 'Nombre del usuario',
+                    'label' => 'Nombre del proyecto',
                     'type' => 'text'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'surnames',
-                [
-                    'label' => 'Apellidos del usuario',
-                    'type' => 'text'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'email',
-                [
-                    'label' => 'Email del usuario',
-                    'type' => 'email'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'phone',
-                [
-                    'label' => 'Teléfono del usuario',
-                    'type' => 'number'
                 ]
             ); ?>
         </div><!-- .form-block -->
