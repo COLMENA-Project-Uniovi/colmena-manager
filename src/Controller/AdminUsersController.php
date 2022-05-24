@@ -7,6 +7,7 @@ use Cake\Core\Configure;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\Http\Session;
+use Cake\ORM\TableRegistry;
 
 /**
  * Users Controller
@@ -70,25 +71,6 @@ class AdminUsersController extends AppController
             'current' => ''
         ]
     ];
-
-    // public $tab_actions = [
-    //     'Datos del usuario' => [
-    //         'url' => [
-    //             'controller' => 'AdminUsers',
-    //             'action' => 'edit',
-    //             'plugin' => false
-    //         ],
-    //         'current' => ''
-    //     ],
-    //     'Permisos del usuario' => [
-    //         'url' => [
-    //             'controller' => 'AdminUsers',
-    //             'action' => 'userRoles',
-    //             'plugin' => false
-    //         ],
-    //         'current' => ''
-    //     ]
-    // ];
 
     // Default pagination settings
     public $paginate = [
@@ -269,12 +251,18 @@ class AdminUsersController extends AppController
     public function login()
     {
         $this->viewBuilder()->setLayout('login');
+        $session = $this->request->getSession();
 
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
 
             if ($user && $user['is_active'] == 1) {
                 $this->Auth->setUser($user);
+
+                $projectsTable = TableRegistry::getTableLocator()->get('acm_projects');
+                $projects = $projectsTable->find('all')->where(['user_id' => $user['id']])->toArray();
+                $session->write('Projects', $projects);
+                
                 return $this->redirect($this->Auth->redirectUrl());
             }
 

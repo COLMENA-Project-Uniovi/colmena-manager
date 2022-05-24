@@ -13,6 +13,30 @@
                     ['separator' => ' &raquo; ']
                 ); ?>
             </div>
+            
+            <div class="logout">
+                <span class="user">
+                    <i class="fas fa-user"></i>
+                    <?php
+                        if (!isset($user)) {
+                            header('Location: ' . 'https://' . $_SERVER['HTTP_HOST'] . '/admin');
+                            die();
+                        }
+                    ?>
+                    <?= $user['username']; ?> - <?= $user_role['name'] ?>
+                </span>
+                <?= $this->Html->link(
+                    'Salir&nbsp;&nbsp;&nbsp;<i class="fa fa-power-off"></i>',
+                    [
+                        'controller' => 'AdminUsers',
+                        'action' => 'logout',
+                        'plugin' => false
+                    ],
+                    [
+                        'escape' => false
+                    ]
+                ); ?>
+            </div><!-- .logout -->
             <?php
             if (isset($languages)) {
             ?>

@@ -1,27 +1,15 @@
 <?php
-$projects = [
-    [
-        'id' => '1',
-        'title' => 'Curso 2022-2023',
-        'subjects' => [
-            'algorithm' => 'test'
-        ]
-    ],
-    [
-        'id' => '2',
-        'title' => 'Curso 2023-2024',
-        'subjects' => [
-            'algorithm' => 'test2'
-        ]
-    ]
-]; ?>
+$session = $this->request->getSession();
+$projects = $session->read('Projects');
+?>
+
 <div class="home-selector visible">
     <h1>Bienvenido a Colmena</h1>
 
     <?php foreach ($projects as $project) {
     ?>
         <div class="project" data-project=<?= $project['id'] ?>>
-            <p><?= $project['title'] ?></p>
+            <p><?= $project['name'] ?></p>
         </div>
     <?php
     } ?>
