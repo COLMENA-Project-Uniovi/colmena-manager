@@ -80,7 +80,7 @@ class ProjectsController extends AppController
     public function index($keyword = null)
     {
         $projectID = $this->getSessionProject();
-        
+
         if ($this->request->is('post')) {
             //recover the keyword
             $keyword = $this->request->getData('keyword');
@@ -107,7 +107,7 @@ class ProjectsController extends AppController
         //prepare the pagination
         $this->paginate = $settings;
         $entities = $this->paginate($this->modelClass);
-        
+
         $this->set('header_actions', $this->getHeaderActions());
         $this->set('table_buttons', $this->getTableButtons());
         $this->set('entities', $entities);
@@ -198,11 +198,21 @@ class ProjectsController extends AppController
 
     public function list($id = null)
     {
-        
+        if ($this->request->is('post')) {
+            $userEmail = $this->request->getData('user');
+        }
+
+        $entities = $this->{$this->getName()}->find('all')->contain(['Subjects', 'AdminUsers']);
+
+        echo '<pre>', var_dump($entities->toArray()), '</pre>';
+        die;
+        debug($entities);
+        die;
         return $this->{$this->getName()}->find('all');
     }
 
-    private function getSessionProject(){
+    private function getSessionProject()
+    {
         $session = $this->request->getSession();
         $projectID = $session->read('Projectid');
 

@@ -27,7 +27,16 @@ class ProjectsTable extends AppTable
         $this->setDisplayField('title');
         $this->setPrimaryKey('id');
 
-        $this->hasMany('Subjects');
+        $this->hasMany('Subjects', [
+            'foreignKey' => 'project_id',
+            'bindingKey' => 'id',
+            'className' => 'Colmena/AcademicalManager.Subjects'
+        ]);
+
+        $this->hasOne('AdminUsers', [
+            'foreignKey' => 'id',
+            'className' => 'AdminUsers'
+        ]);
     }
 
     /**
