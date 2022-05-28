@@ -72,14 +72,17 @@ Configure::write('Colmena/AcademicalManager.special_method_entity_roles', []);
 Configure::write('Colmena/AcademicalManager.api_entities', [
     'Colmena/AcademicalManager.Users' => [
         'order' => 1,
-    ]
+    ],
+    'Colmena/AcademicalManager.Projects' => [
+        'order' => 2,
+    ],
 ]);
 
 /*
  * Configure Products Manager API routing
  */
 Configure::write('Colmena/AcademicalManager.routes', [
-    '/:version/users/:controller/:action' => [
+    '/:version/academics/:controller/:action' => [
         'defaults' => [
             'plugin' => 'Colmena/AcademicalManager',
         ],

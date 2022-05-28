@@ -23,10 +23,10 @@
                             die();
                         }
                     ?>
-                    <?= $user['username']; ?> - <?= $user_role['name'] ?>
+                    <?= $user['username']; ?>
                 </span>
                 <?= $this->Html->link(
-                    'Salir&nbsp;&nbsp;&nbsp;<i class="fa fa-power-off"></i>',
+                    '<i class="fa fa-power-off"></i>',
                     [
                         'controller' => 'AdminUsers',
                         'action' => 'logout',
