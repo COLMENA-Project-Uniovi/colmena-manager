@@ -11,6 +11,7 @@ Configure::write('Colmena/UsersManager.menuItems', [
         'order' => 2,
         'items' => [
             'Usuarios' => [
+                'icon' => '<i class="far fa-user"></i>',
                 'link' => [
                     'controller' => 'Users',
                     'action' => 'index',
@@ -18,9 +19,11 @@ Configure::write('Colmena/UsersManager.menuItems', [
                 ],
                 'extra' => [
                     'class' => 'menu-item',
+                    'escape' => false
                 ],
             ],
             'Gestionar roles' => [
+                'icon' => '<i class="far fa-user-tag"></i>',
                 'link' => [
                     'controller' => 'UserRoles',
                     'action' => 'index',
@@ -28,6 +31,7 @@ Configure::write('Colmena/UsersManager.menuItems', [
                 ],
                 'extra' => [
                     'class' => 'menu-item',
+                    'escape' => false
                 ],
             ],
         ],

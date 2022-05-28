@@ -11,6 +11,7 @@ Configure::write('Colmena/AcademicalManager.menuItems', [
         'order' => 1,
         'items' => [
             'Asignaturas' => [
+                'icon' => '<i class="far fa-books"></i>',
                 'link' => [
                     'controller' => 'Subjects',
                     'action' => 'index',
@@ -18,9 +19,11 @@ Configure::write('Colmena/AcademicalManager.menuItems', [
                 ],
                 'extra' => [
                     'class' => 'menu-item',
+                    'escape' => false
                 ],
             ],
             'Proyectos' => [
+                'icon' => '<i class="far fa-project-diagram"></i>',
                 'link' => [
                     'controller' => 'Projects',
                     'action' => 'index',
@@ -28,6 +31,7 @@ Configure::write('Colmena/AcademicalManager.menuItems', [
                 ],
                 'extra' => [
                     'class' => 'menu-item',
+                    'escape' => false
                 ],
             ]
         ],

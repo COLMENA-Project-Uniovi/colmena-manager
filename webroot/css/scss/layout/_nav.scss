@@ -24,9 +24,10 @@ nav {
     .logo {
         display: flex;
         align-items: flex-start;
-        width: 100%;
+        width: 70%;
         min-height: $logo-height;
         padding: $small-gap;
+        margin: auto;
 
         a {
             flex-grow: 1;
@@ -118,24 +119,28 @@ nav {
         }
 
         .menu-item {
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
             position: relative;
-            display: block;
             padding: 0 $gap;
             margin: $gap 0;
-            border-left: 0px solid $white;
             color: $white;
             text-decoration: none;
             overflow: hidden;
             @include default-transition(0.2s);
 
             &:hover {
-                border-left: 5px solid $white;
+                color: $orange;
             }
 
             &.current {
                 color: $orange;
-                border-left: 5px solid $orange;
                 font-weight: 600;
+            }
+
+            svg {
+                width: 1.5em;
             }
         }
     }
@@ -268,7 +273,7 @@ nav {
     z-index: 11;
     background: white;
 
-    &.visible{
+    &.visible {
         display: block;
     }
 }
