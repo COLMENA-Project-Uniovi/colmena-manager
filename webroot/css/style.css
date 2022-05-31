@@ -1769,7 +1769,7 @@ header {
   background-color: #F4F4F4;
   position: fixed;
   height: 120px;
-  width: calc(100% - 250px);
+  width: calc(100% - 220px);
   box-shadow: 0 10px 25px rgba(10, 10, 51, 0.1);
 }
 header.home {
@@ -1834,6 +1834,21 @@ header.home h1 {
 .top-header .languages a.current {
   color: #000000;
   background-color: #F3933D;
+}
+.top-header .logout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px;
+  border-top: 1px solid #666666;
+  text-align: right;
+  color: #AAAAAA;
+}
+.top-header .logout a {
+  color: inherit;
+}
+.top-header .logout a:hover {
+  color: #F3933D;
 }
 
 .mid-header {
@@ -2136,19 +2151,20 @@ nav .items .menu-item {
   flex-direction: row;
   gap: 15px;
   position: relative;
-  padding: 0 20px;
-  margin: 20px 0;
   color: #FFFFFF;
   text-decoration: none;
   overflow: hidden;
   transition: all 0.2s ease-out;
+  padding: 10px 20px;
 }
 nav .items .menu-item:hover {
   color: #F3933D;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 nav .items .menu-item.current {
   color: #F3933D;
   font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 nav .items .menu-item svg {
   width: 1.5em;

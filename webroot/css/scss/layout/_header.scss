@@ -5,7 +5,7 @@ header {
     background-color: $light-gray;
     position: fixed;
     height: 120px;
-    width: calc(100% - 250px);
+    width: calc(100% - 220px);
     box-shadow: 0 10px 25px rgba(10, 10, 51, 0.1);
 
     &.home {
@@ -84,6 +84,24 @@ header {
             &.current {
                 color: $black;
                 background-color: $orange;
+            }
+        }
+    }
+
+    .logout {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: $tiny-gap $gap;
+        border-top: 1px solid $medium-gray;
+        text-align: right;
+        color: $gray-a;
+
+        a {
+            color: inherit;
+
+            &:hover {
+                color: $orange;
             }
         }
     }

@@ -13,17 +13,16 @@
                     ['separator' => ' &raquo; ']
                 ); ?>
             </div>
-            
+
             <div class="logout">
-                <span class="user">
-                    <i class="fas fa-user"></i>
+                <span class="user" style="font-size: 15px;">
+                    <i class="fal fa-user-circle"></i>
                     <?php
-                        if (!isset($user)) {
-                            header('Location: ' . 'https://' . $_SERVER['HTTP_HOST'] . '/admin');
-                            die();
-                        }
+                    if (!isset($user)) {
+                        header('Location: ' . 'https://' . $_SERVER['HTTP_HOST'] . '/admin');
+                        die();
+                    }
                     ?>
-                    <?= $user['username']; ?>
                 </span>
                 <?= $this->Html->link(
                     '<i class="fa fa-power-off"></i>',

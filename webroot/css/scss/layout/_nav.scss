@@ -123,20 +123,21 @@ nav {
             flex-direction: row;
             gap: 15px;
             position: relative;
-            padding: 0 $gap;
-            margin: $gap 0;
             color: $white;
             text-decoration: none;
             overflow: hidden;
             @include default-transition(0.2s);
+            padding: $gap*0.5 $gap;
 
             &:hover {
                 color: $orange;
+                background-color: rgba(255, 255, 255, 0.2);
             }
-
+            
             &.current {
                 color: $orange;
                 font-weight: 600;
+                background-color: rgba(255, 255, 255, 0.2);
             }
 
             svg {
