@@ -196,19 +196,17 @@ class ProjectsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function list($id = null)
+    public function list()
     {
-        if ($this->request->is('post')) {
-            $userEmail = $this->request->getData('user');
+        $projectID = $this->request->getData('id');
+        $query = $this->{$this->getName()}->find('all');
+
+        if (isset($projectID)) {
+            $query = $query->where(['id' => $projectID]);
         }
 
-        $entities = $this->{$this->getName()}->find('all')->contain(['Subjects', 'AdminUsers']);
-
-        echo '<pre>', var_dump($entities->toArray()), '</pre>';
-        die;
-        debug($entities);
-        die;
-        return $this->{$this->getName()}->find('all');
+        $entities = $query->toList();
+        echo '<pre>',var_dump($entities),'</pre>';die;
     }
 
     private function getSessionProject()

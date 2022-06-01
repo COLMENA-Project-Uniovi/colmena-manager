@@ -5,7 +5,6 @@ use Cake\Core\Configure;
 /*
  * Generate menu items for the application menu
  */
-
 Configure::write('Colmena/AcademicalManager.menuItems', [
     'Gestión académica' => [
         'order' => 1,
@@ -82,7 +81,7 @@ Configure::write('Colmena/AcademicalManager.api_entities', [
  * Configure Products Manager API routing
  */
 Configure::write('Colmena/AcademicalManager.routes', [
-    '/:version/academics/:controller/:action' => [
+    '/:version/academic/:controller/:action' => [
         'defaults' => [
             'plugin' => 'Colmena/AcademicalManager',
         ],
