@@ -14,8 +14,8 @@ class UsersController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'usuario';
-    public $entity_name_plural = 'usuarios';
+    public $entity_name = 'alumno';
+    public $entity_name_plural = 'alumnos';
 
     // Default pagination settings
     public $paginate = [

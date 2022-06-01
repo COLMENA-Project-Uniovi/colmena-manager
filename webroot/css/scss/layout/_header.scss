@@ -4,7 +4,7 @@
 header {
     background-color: $light-gray;
     position: fixed;
-    height: 120px;
+    height: $header-height;
     width: calc(100% - 220px);
     box-shadow: 0 10px 25px rgba(10, 10, 51, 0.1);
 

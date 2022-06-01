@@ -10,7 +10,7 @@ Configure::write('Colmena/UsersManager.menuItems', [
     'Usuarios' => [
         'order' => 2,
         'items' => [
-            'Usuarios' => [
+            'Alumnos' => [
                 'icon' => '<i class="far fa-user"></i>',
                 'link' => [
                     'controller' => 'Users',
