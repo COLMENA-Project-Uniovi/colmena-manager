@@ -199,7 +199,7 @@ class ProjectsController extends AppController
     /**
      * Method which lists the projects
      *
-     * @return void
+     * @return the list of projects assigned to the user
      */
     public function list()
     {
