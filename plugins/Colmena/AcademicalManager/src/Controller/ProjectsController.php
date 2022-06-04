@@ -196,19 +196,32 @@ class ProjectsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    /**
+     * Method which lists the projects
+     *
+     * @return void
+     */
     public function list()
     {
-        $projectID = $this->request->getData('id');
+        $userID = $this->request->getData('id');
         $query = $this->{$this->getName()}->find('all');
 
-        if (isset($projectID)) {
-            $query = $query->where(['id' => $projectID]);
+        if (isset($userID)) {
+            $query = $query->where(['user_id' => $userID]);
         }
 
         $entities = $query->toList();
-        echo '<pre>',var_dump($entities),'</pre>';die;
+        $content = json_encode($entities);
+
+        $this->response = $this->response->withStringBody($content);
+        $this->response = $this->response->withType('json');
+
+        return $this->response;
     }
 
+    /**
+     * Method which returns the project from the session
+     */
     private function getSessionProject()
     {
         $session = $this->request->getSession();
