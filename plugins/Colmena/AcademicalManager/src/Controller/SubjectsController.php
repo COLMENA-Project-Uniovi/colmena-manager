@@ -120,8 +120,8 @@ class SubjectsController extends AppController
         $entities = $this->paginate($this->modelClass);
         $filteredEntities = array();
 
-        foreach ($entities as $entity){
-            if($entity['project_id'] == $projectID){
+        foreach ($entities as $entity) {
+            if ($entity['project_id'] == $projectID) {
                 array_push($filteredEntities, $entity);
             }
         }
@@ -214,17 +214,36 @@ class SubjectsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function list($id = null)
-    {
-
-        return $this->{$this->getName()}->find('all');
-    }
-
     private function getSessionProject()
     {
         $session = $this->request->getSession();
         $projectID = $session->read('Projectid');
 
         return $projectID['projectID'];
+    }
+
+    /**
+     * Method which lists the subjects
+     *
+     * @return the list of subjects assigned to the project
+     */
+    public function list()
+    {
+        $projectID = $this->request->getData('id');
+        $query = $this->{$this->getName()}->find('all');
+
+        if (isset($projectID)) {
+            $query->matching('Projects', function ($q)  use ($projectID) {
+                return $q->where(['Projects.id =' => $projectID]);
+            });
+        }
+
+        $entities = $query->toList();
+        $content = json_encode($entities);
+
+        $this->response = $this->response->withStringBody($content);
+        $this->response = $this->response->withType('json');
+
+        return $this->response;
     }
 }

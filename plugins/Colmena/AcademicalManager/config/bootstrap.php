@@ -69,10 +69,10 @@ Configure::write('Colmena/AcademicalManager.rolable_entities', []);
 Configure::write('Colmena/AcademicalManager.special_method_entity_roles', []);
 
 Configure::write('Colmena/AcademicalManager.api_entities', [
-    'Colmena/AcademicalManager.Users' => [
+    'Colmena/AcademicalManager.Projects' => [
         'order' => 1,
     ],
-    'Colmena/AcademicalManager.Projects' => [
+    'Colmena/AcademicalManager.Subjects' => [
         'order' => 2,
     ],
 ]);
