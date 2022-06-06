@@ -4,36 +4,14 @@ $this->Breadcrumbs->add(ucfirst($entity_name_plural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
-
 $this->Breadcrumbs->add('Añadir ' . $entity_name, [
     'controller' => $this->request->getParam('controller'),
     'action' => 'add'
 ]);
-
 $header = [
     'title' => 'Editar ' . $entity_name,
     'breadcrumbs' => true,
-    'tabs' => $tab_actions,
-    'header' => [
-        'actions' => [
-            'Añadir sesión' => [
-                'url' => [
-                    'controller' => 'Sessions',
-                    'plugin' => 'Colmena/AcademicalManager',
-                    'action' => 'add',
-                    $entity->id
-                ]
-            ],
-            'Ver sesiones' => [
-                'url' => [
-                    'controller' => 'Sessions',
-                    'plugin' => 'Colmena/AcademicalManager',
-                    'action' => 'index',
-                    $entity->id
-                ]
-            ]
-        ]
-    ]
+    'tabs' => $tab_actions
 ];
 ?>
 
