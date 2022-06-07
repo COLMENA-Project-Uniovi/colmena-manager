@@ -1,13 +1,24 @@
 <?php
+
+use Cake\I18n\Time;
+
 $this->Breadcrumbs->add('Inicio', '/');
+
+$this->Breadcrumbs->add($subject->name, [
+    'controller' => 'Subjects',
+    'action' => 'edit', $subject->id
+]);
+
 $this->Breadcrumbs->add(ucfirst($entity_name_plural), [
     'controller' => $this->request->getParam('controller'),
-    'action' => 'index'
+    'action' => 'index', $subject->id
 ]);
+
 $this->Breadcrumbs->add('Añadir ' . $entity_name, [
     'controller' => $this->request->getParam('controller'),
-    'action' => 'add'
+    'action' => 'add', $subject->id
 ]);
+
 $header = [
     'title' => 'Añadir ' . $entity_name,
     'breadcrumbs' => true
@@ -34,16 +45,29 @@ $header = [
                 ]
             ); ?>
             <?= $this->Form->control(
-                'weekday',
+                'weekDay',
                 [
-                    'label' => 'Día de la semana',
-                    'type' => 'int'
+                    'label' => 'Selecciona el día de la semana',
+                    'multiple' => false,
+                    'options' => [
+                        '1' => 'Lunes',
+                        '2' => 'Martes',
+                        '3' => 'Miércoles',
+                        '4' => 'Jueves',
+                        '5' => 'Viernes',
+                        '6' => 'Sábado',
+                        '7' => 'Domingo'
+                    ],
+                    'templateVars' => [
+                        'help' => 'Selecciona el día de la semana en el que está vigente este horario.'
+                    ]
                 ]
             ); ?>
             <?= $this->Form->control(
                 'startHour',
                 [
                     'label' => 'Hora de inicio de la sesión',
+                    'default' => new Time(),
                     'type' => 'time'
                 ]
             ); ?>
@@ -51,6 +75,7 @@ $header = [
                 'endHour',
                 [
                     'label' => 'Hora de fin de la sesión',
+                    'default' => new Time(),
                     'type' => 'time'
                 ]
             ); ?>

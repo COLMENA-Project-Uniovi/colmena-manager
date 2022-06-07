@@ -5,7 +5,7 @@ $this->Breadcrumbs->add(ucfirst($entity_name_plural), [
     'action' => 'index'
 ]);
 
-$this->Breadcrumbs->add('Añadir ' . $entity_name, [
+$this->Breadcrumbs->add('Editar ' . $entity_name, [
     'controller' => $this->request->getParam('controller'),
     'action' => 'add'
 ]);

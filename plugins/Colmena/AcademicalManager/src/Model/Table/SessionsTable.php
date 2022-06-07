@@ -33,6 +33,14 @@ class SessionsTable extends AppTable
                 'className' => 'Colmena/AcademicalManager.Subjects',
             ]
         );
+
+        // TODO
+        // TODO -> Añadir la relacion con los grupos de practicas 
+
+        // $this->hasMany('PracticeGroups', [
+        //     'foreignKey' => 'participation_id',
+        //     'className' => 'Neo/WebUsersManager.Tickets'
+        // ]);
     }
 
     /**

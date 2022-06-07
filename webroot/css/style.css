@@ -1223,6 +1223,7 @@ strong {
 .admin-form .primary.half-grid {
   display: -ms-grid;
   display: grid;
+  width: 100%;
   -ms-grid-columns: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
   grid-gap: 20px;

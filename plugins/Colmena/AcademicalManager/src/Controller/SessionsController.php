@@ -12,16 +12,13 @@ class SessionsController extends AppController
     use EncryptTrait;
 
     public $entity_name = 'sesion';
-    public $entity_name_plural = 'sesions';
+    public $entity_name_plural = 'sesiones';
 
     // Default pagination settings
     public $paginate = [
         'limit' => 20,
         'order' => [
             'id' => 'DESC'
-        ],
-        'contain' => [
-            'Subjects'
         ]
     ];
 
@@ -82,13 +79,21 @@ class SessionsController extends AppController
      *
      * @return void
      */
-    public function index($keyword = null)
+    public function index($subjectID, $keyword = null)
     {
+        if (isset($subjectID)) {
+            $sessions = $this->{$this->getName()}
+                ->find('all')
+                ->matching('Subjects', function ($q) use ($subjectID) {
+                    return $q->where(['Subjects.id' => $subjectID]);
+                });
+        }
+
         if ($this->request->is('post')) {
             //recover the keyword
             $keyword = $this->request->getData('keyword');
             //re-send to the same controller with the keyword
-            return $this->redirect(['action' => 'index', $keyword]);
+            return $this->redirect(['action' => 'index/' . $subjectID, $keyword]);
         }
 
         // Paginator
@@ -107,11 +112,13 @@ class SessionsController extends AppController
         //prepare the pagination
         $this->paginate = $settings;
 
-        $entities = $this->paginate($this->modelClass);
+        $entities = $this->paginate($sessions);
+        $subject = $this->{$this->getName()}->Subjects->get($subjectID);
 
         $this->set('header_actions', $this->getHeaderActions());
         $this->set('table_buttons', $this->getTableButtons());
         $this->set('entities', $entities);
+        $this->set('subject', $subject);
         $this->set('keyword', $keyword);
     }
 
@@ -152,10 +159,11 @@ class SessionsController extends AppController
      * @return void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null, $locale = null)
+    public function edit($id = null, $subjectID, $locale = null)
     {
         $this->setLocale($locale);
         $entity = $this->{$this->getName()}->get($id);
+        $subject = $this->{$this->getName()}->Subjects->get($subjectID);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
@@ -173,7 +181,7 @@ class SessionsController extends AppController
         }
 
         $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
-        $this->set(compact('entity'));
+        $this->set(compact('entity', 'subject'));
     }
 
     /**
@@ -226,5 +234,19 @@ class SessionsController extends AppController
         $this->response = $this->response->withType('json');
 
         return $this->response;
+    }
+
+    /**
+     * Method which is used to show the user the groups and its schedules
+     *
+     * @param [int] $sessionID
+     * @param [int] $subjectID
+     * @return void
+     */
+    public function listSessionSchedules($sessionID, $subjectID){
+        $subject = $this->{$this->getName()}->Subjects->get($subjectID);
+        $session = $this->{$this->getName()}->get($sessionID);
+
+        $this->set(compact('session', 'subject'));
     }
 }
