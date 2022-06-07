@@ -127,6 +127,7 @@ class SessionsController extends AppController
 
         if ($this->request->is('post')) {
             $data = $this->request->getData();
+            $data['subject_id'] = $subjectID;
             $entity = $this->{$this->getName()}->patchEntity($entity, $data);
 
             if ($this->{$this->getName()}->save($entity)) {

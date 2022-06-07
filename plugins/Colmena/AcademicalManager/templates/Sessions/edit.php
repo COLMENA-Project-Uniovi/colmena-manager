@@ -30,51 +30,29 @@ $header = [
             <?= $this->Form->control(
                 'name',
                 [
-                    'label' => 'Nombre',
+                    'label' => 'Nombre de la sesión',
                     'type' => 'text'
                 ]
             ); ?>
             <?= $this->Form->control(
-                'description',
+                'weekday',
                 [
-                    'label' => 'Descripción',
-                    'type' => 'textarea'
+                    'label' => 'Día de la semana',
+                    'type' => 'int'
                 ]
             ); ?>
             <?= $this->Form->control(
-                'year',
+                'startHour',
                 [
-                    'label' => 'Año académico',
-                    'type' => 'number'
+                    'label' => 'Hora de inicio de la sesión',
+                    'type' => 'time'
                 ]
             ); ?>
             <?= $this->Form->control(
-                'semester',
+                'endHour',
                 [
-                    'label' => 'Semestre',
-                    'type' => 'number'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'project_id',
-                [
-                    'label' => 'Proyecto',
-                    'type' => 'number',
-                    'disabled' => true
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'start_date',
-                [
-                    'label' => 'Fecha de inicio',
-                    'type' => 'date'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'end_date',
-                [
-                    'label' => 'Fecha de fin',
-                    'type' => 'date'
+                    'label' => 'Hora de fin de la sesión',
+                    'type' => 'time'
                 ]
             ); ?>
         </div><!-- .form-block -->
