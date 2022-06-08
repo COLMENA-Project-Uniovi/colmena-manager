@@ -498,3 +498,9 @@ Configure::load('colors', 'default');
  * Load default SEO config
  */
 Configure::load('seo', 'default');
+
+/*
+* Load configuration for Vue.js
+*/
+header('Access-Control-Allow-Methods: POST, GET, PUT, PATCH, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: *');
