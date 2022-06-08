@@ -40,6 +40,5 @@ class Project extends Entity
      * @var array
      */
     protected $_hidden = [
-        'id'
     ];
 }
