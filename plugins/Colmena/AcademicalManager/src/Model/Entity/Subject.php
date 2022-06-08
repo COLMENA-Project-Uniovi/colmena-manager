@@ -40,6 +40,5 @@ class Subject extends Entity
      * @var array
      */
     protected $_hidden = [
-        'id'
     ];
 }

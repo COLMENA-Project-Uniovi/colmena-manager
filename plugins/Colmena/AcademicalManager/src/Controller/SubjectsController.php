@@ -72,7 +72,7 @@ class SubjectsController extends AppController
     public function beforeFilter(\Cake\Event\EventInterface $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow(['list']);
+        $this->Auth->allow(['list', 'listSubjectById']);
     }
 
     /**
@@ -219,7 +219,7 @@ class SubjectsController extends AppController
     /**
      * Method which lists the subjects
      *
-     * @return the list of subjects assigned to the project
+     * @return list of subjects assigned to the project
      */
     public function list()
     {
@@ -236,6 +236,21 @@ class SubjectsController extends AppController
         $content = json_encode($entities);
 
         $this->response = $this->response->withStringBody($content);
+        $this->response = $this->response->withType('json');
+
+        return $this->response;
+    }
+
+    /**
+     * Function which lists the subject by its id
+     *
+     * @return subject
+     */
+    public function listSubjectById(){
+        $subjectID = $this->request->getData('id');
+        $query = $this->{$this->getName()}->find('all')->where(['id' => $subjectID])->first();
+
+        $this->response = $this->response->withStringBody($query);
         $this->response = $this->response->withType('json');
 
         return $this->response;
