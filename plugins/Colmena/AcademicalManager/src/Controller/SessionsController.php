@@ -247,6 +247,8 @@ class SessionsController extends AppController
         $subject = $this->{$this->getName()}->Subjects->get($subjectID);
         $session = $this->{$this->getName()}->get($sessionID);
 
+        $entities = $this->{$this->getName()}->SessionSchedules->find('all')->where(['session_id' => $sessionID])->toList();
+
         $this->set(compact('session', 'subject'));
     }
 }

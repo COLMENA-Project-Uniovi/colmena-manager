@@ -7,10 +7,10 @@ use Cake\Validation\Validator;
 use App\Encryption\EncryptTrait;
 
 /**
- * Student Model.
+ * SessionSchedulesTable Model.
  *
  */
-class SessionsTable extends AppTable
+class SessionSchedulesTable extends AppTable
 {
     use EncryptTrait;
     
@@ -23,21 +23,16 @@ class SessionsTable extends AppTable
     {
         parent::initialize($config);
 
-        $this->setTable('acm_sessions');
+        $this->setTable('acm_session_shedules');
         $this->setDisplayField('title');
         $this->setPrimaryKey('id');
 
         $this->belongsTo(
-            'Subjects',
+            'Sessions',
             [
-                'className' => 'Colmena/AcademicalManager.Subjects',
+                'className' => 'Colmena/AcademicalManager.Sessions',
             ]
         );
-
-        $this->hasMany('SessionSchedules', [
-            'foreignKey' => 'session_id',
-            'className' => 'Colmena/AcademicalManager.SessionSchedules'
-        ]);
     }
 
     /**
