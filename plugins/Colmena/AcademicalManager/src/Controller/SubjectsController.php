@@ -60,8 +60,7 @@ class SubjectsController extends AppController
         ]
     ];
 
-    protected $tab_actions = [
-    ];
+    protected $tab_actions = [];
 
     /**
      * Before filter
@@ -224,7 +223,7 @@ class SubjectsController extends AppController
     public function list()
     {
         $projectID = $this->request->getData('id');
-        $query = $this->{$this->getName()}->find('all');
+        $query = $this->{$this->getName()}->find('all')->contain(['Sessions']);
 
         if (isset($projectID)) {
             $query->matching('Projects', function ($q)  use ($projectID) {
@@ -246,9 +245,24 @@ class SubjectsController extends AppController
      *
      * @return subject
      */
-    public function listSubjectById(){
+    public function listSubjectById()
+    {
         $subjectID = $this->request->getData('id');
-        $query = $this->{$this->getName()}->find('all')->where(['id' => $subjectID])->first();
+        $query = $this->{$this->getName()}->find('all')->where(['id' => $subjectID])->contain(['Sessions'])->first();
+
+        $this->response = $this->response->withStringBody($query);
+        $this->response = $this->response->withType('json');
+
+        return $this->response;
+    }
+
+    /**
+     * Function which returns the subjects associated to users' id     
+     * */
+    public function listSubjectByStudentId()
+    {
+        $studentId = $this->request->getData('id');
+        $query = $this->{$this->getName()}->find('all')->where(['id' => $studentId])->contain(['Sessions'])->first();
 
         $this->response = $this->response->withStringBody($query);
         $this->response = $this->response->withType('json');

@@ -33,6 +33,11 @@ class SubjectsTable extends AppTable
                 'className' => 'Colmena/AcademicalManager.Projects',
             ]
         );
+
+        $this->hasMany('Sessions', [
+            'foreignKey' => 'subject_id',
+            'className' => 'Colmena/AcademicalManager.Sessions'
+        ]);
     }
 
     /**
