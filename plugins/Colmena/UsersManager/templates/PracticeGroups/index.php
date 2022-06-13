@@ -3,28 +3,16 @@
 use Cake\Utility\Inflector;
 
 $this->Breadcrumbs->add('Inicio', '/');
-
-$this->Breadcrumbs->add('Asignaturas', [
-    'controller' => 'Subjects',
+$this->Breadcrumbs->add(ucfirst($entity_name_plural), [
+    'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
-
-$this->Breadcrumbs->add($subject->name, [
-    'controller' => 'Subjects',
-    'action' => 'edit', $subject->id
-]);
-
-$this->Breadcrumbs->add('Sesiones', [
-    'controller' => 'Sessions',
-    'action' => 'edit',
-    $subject->id
-]);
-
 $header = [
     'title' => ucfirst($entity_name_plural),
     'breadcrumbs' => true,
     'header' => [
-        'actions' => $header_actions
+        'actions' => $header_actions,
+        'search_form' => []
     ]
 ];
 ?>
@@ -39,14 +27,8 @@ $header = [
             <table class="table">
                 <thead class="thead">
                     <tr class="tr">
-                        <th class="th medium">
-                            Grupo
-                        </th><!-- .th -->
                         <th class="th grow">
-                            Fecha de inicio
-                        </th><!-- .th -->
-                        <th class="th grow">
-                            Fecha de fin
+                            Nombre
                         </th><!-- .th -->
                         <?php
                         if (!empty($table_buttons)) {
@@ -64,14 +46,8 @@ $header = [
                     foreach ($entities as $entity) {
                     ?>
                         <tr class="tr">
-                            <td class="td element medium">
-                                <p><?= $entity->practice_group_id ?></p>
-                            </td><!-- .td -->
                             <td class="td element grow">
-                                <p><?= $entity->start_date; ?></p>
-                            </td><!-- .td -->
-                            <td class="td element grow">
-                                <p><?= $entity->end_date; ?></p>
+                                <p><?= $entity->name; ?></p>
                             </td><!-- .td -->
                             <?php
                             if (!empty($table_buttons)) {
@@ -81,7 +57,6 @@ $header = [
                                         <?php
                                         foreach ($table_buttons as $key => $value) {
                                             array_push($value['url'], $entity->id);
-                                            array_push($value['url'], $subject->id);
                                             if ($value['url']['action'] != 'delete') {
                                                 echo $this->Html->link(
                                                     $value['icon'],
@@ -112,7 +87,7 @@ $header = [
         <?php
         } else {
         ?>
-            <p class="no-results">No existen horarios ni grupos asignados</p>
+            <p class="no-results">No existen resultados para la búsqueda realizada</p>
         <?php
         }
         ?>

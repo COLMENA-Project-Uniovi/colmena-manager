@@ -22,6 +22,18 @@ Configure::write('Colmena/UsersManager.menuItems', [
                     'escape' => false
                 ],
             ],
+            'Grupos de prácticas' => [
+                'icon' => '<i class="fad fa-users"></i>',
+                'link' => [
+                    'controller' => 'PracticeGroups',
+                    'action' => 'index',
+                    'plugin' => 'Colmena/UsersManager',
+                ],
+                'extra' => [
+                    'class' => 'menu-item',
+                    'escape' => false
+                ],
+            ],
             'Gestionar roles' => [
                 'icon' => '<i class="far fa-user-tag"></i>',
                 'link' => [
@@ -72,6 +84,9 @@ Configure::write('Colmena/UsersManager.special_method_entity_roles', []);
 Configure::write('Colmena/UsersManager.api_entities', [
     'Colmena/UsersManager.Users' => [
         'order' => 1,
+    ],
+    'Colmena/UsersManager.PracticeGroups' => [
+        'order' => 2,
     ]
 ]);
 
