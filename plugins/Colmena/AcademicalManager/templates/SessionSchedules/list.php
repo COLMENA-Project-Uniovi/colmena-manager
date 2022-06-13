@@ -3,23 +3,34 @@
 use Cake\Utility\Inflector;
 
 $this->Breadcrumbs->add('Inicio', '/');
+
 $this->Breadcrumbs->add('Asignaturas', [
     'controller' => 'Subjects',
     'action' => 'index'
 ]);
+
 $this->Breadcrumbs->add($subject->name, [
     'controller' => 'Subjects',
     'action' => 'edit', $subject->id
 ]);
 
-array_push($header_actions['Añadir sesión']['url'], $subject->id);
+$this->Breadcrumbs->add('Sesiones', [
+    'controller' => 'Sessions',
+    'action' => 'edit',
+    $subject->id
+]);
+
+$this->Breadcrumbs->add('Editar ' . $entity->name, [
+    'controller' => $this->request->getParam('controller'),
+    'action' => 'add',
+    $subject->id
+]);
 
 $header = [
     'title' => ucfirst($entity_name_plural),
     'breadcrumbs' => true,
     'header' => [
-        'actions' => $header_actions,
-        'search_form' => []
+        'actions' => $header_actions
     ]
 ];
 ?>
@@ -35,16 +46,13 @@ $header = [
                 <thead class="thead">
                     <tr class="tr">
                         <th class="th medium">
-                            Nombre
+                            Grupo
                         </th><!-- .th -->
                         <th class="th grow">
-                            Día de la semana
+                            Fecha de inicio
                         </th><!-- .th -->
                         <th class="th grow">
-                            Hora de inicio
-                        </th><!-- .th -->
-                        <th class="th grow">
-                            Hora de fin
+                            Fecha de fin
                         </th><!-- .th -->
                         <?php
                         if (!empty($table_buttons)) {
@@ -66,13 +74,10 @@ $header = [
                                 <p><?= $entity->name ?></p>
                             </td><!-- .td -->
                             <td class="td element grow">
-                                <p><?= $entity->weekDay; ?></p>
+                                <p><?= $entity->start_date; ?></p>
                             </td><!-- .td -->
                             <td class="td element grow">
-                                <p><?= $entity->startHour; ?></p>
-                            </td><!-- .td -->
-                            <td class="td element grow">
-                                <p><?= $entity->endHour; ?></p>
+                                <p><?= $entity->end_date; ?></p>
                             </td><!-- .td -->
                             <?php
                             if (!empty($table_buttons)) {
@@ -113,7 +118,7 @@ $header = [
         <?php
         } else {
         ?>
-            <p class="no-results">No existen resultados para la búsqueda realizada</p>
+            <p class="no-results">No existen horarios ni grupos asignados</p>
         <?php
         }
         ?>

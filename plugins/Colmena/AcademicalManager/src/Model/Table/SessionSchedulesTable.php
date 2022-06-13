@@ -13,7 +13,7 @@ use App\Encryption\EncryptTrait;
 class SessionSchedulesTable extends AppTable
 {
     use EncryptTrait;
-    
+
     /**
      * Initialize method.
      *
@@ -31,6 +31,13 @@ class SessionSchedulesTable extends AppTable
             'Sessions',
             [
                 'className' => 'Colmena/AcademicalManager.Sessions',
+            ]
+        );
+
+        $this->hasOne(
+            'PracticeGroups',
+            [
+                'className' => 'Colmena/AcademicalManager.PracticeGroups'
             ]
         );
     }

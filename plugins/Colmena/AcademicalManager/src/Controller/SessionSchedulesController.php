@@ -7,12 +7,12 @@ use App\Encryption\EncryptTrait;
 use Cake\Core\Configure;
 use Cake\Http\Session;
 
-class SessionsController extends AppController
+class SessionSchedulesController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'sesion';
-    public $entity_name_plural = 'sesiones';
+    public $entity_name = 'horario de sesión';
+    public $entity_name_plural = 'horario de sesiones';
 
     // Default pagination settings
     public $paginate = [
@@ -26,7 +26,7 @@ class SessionsController extends AppController
         'Editar' => [
             'icon' => '<i class="fas fa-edit"></i>',
             'url' => [
-                'controller' => 'Sessions',
+                'controller' => 'SessionSchedules',
                 'action' => 'edit',
                 'plugin' => 'Colmena/AcademicalManager'
             ],
@@ -38,27 +38,19 @@ class SessionsController extends AppController
         'Borrar' => [
             'icon' => '<i class="fas fa-trash-alt"></i>',
             'url' => [
-                'controller' => 'Sessions',
+                'controller' => 'SessionSchedules',
                 'action' => 'delete',
                 'plugin' => 'Colmena/AcademicalManager'
             ],
             'options' => [
-                'confirm' => '¿Está seguro de que desea eliminar la sesión?',
+                'confirm' => '¿Está seguro de que desea eliminar el horario de la sesión?',
                 'class' => 'red-icon',
                 'escape' => false
             ]
         ]
     ];
 
-    protected $header_actions = [
-        'Añadir sesión' => [
-            'url' => [
-                'controller' => 'Sessions',
-                'plugin' => 'Colmena/AcademicalManager',
-                'action' => 'add'
-            ]
-        ]
-    ];
+    protected $header_actions = [];
 
     protected $tab_actions = [];
 
@@ -216,43 +208,15 @@ class SessionsController extends AppController
      *
      * @return the list of Sessions assigned to the project
      */
-    public function list()
+    public function list($sessionID, $subjectID)
     {
-        $projectID = $this->request->getData('id');
-        $query = $this->{$this->getName()}->find('all');
+        $session = $this->{$this->getName()}->Sessions->get($sessionID);
+        $subject = $this->{$this->getName()}->Sessions->Subjects->get($subjectID);
 
-        if (isset($projectID)) {
-            $query->matching('Projects', function ($q)  use ($projectID) {
-                return $q->where(['Projects.id =' => $projectID]);
-            });
-        }
+        $entities = $this->{$this->getName()}->find('all')->where(['session_id' => $sessionID]);
 
-        $entities = $query->toList();
-        $content = json_encode($entities);
-
-        $this->response = $this->response->withStringBody($content);
-        $this->response = $this->response->withType('json');
-
-        return $this->response;
-    }
-
-    /**
-     * Method which is used to show the user the groups and its schedules
-     *
-     * @param [int] $sessionID
-     * @param [int] $subjectID
-     * @return void
-     */
-    public function listSessionSchedules($sessionID, $subjectID){
-        $subject = $this->{$this->getName()}->Subjects->get($subjectID);
-        $session = $this->{$this->getName()}->get($sessionID);
-
-        $entities = $this->{$this->getName()}->SessionSchedules->find('all')->where(['session_id' => $sessionID])->toList();
-
-        $this->set(compact('session', 'subject'));
+        $this->set(compact('session', 'subject', 'entities'));
         $this->set('header_actions', $this->getHeaderActions());
         $this->set('table_buttons', $this->getTableButtons());
-        $this->set('entities', $entities);
-        $this->set('subject', $subject);
     }
 }

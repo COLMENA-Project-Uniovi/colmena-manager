@@ -30,8 +30,8 @@ $tab_actions = [
     ],
     'Horarios y grupos de la sesión' => [
         'url' => [
-            'controller' => 'Sessions',
-            'action' => 'list-session-schedules/' . $entity->id . '/' . $subject->id,
+            'controller' => 'SessionSchedules',
+            'action' => 'list/' . $entity->id . '/' . $subject->id,
             'plugin' => 'Colmena/AcademicalManager'
         ],
         'current' => ''
@@ -53,56 +53,7 @@ $header = [
             'type' => 'file'
         ]
     ); ?>
-    <div class="primary half-grid">
-        <div class="form-block">
-            <h3>Datos generales</h3>
-            <?= $this->Form->control(
-                'name',
-                [
-                    'label' => 'Nombre de la sesión',
-                    'required' => true,
-                    'type' => 'text'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'weekDay',
-                [
-                    'label' => 'Selecciona el día de la semana',
-                    'multiple' => false,
-                    'required' => true,
-                    'empty' => '--- Selecciona el día de la semana ---',
-                    'options' => [
-                        '1' => 'Lunes',
-                        '2' => 'Martes',
-                        '3' => 'Miércoles',
-                        '4' => 'Jueves',
-                        '5' => 'Viernes'
-                    ],
-                    'templateVars' => [
-                        'help' => 'Selecciona el día de la semana en el que está vigente este horario.'
-                    ]
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'startHour',
-                [
-                    'label' => 'Hora de inicio de la sesión',
-                    'required' => true,
-                    'default' => new Time(),
-                    'type' => 'time'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'endHour',
-                [
-                    'label' => 'Hora de fin de la sesión',
-                    'required' => true,
-                    'default' => new Time(),
-                    'type' => 'time'
-                ]
-            ); ?>
-        </div><!-- .form-block -->
-
+    <div class="primary full">
         <div class="form-block">
             <h3>Datos generales</h3>
             <?= $this->Form->control(
