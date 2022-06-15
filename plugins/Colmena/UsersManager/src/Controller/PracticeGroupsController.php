@@ -19,6 +19,9 @@ class PracticeGroupsController extends AppController
         'limit' => 20,
         'order' => [
             'id' => 'DESC'
+        ],
+        'contain' => [
+            'Users'
         ]
     ];
 
@@ -106,8 +109,6 @@ class PracticeGroupsController extends AppController
 
         $entities = $this->paginate($this->modelClass);
 
-        debug($entities);die;
-
         $this->set('header_actions', $this->getHeaderActions());
         $this->set('table_buttons', $this->getTableButtons());
         $this->set('entities', $entities);
@@ -124,20 +125,10 @@ class PracticeGroupsController extends AppController
         $entity = $this->{$this->getName()}->newEmptyEntity();
 
         if ($this->request->is('post')) {
-            $name = $this->request->getData('name');
-            $usersIDs = $this->request->getData('user_id')['_ids'];
+            $data = $this->request->getData();
+            $entity = $this->{$this->getName()}->patchEntity($entity, $data);
 
-            foreach ($usersIDs as $userID) {
-                $data['name'] = $name;
-                $data['user_id'] = $userID;
-
-                $entity = $this->{$this->getName()}->newEmptyEntity();
-                $entity = $this->{$this->getName()}->patchEntity($entity, $data);
-                $result = $this->{$this->getName()}->save($entity);
-                echo '<pre>', var_dump($result), '</pre>';
-            }
-
-            if ($result) {
+            if ($this->{$this->getName()}->save($entity)) {
                 $this->Flash->success('El grupo de prácticas se ha guardado correctamente.');
                 return $this->redirect(['action' => 'index']);
             } else {
@@ -166,7 +157,7 @@ class PracticeGroupsController extends AppController
     public function edit($id = null, $locale = null)
     {
         $this->setLocale($locale);
-        $entity = $this->{$this->getName()}->get($id);
+        $entity = $this->{$this->getName()}->find('all')->where([$this->getName() . '.id' => $id])->contain(['Users'])->first();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
@@ -182,9 +173,10 @@ class PracticeGroupsController extends AppController
                 $this->Flash->error($error_msg, ['escape' => false]);
             }
         }
+        $students = $this->{$this->getName()}->Users->find('list')->toArray();
 
         $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
-        $this->set(compact('entity'));
+        $this->set(compact('entity', 'students'));
     }
 
     /**

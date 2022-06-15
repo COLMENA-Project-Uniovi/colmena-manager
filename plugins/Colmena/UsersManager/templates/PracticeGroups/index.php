@@ -30,6 +30,9 @@ $header = [
                         <th class="th grow">
                             Nombre
                         </th><!-- .th -->
+                        <th class="th grow">
+                            Alumnos asignados
+                        </th><!-- .th -->
                         <?php
                         if (!empty($table_buttons)) {
                         ?>
@@ -48,6 +51,9 @@ $header = [
                         <tr class="tr">
                             <td class="td element grow">
                                 <p><?= $entity->name; ?></p>
+                            </td><!-- .td -->
+                            <td class="td element grow">
+                                <p><?= count($entity->users); ?></p>
                             </td><!-- .td -->
                             <?php
                             if (!empty($table_buttons)) {

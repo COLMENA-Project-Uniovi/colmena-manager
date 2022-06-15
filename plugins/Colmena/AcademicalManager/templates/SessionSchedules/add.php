@@ -14,36 +14,17 @@ $this->Breadcrumbs->add(ucfirst($entity_name_plural), [
     'action' => 'index', $subject->id
 ]);
 
-$this->Breadcrumbs->add('Editar ' . $entity->name, [
+$this->Breadcrumbs->add('Añadir ' . $entity_name, [
     'controller' => $this->request->getParam('controller'),
     'action' => 'add', $subject->id
 ]);
 
-$tab_actions = [
-    'Datos de la sesión' => [
-        'url' => [
-            'controller' => 'Sessions',
-            'action' => 'edit/' . $entity->id . '/' . $subject->id,
-            'plugin' => 'Colmena/AcademicalManager'
-        ],
-        'current' => 'current'
-    ],
-    'Horarios y grupos de la sesión' => [
-        'url' => [
-            'controller' => 'SessionSchedules',
-            'action' => 'index/' . $entity->id . '/' . $subject->id,
-            'plugin' => 'Colmena/AcademicalManager'
-        ],
-        'current' => ''
-    ],
-];
-
 $header = [
-    'title' => 'Editar ' . $entity->name,
-    'breadcrumbs' => true,
-    'tabs' => $tab_actions
+    'title' => 'Añadir ' . $entity_name,
+    'breadcrumbs' => true
 ];
 ?>
+
 <?= $this->element("header", $header); ?>
 <div class="content">
     <?= $this->Form->create(
@@ -60,7 +41,6 @@ $header = [
                 'name',
                 [
                     'label' => 'Nombre de la sesión',
-                    'required' => true,
                     'type' => 'text'
                 ]
             ); ?>
@@ -69,14 +49,14 @@ $header = [
                 [
                     'label' => 'Selecciona el día de la semana',
                     'multiple' => false,
-                    'required' => true,
-                    'empty' => '--- Selecciona el día de la semana ---',
                     'options' => [
                         '1' => 'Lunes',
                         '2' => 'Martes',
                         '3' => 'Miércoles',
                         '4' => 'Jueves',
-                        '5' => 'Viernes'
+                        '5' => 'Viernes',
+                        '6' => 'Sábado',
+                        '7' => 'Domingo'
                     ],
                     'templateVars' => [
                         'help' => 'Selecciona el día de la semana en el que está vigente este horario.'
@@ -87,7 +67,6 @@ $header = [
                 'startHour',
                 [
                     'label' => 'Hora de inicio de la sesión',
-                    'required' => true,
                     'default' => new Time(),
                     'type' => 'time'
                 ]
@@ -96,9 +75,22 @@ $header = [
                 'endHour',
                 [
                     'label' => 'Hora de fin de la sesión',
-                    'required' => true,
                     'default' => new Time(),
                     'type' => 'time'
+                ]
+            ); ?>
+        </div><!-- .form-block -->
+    </div><!-- .primary -->
+    <div class="primary full">
+        <div class="form-block">
+            <h3>Asignatura asociada</h3>
+            <?= $this->Form->control(
+                'subject_id',
+                [
+                    'label' => 'Asignatura',
+                    'type' => 'text',
+                    'value' => $subject->name,
+                    'disabled' => 'disabled'
                 ]
             ); ?>
         </div><!-- .form-block -->

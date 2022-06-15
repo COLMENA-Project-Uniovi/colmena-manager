@@ -12,7 +12,7 @@ class SessionSchedulesController extends AppController
     use EncryptTrait;
 
     public $entity_name = 'horario de sesión';
-    public $entity_name_plural = 'horario de sesiones';
+    public $entity_name_plural = 'horarios de sesión';
 
     // Default pagination settings
     public $paginate = [
@@ -71,47 +71,26 @@ class SessionSchedulesController extends AppController
      *
      * @return void
      */
-    public function index($subjectID, $keyword = null)
+    public function index($sessionID, $subjectID)
     {
-        if (isset($subjectID)) {
-            $sessions = $this->{$this->getName()}
-                ->find('all')
-                ->matching('Subjects', function ($q) use ($subjectID) {
-                    return $q->where(['Subjects.id' => $subjectID]);
-                });
-        }
+        $session = $this->{$this->getName()}->Sessions->get($sessionID);
+        $subject = $this->{$this->getName()}->Sessions->Subjects->get($subjectID);
 
-        if ($this->request->is('post')) {
-            //recover the keyword
-            $keyword = $this->request->getData('keyword');
-            //re-send to the same controller with the keyword
-            return $this->redirect(['action' => 'index/' . $subjectID, $keyword]);
-        }
+        $entities = $this->{$this->getName()}->find('all')->where(['session_id' => $sessionID]);
 
         // Paginator
         $settings = $this->paginate;
 
-        // If performing search, there is a keyword
-        if ($keyword != null) {
-            // Change pagination conditions for searching
-            $settings['conditions'] = [
-                'OR' => [
-                    $this->getName() . '.name LIKE' => '%' . $keyword . '%',
-                ]
-            ];
-        }
-
         //prepare the pagination
         $this->paginate = $settings;
 
-        $entities = $this->paginate($sessions);
-        $subject = $this->{$this->getName()}->Subjects->get($subjectID);
+        $entities = $this->paginate($entities);
 
         $this->set('header_actions', $this->getHeaderActions());
         $this->set('table_buttons', $this->getTableButtons());
         $this->set('entities', $entities);
+        $this->set('session', $session);
         $this->set('subject', $subject);
-        $this->set('keyword', $keyword);
     }
 
     /**
@@ -193,30 +172,5 @@ class SessionSchedulesController extends AppController
             $this->Flash->error('la sesión no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
         }
         return $this->redirect(['action' => 'index']);
-    }
-
-    private function getSessionProject()
-    {
-        $session = $this->request->getSession();
-        $projectID = $session->read('Projectid');
-
-        return $projectID['projectID'];
-    }
-
-    /**
-     * Method which lists the Sessions
-     *
-     * @return the list of Sessions assigned to the project
-     */
-    public function list($sessionID, $subjectID)
-    {
-        $session = $this->{$this->getName()}->Sessions->get($sessionID);
-        $subject = $this->{$this->getName()}->Sessions->Subjects->get($subjectID);
-
-        $entities = $this->{$this->getName()}->find('all')->where(['session_id' => $sessionID]);
-
-        $this->set(compact('session', 'subject', 'entities'));
-        $this->set('header_actions', $this->getHeaderActions());
-        $this->set('table_buttons', $this->getTableButtons());
     }
 }

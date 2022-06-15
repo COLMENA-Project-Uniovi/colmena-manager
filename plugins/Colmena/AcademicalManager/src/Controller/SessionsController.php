@@ -235,24 +235,4 @@ class SessionsController extends AppController
 
         return $this->response;
     }
-
-    /**
-     * Method which is used to show the user the groups and its schedules
-     *
-     * @param [int] $sessionID
-     * @param [int] $subjectID
-     * @return void
-     */
-    public function listSessionSchedules($sessionID, $subjectID){
-        $subject = $this->{$this->getName()}->Subjects->get($subjectID);
-        $session = $this->{$this->getName()}->get($sessionID);
-
-        $entities = $this->{$this->getName()}->SessionSchedules->find('all')->where(['session_id' => $sessionID])->toList();
-
-        $this->set(compact('session', 'subject'));
-        $this->set('header_actions', $this->getHeaderActions());
-        $this->set('table_buttons', $this->getTableButtons());
-        $this->set('entities', $entities);
-        $this->set('subject', $subject);
-    }
 }

@@ -16,7 +16,7 @@ use App\Encryption\EncryptTrait;
 class PracticeGroupsTable extends AppTable
 {
     use EncryptTrait;
-    
+
     /**
      * Initialize method.
      *
@@ -30,9 +30,17 @@ class PracticeGroupsTable extends AppTable
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-        $this->hasMany('Users', [
-            'className' => 'Colmena/UsersManager.Users'
-        ]);
+        $this->addBehavior('Timestamp');
+
+        $this->belongsToMany(
+            'Users',
+            [
+                'className' => 'Colmena/UsersManager.Users',
+                'joinTable' => 'um_practice_groups_users',
+                'foreignKey' => 'practice_group_id',
+                'targetForeignKey' => 'user_id',
+            ]
+        );
     }
 
     /**

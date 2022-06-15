@@ -27,6 +27,8 @@ class SessionSchedulesTable extends AppTable
         $this->setDisplayField('title');
         $this->setPrimaryKey('id');
 
+        $this->addBehavior('Timestamp');
+
         $this->belongsTo(
             'Sessions',
             [

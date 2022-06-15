@@ -9,8 +9,9 @@ $this->Breadcrumbs->add('Añadir ' . $entity_name, [
     'action' => 'add'
 ]);
 $header = [
-    'title' => 'Añadir ' . $entity_name,
-    'breadcrumbs' => true
+    'title' => 'Editar ' . $entity_name,
+    'breadcrumbs' => true,
+    'tabs' => $tab_actions
 ];
 ?>
 
