@@ -1,0 +1,17 @@
+{
+    "name": "Colmena/UsersManager",
+    "description": "Colmena/UsersManager plugin for CakePHP",
+    "type": "cakephp-plugin",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Colmena\\UsersManager\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Colmena\\UsersManager\\Test\\": "tests/",
+            "Cake\\Test\\": "vendor/cakephp/cakephp/tests/"
+        }
+    }
+}
