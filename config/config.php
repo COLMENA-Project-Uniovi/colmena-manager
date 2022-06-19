@@ -17,7 +17,7 @@ if (in_array('beta', $arrayServerName)) {
     $user = 'colmena_admin';
     $pass = '9W$ecd709';
     $database = 'colmena_bd';
-    $host = '3.123.123.201';
+    $host = '94.127.187.103';
 
     $debug = true;
 } else if (in_array('test', $arrayServerName)) {
@@ -41,7 +41,7 @@ if (in_array('beta', $arrayServerName)) {
     $user = '';
     $pass = '';
     $database = '';
-    $host = '149.62.172.121';
+    $host = '';
 
     $debug = false;
 }

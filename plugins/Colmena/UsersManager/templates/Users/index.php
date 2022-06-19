@@ -27,6 +27,9 @@ $header = [
             <table class="table">
                 <thead class="thead">
                     <tr class="tr">
+                        <th class="th grow">
+                            Identificador
+                        </th><!-- .th -->
                         <th class="th medium">
                             Nombre y apellidos
                         </th><!-- .th -->
@@ -52,6 +55,9 @@ $header = [
                     foreach ($entities as $entity) {
                     ?>
                         <tr class="tr">
+                        <td class="td element grow">
+                                <p><?= $entity->identifier; ?></p>
+                            </td><!-- .td -->
                             <td class="td element medium">
                                 <p><?= $entity->name . ' ' . $entity->surname . ' ' . $entity->surname2; ?></p>
                             </td><!-- .td -->

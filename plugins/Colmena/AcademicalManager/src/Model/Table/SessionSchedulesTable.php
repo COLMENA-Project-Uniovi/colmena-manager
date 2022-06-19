@@ -24,7 +24,6 @@ class SessionSchedulesTable extends AppTable
         parent::initialize($config);
 
         $this->setTable('acm_session_shedules');
-        $this->setDisplayField('title');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
@@ -36,25 +35,8 @@ class SessionSchedulesTable extends AppTable
             ]
         );
 
-        $this->hasOne(
-            'PracticeGroups',
-            [
-                'className' => 'Colmena/AcademicalManager.PracticeGroups'
-            ]
-        );
-    }
-
-    /**
-     * Default validation rules.
-     *
-     * @param \Cake\Validation\Validator $validator validator instance
-     *
-     * @return \Cake\Validation\Validator
-     */
-    public function validationDefault(Validator $validator): Validator
-    {
-        $validator = parent::validateId($validator);
-        $validator = parent::validateField('name', $validator);
-        return $validator;
+        $this->belongsTo('PracticeGroups', [
+            'className' => 'Colmena/UsersManager.PracticeGroups'
+        ]);
     }
 }

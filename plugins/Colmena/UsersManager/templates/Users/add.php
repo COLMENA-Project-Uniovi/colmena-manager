@@ -62,6 +62,13 @@ $header = [
                 ]
             ); ?>
             <?= $this->Form->control(
+                'identifier',
+                [
+                    'label' => 'Identificador del usuario (UO)',
+                    'type' => 'text'
+                ]
+            ); ?>
+            <?= $this->Form->control(
                 'role_id',
                 [
                     'label' => 'Rol',

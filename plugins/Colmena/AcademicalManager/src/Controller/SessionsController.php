@@ -138,8 +138,8 @@ class SessionsController extends AppController
             $entity = $this->{$this->getName()}->patchEntity($entity, $data);
 
             if ($this->{$this->getName()}->save($entity)) {
-                $this->Flash->success('la sesión se ha guardado correctamente.');
-                return $this->redirect(['action' => 'edit', $entity->id]);
+                $this->Flash->success('La sesión se ha guardado correctamente.');
+                return $this->redirect(['action' => 'edit', $entity->id, $subjectID]);
             } else {
                 $error_msg = '<p>La sesión no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
                 foreach ($entity->errors() as $field => $error) {
@@ -165,11 +165,12 @@ class SessionsController extends AppController
         $entity = $this->{$this->getName()}->get($id);
         $subject = $this->{$this->getName()}->Subjects->get($subjectID);
 
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
 
             if ($this->{$this->getName()}->save($entity)) {
-                $this->Flash->success('la sesión se ha guardado correctamente.');
+                $this->Flash->success('La sesión se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
             } else {
                 $error_msg = '<p>La sesión no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';

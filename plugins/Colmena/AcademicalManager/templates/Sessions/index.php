@@ -34,17 +34,8 @@ $header = [
             <table class="table">
                 <thead class="thead">
                     <tr class="tr">
-                        <th class="th medium">
+                        <th class="th grow">
                             Nombre
-                        </th><!-- .th -->
-                        <th class="th grow">
-                            Día de la semana
-                        </th><!-- .th -->
-                        <th class="th grow">
-                            Hora de inicio
-                        </th><!-- .th -->
-                        <th class="th grow">
-                            Hora de fin
                         </th><!-- .th -->
                         <?php
                         if (!empty($table_buttons)) {
@@ -62,17 +53,8 @@ $header = [
                     foreach ($entities as $entity) {
                     ?>
                         <tr class="tr">
-                            <td class="td element medium">
+                            <td class="td element grow">
                                 <p><?= $entity->name ?></p>
-                            </td><!-- .td -->
-                            <td class="td element grow">
-                                <p><?= $entity->weekDay; ?></p>
-                            </td><!-- .td -->
-                            <td class="td element grow">
-                                <p><?= $entity->startHour; ?></p>
-                            </td><!-- .td -->
-                            <td class="td element grow">
-                                <p><?= $entity->endHour; ?></p>
                             </td><!-- .td -->
                             <?php
                             if (!empty($table_buttons)) {

@@ -9,41 +9,30 @@ $this->Breadcrumbs->add($subject->name, [
     'action' => 'edit', $subject->id
 ]);
 
-$this->Breadcrumbs->add(ucfirst($entity_name_plural), [
-    'controller' => $this->request->getParam('controller'),
-    'action' => 'index', $subject->id
+$this->Breadcrumbs->add('Sesiones', [
+    'controller' => 'Sessions',
+    'action' => 'index',
+    $subject->id
 ]);
 
-$this->Breadcrumbs->add('Editar ' . $entity->name, [
+$this->Breadcrumbs->add(ucfirst($entity_name_plural), [
+    'controller' => $this->request->getParam('controller'),
+    'action' => 'index', 
+    $session->id,
+    $subject->id
+]);
+
+$this->Breadcrumbs->add('Editar ' . $entity_name, [
     'controller' => $this->request->getParam('controller'),
     'action' => 'add', $subject->id
 ]);
 
-$tab_actions = [
-    'Datos de la sesión' => [
-        'url' => [
-            'controller' => 'Sessions',
-            'action' => 'edit/' . $entity->id . '/' . $subject->id,
-            'plugin' => 'Colmena/AcademicalManager'
-        ],
-        'current' => 'current'
-    ],
-    'Horarios y grupos de la sesión' => [
-        'url' => [
-            'controller' => 'SessionSchedules',
-            'action' => 'index/' . $entity->id . '/' . $subject->id,
-            'plugin' => 'Colmena/AcademicalManager'
-        ],
-        'current' => ''
-    ],
-];
-
 $header = [
-    'title' => 'Editar ' . $entity->name,
-    'breadcrumbs' => true,
-    'tabs' => $tab_actions
+    'title' => 'Editar ' . $entity_name,
+    'breadcrumbs' => true
 ];
 ?>
+
 <?= $this->element("header", $header); ?>
 <div class="content">
     <?= $this->Form->create(
@@ -55,50 +44,60 @@ $header = [
     ); ?>
     <div class="primary full">
         <div class="form-block">
+            <?php
+            ?>
             <h3>Datos generales</h3>
             <?= $this->Form->control(
-                'name',
+                'date',
                 [
-                    'label' => 'Nombre de la sesión',
-                    'required' => true,
-                    'type' => 'text'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'weekDay',
-                [
-                    'label' => 'Selecciona el día de la semana',
-                    'multiple' => false,
-                    'required' => true,
-                    'empty' => '--- Selecciona el día de la semana ---',
-                    'options' => [
-                        '1' => 'Lunes',
-                        '2' => 'Martes',
-                        '3' => 'Miércoles',
-                        '4' => 'Jueves',
-                        '5' => 'Viernes'
-                    ],
+                    'label' => 'Fecha de la sesión para el grupo',
+                    'type' => 'date',
                     'templateVars' => [
-                        'help' => 'Selecciona el día de la semana en el que está vigente este horario.'
+                        'help' => 'Fecha de inicio de la sesión para el grupo'
                     ]
                 ]
             ); ?>
             <?= $this->Form->control(
-                'startHour',
+                'start_hour',
                 [
-                    'label' => 'Hora de inicio de la sesión',
-                    'required' => true,
-                    'default' => new Time(),
+                    'label' => 'Fecha de fin de la sesión para el grupo',
                     'type' => 'time'
                 ]
             ); ?>
+
             <?= $this->Form->control(
-                'endHour',
+                'end_hour',
                 [
-                    'label' => 'Hora de fin de la sesión',
-                    'required' => true,
-                    'default' => new Time(),
+                    'label' => 'Fecha de fin de la sesión para el grupo',
                     'type' => 'time'
+                ]
+            ); ?>
+
+            <?= $this->Form->control(
+                'practice_group_id',
+                [
+                    'label' => 'Grupo de prácticas',
+                    'multiple' => false,
+                    'required' => true,
+                    'empty' => '--- Selecciona el grupo del horario de la sesión ---',
+                    'options' => $groups,
+                    'templateVars' => [
+                        'help' => 'Selecciona el grupo del horario de la sesión.'
+                    ]
+                ]
+            ); ?>
+        </div><!-- .form-block -->
+    </div><!-- .primary -->
+    <div class="primary full">
+        <div class="form-block">
+            <h3>Sesión asociada</h3>
+            <?= $this->Form->control(
+                'session_id',
+                [
+                    'label' => 'Sesión asignada',
+                    'type' => 'text',
+                    'value' => $session->name,
+                    'disabled' => 'disabled'
                 ]
             ); ?>
         </div><!-- .form-block -->

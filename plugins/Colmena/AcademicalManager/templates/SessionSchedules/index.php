@@ -4,11 +4,6 @@ use Cake\Utility\Inflector;
 
 $this->Breadcrumbs->add('Inicio', '/');
 
-$this->Breadcrumbs->add('Asignaturas', [
-    'controller' => 'Subjects',
-    'action' => 'index'
-]);
-
 $this->Breadcrumbs->add($subject->name, [
     'controller' => 'Subjects',
     'action' => 'edit', $subject->id
@@ -16,15 +11,50 @@ $this->Breadcrumbs->add($subject->name, [
 
 $this->Breadcrumbs->add('Sesiones', [
     'controller' => 'Sessions',
-    'action' => 'edit',
+    'action' => 'index',
     $subject->id
 ]);
+
+$this->Breadcrumbs->add('Editar ' . $session->name, [
+    'controller' => $this->request->getParam('controller'),
+    'action' => 'add', $subject->id
+]);
+
+$tab_actions = [
+    'Datos de la sesión' => [
+        'url' => [
+            'controller' => 'Sessions',
+            'action' => 'edit/' . $session->id . '/' . $subject->id,
+            'plugin' => 'Colmena/AcademicalManager'
+        ],
+        'current' => ''
+    ],
+    'Horarios y grupos de la sesión' => [
+        'url' => [
+            'controller' => 'SessionSchedules',
+            'action' => 'index/' . $session->id . '/' . $subject->id,
+            'plugin' => 'Colmena/AcademicalManager'
+        ],
+        'current' => 'current'
+    ],
+];
 
 $header = [
     'title' => ucfirst($entity_name_plural),
     'breadcrumbs' => true,
+    'tabs' => $tab_actions,
     'header' => [
-        'actions' => $header_actions
+        'actions' => [
+            'Añadir horario y grupo' => [
+                'url' => [
+                    'controller' => 'SessionSchedules',
+                    'plugin' => 'Colmena/AcademicalManager',
+                    'action' => 'add', 
+                    $session->id,
+                    $subject->id
+                ]
+            ]
+        ]
     ]
 ];
 ?>
@@ -43,10 +73,13 @@ $header = [
                             Grupo
                         </th><!-- .th -->
                         <th class="th grow">
-                            Fecha de inicio
+                            Fecha
                         </th><!-- .th -->
                         <th class="th grow">
-                            Fecha de fin
+                            Hora de inicio
+                        </th><!-- .th -->
+                        <th class="th grow">
+                            Hora de fin
                         </th><!-- .th -->
                         <?php
                         if (!empty($table_buttons)) {
@@ -68,10 +101,13 @@ $header = [
                                 <p><?= $entity->practice_group_id ?></p>
                             </td><!-- .td -->
                             <td class="td element grow">
-                                <p><?= $entity->start_date; ?></p>
+                                <p><?= $entity->date; ?></p>
                             </td><!-- .td -->
                             <td class="td element grow">
-                                <p><?= $entity->end_date; ?></p>
+                                <p><?= $entity->start_hour; ?></p>
+                            </td><!-- .td -->
+                            <td class="td element grow">
+                                <p><?= $entity->end_hour; ?></p>
                             </td><!-- .td -->
                             <?php
                             if (!empty($table_buttons)) {
@@ -81,7 +117,6 @@ $header = [
                                         <?php
                                         foreach ($table_buttons as $key => $value) {
                                             array_push($value['url'], $entity->id);
-                                            array_push($value['url'], $subject->id);
                                             if ($value['url']['action'] != 'delete') {
                                                 echo $this->Html->link(
                                                     $value['icon'],

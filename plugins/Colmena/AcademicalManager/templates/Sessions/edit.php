@@ -43,6 +43,7 @@ $header = [
     'breadcrumbs' => true,
     'tabs' => $tab_actions
 ];
+
 ?>
 <?= $this->element("header", $header); ?>
 <div class="content">
@@ -63,44 +64,18 @@ $header = [
                     'required' => true,
                     'type' => 'text'
                 ]
-            ); ?>
+            ); ?> 
             <?= $this->Form->control(
-                'weekDay',
+                'objective',
                 [
-                    'label' => 'Selecciona el día de la semana',
-                    'multiple' => false,
+                    'label' => 'Objetivo de la sesión',
                     'required' => true,
-                    'empty' => '--- Selecciona el día de la semana ---',
-                    'options' => [
-                        '1' => 'Lunes',
-                        '2' => 'Martes',
-                        '3' => 'Miércoles',
-                        '4' => 'Jueves',
-                        '5' => 'Viernes'
-                    ],
+                    'type' => 'textarea',
                     'templateVars' => [
-                        'help' => 'Selecciona el día de la semana en el que está vigente este horario.'
+                        'max' =>  200
                     ]
                 ]
-            ); ?>
-            <?= $this->Form->control(
-                'startHour',
-                [
-                    'label' => 'Hora de inicio de la sesión',
-                    'required' => true,
-                    'default' => new Time(),
-                    'type' => 'time'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'endHour',
-                [
-                    'label' => 'Hora de fin de la sesión',
-                    'required' => true,
-                    'default' => new Time(),
-                    'type' => 'time'
-                ]
-            ); ?>
+            ); ?> 
         </div><!-- .form-block -->
     </div><!-- .primary -->
     <?= $this->element("form/save-block"); ?>

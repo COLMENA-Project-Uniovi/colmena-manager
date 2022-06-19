@@ -45,38 +45,14 @@ $header = [
                 ]
             ); ?>
             <?= $this->Form->control(
-                'weekDay',
+                'objective',
                 [
-                    'label' => 'Selecciona el día de la semana',
-                    'multiple' => false,
-                    'options' => [
-                        '1' => 'Lunes',
-                        '2' => 'Martes',
-                        '3' => 'Miércoles',
-                        '4' => 'Jueves',
-                        '5' => 'Viernes',
-                        '6' => 'Sábado',
-                        '7' => 'Domingo'
-                    ],
+                    'label' => 'Objetivo de la sesión',
+                    'required' => true,
+                    'type' => 'textarea',
                     'templateVars' => [
-                        'help' => 'Selecciona el día de la semana en el que está vigente este horario.'
+                        'max' =>  200
                     ]
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'startHour',
-                [
-                    'label' => 'Hora de inicio de la sesión',
-                    'default' => new Time(),
-                    'type' => 'time'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'endHour',
-                [
-                    'label' => 'Hora de fin de la sesión',
-                    'default' => new Time(),
-                    'type' => 'time'
                 ]
             ); ?>
         </div><!-- .form-block -->
