@@ -50,7 +50,6 @@ class SessionsTable extends AppTable
     public function validationDefault(Validator $validator): Validator
     {
         $validator = parent::validateId($validator);
-        $validator = parent::validateField('name', $validator);
         return $validator;
     }
 }

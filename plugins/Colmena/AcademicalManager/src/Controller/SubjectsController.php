@@ -43,7 +43,7 @@ class SubjectsController extends AppController
                 'plugin' => 'Colmena/AcademicalManager'
             ],
             'options' => [
-                'confirm' => '¿Está seguro de que desea eliminar la asignatura?',
+                'confirm' => '¿Estás seguro de que quieres eliminar la asignatura?',
                 'class' => 'red-icon',
                 'escape' => false
             ]
