@@ -46,7 +46,7 @@ class SessionSchedulesController extends AppController
                 'plugin' => 'Colmena/AcademicalManager'
             ],
             'options' => [
-                'confirm' => '¿Está seguro de que desea eliminar el horario de la sesión?',
+                'confirm' => '¿Estás seguro de que quieres eliminar el horario de la sesión?',
                 'class' => 'red-icon',
                 'escape' => false
             ]

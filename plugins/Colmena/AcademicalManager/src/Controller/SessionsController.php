@@ -11,7 +11,7 @@ class SessionsController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'sesion';
+    public $entity_name = 'sesión';
     public $entity_name_plural = 'sesiones';
 
     // Default pagination settings
@@ -43,7 +43,7 @@ class SessionsController extends AppController
                 'plugin' => 'Colmena/AcademicalManager'
             ],
             'options' => [
-                'confirm' => '¿Está seguro de que desea eliminar la sesión?',
+                'confirm' => '¿Estás seguro de que quieres eliminar la sesión?',
                 'class' => 'red-icon',
                 'escape' => false
             ]

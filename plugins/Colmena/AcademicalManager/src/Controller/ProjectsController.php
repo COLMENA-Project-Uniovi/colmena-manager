@@ -41,7 +41,7 @@ class ProjectsController extends AppController
                 'plugin' => 'Colmena/AcademicalManager'
             ],
             'options' => [
-                'confirm' => '¿Está seguro de que desea eliminar el proyecto?',
+                'confirm' => '¿Estás seguro de que quieres eliminar el proyecto?',
                 'class' => 'red-icon',
                 'escape' => false
             ]
