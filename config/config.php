@@ -15,9 +15,9 @@ if (in_array('beta', $arrayServerName)) {
 
     //Beta Config
     $user = 'colmena_admin';
-    $pass = 'jVw6^l72';
+    $pass = '9W$ecd709';
     $database = 'colmena_bd';
-    $host = '149.62.172.121';
+    $host = '94.127.187.103';
 
     $debug = true;
 } else if (in_array('test', $arrayServerName)) {
@@ -41,7 +41,7 @@ if (in_array('beta', $arrayServerName)) {
     $user = '';
     $pass = '';
     $database = '';
-    $host = '149.62.172.121';
+    $host = '';
 
     $debug = false;
 }

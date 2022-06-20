@@ -18,7 +18,6 @@
 
         function initialize() {
             nav.find("nav .close").click(() => {
-                console.log("pene")
                 AjaxStorage.register("menu");
                 $.post(settings.urlPost)
                     .done((data, status, response) => {
@@ -1228,5 +1227,3 @@ $.fn.codeEditor = function (mode, height) {
         });
     });
 })(jQuery);
-
-

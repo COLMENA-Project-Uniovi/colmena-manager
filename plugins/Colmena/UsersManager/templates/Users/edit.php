@@ -35,9 +35,16 @@ $header = [
                 ]
             ); ?>
             <?= $this->Form->control(
-                'surnames',
+                'surname',
                 [
-                    'label' => 'Apellidos del usuario',
+                    'label' => 'Primer apellido del usuario',
+                    'type' => 'text'
+                ]
+            ); ?>
+            <?= $this->Form->control(
+                'surname2',
+                [
+                    'label' => 'Segundo apellido del usuario',
                     'type' => 'text'
                 ]
             ); ?>
@@ -55,7 +62,13 @@ $header = [
                     'type' => 'number'
                 ]
             ); ?>
-
+            <?= $this->Form->control(
+                'identifier',
+                [
+                    'label' => 'Identificador del usuario (UO)',
+                    'type' => 'text'
+                ]
+            ); ?>
             <?= $this->Form->control(
                 'role_id',
                 [
