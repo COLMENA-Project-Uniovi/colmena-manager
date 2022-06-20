@@ -8,9 +8,10 @@ use Cake\Core\Configure;
 
 Configure::write('Colmena/UsersManager.menuItems', [
     'Usuarios' => [
-        'order' => 1,
+        'order' => 2,
         'items' => [
-            'Usuarios' => [
+            'Alumnos' => [
+                'icon' => '<i class="far fa-user"></i>',
                 'link' => [
                     'controller' => 'Users',
                     'action' => 'index',
@@ -18,9 +19,23 @@ Configure::write('Colmena/UsersManager.menuItems', [
                 ],
                 'extra' => [
                     'class' => 'menu-item',
+                    'escape' => false
+                ],
+            ],
+            'Grupos de prácticas' => [
+                'icon' => '<i class="fad fa-users"></i>',
+                'link' => [
+                    'controller' => 'PracticeGroups',
+                    'action' => 'index',
+                    'plugin' => 'Colmena/UsersManager',
+                ],
+                'extra' => [
+                    'class' => 'menu-item',
+                    'escape' => false
                 ],
             ],
             'Gestionar roles' => [
+                'icon' => '<i class="far fa-user-tag"></i>',
                 'link' => [
                     'controller' => 'UserRoles',
                     'action' => 'index',
@@ -28,6 +43,7 @@ Configure::write('Colmena/UsersManager.menuItems', [
                 ],
                 'extra' => [
                     'class' => 'menu-item',
+                    'escape' => false
                 ],
             ],
         ],
@@ -68,6 +84,9 @@ Configure::write('Colmena/UsersManager.special_method_entity_roles', []);
 Configure::write('Colmena/UsersManager.api_entities', [
     'Colmena/UsersManager.Users' => [
         'order' => 1,
+    ],
+    'Colmena/UsersManager.PracticeGroups' => [
+        'order' => 2,
     ]
 ]);
 

@@ -306,6 +306,7 @@ Configure::write('Admin.menuItems', [
         'order' => 13,
         'items' => [
             'Ver usuarios de administración' => [
+                'icon' => '<i class="far fa-tools"></i>',
                 'link' => [
                     'controller' => 'AdminUsers',
                     'action' => 'index',
@@ -313,6 +314,7 @@ Configure::write('Admin.menuItems', [
                 ],
                 'extra' => [
                     'class' => 'menu-item',
+                    'escape' => false
                 ],
             ]
         ],
@@ -496,3 +498,9 @@ Configure::load('colors', 'default');
  * Load default SEO config
  */
 Configure::load('seo', 'default');
+
+/*
+* Load configuration for Vue.js
+*/
+header('Access-Control-Allow-Methods: POST, GET, PUT, PATCH, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: *');

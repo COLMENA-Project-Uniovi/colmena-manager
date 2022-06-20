@@ -59,15 +59,6 @@ $header = [
                 ]
             ); ?>
             <?= $this->Form->control(
-                'restaurant_id',
-                [
-                    'label' => 'Sidrería',
-                    'options' => $restaurants,
-                    'empty' => 'Selecciona la sidreria a la que tendrá acceso',
-                    'required' => false,
-                ]
-            ); ?>
-            <?= $this->Form->control(
                 'role_id',
                 [
                     'label' => 'Rol de usuario',

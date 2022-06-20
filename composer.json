@@ -34,6 +34,7 @@
         "psr-4": {
             "App\\": "src",
             "Colmena\\UsersManager\\": "./plugins/Colmena/UsersManager/src",
+            "Colmena\\AcademicalManager\\": "./plugins/Colmena/AcademicalManager/src",
             "Colmena\\MailManager\\": "./plugins/Colmena/MailManager/src/",
             "Colmena\\MailingManager\\": "./plugins/Colmena/MailingManager/src/",
             "Colmena\\MediaManager\\": "./plugins/Colmena/MediaManager/src"

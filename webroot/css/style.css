@@ -174,13 +174,13 @@ a {
 #main-content {
   width: 100%;
   min-height: 100vh;
-  padding: 0 0 0 250px;
+  padding: 0 0 0 220px;
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
 
 #main-content .content {
-  padding: 140px 0;
+  padding: 160px 0;
   width: 95%;
   margin: auto;
 }
@@ -1223,6 +1223,7 @@ strong {
 .admin-form .primary.half-grid {
   display: -ms-grid;
   display: grid;
+  width: 100%;
   -ms-grid-columns: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
   grid-gap: 20px;
@@ -2186,8 +2187,8 @@ strong {
 header {
   background-color: #F4F4F4;
   position: fixed;
-  height: 120px;
-  width: calc(100% - 250px);
+  height: 140px;
+  width: calc(100% - 220px);
   -webkit-box-shadow: 0 10px 25px rgba(10, 10, 51, 0.1);
           box-shadow: 0 10px 25px rgba(10, 10, 51, 0.1);
 }
@@ -2282,6 +2283,30 @@ header.home h1 {
 .top-header .languages a.current {
   color: #000000;
   background-color: #F3933D;
+}
+
+.top-header .logout {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px 20px;
+  border-top: 1px solid #666666;
+  text-align: right;
+  color: #AAAAAA;
+}
+
+.top-header .logout a {
+  color: inherit;
+}
+
+.top-header .logout a:hover {
+  color: #F3933D;
 }
 
 .mid-header {
@@ -2567,7 +2592,7 @@ header.home h1 {
 /* -------------------------- */
 /* NAVIGATION */
 nav {
-  width: 250px;
+  width: 220px;
   height: 100%;
   position: fixed;
   z-index: 10;
@@ -2602,9 +2627,10 @@ nav .logo {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
-  width: 100%;
+  width: 70%;
   min-height: 50px;
   padding: 10px;
+  margin: auto;
 }
 
 nav .logo a {
@@ -2707,26 +2733,36 @@ nav .items .menu-title {
 }
 
 nav .items .menu-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 15px;
   position: relative;
-  display: block;
-  padding: 0 20px;
-  margin: 20px 0;
-  border-left: 0px solid #FFFFFF;
   color: #FFFFFF;
   text-decoration: none;
   overflow: hidden;
+  padding: 10px 20px;
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
 
 nav .items .menu-item:hover {
-  border-left: 5px solid #FFFFFF;
+  color: #F3933D;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 nav .items .menu-item.current {
   color: #F3933D;
-  border-left: 5px solid #F3933D;
   font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+nav .items .menu-item svg {
+  width: 1.5em;
 }
 
 nav .logout {
@@ -2868,6 +2904,19 @@ nav.small .logout {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+}
+
+.home-selector {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 11;
+  background: white;
+}
+
+.home-selector.visible {
+  display: block;
 }
 
 /* -------------------------- */

@@ -13,6 +13,29 @@
                     ['separator' => ' &raquo; ']
                 ); ?>
             </div>
+
+            <div class="logout">
+                <span class="user" style="font-size: 15px;">
+                    <i class="fal fa-user-circle"></i>
+                    <?php
+                    if (!isset($user)) {
+                        header('Location: ' . 'https://' . $_SERVER['HTTP_HOST'] . '/admin');
+                        die();
+                    }
+                    ?>
+                </span>
+                <?= $this->Html->link(
+                    '<i class="fa fa-power-off"></i>',
+                    [
+                        'controller' => 'AdminUsers',
+                        'action' => 'logout',
+                        'plugin' => false
+                    ],
+                    [
+                        'escape' => false
+                    ]
+                ); ?>
+            </div><!-- .logout -->
             <?php
             if (isset($languages)) {
             ?>

@@ -6,6 +6,8 @@ use App\Model\Table\AdminUsersTable;
 use Cake\Core\Configure;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
+use Cake\Http\Session;
+use Cake\ORM\TableRegistry;
 
 /**
  * Users Controller
@@ -70,25 +72,6 @@ class AdminUsersController extends AppController
         ]
     ];
 
-    // public $tab_actions = [
-    //     'Datos del usuario' => [
-    //         'url' => [
-    //             'controller' => 'AdminUsers',
-    //             'action' => 'edit',
-    //             'plugin' => false
-    //         ],
-    //         'current' => ''
-    //     ],
-    //     'Permisos del usuario' => [
-    //         'url' => [
-    //             'controller' => 'AdminUsers',
-    //             'action' => 'userRoles',
-    //             'plugin' => false
-    //         ],
-    //         'current' => ''
-    //     ]
-    // ];
-
     // Default pagination settings
     public $paginate = [
         'limit' => 20,
@@ -108,9 +91,11 @@ class AdminUsersController extends AppController
     public function beforeFilter(\Cake\Event\EventInterface $event)
     {
         // If we are logged in and generating a new password
-        if ($this->request->getParam('action') != 'login' &&
+        if (
+            $this->request->getParam('action') != 'login' &&
             $this->request->getParam('action') != 'logout' &&
-            !$this->Auth->user()) {
+            !$this->Auth->user()
+        ) {
             // Deny access to all actions except login and logout
             return $this->redirect(['action' => 'login']);
         }
@@ -149,7 +134,7 @@ class AdminUsersController extends AppController
 
         $entities = $this->paginate($this->modelClass);
 
-        foreach($entities as $entity) {
+        foreach ($entities as $entity) {
             $entity['role_name'] = $this->{$this->getName()}->AdminUserRoles->get($entity['role_id'])->name;
         }
 
@@ -193,9 +178,8 @@ class AdminUsersController extends AppController
         }
 
         $roles = $this->{$this->getName()}->AdminUserRoles->find('list');
-        $restaurants = $this->{$this->getName()}->Restaurant->find('list');
 
-        $this->set(compact('entity', 'roles', 'restaurants'));
+        $this->set(compact('entity', 'roles'));
     }
 
     /**
@@ -206,9 +190,7 @@ class AdminUsersController extends AppController
      */
     public function edit($id = null)
     {
-        $entity = $this->{$this->getName()}->get($id, [
-            'contain' => ['Restaurant'],
-        ]);
+        $entity = $this->{$this->getName()}->get($id);
 
         if (!isset($entity) || is_null($entity)) {
             $this->Flash->error('Usuario de administración no encontrado');
@@ -218,7 +200,7 @@ class AdminUsersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
 
-            if($data['password'] == '********') {
+            if ($data['password'] == '********') {
                 unset($data['password']);
             } else if (!isset($data['password_repeat']) || $data['password_repeat'] != $data['password']) {
                 $this->Flash->error('Las contraseñas no coinciden.');
@@ -238,9 +220,8 @@ class AdminUsersController extends AppController
         }
 
         $roles = $this->{$this->getName()}->AdminUserRoles->find('list');
-        $restaurants = $this->{$this->getName()}->Restaurant->find('list');
 
-        $this->set(compact('entity', 'roles', 'restaurants'));
+        $this->set(compact('entity', 'roles'));
     }
 
     /**
@@ -270,13 +251,22 @@ class AdminUsersController extends AppController
     public function login()
     {
         $this->viewBuilder()->setLayout('login');
+        $session = $this->request->getSession();
+
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
+
             if ($user && $user['is_active'] == 1) {
                 $this->Auth->setUser($user);
+
+                $projectsTable = TableRegistry::getTableLocator()->get('acm_projects');
+                $projects = $projectsTable->find('all')->where(['user_id' => $user['id']])->toArray();
+                $session->write('Projects', $projects);
+                
                 return $this->redirect($this->Auth->redirectUrl());
             }
-            if($user && !$user['is_active']) {
+
+            if ($user && !$user['is_active']) {
                 $this->Flash->error(
                     'La cuenta ha sido desactivada',
                     [
@@ -293,7 +283,6 @@ class AdminUsersController extends AppController
                     ]
                 );
             }
-
         } else {
             $this->Flash->default(
                 'Para acceder al portal es necesario usuario y contraseña',
@@ -343,5 +332,22 @@ class AdminUsersController extends AppController
 
         $response = $response->withStringBody(json_encode($data));
         return $response;
+    }
+
+    /**
+     * Method which puts the project Id into the session
+     *
+     * @return void
+     */
+    public function startSession()
+    {
+        $session = $this->request->getSession();
+        $response = $this->response->withType('json');
+        
+        $projectID = $this->request->getData();
+        $session->write('Projectid', $projectID);
+
+        Configure::write('Session.project', $projectID);
+        return $response->withStringBody(json_encode($projectID));
     }
 }

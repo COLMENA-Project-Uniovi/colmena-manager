@@ -12,7 +12,7 @@ return [
             'mailgun' => [
                 'className' => 'Mailgun.Mailgun',
                 'apiEndpoint' => 'https://api.mailgun.net/v3',
-                'domain' => 'mg.neozink.com',
+                'domain' => 'mg.colmenaproject.es',
                 'apiKey' => 'key-24daf63f4717b01caea6dbe7db6d576d',
             ],
         ],
