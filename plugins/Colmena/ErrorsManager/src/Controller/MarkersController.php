@@ -21,7 +21,7 @@ class MarkersController extends AppController
             'id' => 'ASC'
         ],
         'contain' => [
-            'Sessions'
+            'Sessions', 'Conflicts'
         ]
     ];
 
@@ -115,35 +115,20 @@ class MarkersController extends AppController
      */
     public function add()
     {
-        $entity = $this->{$this->getName()}->newEmptyEntity();
+        $marker = $this->{$this->getName()}->newEmptyEntity();
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-            $entity = $this->{$this->getName()}->patchEntity($entity, $data);
+            $marker = $this->{$this->getName()}->patchEntity($marker, $data);
 
-            if ($this->{$this->getName()}->save($entity)) {
+            if ($marker = $this->{$this->getName()}->save($marker)) {
                 $this->Flash->success('El marker se ha guardado correctamente.');
 
-                $dateParts = explode(' ', $data['creation_time']);
-                $date = date('Y-m-d', strtotime($dateParts[0])); // Y-m-d
-                $hour = date('H:i:s', strtotime($dateParts[1])); // H:i:s
-
-                $sessions = $this->{$this->getName()}->Sessions
-                    ->find('all')
-                    ->matching('SessionSchedules', function ($q) use ($date, $hour) {
-                        return $q->where(['SessionSchedules.date' => $date, 'SessionSchedules.end_hour >=' => $hour, 'SessionSchedules.start_hour <=' => $hour]);
-                    });
-
-                if (count($sessions->toArray()) > 1) {
-                    $conflictSessions = $sessions->toArray();
-                    //TODO: Hacer que ponga que existe el conflicto para que el usuario lo resuelva manualmente
-                }
-
-                //TODO: devolver un OK cuando las sesiones sean unicas.
+                $this->linkWithSession($data['creation_time'], $marker);
 
                 //TODO: crear error con los datos que tiene el marcador
             } else {
                 $error_msg = '<p>El marker no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($entity->errors() as $field => $error) {
+                foreach ($marker->errors() as $field => $error) {
                     $error_msg .= '<p>' . $error['message'] . '</p>';
                 }
                 $this->Flash->error($error_msg, ['escape' => false]);
@@ -201,5 +186,55 @@ class MarkersController extends AppController
             $this->Flash->error('El rol no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
         }
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * Function with links the marker with the corresponding session.
+     * If there are more than one, it creates a conflict that will be
+     * solved by the user
+     *
+     * @param [date] $creationTime
+     * @param [type] $entity
+     * @return void
+     */
+    private function linkWithSession($creationTime, $entity)
+    {
+        $dateParts = explode(' ', $creationTime);
+        $date = date('Y-m-d', strtotime($dateParts[0])); // Y-m-d
+        $hour = date('H:i:s', strtotime($dateParts[1])); // H:i:s
+
+        $sessions = $this->{$this->getName()}->Sessions
+            ->find('all')
+            ->matching('SessionSchedules', function ($q) use ($date, $hour) {
+                return $q->where(['SessionSchedules.date' => $date, 'SessionSchedules.end_hour >=' => $hour, 'SessionSchedules.start_hour <=' => $hour]);
+            });
+
+        if (count($sessions->toArray()) > 1) {
+            $conflictSessions = $sessions->toArray();
+
+            // TODO: correct patch entity to save conflicts
+            $data['conflicts'] = [
+                0 => $conflictSessions[0]['id'],
+                1 => $conflictSessions[1]['id'],
+            ];
+
+            $entity = $this->{$this->getName()}->find()->where(['id' => $entity['id']])->contain(['Conflicts'])->first();
+            $entity = $this->{$this->getName()}->patchEntity($entity, $data);
+
+            echo '<pre>',var_dump($entity),'</pre>';die;
+
+            echo '<pre>',var_dump($entity),'</pre>';die;
+
+            echo '<pre>',var_dump($conflictSessions),'</pre>';die;
+            //TODO: Hacer que ponga que existe el conflicto para que el usuario lo resuelva manualmente
+
+            return false;
+        } else {
+            $data['session_id'] = $sessions->first()['id'];
+            $entity = $this->{$this->getName()}->patchEntity($entity, $data);
+            $entity = $this->{$this->getName()}->save($entity);
+
+            return true;
+        }
     }
 }

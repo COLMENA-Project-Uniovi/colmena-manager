@@ -1,15 +1,16 @@
 <?php
+
 namespace Colmena\ErrorsManager\Model\Table;
 
 use App\Model\Table\AppTable;
 use Cake\Validation\Validator;
 
 /**
- * Student Model.
+ * Marker Model.
  *
  */
 class MarkersTable extends AppTable
-{    
+{
     /**
      * Initialize method.
      *
@@ -26,6 +27,16 @@ class MarkersTable extends AppTable
             'className' => 'Colmena/AcademicalManager.Sessions',
             'foreignKey' => 'id',
         ]);
+
+        $this->belongsToMany(
+            'Conflicts',
+            [
+                'className' => 'Colmena/AcademicalManager.Sessions',
+                'joinTable' => 'em_markers_conflicts',
+                'foreignKey' => 'marker_id',
+                'targetForeignKey' => 'session_id',
+            ]
+        );
     }
 
     /**
