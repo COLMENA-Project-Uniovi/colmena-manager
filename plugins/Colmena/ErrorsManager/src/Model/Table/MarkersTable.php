@@ -1,22 +1,15 @@
 <?php
-
 namespace Colmena\ErrorsManager\Model\Table;
 
-use Colmena\ErrorsManager\Model\Entity\Error;
 use App\Model\Table\AppTable;
-use Cake\ORM\Table;
 use Cake\Validation\Validator;
-use Cake\ORM\TableRegistry;
-use App\Encryption\EncryptTrait;
 
 /**
  * Student Model.
  *
  */
 class MarkersTable extends AppTable
-{
-    use EncryptTrait;
-    
+{    
     /**
      * Initialize method.
      *
@@ -28,6 +21,11 @@ class MarkersTable extends AppTable
 
         $this->setTable('em_markers');
         $this->setPrimaryKey('id');
+
+        $this->hasOne('Sessions', [
+            'className' => 'Colmena/AcademicalManager.Sessions',
+            'foreignKey' => 'id',
+        ]);
     }
 
     /**
