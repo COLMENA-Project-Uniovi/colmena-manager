@@ -1,4 +1,5 @@
 <?php
+
 namespace Colmena\ErrorsManager\Controller;
 
 use Colmena\ErrorsManager\Controller\AppController;
@@ -19,13 +20,16 @@ class MarkersController extends AppController
         'order' => [
             'id' => 'ASC'
         ],
+        'contain' => [
+            'Sessions'
+        ]
     ];
 
     protected $table_buttons = [
         'Editar' => [
             'icon' => '<i class="fas fa-edit"></i>',
             'url' => [
-                'controller' => 'Roles',
+                'controller' => 'Markers',
                 'action' => 'edit',
                 'plugin' => 'Colmena/ErrorsManager'
             ],
@@ -37,27 +41,19 @@ class MarkersController extends AppController
         'Borrar' => [
             'icon' => '<i class="fas fa-trash"></i>',
             'url' => [
-                'controller' => 'Roles',
+                'controller' => 'Markers',
                 'action' => 'delete',
                 'plugin' => 'Colmena/ErrorsManager'
             ],
             'options' => [
-                'confirm' => '¿Está seguro de que desea eliminar el rol?',
+                'confirm' => '¿Estás seguro de que quieres eliminar el rol?',
                 'class' => 'red-icon',
                 'escape' => false
             ]
         ]
     ];
 
-    protected $header_actions = [
-        'Añadir rol' => [
-            'url' => [
-                'controller' => 'UserRoles',
-                'plugin' => 'Colmena/ErrorsManager',
-                'action' => 'add'
-            ]
-        ],
-    ];
+    protected $header_actions = [];
 
     protected $tab_actions = [];
 
@@ -70,7 +66,7 @@ class MarkersController extends AppController
     public function beforeFilter(\Cake\Event\EventInterface $event)
     {
         parent::beforeFilter($event);
-		$this->Auth->allow([
+        $this->Auth->allow([
             'add'
         ]);
     }
@@ -111,7 +107,7 @@ class MarkersController extends AppController
         $this->set('_serialize', 'entities');
         $this->set('keyword', $keyword);
     }
-    
+
     /**
      * Add method
      *
@@ -124,12 +120,27 @@ class MarkersController extends AppController
             $data = $this->request->getData();
             $entity = $this->{$this->getName()}->patchEntity($entity, $data);
 
-            $entity = $this->{$this->getName()}->save($entity);
-
             if ($this->{$this->getName()}->save($entity)) {
                 $this->Flash->success('El marker se ha guardado correctamente.');
 
-                //TODO: make relation with Sessions when possible
+                $dateParts = explode(' ', $data['creation_time']);
+                $date = date('Y-m-d', strtotime($dateParts[0])); // Y-m-d
+                $hour = date('H:i:s', strtotime($dateParts[1])); // H:i:s
+
+                $sessions = $this->{$this->getName()}->Sessions
+                    ->find('all')
+                    ->matching('SessionSchedules', function ($q) use ($date, $hour) {
+                        return $q->where(['SessionSchedules.date' => $date, 'SessionSchedules.end_hour >=' => $hour, 'SessionSchedules.start_hour <=' => $hour]);
+                    });
+
+                if (count($sessions->toArray()) > 1) {
+                    $conflictSessions = $sessions->toArray();
+                    //TODO: Hacer que ponga que existe el conflicto para que el usuario lo resuelva manualmente
+                }
+
+                //TODO: devolver un OK cuando las sesiones sean unicas.
+
+                //TODO: crear error con los datos que tiene el marcador
             } else {
                 $error_msg = '<p>El marker no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
                 foreach ($entity->errors() as $field => $error) {
