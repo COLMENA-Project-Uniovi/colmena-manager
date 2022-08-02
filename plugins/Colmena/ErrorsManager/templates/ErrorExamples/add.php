@@ -89,7 +89,7 @@ $header = [
             <?= $this->Form->control(
                 'explanation',
                 [
-                    'label' => 'Código de error',
+                    'label' => 'Explicación',
                     'type' => 'textarea'
                 ]
             ); ?>

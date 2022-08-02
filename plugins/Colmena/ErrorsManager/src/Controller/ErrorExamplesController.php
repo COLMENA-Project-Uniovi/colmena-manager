@@ -3,18 +3,14 @@
 namespace Colmena\ErrorsManager\Controller;
 
 use Colmena\ErrorsManager\Controller\AppController;
-use Cake\Event\Event;
 use App\Encryption\EncryptTrait;
-use Cake\Http\Exception\ForbiddenException;
-use Cake\Http\Exception\UnauthorizedException;
-use Cake\ORM\TableRegistry;
 
-class ErrorsController extends AppController
+class ErrorExamplesController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'error';
-    public $entity_name_plural = 'errores';
+    public $entity_name = 'ejemplo de error';
+    public $entity_name_plural = 'ejemplos de errores';
 
     // Default pagination settings
     public $paginate = [
@@ -55,7 +51,7 @@ class ErrorsController extends AppController
     protected $header_actions = [
         'Añadir error de ejemplo' => [
             'url' => [
-                'controller' => 'ErrorExamples',
+                'controller' => 'Errors',
                 'plugin' => 'Colmena/ErrorsManager',
                 'action' => 'add'
             ]

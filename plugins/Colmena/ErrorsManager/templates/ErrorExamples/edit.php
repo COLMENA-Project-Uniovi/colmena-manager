@@ -9,7 +9,7 @@ $this->Breadcrumbs->add('Añadir ' . $entity_name, [
     'action' => 'add'
 ]);
 $header = [
-    'title' => 'Añadir ' . $entity_name,
+    'title' => 'Editar ' . $entity_name,
     'breadcrumbs' => true
 ];
 ?>
@@ -89,7 +89,7 @@ $header = [
             <?= $this->Form->control(
                 'explanation',
                 [
-                    'label' => 'Código de error',
+                    'label' => 'Explicación',
                     'type' => 'textarea'
                 ]
             ); ?>
