@@ -1,6 +1,18 @@
 <?php
+
+/**
+ * @copyright     Copyright (c) Neozink
+ * @link          http://www.neozink.com Neozink Mkt No Convencional
+ * @since         Neozink(tm) v 0.0.2
+ * @license       All Rights Reserved
+ */
+
 // Some usefull classes needed in default view
+use Cake\Cache\Cache;
 use Cake\Core\Configure;
+use Cake\Datasource\ConnectionManager;
+use Cake\Error\Debugger;
+use Cake\Http\Exception\NotFoundException;
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,19 +31,14 @@ use Cake\Core\Configure;
     );
     echo $this->fetch('meta');
 
-    $this->Html->css('vendors/jquery-ui-1.12.1/jquery-ui.min', ['block' => 'css']);
     $this->Html->css('base', ['block' => 'default']);
     $this->Html->css('cake', ['block' => 'default']);
 
     // JQUERY
     $this->Html->css('style', ['block' => 'css']);
 
-
     $this->Html->script('vendors/jquery/jquery-3.3.1.min', ['block' => 'vendors']);
     $this->Html->script('vendors/jquery/jquery-ui-1.12.1/jquery-ui.min', ['block' => 'vendors']);
-
-    // FONT AWESOME
-    $this->Html->script('https://kit.fontawesome.com/ff149dc327.js', ['block' => 'vendors']);
 
     // SELECT 2
     $this->Html->css('vendors/select2/select2.min', ['block' => 'vendors']);
@@ -39,13 +46,8 @@ use Cake\Core\Configure;
     $this->Html->script('vendors/select2/select2_locale_es', ['block' => 'vendors']);
 
     // NEO MAPS
-    // $this->Html->script("https://maps.google.com/maps/api/js?key=AIzaSyDCj91m02CHBP0pFwEIqSYIWWMlmL4oTwc", ['block' => "vendors"]);
-    // $this->Html->script('vendors/maps/neo-maps-3.0', ['block' => 'vendors']);
-
-    // TINYMCE
-    $this->Html->script('vendors/tinymce/tinymce.min', ['block' => 'vendors']);
-    $this->Html->script('vendors/tinymce/jquery.tinymce.min', ['block' => 'vendors']);
-    $this->Html->script('vendors/tinymce/es', ['block' => 'vendors']);
+    $this->Html->script("https://maps.google.com/maps/api/js?key=AIzaSyDCj91m02CHBP0pFwEIqSYIWWMlmL4oTwc", ['block' => "vendors"]);
+    $this->Html->script('vendors/maps/neo-maps-3.0', ['block' => 'vendors']);
 
     //COLOR SELECTOR
     $this->Html->css("https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.css", ['block' => 'vendors']);
@@ -60,6 +62,8 @@ use Cake\Core\Configure;
     // FUNCTIONS
     $this->Html->script('functions', ['block' => 'scripts']);
 
+    $this->Html->css('https://pro.fontawesome.com/releases/v5.12.0/css/all.css', ['integrity' => 'sha384-ekOryaXPbeCpWQNxMwSWVvQ0+1VrStoPJq54shlYhR8HzQgig1v5fas6YgOqLoKz', 'crossorigin' => 'anonymous', 'block' => 'vendors']);
+
     $this->Html->css('https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css', ['block' => 'vendors']);
     $this->Html->script('https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js', ['block' => 'scripts']);
 
@@ -68,7 +72,12 @@ use Cake\Core\Configure;
     echo $this->fetch('vendors');
     echo $this->fetch('scripts');
     ?>
+    
     <!-- JS CONSTANS DEFINITIONS -->
+
+    <!-- TINYMCE -->
+    <script src="https://cdn.tiny.cloud/1/4ephn0sricfd36zvlngpa88irhicx0tl8yj47ie2fa3xixaq/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
     <script>
         const ADMIN_PATH = '<?= $this->Url->build('/', ['fullBase' => true]); ?>';
         const TEMPLATES_PATH = ADMIN_PATH + 'webroot/js/templates/';
@@ -80,14 +89,6 @@ use Cake\Core\Configure;
 
 <body>
     <div id="container">
-        <?php
-        $session = $this->request->getSession();
-        $projectID = $session->read('Projectid');
-
-        if (empty($projectID['projectID'])) {
-            echo $this->element('intermediate');
-        }
-        ?>
         <?= $this->element('main-menu', $menuItems); ?>
 
         <div id="main-content" <?= isset($_SESSION['menu_hide']) && $_SESSION['menu_hide'] ? 'class="wide"' : '' ?>>

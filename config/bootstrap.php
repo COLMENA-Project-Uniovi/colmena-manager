@@ -328,7 +328,6 @@ Configure::write('Admin.menuItems', [
  * Set the entities affected by user roles with array_merge
  */
 Configure::write('Admin.rolable_entities', [
-    'Contacts' => 'Direcciones',
     'AdminUsers' => 'Usuarios de administración',
     'AdminUserRoles' => 'Roles de usuario',
 ]);
