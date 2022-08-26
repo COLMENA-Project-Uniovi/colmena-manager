@@ -5,8 +5,7 @@
     $.fn.sideMenu = function (options) {
         let nav = this;
 
-        const settings = $.extend(
-            {
+        const settings = $.extend({
                 // These are the defaults.
                 urlPost: ADMIN_PATH + "admin-users/hide-menu",
                 mainContentSelector: "#main-content",
@@ -143,13 +142,13 @@
             const controller = checkbox.data("controller");
             const field = checkbox.data("field");
             const lang =
-                typeof checkbox.data("lang") != "undefined"
-                    ? checkbox.data("lang")
-                    : false;
+                typeof checkbox.data("lang") != "undefined" ?
+                checkbox.data("lang") :
+                false;
             const plugin =
-                typeof checkbox.data("plugin") != "undefined"
-                    ? checkbox.data("plugin")
-                    : false;
+                typeof checkbox.data("plugin") != "undefined" ?
+                checkbox.data("plugin") :
+                false;
 
             let url_post = controller + "/change-boolean/" + id + "/" + field;
             if (plugin !== false) {
@@ -368,13 +367,17 @@
 
         let cm = CodeMirror.fromTextArea(editor[0], {
             mode: mode,
-            extraKeys: { "Ctrl-Space": "autocomplete" },
+            extraKeys: {
+                "Ctrl-Space": "autocomplete"
+            },
             styleActiveLine: true,
             indentUnit: 4,
             lineNumbers: true,
             lineWrapping: true,
             showTrailingSpace: true,
-            matchTags: { bothTags: true },
+            matchTags: {
+                bothTags: true
+            },
             autoCloseTags: true,
             gutters: ["CodeMirror-lint-markers"],
             lint: true,
@@ -384,7 +387,7 @@
     };
 
     $(document).ready(() => {
-        loadCodeEditor();
+        loadCodeEditor(true);
     });
 })(jQuery);
 
@@ -469,8 +472,7 @@ $.fn.codeEditor = function (mode, height) {
     $.fn.form = function (options) {
         let form = this;
 
-        const settings = $.extend(
-            {
+        const settings = $.extend({
                 colors: COLORS,
             },
             options
@@ -514,10 +516,10 @@ $.fn.codeEditor = function (mode, height) {
                 }
                 return $(
                     '<span class="color-block" style="background-color: ' +
-                        settings.colors[element.id] +
-                        '"></span><span class="color-text">' +
-                        element.text +
-                        "</span>"
+                    settings.colors[element.id] +
+                    '"></span><span class="color-text">' +
+                    element.text +
+                    "</span>"
                 );
             };
             form.find("select.color").select2({
@@ -605,27 +607,22 @@ $.fn.codeEditor = function (mode, height) {
             function initStandardEditor() {
                 tinymce.init({
                     selector: ".texteditor",
-                    height: 600,
+                    height: 400,
                     oninit: "setPlainText",
                     language: "es",
-                    plugins:
-                        "code link autosave image paste template hr advlist autolink image lists charmap preview",
-                    toolbar:
-                        "undo redo | cut copy paste | styleselect template | bold italic underline strikethrough | forecolor backcolor | link hr | alignleft aligncenter alignright alignjustify | bullist numlist | removeformat code",
+                    plugins: ["code", "link", "autosave", "image", "template", "advlist", "autolink", "image", "lists", "charmap", "preview"],
+                    toolbar: "undo redo | cut copy paste | styleselect template | bold italic underline strikethrough | forecolor backcolor | link hr | alignleft aligncenter alignright alignjustify | bullist numlist | removeformat code",
                     menubar: "file edit insert view format table help",
                     convert_urls: false,
-
                     style_formats: TYPOGRAPHY["standard"],
                     color_map: TEXTCOLOR_MAP,
                     style_formats_merge: false,
                     style_formats_autohide: false,
                     force_hex_style_colors: true,
-                    content_css:
-                        ADMIN_PATH +
+                    content_css: ADMIN_PATH +
                         "/css/vendors/tinymce/style.css?" +
                         new Date().getTime(),
-                    templates:
-                        ADMIN_PATH +
+                    templates: ADMIN_PATH +
                         "/js/vendors/tinymce/templates/standard.php?admin_path=" +
                         ADMIN_PATH,
                 });
@@ -639,10 +636,8 @@ $.fn.codeEditor = function (mode, height) {
                     selector: ".headereditor",
                     height: 400,
                     oninit: "setPlainText",
-                    plugins:
-                        "code link autosave image paste template hr advlist autolink image lists charmap preview",
-                    toolbar:
-                        "undo redo | cut copy paste | bold italic styleselect template | forecolor backcolor | link hr | alignleft aligncenter alignright alignjustify | bullist numlist | removeformat code",
+                    plugins: ["code", "link", "autosave", "image", "template", "advlist", "autolink", "image", "lists", "charmap", "preview"],
+                    toolbar: "undo redo | cut copy paste | bold italic styleselect template | forecolor backcolor | link hr | alignleft aligncenter alignright alignjustify | bullist numlist | removeformat code",
                     menubar: "file edit insert view format table help",
                     convert_urls: false,
                     style_formats: TYPOGRAPHY["header"],
@@ -650,12 +645,10 @@ $.fn.codeEditor = function (mode, height) {
                     style_formats_merge: false,
                     style_formats_autohide: true,
                     force_hex_style_colors: true,
-                    content_css:
-                        ADMIN_PATH +
+                    content_css: ADMIN_PATH +
                         "/css/vendors/tinymce/style.css?" +
                         new Date().getTime(),
-                    templates:
-                        ADMIN_PATH +
+                    templates: ADMIN_PATH +
                         "/js/vendors/tinymce/templates/header.php?admin_path=" +
                         ADMIN_PATH,
                 });
@@ -838,9 +831,9 @@ $.fn.codeEditor = function (mode, height) {
             const id = locks.data("id");
             const controller = locks.data("controller");
             const plugin =
-                typeof locks.data("plugin") != "undefined"
-                    ? locks.data("plugin")
-                    : false;
+                typeof locks.data("plugin") != "undefined" ?
+                locks.data("plugin") :
+                false;
 
             lock.toggleClass("is_active");
 
@@ -979,17 +972,17 @@ $.fn.codeEditor = function (mode, height) {
             ".parameters-block-list__item"
         );
 
-        const itemID = blockListItems[blockListItems.length - 1]
-            ? parseInt(
-                  blockListItems[blockListItems.length - 1].dataset.itemId
-              ) + 1
-            : 0;
+        const itemID = blockListItems[blockListItems.length - 1] ?
+            parseInt(
+                blockListItems[blockListItems.length - 1].dataset.itemId
+            ) + 1 :
+            0;
 
         return fetch(
-            `${TEMPLATES_PATH}parameters/${blockListContainer.data(
+                `${TEMPLATES_PATH}parameters/${blockListContainer.data(
                 "type"
             )}/item.mustache`
-        )
+            )
             .then((response) => response.text())
             .then((template) => {
                 const data = {

@@ -239,10 +239,10 @@ class AppController extends Controller
 
         $roles_table = TableRegistry::getTableLocator()->get('AdminUserRoles');
         $role =  $roles_table->getRoleFromUser($user);
-
+        
         // Admin can access every action
         // if user not admin, check privileges from role database table array and rol entities
-        if ($role['is_admin'] || $this->Roles->checkAuthorized($role)) {
+        if (isset($role) && ($role['is_admin'] || $this->Roles->checkAuthorized($role))) {
             return true;
         }
 
