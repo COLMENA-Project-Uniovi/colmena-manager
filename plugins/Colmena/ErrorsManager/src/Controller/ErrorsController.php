@@ -1,27 +1,26 @@
 <?php
 
-namespace Colmena\UsersManager\Controller;
+namespace Colmena\ErrorsManager\Controller;
 
-use Colmena\AcademicalManager\Controller\AppController;
+use Colmena\ErrorsManager\Controller\AppController;
+use Cake\Event\Event;
 use App\Encryption\EncryptTrait;
-use Cake\Core\Configure;
-use Cake\Http\Session;
+use Cake\Http\Exception\ForbiddenException;
+use Cake\Http\Exception\UnauthorizedException;
+use Cake\ORM\TableRegistry;
 
-class PracticeGroupsController extends AppController
+class ErrorsController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'grupo de practicas';
-    public $entity_name_plural = 'grupos de practicas';
+    public $entity_name = 'error';
+    public $entity_name_plural = 'errores';
 
     // Default pagination settings
     public $paginate = [
         'limit' => 20,
         'order' => [
-            'id' => 'DESC'
-        ],
-        'contain' => [
-            'Users'
+            'id' => 'ASC'
         ]
     ];
 
@@ -29,9 +28,9 @@ class PracticeGroupsController extends AppController
         'Editar' => [
             'icon' => '<i class="fas fa-edit"></i>',
             'url' => [
-                'controller' => 'PracticeGroups',
+                'controller' => 'Errors',
                 'action' => 'edit',
-                'plugin' => 'Colmena/UsersManager'
+                'plugin' => 'Colmena/ErrorsManager'
             ],
             'options' => [
                 'class' => 'green-icon',
@@ -41,12 +40,12 @@ class PracticeGroupsController extends AppController
         'Borrar' => [
             'icon' => '<i class="fas fa-trash-alt"></i>',
             'url' => [
-                'controller' => 'PracticeGroups',
+                'controller' => 'Errors',
                 'action' => 'delete',
-                'plugin' => 'Colmena/UsersManager'
+                'plugin' => 'Colmena/ErrorsManager'
             ],
             'options' => [
-                'confirm' => '¿Está seguro de que desea eliminar el grupo de prácticas?',
+                'confirm' => '¿Estás seguro de que quieres eliminar el error?',
                 'class' => 'red-icon',
                 'escape' => false
             ]
@@ -54,13 +53,27 @@ class PracticeGroupsController extends AppController
     ];
 
     protected $header_actions = [
-        'Añadir grupo de prácticas' => [
+        'Añadir error de ejemplo' => [
             'url' => [
-                'controller' => 'PracticeGroups',
-                'plugin' => 'Colmena/UsersManager',
+                'controller' => 'ErrorExamples',
+                'plugin' => 'Colmena/ErrorsManager',
                 'action' => 'add'
             ]
-        ]
+        ], 
+        'Ver errores de ejemplo' => [
+            'url' => [
+                'controller' => 'ErrorExamples',
+                'plugin' => 'Colmena/ErrorsManager',
+                'action' => 'index'
+            ]
+        ],
+        'Ver tipos de errores' => [
+            'url' => [
+                'controller' => 'ErrorsFamily',
+                'plugin' => 'Colmena/ErrorsManager',
+                'action' => 'index'
+            ]
+        ],
     ];
 
     protected $tab_actions = [];
@@ -74,7 +87,6 @@ class PracticeGroupsController extends AppController
     public function beforeFilter(\Cake\Event\EventInterface $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow(['list', 'listSubjectById']);
     }
 
     /**
@@ -93,7 +105,6 @@ class PracticeGroupsController extends AppController
 
         // Paginator
         $settings = $this->paginate;
-
         // If performing search, there is a keyword
         if ($keyword != null) {
             // Change pagination conditions for searching
@@ -106,12 +117,12 @@ class PracticeGroupsController extends AppController
 
         //prepare the pagination
         $this->paginate = $settings;
-
         $entities = $this->paginate($this->modelClass);
 
         $this->set('header_actions', $this->getHeaderActions());
         $this->set('table_buttons', $this->getTableButtons());
         $this->set('entities', $entities);
+        $this->set('_serialize', 'entities');
         $this->set('keyword', $keyword);
     }
 
@@ -123,28 +134,21 @@ class PracticeGroupsController extends AppController
     public function add()
     {
         $entity = $this->{$this->getName()}->newEmptyEntity();
-
         if ($this->request->is('post')) {
-            $data = $this->request->getData();
-            $entity = $this->{$this->getName()}->patchEntity($entity, $data);
+            $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
 
             if ($this->{$this->getName()}->save($entity)) {
-                $this->Flash->success('El grupo de prácticas se ha guardado correctamente.');
-                return $this->redirect(['action' => 'index']);
+                $this->Flash->success('El error se ha guardado correctamente.');
+                return $this->redirect(['action' => 'edit', $entity->id]);
             } else {
-                $error_msg = '<p>El grupo de prácticas no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-
-                foreach ($entity->getErrors() as $field => $error) {
+                $error_msg = '<p>El error no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+                foreach ($entity->errors() as $field => $error) {
                     $error_msg .= '<p>' . $error['message'] . '</p>';
                 }
-
                 $this->Flash->error($error_msg, ['escape' => false]);
             }
         }
-
-        $students = $this->{$this->getName()}->Users->find('list')->toArray();
-
-        $this->set(compact('entity', 'students'));
+        $this->set(compact('entity'));
     }
 
     /**
@@ -157,26 +161,27 @@ class PracticeGroupsController extends AppController
     public function edit($id = null, $locale = null)
     {
         $this->setLocale($locale);
-        $entity = $this->{$this->getName()}->find('all')->where([$this->getName() . '.id' => $id])->contain(['Users'])->first();
+        $entity = $this->{$this->getName()}->get($id);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
 
             if ($this->{$this->getName()}->save($entity)) {
-                $this->Flash->success('El grupo de prácticas se ha guardado correctamente.');
+                $this->Flash->success('El error se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
             } else {
-                $error_msg = '<p>El grupo de prácticas no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+                $error_msg = '<p>El error no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
                 foreach ($entity->errors() as $field => $error) {
                     $error_msg .= '<p>' . $error['message'] . '</p>';
                 }
                 $this->Flash->error($error_msg, ['escape' => false]);
             }
         }
-        $students = $this->{$this->getName()}->Users->find('list')->toArray();
+
+        $families = $this->{$this->getName()}->Family->find('list')->order(['name' => 'ASC']);
 
         $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
-        $this->set(compact('entity', 'students'));
+        $this->set(compact('entity', 'families'));
     }
 
     /**
@@ -191,73 +196,10 @@ class PracticeGroupsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $entity = $this->{$this->getName()}->get($id);
         if ($this->{$this->getName()}->delete($entity)) {
-            $this->Flash->success('El grupo de prácticas se ha borrado correctamente.');
+            $this->Flash->success('El error se ha borrado correctamente.');
         } else {
-            $this->Flash->error('El grupo de prácticas no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
+            $this->Flash->error('El error no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
         }
         return $this->redirect(['action' => 'index']);
-    }
-
-    private function getSessionProject()
-    {
-        $session = $this->request->getSession();
-        $projectID = $session->read('Projectid');
-
-        return $projectID['projectID'];
-    }
-
-    /**
-     * Method which lists the subjects
-     *
-     * @return list of subjects assigned to the project
-     */
-    public function list()
-    {
-        $projectID = $this->request->getData('id');
-        $query = $this->{$this->getName()}->find('all')->contain(['Sessions']);
-
-        if (isset($projectID)) {
-            $query->matching('Projects', function ($q)  use ($projectID) {
-                return $q->where(['Projects.id =' => $projectID]);
-            });
-        }
-
-        $entities = $query->toList();
-        $content = json_encode($entities);
-
-        $this->response = $this->response->withStringBody($content);
-        $this->response = $this->response->withType('json');
-
-        return $this->response;
-    }
-
-    /**
-     * Function which lists the subject by its id
-     *
-     * @return subject
-     */
-    public function listSubjectById()
-    {
-        $subjectID = $this->request->getData('id');
-        $query = $this->{$this->getName()}->find('all')->where(['id' => $subjectID])->contain(['Sessions'])->first();
-
-        $this->response = $this->response->withStringBody($query);
-        $this->response = $this->response->withType('json');
-
-        return $this->response;
-    }
-
-    /**
-     * Function which returns the subjects associated to users' id     
-     * */
-    public function listSubjectByStudentId()
-    {
-        $studentId = $this->request->getData('id');
-        $query = $this->{$this->getName()}->find('all')->where(['id' => $studentId])->contain(['Sessions'])->first();
-
-        $this->response = $this->response->withStringBody($query);
-        $this->response = $this->response->withType('json');
-
-        return $this->response;
     }
 }
