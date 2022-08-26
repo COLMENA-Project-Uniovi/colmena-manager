@@ -5,7 +5,7 @@ namespace Colmena\ErrorsManager\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Error Entity.
+ * ErrorsFamily Entity.
  *
  * @property int $id
  * @property string $name
@@ -16,7 +16,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
  */
-class Error extends Entity
+class ErrorFamily extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().

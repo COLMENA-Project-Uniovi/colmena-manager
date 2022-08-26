@@ -46,7 +46,7 @@ class PracticeGroupsController extends AppController
                 'plugin' => 'Colmena/UsersManager'
             ],
             'options' => [
-                'confirm' => '¿Está seguro de que desea eliminar la asignatura?',
+                'confirm' => '¿Está seguro de que desea eliminar el grupo de prácticas?',
                 'class' => 'red-icon',
                 'escape' => false
             ]
@@ -163,10 +163,10 @@ class PracticeGroupsController extends AppController
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
 
             if ($this->{$this->getName()}->save($entity)) {
-                $this->Flash->success('la asignatura se ha guardado correctamente.');
+                $this->Flash->success('El grupo de prácticas se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
             } else {
-                $error_msg = '<p>La asignatura no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+                $error_msg = '<p>El grupo de prácticas no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
                 foreach ($entity->errors() as $field => $error) {
                     $error_msg .= '<p>' . $error['message'] . '</p>';
                 }
@@ -191,9 +191,9 @@ class PracticeGroupsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $entity = $this->{$this->getName()}->get($id);
         if ($this->{$this->getName()}->delete($entity)) {
-            $this->Flash->success('la asignatura se ha borrado correctamente.');
+            $this->Flash->success('El grupo de prácticas se ha borrado correctamente.');
         } else {
-            $this->Flash->error('la asignatura no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
+            $this->Flash->error('El grupo de prácticas no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
         }
         return $this->redirect(['action' => 'index']);
     }

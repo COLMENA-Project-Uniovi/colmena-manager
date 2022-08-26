@@ -30,11 +30,8 @@ $header = [
                         <th class="th medium">
                             Id del error
                         </th><!-- .th -->
-                        <th class="th medium">
-                            Nombre
-                        </th><!-- .th -->
                         <th class="th grow">
-                            Mensaje
+                            Explicación
                         </th><!-- .th -->
                         <?php
                         if (!empty($table_buttons)) {
@@ -52,14 +49,11 @@ $header = [
                     foreach ($entities as $entity) {
                     ?>
                         <tr class="tr">
-                            <td class="td element grow">
-                                <p><?= $entity->error_id; ?></p>
-                            </td><!-- .td -->
                             <td class="td element medium">
-                                <p><?= $entity->name?></p>
+                                <p><?= $entity->error_id ?></p>
                             </td><!-- .td -->
                             <td class="td element grow">
-                                <p><?= $entity->message; ?></p>
+                                <p><?= $entity->explanation; ?></p>
                             </td><!-- .td -->
                             <?php
                             if (!empty($table_buttons)) {
@@ -95,7 +89,6 @@ $header = [
                     ?>
                 </tbody><!-- .tbody -->
             </table><!-- .table -->
-            <?= $this->element('paginator'); ?>
         <?php
         } else {
         ?>

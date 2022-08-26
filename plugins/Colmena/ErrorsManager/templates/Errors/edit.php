@@ -4,7 +4,7 @@ $this->Breadcrumbs->add(ucfirst($entity_name_plural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
-$this->Breadcrumbs->add('Añadir ' . $entity_name, [
+$this->Breadcrumbs->add('Editar ' . $entity_name, [
     'controller' => $this->request->getParam('controller'),
     'action' => 'add'
 ]);
@@ -28,45 +28,38 @@ $header = [
         <div class="form-block">
             <h3>Datos generales</h3>
             <?= $this->Form->control(
+                'error_id',
+                [
+                    'label' => 'Id del error',
+                    'type' => 'number'
+                ]
+            ); ?>
+            <?= $this->Form->control(
                 'name',
                 [
-                    'label' => 'Nombre del usuario',
+                    'label' => 'Nombre del error',
                     'type' => 'text'
                 ]
             ); ?>
             <?= $this->Form->control(
-                'surnames',
+                'message',
                 [
-                    'label' => 'Apellidos del usuario',
-                    'type' => 'text'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'email',
-                [
-                    'label' => 'Email del usuario',
+                    'label' => 'Mensaje del error',
                     'type' => 'email'
                 ]
             ); ?>
             <?= $this->Form->control(
-                'phone',
+                'family_id',
                 [
-                    'label' => 'Teléfono del usuario',
-                    'type' => 'number'
-                ]
-            ); ?>
-
-            <?= $this->Form->control(
-                'role_id',
-                [
-                    'label' => 'Rol',
-                    'options' => $roles,
-                    'empty' => '---- Selecciona el rol del usuario ----',
+                    'label' => 'Familia del error',
+                    'options' => $families,
+                    'empty' => '---- Selecciona la familia del error ----',
                     'templateVars' => [
-                        'help' => 'Selecciona el rol del usuario'
+                        'help' => 'Selecciona la familia del error'
                     ]
                 ]
             ); ?>
+
         </div><!-- .form-block -->
     </div><!-- .primary -->
     <?= $this->element("form/save-block"); ?>

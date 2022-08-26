@@ -17,6 +17,9 @@ class ErrorExamplesController extends AppController
         'limit' => 20,
         'order' => [
             'id' => 'ASC'
+        ],
+        'contain' => [
+            'Users'
         ]
     ];
 
@@ -24,7 +27,7 @@ class ErrorExamplesController extends AppController
         'Editar' => [
             'icon' => '<i class="fas fa-edit"></i>',
             'url' => [
-                'controller' => 'Users',
+                'controller' => 'ErrorExamples',
                 'action' => 'edit',
                 'plugin' => 'Colmena/ErrorsManager'
             ],
@@ -36,12 +39,12 @@ class ErrorExamplesController extends AppController
         'Borrar' => [
             'icon' => '<i class="fas fa-trash-alt"></i>',
             'url' => [
-                'controller' => 'Users',
+                'controller' => 'ErrorExamples',
                 'action' => 'delete',
                 'plugin' => 'Colmena/ErrorsManager'
             ],
             'options' => [
-                'confirm' => '¿Está seguro de que desea eliminar el usuario?',
+                'confirm' => '¿Estás seguro de que quieres eliminar el ejemplo de error?',
                 'class' => 'red-icon',
                 'escape' => false
             ]
@@ -105,9 +108,10 @@ class ErrorExamplesController extends AppController
             ];
         }
 
-        //prepare the pagination
-        $this->paginate = $settings;
-        $entities = $this->paginate($this->modelClass);
+        $entities = $this->{$this->getName()}->find('all')
+            ->matching('Users', function ($q) {
+                return $q->where(['Users.id' => $this->Auth->user('id')]);
+            })->toList();
 
         $this->set('header_actions', $this->getHeaderActions());
         $this->set('table_buttons', $this->getTableButtons());

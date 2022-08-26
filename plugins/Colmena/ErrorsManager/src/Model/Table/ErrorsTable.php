@@ -27,8 +27,13 @@ class ErrorsTable extends AppTable
         parent::initialize($config);
 
         $this->setTable('em_errors');
-        $this->setDisplayField('title');
+        $this->setDisplayField('name');
         $this->setPrimaryKey('id');
+
+        $this->hasOne('Family', [
+            'className' => 'Colmena/ErrorsManager.ErrorsFamily',
+            'foreignKey' => 'family_id',
+        ]);
     }
 
     /**

@@ -27,7 +27,7 @@ class ErrorsFamilyTable extends AppTable
         parent::initialize($config);
 
         $this->setTable('em_family_errors');
-        $this->setDisplayField('title');
+        $this->setDisplayField('name');
         $this->setPrimaryKey('id');
     }
 

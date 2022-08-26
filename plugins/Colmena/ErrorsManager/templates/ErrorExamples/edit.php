@@ -27,82 +27,98 @@ $header = [
         <div class="form-block">
             <h3>Datos generales</h3>
             <?= $this->Form->control(
-                'name',
-                [
-                    'label' => 'Nombre del error',
-                    'type' => 'text'
-                ]
-            ); ?>
-            <?= $this->Form->control(
                 'error_id',
                 [
                     'label' => 'ID del error',
                     'type' => 'number'
                 ]
             ); ?>
-            <?= $this->Form->control(
-                'wrong_start_line',
-                [
-                    'label' => 'Línea de inicio del error',
-                    'type' => 'number'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'wrong_end_line',
-                [
-                    'label' => 'Línea de fin del error',
-                    'type' => 'number'
-                ]
-            ); ?>
+        </div><!-- .form-block -->
 
-            <?= $this->Form->control(
-                'wrong_source_code',
-                [
-                    'label' => 'Código de error',
-                    'type' => 'textarea'
-                ]
-            ); ?>
+        <div class="flex-blocks two">
+            <div class="form-block">
+                <h3>Código erróneo</h3>
+                <div class="flex-inputs two">
+                    <?= $this->Form->control(
+                        'wrong_start_line',
+                        [
+                            'label' => 'Línea de inicio del error',
+                            'type' => 'number'
+                        ]
+                    ); ?>
+                    <?= $this->Form->control(
+                        'wrong_end_line',
+                        [
+                            'label' => 'Línea de fin del error',
+                            'type' => 'number'
+                        ]
+                    ); ?>
+                </div>
 
-            <?= $this->Form->control(
-                'right_start_line',
-                [
-                    'label' => 'Línea de inicio del error',
-                    'type' => 'number'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'right_end_line',
-                [
-                    'label' => 'Línea de fin del error',
-                    'type' => 'number'
-                ]
-            ); ?>
+                <?= $this->Form->control(
+                    'wrong_source_code',
+                    [
+                        'label' => 'Código de error',
+                        'type' => 'textarea',
+                        'class' => 'codeeditor',
+                        'help' => 'Introduce el código erróneo'
+                    ]
+                ); ?>
+            </div>
 
-            <?= $this->Form->control(
-                'right_source_code',
-                [
-                    'label' => 'Código de error',
-                    'type' => 'textarea'
-                ]
-            ); ?>
+            <div class="form-block">
+                <h3>Solucion</h3>
+                <div class="flex-inputs two">
+                    <?= $this->Form->control(
+                        'right_start_line',
+                        [
+                            'label' => 'Línea de inicio del error',
+                            'type' => 'number'
+                        ]
+                    ); ?>
+                    <?= $this->Form->control(
+                        'right_end_line',
+                        [
+                            'label' => 'Línea de fin del error',
+                            'type' => 'number'
+                        ]
+                    ); ?>
+                </div>
 
+                <?= $this->Form->control(
+                    'right_source_code',
+                    [
+                        'label' => 'Código de error',
+                        'type' => 'textarea',
+                        'class' => 'codeeditor',
+                        'help' => 'Introduce el código correcto'
+                    ]
+                ); ?>
+            </div>
+        </div>
+
+        <div class="form-block">
+            <h3>Explicación y solución propuesta</h3>
             <?= $this->Form->control(
                 'explanation',
                 [
                     'label' => 'Explicación',
-                    'type' => 'textarea'
+                    'type' => 'textarea',
+                    'class' => 'texteditor'
                 ]
             ); ?>
 
             <?= $this->Form->control(
                 'solution',
                 [
-                    'label' => 'Código de error',
+                    'label' => 'Solución',
+                    'class' => 'codeeditor',
                     'type' => 'textarea'
                 ]
             ); ?>
-        </div><!-- .form-block -->
+        </div>
     </div><!-- .primary -->
     <?= $this->element("form/save-block"); ?>
     <?= $this->Form->end(); ?>
+    <?= $this->element('form/codeeditor-scripts'); ?>
 </div><!-- .content -->

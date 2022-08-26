@@ -26,6 +26,13 @@ class ErrorExamplesTable extends AppTable
         $this->setTable('em_error_examples');
         $this->setDisplayField('title');
         $this->setPrimaryKey('id');
+
+        $this->belongsTo(
+            'Users',
+            [
+                'className' => 'AdminUsers',
+            ]
+        );
     }
 
     /**
