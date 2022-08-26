@@ -6,6 +6,7 @@ header {
     position: fixed;
     height: $header-height;
     width: calc(100% - 220px);
+    z-index: 9;
     box-shadow: 0 10px 25px rgba(10, 10, 51, 0.1);
 
     &.home {

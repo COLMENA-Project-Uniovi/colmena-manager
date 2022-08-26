@@ -41,7 +41,6 @@ class AdminUserRolesTable extends AppTable
             'foreignKey' => 'role_id',
             'className' => 'AdminUsers'
         ]);
-
     }
 
     /**
@@ -84,12 +83,12 @@ class AdminUserRolesTable extends AppTable
                     'model' => $model
                 ])->first();
 
-                if(!$permission) {
+                if (!$permission) {
                     $permission = $this->AdminUserRolesPermissions->newEmptyEntity();
                     $permission->role_id = $role_id;
                     $permission->model = $model;
                 }
-                
+
                 $permission->actions = $actions;
                 $this->AdminUserRolesPermissions->save($permission);
 
@@ -106,10 +105,11 @@ class AdminUserRolesTable extends AppTable
      * @param AdminUser $user
      * @return AdminUserRole
      */
-    public function getRoleFromUser($user) {
-        if(isset($user)){
+    public function getRoleFromUser($user)
+    {
+        if (isset($user)) {
             $role = $this->find('all')->where(['id' => $user['role_id']])->first();
-        }else{
+        } else {
             $role = null;
         }
         return $role;

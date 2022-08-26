@@ -6,7 +6,8 @@ use Cake\Controller\Component;
 use Cake\Core\Configure;
 use Cake\Utility\Inflector;
 use Cake\ORM\TableRegistry;
-
+use Cake\Http\Exception\NotFoundException;
+use Cake\Http\Response;
 class RolesComponent extends Component
 {
     public $components = ['Auth'];
@@ -317,7 +318,7 @@ class RolesComponent extends Component
         $roles_table = TableRegistry::getTableLocator()->get('AdminUserRoles');
         $role =  $roles_table->getRoleFromUser($user);
 
-        if (!$role['is_admin']) {
+        if (isset($role) && !$role['is_admin']) {
             foreach ($general_tabs as $key => $value) {
                 if (!$this->isItemAvailable($value['url'])) {
                     unset($general_tabs[$key]);
