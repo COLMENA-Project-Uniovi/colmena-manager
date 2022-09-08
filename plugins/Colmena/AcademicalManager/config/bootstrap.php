@@ -61,7 +61,9 @@ Configure::write(
 /*
  * Generate rolable entities array
  */
-Configure::write('Colmena/AcademicalManager.rolable_entities', []);
+Configure::write('Colmena/AcademicalManager.rolable_entities', [
+    'Subjects' => 'Asignaturas',
+]);
 
 /*
  * Special roles methods
