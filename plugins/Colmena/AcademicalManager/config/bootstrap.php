@@ -5,6 +5,7 @@ use Cake\Core\Configure;
 /*
  * Generate menu items for the application menu
  */
+
 Configure::write('Colmena/AcademicalManager.menuItems', [
     'Gestión académica' => [
         'order' => 1,
@@ -32,7 +33,19 @@ Configure::write('Colmena/AcademicalManager.menuItems', [
                     'class' => 'menu-item',
                     'escape' => false
                 ],
-            ]
+            ],
+            'Años académicos' => [
+                'icon' => '<i class="far fa-calendar"></i>',
+                'link' => [
+                    'controller' => 'AcademicalYears',
+                    'action' => 'index',
+                    'plugin' => 'Colmena/AcademicalManager',
+                ],
+                'extra' => [
+                    'class' => 'menu-item',
+                    'escape' => false
+                ],
+            ],
         ],
         'extra' => [
             'ico' => '<i class="fas fa-books"></i>',
