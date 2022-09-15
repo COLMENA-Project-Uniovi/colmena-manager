@@ -41,7 +41,6 @@ $logo = $this->Html->image(
     }
 
     .scene {
-        background: #362100 url('https://beta.colmenaproject.es/admin/img/wallpaper.jpg') center/cover;
         height: 100vh;
         position: relative;
     }
@@ -180,23 +179,18 @@ $logo = $this->Html->image(
     }
 
     .wrap-login100 {
-        width: 390px;
-        backdrop-filter: blur(10px);
+        width: 400px;
         background: rgba(254, 254, 254, 0.075);
         border: 1px solid rgba(254, 254, 254, 0.18);
         border-radius: 15px;
-        box-shadow: 0 10px 35px 0 rgb(54 33 0 / 65%);
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+            0 10px 10px rgba(0, 0, 0, 0.22);
         border-radius: 10px;
         overflow: hidden;
         padding: 60px 60px;
-        box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
-        -moz-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
-        -webkit-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
-        -o-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
-        -ms-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
     }
 
-    .card__image{
+    .card__image {
         width: 70%;
     }
 
@@ -269,16 +263,11 @@ $logo = $this->Html->image(
         transition: all 0.4s;
 
         background: #F8B333;
-        /* background: -webkit-linear-gradient(left, var(--bc-1), var(--bc-2));
-        background: -o-linear-gradient(left, #21d4fd, #b721ff);
-        background: -moz-linear-gradient(left, #21d4fd, #b721ff);
-        background: linear-gradient(left, #21d4fd, #b721ff); */
     }
 
     .focus-input100::after {
-
         font-size: 15px;
-        color: white;
+        color: #505050;
         line-height: 1.2;
         font-weight: 700;
         content: attr(data-placeholder);

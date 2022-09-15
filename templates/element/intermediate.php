@@ -4,15 +4,23 @@ $projects = $session->read('Projects');
 ?>
 
 <div class="home-selector visible">
-    <h1>Bienvenido a Colmena</h1>
-
-    <?php foreach ($projects as $project) {
-    ?>
-        <div class="project" data-project=<?= $project['id'] ?>>
-            <p><?= $project['name'] ?></p>
-        </div>
-    <?php
-    } ?>
+    <div class="container">
+        <h1>Bienvenido a Colmena</h1>
+        <?php 
+        
+        if(isset($projects) && count($projects) > 0){
+            foreach ($projects as $project) {
+            ?>
+                <div class="project" data-project=<?= $project['id'] ?>>
+                    <p><?= $project['name'] ?></p>
+                </div>
+            <?php
+            }
+        } else {
+            // TODO Botón para añadir proyectos
+        }
+        ?>
+    </div>
 </div>
 
 <script>
