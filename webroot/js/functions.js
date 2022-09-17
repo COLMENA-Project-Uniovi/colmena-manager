@@ -1180,17 +1180,8 @@ $.fn.codeEditor = function (mode, height) {
             let chartData = JSON.parse(chart.dataset.chart);
             let chartType = chart.dataset.chartType;
 
-            console.log(chartData);
             const ctx = chart.getContext("2d");
-            console.log(
-                chartData.datasets.map((dataset) => ({
-                    label: dataset.title,
-                    data: dataset.data,
-                    borderColor: dataset.color,
-                    backgroundColor: dataset.color,
-                }))
-            );
-
+    
             new Chart(ctx, {
                 type: chartType,
                 data: {

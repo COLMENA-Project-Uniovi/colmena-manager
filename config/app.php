@@ -5,7 +5,6 @@ $databaseConfig = [
     'className' => 'Cake\Database\Connection',
     'driver' => 'Cake\Database\Driver\Mysql',
     'persistent' => false,
-    // 'port' => 'nonstandard_port_number',
     'host' => $host,
     'username' => $user,
     'password' => $pass,

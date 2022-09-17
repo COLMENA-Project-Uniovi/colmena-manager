@@ -5,16 +5,28 @@ header {
     background-color: $light-gray;
     position: fixed;
     height: $header-height;
-    width: calc(100% - 220px);
+    width: calc(100% - $menu-width);
     z-index: 9;
     box-shadow: 0 2px 6px 0 rgb(136 148 171 / 20%), 0 24px 20px -24px rgb(71 82 107 / 10%);
 
     &.home {
         padding: $small-gap;
         text-align: center;
+        height: $header-home-height;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        gap: $gap;
+
+        .logo-home {
+            width: $logo-home;
+        }
 
         h1 {
             margin-bottom: $small-gap;
+            font-size: 20px;
         }
     }
 }
@@ -286,7 +298,7 @@ header {
                         font-size: $small-font-size;
                         border-radius: 20px 0 0 20px;
                         margin: $tiny-gap;
-                        box-shadow: 0 10px 25px rgba(10, 10, 51, 0.1);
+                        box-shadow: 0 2px 6px 0 rgb(136 148 171 / 20%), 0 24px 20px -24px rgb(71 82 107 / 10%);
                         font-size: 0.9em;
 
                         &:focus-visible {

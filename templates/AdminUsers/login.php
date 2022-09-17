@@ -3,7 +3,7 @@
 use Cake\Core\Configure;
 
 $logo = $this->Html->image(
-    'logo.svg',
+    'logo-black.png',
     ['alt' => 'logo', 'class' => 'card__image']
 );
 ?>
@@ -198,6 +198,11 @@ $logo = $this->Html->image(
         display: flex;
         align-items: center;
         justify-content: center;
+        padding-bottom: 60px;
+    }
+
+    .logo img {
+        width: 50%;
     }
 
     /*------------------------------------------------------------------

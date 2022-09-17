@@ -73,11 +73,10 @@ use Cake\Http\Exception\NotFoundException;
     echo $this->fetch('scripts');
     ?>
 
-    <!-- JS CONSTANS DEFINITIONS -->
-
     <!-- TINYMCE -->
     <script src="https://cdn.tiny.cloud/1/4ephn0sricfd36zvlngpa88irhicx0tl8yj47ie2fa3xixaq/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
+    <!-- JS CONSTANS DEFINITIONS -->
     <script>
         const ADMIN_PATH = '<?= $this->Url->build('/', ['fullBase' => true]); ?>';
         const TEMPLATES_PATH = ADMIN_PATH + 'webroot/js/templates/';
@@ -90,7 +89,7 @@ use Cake\Http\Exception\NotFoundException;
 <body>
     <div id="container">
         <?php
-        
+
         $session = $this->request->getSession();
         $projectID = $session->read('Projectid');
 
