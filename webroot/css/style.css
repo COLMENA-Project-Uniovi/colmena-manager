@@ -1828,8 +1828,7 @@ header.home h1 {
   transition: all 0.2s ease-out;
 }
 .top-header .left-header .breadcrumbs li a:hover {
-  color: #FFFFFF;
-  text-decoration: underline;
+  color: #F3933D;
 }
 .top-header .left-header .breadcrumbs li:last-child a {
   color: #F3933D;

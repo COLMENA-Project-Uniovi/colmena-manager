@@ -68,8 +68,8 @@ header {
                     @include default-transition(0.2s);
 
                     &:hover {
-                        color: $white;
-                        text-decoration: underline;
+                        color: $orange;
+                        // text-decoration: underline;
                     }
                 }
 
