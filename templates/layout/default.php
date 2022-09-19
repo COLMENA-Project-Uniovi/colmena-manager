@@ -1,18 +1,7 @@
 <?php
 
-/**
- * @copyright     Copyright (c) Neozink
- * @link          http://www.neozink.com Neozink Mkt No Convencional
- * @since         Neozink(tm) v 0.0.2
- * @license       All Rights Reserved
- */
-
 // Some usefull classes needed in default view
-use Cake\Cache\Cache;
 use Cake\Core\Configure;
-use Cake\Datasource\ConnectionManager;
-use Cake\Error\Debugger;
-use Cake\Http\Exception\NotFoundException;
 ?>
 <!DOCTYPE html>
 <html>
@@ -46,8 +35,8 @@ use Cake\Http\Exception\NotFoundException;
     $this->Html->script('vendors/select2/select2_locale_es', ['block' => 'vendors']);
 
     // NEO MAPS
-    $this->Html->script("https://maps.google.com/maps/api/js?key=AIzaSyDCj91m02CHBP0pFwEIqSYIWWMlmL4oTwc", ['block' => "vendors"]);
-    $this->Html->script('vendors/maps/neo-maps-3.0', ['block' => 'vendors']);
+    // $this->Html->script("https://maps.google.com/maps/api/js?key=AIzaSyDCj91m02CHBP0pFwEIqSYIWWMlmL4oTwc", ['block' => "vendors"]);
+    // $this->Html->script('vendors/maps/neo-maps-3.0', ['block' => 'vendors']);
 
     //COLOR SELECTOR
     $this->Html->css("https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.css", ['block' => 'vendors']);

@@ -33,6 +33,14 @@ $header = [
                     'type' => 'text'
                 ]
             ); ?>
+
+            <?= $this->Form->control(
+                'description',
+                [
+                    'label' => 'Descripción del proyecto',
+                    'type' => 'text'
+                ]
+            ); ?>
         </div><!-- .form-block -->
     </div><!-- .primary -->
     <?= $this->element("form/save-block"); ?>

@@ -19,11 +19,11 @@ $projects = $session->read('Projects');
                         foreach ($projects as $project) {
                         ?>
                             <div class="card project" data-project=<?= $project['id'] ?>>
-                                <img src="https://via.placeholder.com/220x220" alt="Animals" style="width:100%">
                                 <div class="container">
                                     <h2>
                                         <?= $project['name'] ?>
                                     </h2>
+                                    <p><?= $project['description'] ?></p>
                                 </div>
                             </div>
                         <?php
