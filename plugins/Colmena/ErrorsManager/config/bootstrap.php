@@ -34,6 +34,18 @@ Configure::write('Colmena/ErrorsManager.menuItems', [
                     'escape' => false
                 ],
             ],
+            'Compilaciones' => [
+                'icon' => '<i class="far fa-bug"></i>',
+                'link' => [
+                    'controller' => 'Compilations',
+                    'action' => 'index',
+                    'plugin' => 'Colmena/ErrorsManager',
+                ],
+                'extra' => [
+                    'class' => 'menu-item',
+                    'escape' => false,
+                ],
+            ],
         ],
         'extra' => [
             'ico' => '<i class=" fa fa-solid fa-user"></i>',
