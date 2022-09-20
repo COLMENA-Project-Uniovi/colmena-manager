@@ -127,6 +127,7 @@ body {
   font-family: "Raleway", sans-serif;
   font-weight: 300;
   line-height: 1.2em;
+  background: #f3f4f6;
 }
 
 body {
@@ -1641,9 +1642,9 @@ strong {
   padding: 5px 10px;
   margin: auto;
   color: #666666;
-  background-color: transparent;
-  border: 1px solid #AAAAAA;
-  border-radius: 0;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 10px;
   font-size: 0.9em;
   font-weight: 600;
   text-decoration: none;
@@ -1651,6 +1652,7 @@ strong {
   letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.2s ease-out;
+  box-shadow: 0 2px 6px 0 rgba(136, 148, 171, 0.2), 0 24px 20px -24px rgba(71, 82, 107, 0.1);
 }
 .button.white {
   border-color: #FFFFFF;
@@ -1898,11 +1900,7 @@ header.home h1 {
 }
 .mid-header .actions .button {
   margin: 5px;
-  border-radius: 20px;
-  box-shadow: 0 2px 6px 0 rgba(136, 148, 171, 0.2), 0 24px 20px -24px rgba(71, 82, 107, 0.1);
-  background: white;
   padding: 10px 20px;
-  border: unset;
 }
 .mid-header .actions .button:hover {
   background-color: #F3933D;
@@ -2293,6 +2291,7 @@ nav.small .logout {
 }
 .home-selector.visible {
   display: block;
+  background-color: #f3f4f6;
 }
 .home-selector.visible .container {
   display: flex;
@@ -2346,9 +2345,9 @@ nav.small .logout {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   background: #fff;
   transition: 0.3s;
-  width: 225px;
+  width: 350px;
   margin: 15px;
-  border-radius: 25px;
+  border-radius: 10px;
 }
 .home-selector.visible .container .slider-container #cards-container .cards .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
@@ -2357,6 +2356,7 @@ nav.small .logout {
 .home-selector.visible .container .slider-container #cards-container .cards .card .container {
   height: 100%;
   justify-content: center;
+  align-items: flex-start;
   padding: 30px;
   gap: 20px;
 }
@@ -2505,7 +2505,7 @@ nav.small .logout {
 /* -------------------------- */
 #container .wrap-login100 {
   width: 400px;
-  background: rgba(254, 254, 254, 0.075);
+  background: white;
   border: 1px solid rgba(254, 254, 254, 0.18);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   border-radius: 10px;
