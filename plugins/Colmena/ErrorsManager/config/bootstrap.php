@@ -35,7 +35,7 @@ Configure::write('Colmena/ErrorsManager.menuItems', [
                 ],
             ],
             'Compilaciones' => [
-                'icon' => '<i class="far fa-bug"></i>',
+                'icon' => '<i class="far fa-code"></i>',
                 'link' => [
                     'controller' => 'Compilations',
                     'action' => 'index',
