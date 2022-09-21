@@ -46,7 +46,7 @@
             .wrap-input100 {
                 width: 100%;
                 position: relative;
-                border-bottom: 2px solid $orange;
+                border-bottom: 1px solid $orange;
                 margin-bottom: 37px;
 
                 .input100 {
@@ -58,6 +58,8 @@
                     height: 45px;
                     background: transparent;
                     padding: 0 5px;
+                    border: 1px solid $gray-a;
+                    border-radius: 10px;
                 }
 
                 .focus-input100 {
@@ -102,22 +104,17 @@
                 padding-top: 15px;
 
                 .wrap-login100-form-btn {
-                    border: $orange solid 2px;
-                    border-radius: 25px;
-
                     .login100-form-btn {
                         font-size: 18px;
                         color: #fff;
                         letter-spacing: 1.1px;
-                        display: flex;
                         justify-content: center;
-                        align-items: center;
                         padding: 10px 20px;
                         width: 100%;
                         cursor: pointer;
                         background-color: $orange;
-                        border: unset;
-                        border-radius: 25px;
+                        border: $orange solid 2px;
+                        border-radius: 10px;
 
                         &:hover {
                             background-color: white;

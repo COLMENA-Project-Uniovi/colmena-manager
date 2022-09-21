@@ -92,7 +92,6 @@ use Cake\Core\Configure;
         <div id="main-content" <?= isset($_SESSION['menu_hide']) && $_SESSION['menu_hide'] ? 'class="wide"' : '' ?>>
             <?= $this->Flash->render() ?>
             <?= $this->fetch('content'); ?>
-            <?= $this->element('spinner'); ?>
         </div><!-- #flow-content -->
     </div><!-- #container -->
     <div class="notification hidden" onclick="this.classList.add('hidden')">

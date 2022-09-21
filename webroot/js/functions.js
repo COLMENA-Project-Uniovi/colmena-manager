@@ -694,64 +694,6 @@ $.fn.codeEditor = function (mode, height) {
 })();
 
 /**
- * Class to store the Ajax calls and show a loader until the unregister
- * method is called
- */
-(function ($) {
-    class AjaxStorage {
-        static storage = [];
-
-        /**
-         * Register an AJAX action and show the loading screen
-         *
-         * @param {string} name the name of the action
-         */
-        static register(name) {
-            this.storage.push(name);
-            showPageLoader();
-        }
-
-        /**
-         * Unregister an AJAX action and hide the loading screen
-         * @param {string} name the name of the action
-         */
-        static unregister(name) {
-            for (let i = 0; i < this.storage.length; i++) {
-                if (this.storage[i] == name) {
-                    // remove Ajax call from the stack
-                    this.storage.splice(i, 1);
-                    break;
-                }
-            }
-
-            if (this.storage.length == 0) {
-                hidePageLoader();
-            }
-        }
-    }
-
-    /**
-     * Show the page loader
-     *
-     * @return void
-     */
-    function showPageLoader() {
-        $("#page-loader").addClass("is_active");
-    }
-    /**
-     * Hide the page loader
-     *
-     * @return void
-     */
-    function hidePageLoader() {
-        $("#page-loader").removeClass("is_active");
-    }
-
-    // register the class to access globally
-    window.AjaxStorage = AjaxStorage;
-})(jQuery);
-
-/**
  * Class to manage everything that is related with notifications
  */
 (function ($) {

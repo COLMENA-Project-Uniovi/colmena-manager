@@ -1643,7 +1643,7 @@ strong {
   margin: auto;
   color: #666666;
   background-color: white;
-  border: 1px solid white;
+  border: 1px solid #AAAAAA;
   border-radius: 10px;
   font-size: 0.9em;
   font-weight: 600;
@@ -2293,76 +2293,84 @@ nav.small .logout {
   display: block;
   background-color: #f3f4f6;
 }
-.home-selector.visible .container {
+.home-selector.visible .row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 1rem;
+}
+.home-selector.visible .col {
+  flex: 1 0 0%;
+  padding: 0 0.75rem;
+}
+.home-selector.visible .card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
-.home-selector.visible .container h1 {
-  font-size: 30px;
-  padding: 50px 0;
-}
-.home-selector.visible .container #slide-left-container,
-.home-selector.visible .container #slide-right-container {
-  display: none;
-}
-.home-selector.visible .container #slide-left-container.active,
-.home-selector.visible .container #slide-right-container.active {
-  display: block;
-  cursor: pointer;
-}
-.home-selector.visible .container #slide-left-container .slide-left,
-.home-selector.visible .container #slide-left-container .slide-right,
-.home-selector.visible .container #slide-right-container .slide-left,
-.home-selector.visible .container #slide-right-container .slide-right {
-  border-color: #fff;
-  border-style: solid;
-  height: 20px;
-  width: 20px;
-  margin-top: 30%;
-}
-.home-selector.visible .container #slide-left-container .slide-left,
-.home-selector.visible .container #slide-right-container .slide-left {
-  border-width: 4px 0 0 4px;
-  transform: rotate(-45deg);
-  margin-left: 40%;
-}
-.home-selector.visible .container #slide-left-container .slide-right,
-.home-selector.visible .container #slide-right-container .slide-right {
-  border-width: 4px 4px 0 0;
-  transform: rotate(45deg);
-  margin-left: 22%;
-}
-.home-selector.visible .container .slider-container #cards-container {
-  overflow: hidden;
-  margin: 20px;
-}
-.home-selector.visible .container .slider-container #cards-container .cards {
-  display: flex;
-  width: 99999px;
-}
-.home-selector.visible .container .slider-container #cards-container .cards .card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  background: #fff;
-  transition: 0.3s;
-  width: 350px;
-  margin: 15px;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: white;
   border-radius: 10px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05);
+  height: 100%;
 }
-.home-selector.visible .container .slider-container #cards-container .cards .card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+.home-selector.visible .card.card-plain {
+  background-color: transparent;
+  box-shadow: none;
+}
+.home-selector.visible .card.border {
+  border: 1px solid #dee2e6;
+}
+.home-selector.visible .card.add-project {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+}
+.home-selector.visible .card.add-project:hover {
+  background-color: #AAAAAA;
+  transition: 0.3s ease-out;
   cursor: pointer;
 }
-.home-selector.visible .container .slider-container #cards-container .cards .card .container {
-  height: 100%;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 30px;
-  gap: 20px;
+.home-selector.visible .card.add-project:hover * {
+  color: white;
 }
-.home-selector.visible .container .slider-container #cards-container .cards .card .container h2 {
-  font-size: 25px;
-  font-weight: 700;
+.home-selector.visible .card .card-title {
+  font-size: 2rem;
+  font-weight: 600;
+}
+.home-selector.visible .card .card-header {
+  padding: 0.5rem 1rem;
+  margin-bottom: 0;
+  color: black;
+  background-color: white;
+  border-bottom: 0 solid rgba(0, 0, 0, 0.125);
+  padding: 2rem;
+  justify-content: center;
+  display: flex;
+}
+.home-selector.visible .card .card-body {
+  padding: 2rem;
+}
+.home-selector.visible .card .card-body .project-description {
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.home-selector.visible .card .card-body .project-title {
+  font-size: 1.25rem;
+  line-height: 1.375;
+  font-weight: 600;
+  padding: 1rem 0;
+}
+.home-selector.visible .card .card-body .project-button {
+  border-radius: 10px;
+  padding: 10px 20px;
+}
+.home-selector.visible .card .card-body .project-button:hover {
+  background-color: #F3933D;
+  color: white;
 }
 
 /* -------------------------- */
@@ -2544,7 +2552,7 @@ nav.small .logout {
 #container .wrap-login100 .login100-form .wrap-input100 {
   width: 100%;
   position: relative;
-  border-bottom: 2px solid #F3933D;
+  border-bottom: 1px solid #F3933D;
   margin-bottom: 37px;
 }
 #container .wrap-login100 .login100-form .wrap-input100 .input100 {
@@ -2556,6 +2564,8 @@ nav.small .logout {
   height: 45px;
   background: transparent;
   padding: 0 5px;
+  border: 1px solid #AAAAAA;
+  border-radius: 10px;
 }
 #container .wrap-login100 .login100-form .wrap-input100 .focus-input100 {
   position: absolute;
@@ -2594,23 +2604,17 @@ nav.small .logout {
 #container .wrap-login100 .login100-form .container-login100-form-btn {
   padding-top: 15px;
 }
-#container .wrap-login100 .login100-form .container-login100-form-btn .wrap-login100-form-btn {
-  border: #F3933D solid 2px;
-  border-radius: 25px;
-}
 #container .wrap-login100 .login100-form .container-login100-form-btn .wrap-login100-form-btn .login100-form-btn {
   font-size: 18px;
   color: #fff;
   letter-spacing: 1.1px;
-  display: flex;
   justify-content: center;
-  align-items: center;
   padding: 10px 20px;
   width: 100%;
   cursor: pointer;
   background-color: #F3933D;
-  border: unset;
-  border-radius: 25px;
+  border: #F3933D solid 2px;
+  border-radius: 10px;
 }
 #container .wrap-login100 .login100-form .container-login100-form-btn .wrap-login100-form-btn .login100-form-btn:hover {
   background-color: white;
@@ -2721,206 +2725,6 @@ nav.small .logout {
 }
 
 /* ---------------------------------- */
-/* SPINNER CSS */
-#page-loader {
-  visibility: hidden;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: visibility 0s linear 0.5s, z-index 0s linear 0.5s;
-}
-#page-loader .loader {
-  position: relative;
-  height: 220px;
-  width: 300px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #a0a0a0;
-}
-#page-loader .loader svg {
-  overflow: visible;
-  width: 50px;
-  height: 50px;
-  fill: #F3933D;
-  -webkit-animation: 1.5s rotateWithBoost cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
-          animation: 1.5s rotateWithBoost cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
-}
-#page-loader .loader svg circle:first-of-type {
-  -webkit-animation: 1.5s loaderdot1 ease-out infinite;
-          animation: 1.5s loaderdot1 ease-out infinite;
-}
-#page-loader .loader svg circle:nth-of-type(2) {
-  -webkit-animation: 1.5s loaderdot2 ease-out infinite;
-          animation: 1.5s loaderdot2 ease-out infinite;
-}
-#page-loader .loader svg circle:nth-of-type(3) {
-  -webkit-animation: 1.5s loaderdot3 ease-out infinite;
-          animation: 1.5s loaderdot3 ease-out infinite;
-}
-#page-loader .loader svg circle:last-of-type {
-  -webkit-animation: 1.5s loaderdot4 ease-out infinite;
-          animation: 1.5s loaderdot4 ease-out infinite;
-}
-#page-loader .loader span {
-  position: absolute;
-  bottom: 10px;
-  font-size: 16px;
-  color: #FFFFFF;
-  text-align: center;
-  line-height: 25px;
-}
-#page-loader.is_active {
-  visibility: visible;
-  z-index: 9999;
-  transition: visibility 0s linear 0.2s, z-index 0s linear 0.2s;
-}
-
-/**
- * LOADER KEYFRAMES
- **/
-@-webkit-keyframes loaderdot1 {
-  0%, 45% {
-    cx: 6;
-    cy: 6;
-  }
-  55%, 80% {
-    cx: 2;
-    cy: 2;
-  }
-  90%, 100% {
-    cx: 6;
-    cy: 6;
-  }
-}
-@keyframes loaderdot1 {
-  0%, 45% {
-    cx: 6;
-    cy: 6;
-  }
-  55%, 80% {
-    cx: 2;
-    cy: 2;
-  }
-  90%, 100% {
-    cx: 6;
-    cy: 6;
-  }
-}
-@-webkit-keyframes loaderdot2 {
-  0%, 45% {
-    cx: 6;
-    cy: 24;
-  }
-  55%, 80% {
-    cx: 2;
-    cy: 28;
-  }
-  90%, 100% {
-    cx: 6;
-    cy: 24;
-  }
-}
-@keyframes loaderdot2 {
-  0%, 45% {
-    cx: 6;
-    cy: 24;
-  }
-  55%, 80% {
-    cx: 2;
-    cy: 28;
-  }
-  90%, 100% {
-    cx: 6;
-    cy: 24;
-  }
-}
-@-webkit-keyframes loaderdot3 {
-  0%, 45% {
-    cx: 24;
-    cy: 6;
-  }
-  55%, 80% {
-    cx: 28;
-    cy: 2;
-  }
-  90%, 100% {
-    cx: 24;
-    cy: 6;
-  }
-}
-@keyframes loaderdot3 {
-  0%, 45% {
-    cx: 24;
-    cy: 6;
-  }
-  55%, 80% {
-    cx: 28;
-    cy: 2;
-  }
-  90%, 100% {
-    cx: 24;
-    cy: 6;
-  }
-}
-@-webkit-keyframes loaderdot4 {
-  0%, 45% {
-    cx: 24;
-    cy: 24;
-  }
-  55%, 80% {
-    cx: 28;
-    cy: 28;
-  }
-  90%, 100% {
-    cx: 24;
-    cy: 24;
-  }
-}
-@keyframes loaderdot4 {
-  0%, 45% {
-    cx: 24;
-    cy: 24;
-  }
-  55%, 80% {
-    cx: 28;
-    cy: 28;
-  }
-  90%, 100% {
-    cx: 24;
-    cy: 24;
-  }
-}
-@-webkit-keyframes rotateWithBoost {
-  0% {
-    transform: rotate(0deg);
-  }
-  60% {
-    transform: rotate(180deg);
-  }
-  90%, 100% {
-    transform: rotate(360deg);
-  }
-}
-@keyframes rotateWithBoost {
-  0% {
-    transform: rotate(0deg);
-  }
-  60% {
-    transform: rotate(180deg);
-  }
-  90%, 100% {
-    transform: rotate(360deg);
-  }
-}
 /* BASICS */
 .CodeMirror {
   /* Set height, width, borders, and global font properties here */

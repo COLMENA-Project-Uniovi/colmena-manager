@@ -276,83 +276,98 @@ nav {
 
     &.visible {
         display: block;
-        background-color: $grey;
+        background-color: $gray;
 
-        .container {
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 1rem;
+        }
+
+        .col {
+            flex: 1 0 0%;
+            padding: 0 .75rem;
+        }
+
+        .card {
+            position: relative;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: white;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+            height: 100%;
 
-            h1 {
-                font-size: 30px;
-                padding: 50px 0;
+            &.card-plain {
+                background-color: transparent;
+                box-shadow: none;
             }
 
-            #slide-left-container,
-            #slide-right-container {
-                display: none;
+            &.border {
+                border: 1px solid #dee2e6;
+            }
 
-                &.active {
-                    display: block;
+            &.add-project {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                height: 100%;
+
+                &:hover {
+                    background-color: $gray-a;
+                    transition: 0.3s ease-out;
                     cursor: pointer;
-                }
 
-                .slide-left,
-                .slide-right {
-                    border-color: #fff;
-                    border-style: solid;
-                    height: 20px;
-                    width: 20px;
-                    margin-top: 30%;
-                }
-
-                .slide-left {
-                    border-width: 4px 0 0 4px;
-                    transform: rotate(-45deg);
-                    margin-left: 40%;
-                }
-
-                .slide-right {
-                    border-width: 4px 4px 0 0;
-                    transform: rotate(45deg);
-                    margin-left: 22%;
+                    * {
+                        color: white;
+                    }
                 }
             }
 
-            .slider-container {
-                #cards-container {
-                    overflow: hidden;
-                    margin: 20px;
+            .card-title {
+                font-size: 2rem;
+                font-weight: 600;
+            }
 
-                    .cards {
-                        display: flex;
-                        width: 99999px;
+            .card-header {
+                padding: 0.5rem 1rem;
+                margin-bottom: 0;
+                color: black;
+                background-color: white;
+                border-bottom: 0 solid rgba(0, 0, 0, .125);
+                padding: 2rem;
+                justify-content: center;
+                display: flex;
+            }
 
-                        .card {
-                            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-                            background: #fff;
-                            transition: 0.3s;
-                            width: 350px;
-                            margin: 15px;
-                            border-radius: 10px;
+            .card-body {
+                padding: 2rem;
 
-                            &:hover {
-                                box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-                                cursor: pointer;
-                            }
+                .project {
+                    &-description {
+                        margin-bottom: 1.5rem;
+                        font-size: .875rem;
+                        line-height: 1.5;
+                    }
 
-                            .container {
-                                height: 100%;
-                                justify-content: center;
-                                align-items: flex-start;
-                                padding: 30px;
-                                gap: 20px;
+                    &-title {
+                        font-size: 1.25rem;
+                        line-height: 1.375;
+                        font-weight: 600;
+                        padding: 1rem 0;
+                    }
 
-                                h2 {
-                                    font-size: 25px;
-                                    font-weight: 700;
-                                }
-                            }
+                    &-button {
+                        border-radius: 10px;
+                        padding: 10px 20px;
+
+                        &:hover {
+                            background-color: $orange;
+                            color: white;
                         }
                     }
                 }

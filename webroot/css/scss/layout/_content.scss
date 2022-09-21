@@ -10,7 +10,7 @@ body {
     font-family: $main-font;
     font-weight: 300;
     line-height: $line-height;
-    background: $grey;
+    background: $gray;
 }
 
 body {
@@ -284,20 +284,20 @@ strong {
         // TABLE HEADER
         thead,
         .thead {
-            background-color: $navGrey;
+            background-color: $navGray;
 
             th,
             .th {
                 padding: $small-gap $gap;
-                background-color: $navGrey;
-                border: 1px solid $navGrey;
+                background-color: $navGray;
+                border: 1px solid $navGray;
                 color: $white;
                 text-align: center;
                 text-transform: uppercase;
                 letter-spacing: 1px;
 
                 &:last-child {
-                    border-right: 1px solid $navGrey;
+                    border-right: 1px solid $navGray;
                 }
 
                 &.fa-wrapper {

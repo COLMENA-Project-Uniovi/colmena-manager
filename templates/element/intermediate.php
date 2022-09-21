@@ -3,38 +3,45 @@ $session = $this->request->getSession();
 $projects = $session->read('Projects');
 ?>
 <div class="home-selector visible">
-    <div class="container">
-        <h1>Bienvenido a Colmena</h1>
-        <div class="slider-container" style="width: 100%;display: flex;align-items: center;">
-            <div id="slide-left-container">
-                <div class="slide-left">
-                </div>
-            </div>
-            <?php
-            if (isset($projects) && count($projects) > 0) {
-            ?>
-                <div id="cards-container">
-                    <div class="cards">
-                        <?php
-                        foreach ($projects as $project) {
-                        ?>
-                            <div class="card project" data-project=<?= $project['id'] ?>>
-                                <div class="container">
-                                    <h2>
+    <div class="card card-plain">
+        <div class="card-header">
+            <h1 class="card-title">Selecciona uno de tus proyectos</h1>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <?php
+                foreach ($projects as $project) {
+                ?>
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="project-title">
+                                    <h5>
                                         <?= $project['name'] ?>
-                                    </h2>
-                                    <p><?= $project['description'] ?></p>
+                                    </h5>
                                 </div>
-                            </div>
-                        <?php
-                        }
-                        ?>
-                    </div>
-                </div>
-            <?php } ?>
+                                <p class="project-description">
+                                    <?= $project['description'] ?>
+                                </p>
 
-            <div id="slide-right-container">
-                <div class="slide-right">
+                                <button class="button project-button" data-project="<?= $project['id'] ?>">
+                                    Ver projecto
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                <?php
+                }
+                ?>
+                <div class="col">
+                    <div class="card card-plain border add-project">
+                        <div class="card-body">
+                            <a href="javascript:;">
+                                <i class="fa fa-plus text-secondary mb-3" aria-hidden="true"></i>
+                                <h5 class=" text-secondary"> New project </h5>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -43,7 +50,7 @@ $projects = $session->read('Projects');
 
 <script>
     $(function() {
-        $('.project').click(function() {
+        $('.project-button').click(function() {
             $.ajax({
                 method: 'POST',
                 url: "<?= $this->Url->build(['plugin' => false, 'controller' => 'admin-users', 'action' => 'startSession']) ?>",
@@ -57,99 +64,4 @@ $projects = $session->read('Projects');
             })
         })
     })
-</script>
-
-<script>
-    /**
-     * @description Change Home page slider's arrows active status
-     */
-    function updateSliderArrowsStatus(
-        cardsContainer,
-        containerWidth,
-        cardCount,
-        cardWidth
-    ) {
-        if (
-            $(cardsContainer).scrollLeft() + containerWidth <
-            cardCount * cardWidth + 15
-        ) {
-            $("#slide-right-container").addClass("active");
-        } else {
-            $("#slide-right-container").removeClass("active");
-        }
-        if ($(cardsContainer).scrollLeft() > 0) {
-            $("#slide-left-container").addClass("active");
-        } else {
-            $("#slide-left-container").removeClass("active");
-        }
-    }
-    $(function() {
-        // Scroll products' slider left/right
-        let div = $("#cards-container");
-        let cardCount = $(div)
-            .find(".cards")
-            .children(".card").length;
-        let speed = 1000;
-        let containerWidth = $(".container").width();
-        let cardWidth = 250;
-
-        updateSliderArrowsStatus(div, containerWidth, cardCount, cardWidth);
-
-        //Remove scrollbars
-        $("#slide-right-container").click(function(e) {
-            if ($(div).scrollLeft() + containerWidth < cardCount * cardWidth) {
-                $(div).animate({
-                    scrollLeft: $(div).scrollLeft() + cardWidth
-                }, {
-                    duration: speed,
-                    complete: function() {
-                        setTimeout(
-                            updateSliderArrowsStatus(
-                                div,
-                                containerWidth,
-                                cardCount,
-                                cardWidth
-                            ),
-                            1005
-                        );
-                    }
-                });
-            }
-            updateSliderArrowsStatus(div, containerWidth, cardCount, cardWidth);
-        });
-        $("#slide-left-container").click(function(e) {
-            if ($(div).scrollLeft() + containerWidth > containerWidth) {
-                $(div).animate({
-                    scrollLeft: "-=" + cardWidth
-                }, {
-                    duration: speed,
-                    complete: function() {
-                        setTimeout(
-                            updateSliderArrowsStatus(
-                                div,
-                                containerWidth,
-                                cardCount,
-                                cardWidth
-                            ),
-                            1005
-                        );
-                    }
-                });
-            }
-            updateSliderArrowsStatus(div, containerWidth, cardCount, cardWidth);
-        });
-
-        // If resize action ocurred then update the container width value
-        $(window).resize(function() {
-            try {
-                containerWidth = $("#cards-container").width();
-                updateSliderArrowsStatus(div, containerWidth, cardCount, cardWidth);
-            } catch (error) {
-                console.log(
-                    `Error occured while trying to get updated slider container width: 
-            ${error}`
-                );
-            }
-        });
-    });
 </script>
