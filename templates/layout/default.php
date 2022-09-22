@@ -72,7 +72,7 @@ use Cake\Http\Exception\NotFoundException;
     echo $this->fetch('vendors');
     echo $this->fetch('scripts');
     ?>
-    
+
     <!-- JS CONSTANS DEFINITIONS -->
 
     <!-- TINYMCE -->
@@ -89,6 +89,16 @@ use Cake\Http\Exception\NotFoundException;
 
 <body>
     <div id="container">
+        <?php
+        
+        $session = $this->request->getSession();
+        $projectID = $session->read('Projectid');
+
+        if (empty($projectID['projectID'])) {
+            echo $this->element('intermediate');
+        }
+        ?>
+
         <?= $this->element('main-menu', $menuItems); ?>
 
         <div id="main-content" <?= isset($_SESSION['menu_hide']) && $_SESSION['menu_hide'] ? 'class="wide"' : '' ?>>
