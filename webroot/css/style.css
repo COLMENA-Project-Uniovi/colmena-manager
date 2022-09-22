@@ -2326,6 +2326,7 @@ nav.small .logout {
   background-color: #AAAAAA;
   transition: 0.3s ease-out;
   cursor: pointer;
+  text-decoration: none;
 }
 .home-selector.visible .card.add-project:hover * {
   color: white;

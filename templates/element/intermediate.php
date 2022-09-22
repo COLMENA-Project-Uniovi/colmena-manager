@@ -2,7 +2,7 @@
 $session = $this->request->getSession();
 $projects = $session->read('Projects');
 ?>
-<div class="home-selector <?= $visible ?>">
+<div class="home-selector <?= $visible ?> ">
     <div class="card card-plain">
         <div class="card-header">
             <h1 class="card-title">Selecciona uno de tus proyectos</h1>
@@ -36,9 +36,9 @@ $projects = $session->read('Projects');
                 ?>
                 <div class="col">
                     <a class="card card-plain border add-project" href="/admin/academical-manager/projects/add">
-                        <div class="card-body">
+                        <div class="card-body d-flex flex-column justify-content-center">
                             <i class="fa fa-plus" aria-hidden="true"></i>
-                            <h5 class=" text-secondary"> Nuevo proyecto </h5>
+                            <h2 class="p-2">Nuevo proyecto</h2>
                         </div>
                     </a>
                 </div>
@@ -71,4 +71,8 @@ $projects = $session->read('Projects');
             $('.nav').prop('disabled', true);
         });
     })
+
+    if (window.location.href.indexOf("projects/add") > -1) {
+        $('.home-selector').removeClass('visible');
+    }
 </script>
