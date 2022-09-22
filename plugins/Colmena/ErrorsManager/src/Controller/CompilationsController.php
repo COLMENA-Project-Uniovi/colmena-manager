@@ -3,24 +3,20 @@
 namespace Colmena\ErrorsManager\Controller;
 
 use Colmena\ErrorsManager\Controller\AppController;
-use Cake\Event\Event;
 use App\Encryption\EncryptTrait;
-use Cake\Http\Exception\ForbiddenException;
-use Cake\Http\Exception\UnauthorizedException;
-use Cake\ORM\TableRegistry;
 
-class ErrorsController extends AppController
+class CompilationsController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'error';
-    public $entity_name_plural = 'errores';
+    public $entity_name = 'compilacion';
+    public $entity_name_plural = 'compilaciones';
 
     // Default pagination settings
     public $paginate = [
         'limit' => 20,
         'order' => [
-            'id' => 'ASC'
+            'id' => 'DESC'
         ]
     ];
 
@@ -28,7 +24,7 @@ class ErrorsController extends AppController
         'Editar' => [
             'icon' => '<i class="fas fa-edit"></i>',
             'url' => [
-                'controller' => 'Errors',
+                'controller' => 'Compilations',
                 'action' => 'edit',
                 'plugin' => 'Colmena/ErrorsManager'
             ],
@@ -40,12 +36,12 @@ class ErrorsController extends AppController
         'Borrar' => [
             'icon' => '<i class="fas fa-trash-alt"></i>',
             'url' => [
-                'controller' => 'Errors',
+                'controller' => 'Compilations',
                 'action' => 'delete',
                 'plugin' => 'Colmena/ErrorsManager'
             ],
             'options' => [
-                'confirm' => '¿Estás seguro de que quieres eliminar el error?',
+                'confirm' => '¿Estás seguro de que quieres eliminar la compilación?',
                 'class' => 'red-icon',
                 'escape' => false
             ]
@@ -53,27 +49,13 @@ class ErrorsController extends AppController
     ];
 
     protected $header_actions = [
-        'Añadir error de ejemplo' => [
-            'url' => [
-                'controller' => 'ErrorExamples',
-                'plugin' => 'Colmena/ErrorsManager',
-                'action' => 'add'
-            ]
-        ], 
-        'Ver errores de ejemplo' => [
-            'url' => [
-                'controller' => 'ErrorExamples',
-                'plugin' => 'Colmena/ErrorsManager',
-                'action' => 'index'
-            ]
-        ],
-        'Ver tipos de errores' => [
-            'url' => [
-                'controller' => 'ErrorsFamily',
-                'plugin' => 'Colmena/ErrorsManager',
-                'action' => 'index'
-            ]
-        ],
+        // 'Añadir error de ejemplo' => [
+        //     'url' => [
+        //         'controller' => 'ErrorExamples',
+        //         'plugin' => 'Colmena/ErrorsManager',
+        //         'action' => 'add'
+        //     ]
+        // ]
     ];
 
     protected $tab_actions = [];
@@ -105,7 +87,6 @@ class ErrorsController extends AppController
 
         // Paginator
         $settings = $this->paginate;
-        
         // If performing search, there is a keyword
         if ($keyword != null) {
             // Change pagination conditions for searching
@@ -139,10 +120,10 @@ class ErrorsController extends AppController
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
 
             if ($this->{$this->getName()}->save($entity)) {
-                $this->Flash->success('El error se ha guardado correctamente.');
+                $this->Flash->success('La compilación se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id]);
             } else {
-                $error_msg = '<p>El error no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+                $error_msg = '<p>La compilación no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
                 foreach ($entity->errors() as $field => $error) {
                     $error_msg .= '<p>' . $error['message'] . '</p>';
                 }
@@ -168,10 +149,10 @@ class ErrorsController extends AppController
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
 
             if ($this->{$this->getName()}->save($entity)) {
-                $this->Flash->success('El error se ha guardado correctamente.');
+                $this->Flash->success('La compilación se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
             } else {
-                $error_msg = '<p>El error no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+                $error_msg = '<p>La compilación no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
                 foreach ($entity->errors() as $field => $error) {
                     $error_msg .= '<p>' . $error['message'] . '</p>';
                 }
@@ -197,9 +178,9 @@ class ErrorsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $entity = $this->{$this->getName()}->get($id);
         if ($this->{$this->getName()}->delete($entity)) {
-            $this->Flash->success('El error se ha borrado correctamente.');
+            $this->Flash->success('La compilación se ha borrado correctamente.');
         } else {
-            $this->Flash->error('El error no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
+            $this->Flash->error('La compilación no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
         }
         return $this->redirect(['action' => 'index']);
     }

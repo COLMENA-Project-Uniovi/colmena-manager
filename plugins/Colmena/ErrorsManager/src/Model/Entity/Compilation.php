@@ -1,13 +1,11 @@
 <?php
 
-namespace Colmena\AcademicalManager\Model\Entity;
+namespace Colmena\ErrorsManager\Model\Entity;
 
 use Cake\ORM\Entity;
-use Cake\I18n\Time;
-use Cake\Auth\DefaultPasswordHasher;
 
 /**
- * Subject Entity.
+ * Error Entity.
  *
  * @property int $id
  * @property string $name
@@ -18,7 +16,7 @@ use Cake\Auth\DefaultPasswordHasher;
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
  */
-class Project extends Entity
+class Compilation extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -30,6 +28,7 @@ class Project extends Entity
      * @var array
      */
     protected $_accessible = [
+        'id' => false,
         '*' => true
     ];
 
@@ -39,5 +38,6 @@ class Project extends Entity
      * @var array
      */
     protected $_hidden = [
+        'id'
     ];
 }

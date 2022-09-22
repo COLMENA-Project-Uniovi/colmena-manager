@@ -27,11 +27,14 @@ $header = [
             <table class="table-responsive">
                 <thead class="thead">
                     <tr class="tr">
-                        <th class="th grow">
-                            Nombre
+                        <th class="th medium">
+                            Id del error
                         </th><!-- .th -->
                         <th class="th medium">
-                            Descripción
+                            Nombre
+                        </th><!-- .th -->
+                        <th class="th grow">
+                            Mensaje
                         </th><!-- .th -->
                         <?php
                         if (!empty($table_buttons)) {
@@ -50,10 +53,13 @@ $header = [
                     ?>
                         <tr class="tr">
                             <td class="td element grow">
-                                <p><?= $entity->name ?></p>
+                                <p><?= $entity->error_id; ?></p>
                             </td><!-- .td -->
                             <td class="td element medium">
-                                <p><?= $entity->description; ?></p>
+                                <p><?= $entity->name?></p>
+                            </td><!-- .td -->
+                            <td class="td element grow">
+                                <p><?= $entity->message; ?></p>
                             </td><!-- .td -->
                             <?php
                             if (!empty($table_buttons)) {

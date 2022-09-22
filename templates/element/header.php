@@ -1,4 +1,4 @@
-<header>
+<header class="card">
     <?php
 
     use Cake\Core\Configure;
@@ -62,13 +62,13 @@
     }
     ?>
 
-    <div class="mid-header">
-        <h2><?= $title; ?></h2>
+    <div class="mid-header row">
+        <h2 class="col"><?= $title; ?></h2>
         <?php
         if (isset($header)) {
             if (isset($header['actions']) && !empty($header['actions'])) {
         ?>
-                <div class="actions">
+                <div class="actions col">
                     <?php
                     if (isset($header['title']) && !empty($header['title'])) {
                     ?>
@@ -96,7 +96,7 @@
             }
             if (isset($header['buttons']) && !empty($header['buttons'])) {
             ?>
-                <div class="actions">
+                <div class="actions col">
                     <?php
                     foreach ($header['buttons'] as $action_name => $config) {
                         $class = isset($config['class']) ? $config['class'] : '';
@@ -186,7 +186,7 @@
             if (isset($header['search_form'])) {
                 $search_form = $header['search_form'];
             ?>
-                <div class="search <?= isset($header['select_filter']) && $header['select_filter'] ? "long" : "" ?>">
+                <div class="search col <?= isset($header['select_filter']) && $header['select_filter'] ? "long" : "" ?>">
                     <?= $this->Form->create(
                         null,
                         [
@@ -201,8 +201,8 @@
                             'type' => 'text',
                             'value' => $keyword
                         ]
-                    ); ?>
-                    <?php
+                    );
+                    
                     if (isset($header['select_filter']) && $header['select_filter']) {
                         echo $this->Form->select(
                             'filter',
@@ -226,14 +226,14 @@
             if (isset($header['ajax_search'])) {
                 $action = $header['ajax_search']['action'];
             ?>
-                <div class="search">
-                    <div class="search-form">
-                        <div class="input text">
-                            <input type="text" name="keyword" />
-                        </div><!-- .input -->
-                        <span class="button" data-action="<?= $action; ?>"><i class="fa fa-search" aria-hidden="true"></i></span>
-                    </div><!-- .search-form -->
-                </div><!-- .search -->
+                <div class="search-wrapper">
+                    <input class="search-input" type="text" placeholder="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-search" viewBox="0 0 24 24">
+                        <defs></defs>
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="M21 21l-4.35-4.35"></path>
+                    </svg>
+                </div>
             <?php
             }
 
