@@ -35,9 +35,21 @@ Configure::write('Colmena/ErrorsManager.menuItems', [
                 ],
             ],
             'Compilaciones' => [
-                'icon' => '<i class="far fa-code"></i>',
+                'icon' => '<i class="fas fa-wrench"></i>',
                 'link' => [
                     'controller' => 'Compilations',
+                    'action' => 'index',
+                    'plugin' => 'Colmena/ErrorsManager',
+                ],
+                'extra' => [
+                    'class' => 'menu-item',
+                    'escape' => false,
+                ],
+            ], 
+            'Lenguajes de programación' => [
+                'icon' => '<i class="far fa-code"></i>',
+                'link' => [
+                    'controller' => 'Languages',
                     'action' => 'index',
                     'plugin' => 'Colmena/ErrorsManager',
                 ],
@@ -62,7 +74,8 @@ Configure::write('Colmena/ErrorsManager.home_blocks', []);
  * Set the searchable entities for this plugin
  */
 Configure::write(
-    'Colmena/ErrorsManager.searchable_entities',[]
+    'Colmena/ErrorsManager.searchable_entities',
+    []
 );
 
 /*

@@ -1657,6 +1657,7 @@ strong {
   color: #000000;
   background-color: #F3933D;
   border-color: #F3933D;
+  text-decoration: none;
 }
 
 .draggable .ui-sortable-handle {
