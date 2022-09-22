@@ -2,11 +2,12 @@
 $session = $this->request->getSession();
 $projects = $session->read('Projects');
 ?>
-<div class="home-selector visible">
+<div class="home-selector <?= $visible ?>">
     <div class="card card-plain">
         <div class="card-header">
             <h1 class="card-title">Selecciona uno de tus proyectos</h1>
         </div>
+
         <div class="card-body">
             <div class="row">
                 <?php
@@ -16,9 +17,9 @@ $projects = $session->read('Projects');
                         <div class="card">
                             <div class="card-body">
                                 <div class="project-title">
-                                    <h5>
+                                    <h2>
                                         <?= $project['name'] ?>
-                                    </h5>
+                                    </h2>
                                 </div>
                                 <p class="project-description">
                                     <?= $project['description'] ?>
@@ -34,14 +35,12 @@ $projects = $session->read('Projects');
                 }
                 ?>
                 <div class="col">
-                    <div class="card card-plain border add-project">
+                    <a class="card card-plain border add-project" href="/admin/academical-manager/projects/add">
                         <div class="card-body">
-                            <a href="javascript:;">
-                                <i class="fa fa-plus text-secondary mb-3" aria-hidden="true"></i>
-                                <h5 class=" text-secondary"> New project </h5>
-                            </a>
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            <h5 class=" text-secondary"> Nuevo proyecto </h5>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -61,7 +60,15 @@ $projects = $session->read('Projects');
                     $('.home-selector').removeClass('visible');
                     $('.nav nav').addClass('visible');
                 }
-            })
-        })
+            });
+        });
+    });
+
+    $(function() {
+        $('.add-project').click(function() {
+            $('.home-selector').removeClass('visible');
+            $('.home-selector').addClass('test');
+            $('.nav').prop('disabled', true);
+        });
     })
 </script>

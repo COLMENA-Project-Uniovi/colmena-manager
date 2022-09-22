@@ -46,7 +46,6 @@
             .wrap-input100 {
                 width: 100%;
                 position: relative;
-                border-bottom: 1px solid $orange;
                 margin-bottom: 37px;
 
                 .input100 {
@@ -101,8 +100,6 @@
             }
 
             .container-login100-form-btn {
-                padding-top: 15px;
-
                 .wrap-login100-form-btn {
                     .login100-form-btn {
                         font-size: 18px;
@@ -113,7 +110,7 @@
                         width: 100%;
                         cursor: pointer;
                         background-color: $orange;
-                        border: $orange solid 2px;
+                        border: 1px solid $orange;
                         border-radius: 10px;
 
                         &:hover {

@@ -105,6 +105,7 @@ class ErrorsController extends AppController
 
         // Paginator
         $settings = $this->paginate;
+        
         // If performing search, there is a keyword
         if ($keyword != null) {
             // Change pagination conditions for searching

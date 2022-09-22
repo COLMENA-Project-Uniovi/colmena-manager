@@ -41,12 +41,6 @@ a {
     padding: 0 0 0 $menu-width;
     @include default-transition(0.2s);
 
-    .content {
-        padding: $gap*8 0;
-        width: 95%;
-        margin: auto;
-    }
-
     &.wide {
         padding-left: $menu-small-width;
 

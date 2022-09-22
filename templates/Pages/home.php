@@ -3,7 +3,7 @@
 use Cake\Core\Configure;
 
 ?>
-<header class="home">
+<header class="home card">
     <?= $this->Html->link(
         $this->Html->image(
             'logo-simple.svg',

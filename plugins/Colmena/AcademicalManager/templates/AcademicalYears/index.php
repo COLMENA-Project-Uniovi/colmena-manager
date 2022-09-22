@@ -24,7 +24,7 @@ $header = [
         <?php
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
-            <table class="table">
+            <table class="table-responsive">
                 <thead class="thead">
                     <tr class="tr">
                         <th class="th medium">

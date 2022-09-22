@@ -4,6 +4,7 @@ namespace Colmena\AcademicalManager\Controller;
 
 use Colmena\AcademicalManager\Controller\AppController;
 use App\Encryption\EncryptTrait;
+use Cake\Core\Configure;
 
 class ProjectsController extends AppController
 {
@@ -80,6 +81,7 @@ class ProjectsController extends AppController
     public function index($keyword = null)
     {
         $projectID = $this->getSessionProject();
+        $userID = $this->Auth->user()['id'];
 
         if ($this->request->is('post')) {
             //recover the keyword
@@ -104,8 +106,17 @@ class ProjectsController extends AppController
             ];
         }
 
+        $userCondition = ['user_id' => $userID];
+        if (isset($settings['conditions'])) {
+            array_push($userCondition, $settings['conditions']);
+        } else {
+            $settings['conditions'] = $userCondition;
+        }
+
         //prepare the pagination
         $this->paginate = $settings;
+
+
         $entities = $this->paginate($this->modelClass);
 
         $this->set('header_actions', $this->getHeaderActions());
@@ -131,7 +142,8 @@ class ProjectsController extends AppController
 
             $entity = $this->{$this->getName()}->patchEntity($entity, $data);
 
-            if ($this->{$this->getName()}->save($entity)) {
+            if ($project = $this->{$this->getName()}->save($entity)) {
+                $this->startSession($project['id']);
                 $this->Flash->success('El proyecto se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id]);
             } else {
@@ -228,5 +240,20 @@ class ProjectsController extends AppController
         $projectID = $session->read('Projectid');
 
         return $projectID['projectID'];
+    }
+
+    /**
+     * Method which puts the project Id into the session
+     *
+     * @return void
+     */
+    public function startSession($projectID)
+    {
+        $session = $this->request->getSession();
+        $response = $this->response->withType('json');
+        $session->write('Projectid', $projectID);
+
+        Configure::write('Session.project', $projectID);
+        return $response->withStringBody(json_encode($projectID));
     }
 }

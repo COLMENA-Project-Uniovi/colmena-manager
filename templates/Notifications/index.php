@@ -30,7 +30,7 @@ $header = [
                 <?= $this->Paginator->counter('<span>Mostrando {{start}}-{{end}} de {{count}} elementos</span>'); ?>
             </div><!-- .num-results -->
         </div><!-- .top-results -->
-        <div class="table">
+        <div class="table-responsive">
             <div class="thead">
                 <div class="tr">
                     <div class="th grow">

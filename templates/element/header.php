@@ -1,4 +1,4 @@
-<header>
+<header class="card">
     <?php
 
     use Cake\Core\Configure;
@@ -62,13 +62,13 @@
     }
     ?>
 
-    <div class="mid-header">
-        <h2><?= $title; ?></h2>
+    <div class="mid-header row">
+        <h2 class="col"><?= $title; ?></h2>
         <?php
         if (isset($header)) {
             if (isset($header['actions']) && !empty($header['actions'])) {
         ?>
-                <div class="actions">
+                <div class="actions col">
                     <?php
                     if (isset($header['title']) && !empty($header['title'])) {
                     ?>
@@ -96,7 +96,7 @@
             }
             if (isset($header['buttons']) && !empty($header['buttons'])) {
             ?>
-                <div class="actions">
+                <div class="actions col">
                     <?php
                     foreach ($header['buttons'] as $action_name => $config) {
                         $class = isset($config['class']) ? $config['class'] : '';
@@ -186,7 +186,7 @@
             if (isset($header['search_form'])) {
                 $search_form = $header['search_form'];
             ?>
-                <div class="search <?= isset($header['select_filter']) && $header['select_filter'] ? "long" : "" ?>">
+                <div class="search col <?= isset($header['select_filter']) && $header['select_filter'] ? "long" : "" ?>">
                     <?= $this->Form->create(
                         null,
                         [

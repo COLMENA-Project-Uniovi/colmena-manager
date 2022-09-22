@@ -158,11 +158,6 @@ a {
   padding: 0 0 0 220px;
   transition: all 0.2s ease-out;
 }
-#main-content .content {
-  padding: 160px 0;
-  width: 95%;
-  margin: auto;
-}
 #main-content.wide {
   padding-left: 50px;
 }
@@ -1771,9 +1766,6 @@ strong {
 header {
   background-color: #F4F4F4;
   position: fixed;
-  height: 140px;
-  width: calc(100% - 220px);
-  z-index: 9;
   box-shadow: 0 2px 6px 0 rgba(136, 148, 171, 0.2), 0 24px 20px -24px rgba(71, 82, 107, 0.1);
 }
 header.home {
@@ -2292,15 +2284,16 @@ nav.small .logout {
 .home-selector.visible {
   display: block;
   background-color: #f3f4f6;
+  overflow-y: scroll;
 }
 .home-selector.visible .row {
   display: flex;
   flex-wrap: wrap;
   margin: 0 1rem;
+  gap: 0.75rem;
 }
 .home-selector.visible .col {
   flex: 1 0 0%;
-  padding: 0 0.75rem;
 }
 .home-selector.visible .card {
   position: relative;
@@ -2341,14 +2334,10 @@ nav.small .logout {
   font-weight: 600;
 }
 .home-selector.visible .card .card-header {
-  padding: 0.5rem 1rem;
-  margin-bottom: 0;
-  color: black;
-  background-color: white;
-  border-bottom: 0 solid rgba(0, 0, 0, 0.125);
-  padding: 2rem;
-  justify-content: center;
   display: flex;
+  justify-content: center;
+  padding: 2rem;
+  padding-top: 3rem;
 }
 .home-selector.visible .card .card-body {
   padding: 2rem;
@@ -2552,7 +2541,6 @@ nav.small .logout {
 #container .wrap-login100 .login100-form .wrap-input100 {
   width: 100%;
   position: relative;
-  border-bottom: 1px solid #F3933D;
   margin-bottom: 37px;
 }
 #container .wrap-login100 .login100-form .wrap-input100 .input100 {
@@ -2601,9 +2589,6 @@ nav.small .logout {
   padding-left: 5px;
   transition: all 0.4s;
 }
-#container .wrap-login100 .login100-form .container-login100-form-btn {
-  padding-top: 15px;
-}
 #container .wrap-login100 .login100-form .container-login100-form-btn .wrap-login100-form-btn .login100-form-btn {
   font-size: 18px;
   color: #fff;
@@ -2613,7 +2598,7 @@ nav.small .logout {
   width: 100%;
   cursor: pointer;
   background-color: #F3933D;
-  border: #F3933D solid 2px;
+  border: 1px solid #F3933D;
   border-radius: 10px;
 }
 #container .wrap-login100 .login100-form .container-login100-form-btn .wrap-login100-form-btn .login100-form-btn:hover {
