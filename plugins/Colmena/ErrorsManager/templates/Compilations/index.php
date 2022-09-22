@@ -7,6 +7,7 @@ $this->Breadcrumbs->add(ucfirst($entity_name_plural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
+
 $header = [
     'title' => ucfirst($entity_name_plural),
     'breadcrumbs' => true,
@@ -15,6 +16,7 @@ $header = [
         'search_form' => []
     ]
 ];
+
 ?>
 
 <?= $this->element("header", $header); ?>
@@ -28,13 +30,19 @@ $header = [
                 <thead class="thead">
                     <tr class="tr">
                         <th class="th medium">
-                            Id del error
+                            Id de la compilacion
                         </th><!-- .th -->
                         <th class="th medium">
-                            Nombre
+                            Id del alumno
                         </th><!-- .th -->
                         <th class="th grow">
-                            Mensaje
+                            Sesión
+                        </th><!-- .th -->
+                        <th class="th grow">
+                            Tipo
+                        </th><!-- .th -->
+                        <th class="th grow">
+                            Proyecto
                         </th><!-- .th -->
                         <?php
                         if (!empty($table_buttons)) {
@@ -53,13 +61,19 @@ $header = [
                     ?>
                         <tr class="tr">
                             <td class="td element grow">
-                                <p><?= $entity->error_id; ?></p>
+                                <p><?= $entity->id; ?></p>
                             </td><!-- .td -->
                             <td class="td element medium">
-                                <p><?= $entity->name?></p>
+                                <p><?= $entity->user_id ?></p>
                             </td><!-- .td -->
                             <td class="td element grow">
-                                <p><?= $entity->message; ?></p>
+                                <p><?= $entity->session_id; ?></p>
+                            </td><!-- .td -->
+                            <td class="td element grow">
+                                <p><?= $entity->type; ?></p>
+                            </td><!-- .td -->
+                            <td class="td element grow">
+                                <p><?= $entity->project_name; ?></p>
                             </td><!-- .td -->
                             <?php
                             if (!empty($table_buttons)) {
