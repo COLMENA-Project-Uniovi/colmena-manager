@@ -141,18 +141,19 @@ class ProjectsController extends AppController
             $data['user_id'] = $userID;
 
             $entity = $this->{$this->getName()}->patchEntity($entity, $data);
+            $project = $this->{$this->getName()}->save($entity);
 
-            if ($project = $this->{$this->getName()}->save($entity)) {
+            if (isset($project)) {
                 $this->startSession($project['id']);
                 $this->Flash->success('El proyecto se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id]);
-            } else {
-                $error_msg = '<p>El proyecto no se ha guardado. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($entity->errors() as $field => $error) {
-                    $error_msg .= '<p>' . $error['message'] . '</p>';
-                }
-                $this->Flash->error($error_msg, ['escape' => false]);
             }
+
+            $errorMsg = '<p>El proyecto no se ha guardado. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+            foreach ($entity->errors() as $error) {
+                $errorMsg .= '<p>' . $error['message'] . '</p>';
+            }
+            $this->Flash->error($errorMsg, ['escape' => false]);
         }
 
         $this->set(compact('entity'));
@@ -165,10 +166,10 @@ class ProjectsController extends AppController
      * @return void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null, $locale = null)
+    public function edit($entityID = null, $locale = null)
     {
         $this->setLocale($locale);
-        $entity = $this->{$this->getName()}->get($id);
+        $entity = $this->{$this->getName()}->get($entityID);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
@@ -176,13 +177,13 @@ class ProjectsController extends AppController
             if ($this->{$this->getName()}->save($entity)) {
                 $this->Flash->success('el proyecto se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
-            } else {
-                $error_msg = '<p>el proyecto no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($entity->errors() as $field => $error) {
-                    $error_msg .= '<p>' . $error['message'] . '</p>';
-                }
-                $this->Flash->error($error_msg, ['escape' => false]);
             }
+
+            $errorMsg = '<p>el proyecto no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+            foreach ($entity->errors() as $error) {
+                $errorMsg .= '<p>' . $error['message'] . '</p>';
+            }
+            $this->Flash->error($errorMsg, ['escape' => false]);
         }
 
         $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));

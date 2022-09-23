@@ -141,11 +141,11 @@ class SessionsController extends AppController
                 $this->Flash->success('La sesión se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $subjectID]);
             } else {
-                $error_msg = '<p>La sesión no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+                $errorMsg = '<p>La sesión no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
                 foreach ($entity->errors() as $field => $error) {
-                    $error_msg .= '<p>' . $error['message'] . '</p>';
+                    $errorMsg .= '<p>' . $error['message'] . '</p>';
                 }
-                $this->Flash->error($error_msg, ['escape' => false]);
+                $this->Flash->error($errorMsg, ['escape' => false]);
             }
         }
 
@@ -173,11 +173,11 @@ class SessionsController extends AppController
                 $this->Flash->success('La sesión se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
             } else {
-                $error_msg = '<p>La sesión no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+                $errorMsg = '<p>La sesión no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
                 foreach ($entity->errors() as $field => $error) {
-                    $error_msg .= '<p>' . $error['message'] . '</p>';
+                    $errorMsg .= '<p>' . $error['message'] . '</p>';
                 }
-                $this->Flash->error($error_msg, ['escape' => false]);
+                $this->Flash->error($errorMsg, ['escape' => false]);
             }
         }
 
