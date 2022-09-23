@@ -206,6 +206,7 @@ class ProjectsController extends AppController
         } else {
             $this->Flash->error('el proyecto no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
         }
+        
         return $this->redirect(['action' => 'index']);
     }
 

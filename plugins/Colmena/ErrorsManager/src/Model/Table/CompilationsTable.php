@@ -25,11 +25,6 @@ class CompilationsTable extends AppTable
         $this->setTable('em_compilations');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
-
-        // $this->hasOne('Family', [
-        //     'className' => 'Colmena/ErrorsManager.ErrorsFamily',
-        //     'foreignKey' => 'family_id',
-        // ]);
     }
 
     /**

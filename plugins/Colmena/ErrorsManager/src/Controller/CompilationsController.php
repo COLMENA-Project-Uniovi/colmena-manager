@@ -48,16 +48,7 @@ class CompilationsController extends AppController
         ]
     ];
 
-    protected $header_actions = [
-        // 'Añadir error de ejemplo' => [
-        //     'url' => [
-        //         'controller' => 'ErrorExamples',
-        //         'plugin' => 'Colmena/ErrorsManager',
-        //         'action' => 'add'
-        //     ]
-        // ]
-    ];
-
+    protected $header_actions = [];
     protected $tab_actions = [];
 
     /**
@@ -122,13 +113,13 @@ class CompilationsController extends AppController
             if ($this->{$this->getName()}->save($entity)) {
                 $this->Flash->success('La compilación se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id]);
-            } else {
-                $errorMsg = '<p>La compilación no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($entity->errors() as $field => $error) {
-                    $errorMsg .= '<p>' . $error['message'] . '</p>';
-                }
-                $this->Flash->error($errorMsg, ['escape' => false]);
             }
+
+            $errorMsg = '<p>La compilación no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+            foreach ($entity->errors() as $error) {
+                $errorMsg .= '<p>' . $error['message'] . '</p>';
+            }
+            $this->Flash->error($errorMsg, ['escape' => false]);
         }
         $this->set(compact('entity'));
     }
@@ -140,10 +131,10 @@ class CompilationsController extends AppController
      * @return void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null, $locale = null)
+    public function edit($entityID = null, $locale = null)
     {
         $this->setLocale($locale);
-        $entity = $this->{$this->getName()}->get($id);
+        $entity = $this->{$this->getName()}->get($entityID);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
@@ -151,13 +142,15 @@ class CompilationsController extends AppController
             if ($this->{$this->getName()}->save($entity)) {
                 $this->Flash->success('La compilación se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
-            } else {
-                $errorMsg = '<p>La compilación no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($entity->errors() as $field => $error) {
-                    $errorMsg .= '<p>' . $error['message'] . '</p>';
-                }
-                $this->Flash->error($errorMsg, ['escape' => false]);
             }
+
+            $errorMsg = '<p>La compilación no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+
+            foreach ($entity->errors() as $error) {
+                $errorMsg .= '<p>' . $error['message'] . '</p>';
+            }
+
+            $this->Flash->error($errorMsg, ['escape' => false]);
         }
 
         $families = $this->{$this->getName()}->Family->find('list')->order(['name' => 'ASC']);
