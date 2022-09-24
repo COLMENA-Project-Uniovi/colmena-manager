@@ -55,6 +55,18 @@ $header = [
                     ]
                 ]
             ); ?>
+
+            <?= $this->Form->control(
+                'language_id',
+                [
+                    'label' => 'Lenguaje de programación',
+                    'options' => $programmingLanguages,
+                    'empty' => '---- Selecciona el lenguaje de programación ----',
+                    'templateVars' => [
+                        'help' => 'Selecciona el lenguaje de programación'
+                    ]
+                ]
+            ); ?>
         </div><!-- .form-block -->
     </div><!-- .primary -->
     <div class="primary full">

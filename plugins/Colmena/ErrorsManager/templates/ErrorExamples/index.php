@@ -28,6 +28,9 @@ $header = [
                 <thead class="thead">
                     <tr class="tr">
                         <th class="th medium">
+                            Nombre del error
+                        </th><!-- .th -->
+                        <th class="th medium">
                             Id del error
                         </th><!-- .th -->
                         <th class="th grow">
@@ -49,6 +52,9 @@ $header = [
                     foreach ($entities as $entity) {
                     ?>
                         <tr class="tr">
+                        <td class="td element medium">
+                                <p><?= $entity->name ?></p>
+                            </td><!-- .td -->
                             <td class="td element medium">
                                 <p><?= $entity->error_id ?></p>
                             </td><!-- .td -->

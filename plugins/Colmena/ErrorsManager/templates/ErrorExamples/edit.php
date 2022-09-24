@@ -27,6 +27,13 @@ $header = [
         <div class="form-block">
             <h3>Datos generales</h3>
             <?= $this->Form->control(
+                'name',
+                [
+                    'label' => 'Nombre del error',
+                    'type' => 'text'
+                ]
+            ); ?>
+            <?= $this->Form->control(
                 'error_id',
                 [
                     'label' => 'ID del error',

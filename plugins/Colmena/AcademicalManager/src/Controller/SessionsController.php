@@ -4,8 +4,6 @@ namespace Colmena\AcademicalManager\Controller;
 
 use Colmena\AcademicalManager\Controller\AppController;
 use App\Encryption\EncryptTrait;
-use Cake\Core\Configure;
-use Cake\Http\Session;
 
 class SessionsController extends AppController
 {
@@ -19,7 +17,8 @@ class SessionsController extends AppController
         'limit' => 20,
         'order' => [
             'id' => 'DESC'
-        ]
+        ],
+        'contain' => ['Languages']
     ];
 
     protected $table_buttons = [
@@ -111,7 +110,6 @@ class SessionsController extends AppController
 
         //prepare the pagination
         $this->paginate = $settings;
-
         $entities = $this->paginate($sessions);
         $subject = $this->{$this->getName()}->Subjects->get($subjectID);
 
@@ -140,13 +138,9 @@ class SessionsController extends AppController
             if ($this->{$this->getName()}->save($entity)) {
                 $this->Flash->success('La sesión se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $subjectID]);
-            } else {
-                $errorMsg = '<p>La sesión no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($entity->errors() as $field => $error) {
-                    $errorMsg .= '<p>' . $error['message'] . '</p>';
-                }
-                $this->Flash->error($errorMsg, ['escape' => false]);
             }
+
+            $this->showErrors($entity);
         }
 
         $this->set(compact('entity', 'subject'));
@@ -159,30 +153,43 @@ class SessionsController extends AppController
      * @return void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null, $subjectID, $locale = null)
+    public function edit($entityID = null, $subjectID, $locale = null)
     {
         $this->setLocale($locale);
-        $entity = $this->{$this->getName()}->get($id);
+        $entity = $this->{$this->getName()}->get($entityID);
         $subject = $this->{$this->getName()}->Subjects->get($subjectID);
-
-
+        $programmingLanguages = $this->{$this->getName()}->Languages->find('list')->order(['name' => 'ASC'])->toArray();
+        
         if ($this->request->is(['patch', 'post', 'put'])) {
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
-
+             
             if ($this->{$this->getName()}->save($entity)) {
                 $this->Flash->success('La sesión se ha guardado correctamente.');
-                return $this->redirect(['action' => 'edit', $entity->id, $locale]);
-            } else {
-                $errorMsg = '<p>La sesión no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($entity->errors() as $field => $error) {
-                    $errorMsg .= '<p>' . $error['message'] . '</p>';
-                }
-                $this->Flash->error($errorMsg, ['escape' => false]);
+                return $this->redirect(['action' => 'edit', $entity->id, $subjectID, $locale]);
             }
+
+            $this->showErrors($entity);
         }
 
         $this->set('tab_actions', $this->getTabActions('Sessions', 'edit', $entity));
-        $this->set(compact('entity', 'subject'));
+        $this->set(compact('entity', 'subject', 'programmingLanguages'));
+    }
+
+    /**
+     * Function which shows the entity error's on saving
+     *
+     * @param [Session] $entity
+     * @return void
+     */
+    private function showErrors($entity)
+    {
+        $errorMsg = '<p>La sesión no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+
+        foreach ($entity->errors() as $error) {
+            $errorMsg .= '<p>' . $error['message'] . '</p>';
+        }
+
+        $this->Flash->error($errorMsg, ['escape' => false]);
     }
 
     /**
@@ -202,14 +209,6 @@ class SessionsController extends AppController
             $this->Flash->error('la sesión no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
         }
         return $this->redirect(['action' => 'index']);
-    }
-
-    private function getSessionProject()
-    {
-        $session = $this->request->getSession();
-        $projectID = $session->read('Projectid');
-
-        return $projectID['projectID'];
     }
 
     /**

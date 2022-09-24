@@ -64,7 +64,7 @@ $header = [
                     'required' => true,
                     'type' => 'text'
                 ]
-            ); ?> 
+            ); ?>
             <?= $this->Form->control(
                 'objective',
                 [
@@ -75,7 +75,19 @@ $header = [
                         'max' =>  200
                     ]
                 ]
-            ); ?> 
+            ); ?>
+
+            <?= $this->Form->control(
+                'language_id',
+                [
+                    'label' => 'Lenguaje de programación',
+                    'options' => $programmingLanguages,
+                    'empty' => '---- Selecciona el lenguaje de programación ----',
+                    'templateVars' => [
+                        'help' => 'Selecciona el lenguaje de programación'
+                    ]
+                ]
+            ); ?>
         </div><!-- .form-block -->
     </div><!-- .primary -->
     <?= $this->element("form/save-block"); ?>

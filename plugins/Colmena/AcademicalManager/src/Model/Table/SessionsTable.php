@@ -38,6 +38,17 @@ class SessionsTable extends AppTable
             'foreignKey' => 'session_id',
             'className' => 'Colmena/AcademicalManager.SessionSchedules'
         ]);
+
+        $this->belongsToMany(
+            'Languages',
+            [
+                'foreignKey' => 'session_id',
+                'targetForeignKey' => 'language_id',
+                'joinTable' => 'acm_languages_sessions',
+                'sort' => ['Languages.name' => 'ASC'],
+                'className' => 'Colmena/ErrorsManager.Languages',
+            ]
+        );
     }
 
     /**

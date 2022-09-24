@@ -3,9 +3,7 @@
 namespace Colmena\ErrorsManager\Controller;
 
 use Colmena\ErrorsManager\Controller\AppController;
-use Cake\Event\Event;
 use App\Encryption\EncryptTrait;
-use Cake\Http\Exception\ForbiddenException;
 
 class MarkersController extends AppController
 {
@@ -20,12 +18,10 @@ class MarkersController extends AppController
         'order' => [
             'id' => 'ASC'
         ],
-        'contain' => [
-            'Sessions', 'Conflicts'
-        ]
+        'contain' => []
     ];
 
-    protected $table_buttons = [
+    protected $tableButtons = [
         'Editar' => [
             'icon' => '<i class="fas fa-edit"></i>',
             'url' => [
@@ -87,6 +83,7 @@ class MarkersController extends AppController
 
         // Paginator
         $settings = $this->paginate;
+
         // If performing search, there is a keyword
         if ($keyword != null) {
             // Change pagination conditions for searching
@@ -101,8 +98,8 @@ class MarkersController extends AppController
         $this->paginate = $settings;
         $entities = $this->paginate($this->modelClass);
 
-        $this->set('header_actions', $this->getHeaderActions());
-        $this->set('table_buttons', $this->getTableButtons());
+        $this->set('headerActions', $this->getHeaderActions());
+        $this->set('tableButtons', $this->getTableButtons());
         $this->set('entities', $entities);
         $this->set('_serialize', 'entities');
         $this->set('keyword', $keyword);
@@ -221,11 +218,14 @@ class MarkersController extends AppController
             $entity = $this->{$this->getName()}->find()->where(['id' => $entity['id']])->contain(['Conflicts'])->first();
             $entity = $this->{$this->getName()}->patchEntity($entity, $data);
 
-            echo '<pre>',var_dump($entity),'</pre>';die;
+            echo '<pre>', var_dump($entity), '</pre>';
+            die;
 
-            echo '<pre>',var_dump($entity),'</pre>';die;
+            echo '<pre>', var_dump($entity), '</pre>';
+            die;
 
-            echo '<pre>',var_dump($conflictSessions),'</pre>';die;
+            echo '<pre>', var_dump($conflictSessions), '</pre>';
+            die;
             //TODO: Hacer que ponga que existe el conflicto para que el usuario lo resuelva manualmente
 
             return false;
