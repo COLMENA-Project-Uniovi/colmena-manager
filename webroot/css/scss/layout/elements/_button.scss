@@ -1,12 +1,12 @@
 // BOTON ADMINISTRADOR
-.button{
+.button {
     display: inline-block;
     padding: $tiny-gap $small-gap;
     margin: auto;
     color: $medium-gray;
-    background-color: transparent;
+    background-color: white;
     border: 1px solid $gray-a;
-    border-radius: 0;
+    border-radius: 10px;
     font-size: $small-font-size;
     font-weight: 600;
     text-decoration: none;
@@ -14,12 +14,14 @@
     letter-spacing: 1px;
     cursor: pointer;
     transition: all 0.2s ease-out;
+    box-shadow: 0 2px 6px 0 rgba(136, 148, 171, .2), 0 24px 20px -24px rgba(71, 82, 107, .1);
 
-    &.white{
+    &.white {
         border-color: $white;
         color: $white;
     }
-    &:hover{
+
+    &:hover {
         color: $black;
         background-color: $orange;
         border-color: $orange;

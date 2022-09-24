@@ -14,6 +14,7 @@
     align-items: center;
     justify-content: center;
     transition: visibility 0s linear 0.5s, z-index 0s linear 0.5s;
+
     .loader {
         position: relative;
         height: 220px;
@@ -22,26 +23,31 @@
         align-items: center;
         justify-content: center;
         color: #a0a0a0;
+
         svg {
             overflow: visible;
             width: 50px;
             height: 50px;
             fill: $orange;
-            animation: 1.5s rotateWithBoost cubic-bezier(0.5, 0.1, 0.5, 0.9)
-                infinite;
+            animation: 1.5s rotateWithBoost cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
+
             circle:first-of-type {
                 animation: 1.5s loaderdot1 ease-out infinite;
             }
+
             circle:nth-of-type(2) {
                 animation: 1.5s loaderdot2 ease-out infinite;
             }
+
             circle:nth-of-type(3) {
                 animation: 1.5s loaderdot3 ease-out infinite;
             }
+
             circle:last-of-type {
                 animation: 1.5s loaderdot4 ease-out infinite;
             }
         }
+
         span {
             position: absolute;
             bottom: 10px;
@@ -63,33 +69,40 @@
  * LOADER KEYFRAMES
  **/
 @keyframes loaderdot1 {
+
     0%,
     45% {
         cx: 6;
         cy: 6;
     }
+
     55%,
     80% {
         cx: 2;
         cy: 2;
     }
+
     90%,
     100% {
         cx: 6;
         cy: 6;
     }
 }
+
 @keyframes loaderdot2 {
+
     0%,
     45% {
         cx: 6;
         cy: 24;
     }
+
     55%,
     80% {
         cx: 2;
         cy: 28;
     }
+
     90%,
     100% {
         cx: 6;
@@ -98,16 +111,19 @@
 }
 
 @keyframes loaderdot3 {
+
     0%,
     45% {
         cx: 24;
         cy: 6;
     }
+
     55%,
     80% {
         cx: 28;
         cy: 2;
     }
+
     90%,
     100% {
         cx: 24;
@@ -116,16 +132,19 @@
 }
 
 @keyframes loaderdot4 {
+
     0%,
     45% {
         cx: 24;
         cy: 24;
     }
+
     55%,
     80% {
         cx: 28;
         cy: 28;
     }
+
     90%,
     100% {
         cx: 24;
@@ -137,9 +156,11 @@
     0% {
         transform: rotate(0deg);
     }
+
     60% {
         transform: rotate(180deg);
     }
+
     90%,
     100% {
         transform: rotate(360deg);

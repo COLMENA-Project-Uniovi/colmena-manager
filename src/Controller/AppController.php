@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org).
@@ -47,7 +48,7 @@ class AppController extends Controller
      * @throws Exception
      */
     protected $table_buttons = [];
-    
+
     public function initialize(): void
     {
         parent::initialize();
@@ -88,14 +89,13 @@ class AppController extends Controller
 
         // Allow the display action so our pages controller
         // continues to work.
-       	$this->Auth->allow(['index', 'login']);
-        
+        $this->Auth->allow(['index', 'login']);
+
         // Set the API Key to use TinyPNG
         \Tinify\setKey(Configure::read("tinypng.api_key"));
 
         $this->encryption_key = Configure::read('API.key');
         $this->encryption_method = Configure::read('API.method');
-        
     }
 
     /**
@@ -111,7 +111,7 @@ class AppController extends Controller
             // If is an API call
             $supported_entities = Configure::read('API.entities');
             $plugin = $this->request->getParam('plugin');
-            $entity = ($plugin != '' ? $plugin.'.' : '').$controller;
+            $entity = ($plugin != '' ? $plugin . '.' : '') . $controller;
             // If the controller is a REST controller
             if (in_array($entity, $supported_entities)) {
                 // If a version is indicated
@@ -133,7 +133,7 @@ class AppController extends Controller
             } else {
                 throw new BadRequestException('Controlador no soportado');
             }
-        } else if($controller != 'Caches') {
+        } else if ($controller != 'Caches') {
             // Every time someone changes something in the CMS, clear the cache.
             // Thanks to this, when a new request is triggered, the cache is renewed.
             (new CacheUtility)->clear();
@@ -148,8 +148,9 @@ class AppController extends Controller
     public function beforeRender(\Cake\Event\EventInterface $event)
     {
         $viewVars = $this->viewBuilder()->getVars();
-        
-        if (!array_key_exists('_serialize', $viewVars) &&
+
+        if (
+            !array_key_exists('_serialize', $viewVars) &&
             in_array($this->response->getType(), ['application/json', 'application/xml'])
         ) {
             $this->set('_serialize', []);
@@ -198,8 +199,10 @@ class AppController extends Controller
         }
 
         // Used by Media Manager
-        if ($this->{$this->getName()}->behaviors()->has('Media') &&
-            (!isset($viewVars['multimedia']) || empty($viewVars['multimedia']))) {
+        if (
+            $this->{$this->getName()}->behaviors()->has('Media') &&
+            (!isset($viewVars['multimedia']) || empty($viewVars['multimedia']))
+        ) {
             $this->set('multimedia', $this->{$this->getName()}->getMediaConfig());
         }
 
@@ -232,14 +235,16 @@ class AppController extends Controller
      */
     public function isAuthorized($user)
     {
-        if ($this->request->getParam('controller') === 'Pages' ||
-            ($this->request->getParam('controller') === 'AdminUsers' && $this->request->getParam('action') === 'logout')) {
+        if (
+            $this->request->getParam('controller') === 'Pages' ||
+            ($this->request->getParam('controller') === 'AdminUsers' && $this->request->getParam('action') === 'logout')
+        ) {
             return true;
         }
 
         $roles_table = TableRegistry::getTableLocator()->get('AdminUserRoles');
         $role =  $roles_table->getRoleFromUser($user);
-        
+
         // Admin can access every action
         // if user not admin, check privileges from role database table array and rol entities
         if (isset($role) && ($role['is_admin'] || $this->Roles->checkAuthorized($role))) {
@@ -369,7 +374,7 @@ class AppController extends Controller
             //if content not empty, export to file
             if ($file_content !== false) {
                 $now = new Time();
-                $filename = $now->i18nFormat('yyyyMMddHHmmss').'-'.$this->entity_name_plural.'.csv';
+                $filename = $now->i18nFormat('yyyyMMddHHmmss') . '-' . $this->entity_name_plural . '.csv';
                 return $this->response
                     ->withType('csv')
                     ->withCharset('UTF-8')
@@ -382,7 +387,7 @@ class AppController extends Controller
             return $this->redirect($this->referer());
         }
 
-        $this->Flash->error('Los datos de "'.$this->entity_name_plural.'" no se pueden exportar.');
+        $this->Flash->error('Los datos de "' . $this->entity_name_plural . '" no se pueden exportar.');
 
         return $this->redirect($this->referer());
     }
@@ -396,7 +401,7 @@ class AppController extends Controller
      */
     public function import()
     {
-        if($this->{$this->getName()}->behaviors()->has('Importable')) {
+        if ($this->{$this->getName()}->behaviors()->has('Importable')) {
             $entity = $this->{$this->getName()}->newEmptyEntity();
             if ($this->request->is(['patch', 'post', 'put'])) {
                 if ($this->{$this->getName()}->importCsv($this->request->getData('file'))) {
@@ -433,7 +438,7 @@ class AppController extends Controller
         $entity = $this->{$this->getName()}->get($id);
         $entity_controller = $this->{$this->getName()}->getEntityController();
         $entity_plugin = $this->{$this->getName()}->getEntityPlugin();
-        
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
             unset($data['parameter']);
@@ -468,10 +473,10 @@ class AppController extends Controller
         foreach (Configure::read() as $key => $config) {
             if (isset($config['parameters'])) {
                 $parameters = $config['parameters'];
-                
-                if($parameters['entities'] == 'all' || in_array($entity_plugin.".".$entity_controller, $parameters['entities'])) {
+
+                if ($parameters['entities'] == 'all' || in_array($entity_plugin . "." . $entity_controller, $parameters['entities'])) {
                     $parameters_config = array_merge($parameters_config, $parameters['config']);
-                    if(isset($parameters['default_classes'])) {
+                    if (isset($parameters['default_classes'])) {
                         $default_classes = array_merge($default_classes, $parameters['default_classes']);
                     }
                 }
@@ -523,7 +528,7 @@ class AppController extends Controller
      * @return array with the config of the buttons
      */
     protected function getTableButtons()
-    {   
+    {
         return $this->Roles->composeUserOptions($this->table_buttons);
     }
 
@@ -541,9 +546,11 @@ class AppController extends Controller
             if ($entity != null) {
                 array_push($aux_config['url'], $entity->id);
             }
+
             if (isset($config['i18n']) && $config['i18n']) {
                 array_push($aux_config['url'], I18n::getLocale());
             }
+            
             $aux_actions[$name] = $aux_config;
         }
 
@@ -561,8 +568,8 @@ class AppController extends Controller
     protected function getTabActions($controller = '', $action = '', $entity = null)
     {
         $aux_actions = [];
-        if(isset($this->tab_actions) && !empty($this->tab_actions)){
-            foreach ($this->tab_actions as $name => $config) {   
+        if (isset($this->tab_actions) && !empty($this->tab_actions)) {
+            foreach ($this->tab_actions as $name => $config) {
                 if ($config['url']['controller'] == $controller && $config['url']['action'] == $action) {
                     $config['current'] = 'current';
                 }
@@ -576,7 +583,7 @@ class AppController extends Controller
             }
         }
 
-        if($this->{$this->getName()}->behaviors()->has("Parameters")) {
+        if ($this->{$this->getName()}->behaviors()->has("Parameters")) {
             $entity_plugin = $this->{$this->getName()}->getEntityPlugin();
             $aux_actions['Configuración avanzada'] = [
                 'url' => [
@@ -588,7 +595,7 @@ class AppController extends Controller
                 'i18n' => true
             ];
         }
-                
+
         return $this->Roles->composeUserTabs($aux_actions);
     }
 
@@ -618,7 +625,7 @@ class AppController extends Controller
      * 
      * @return array name of the plugins
      */
-    public function getPlugins() 
+    public function getPlugins()
     {
         $plugins = Configure::read('plugins');
         unset($plugins['Mailgun']);

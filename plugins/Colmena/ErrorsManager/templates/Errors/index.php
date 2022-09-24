@@ -18,13 +18,13 @@ $header = [
 ?>
 
 <?= $this->element("header", $header); ?>
-
+<?= $this->element('paginator'); ?>
 <div class="content">
     <div class="results">
         <?php
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
-            <table class="table">
+            <table class="table-responsive">
                 <thead class="thead">
                     <tr class="tr">
                         <th class="th medium">
@@ -56,7 +56,7 @@ $header = [
                                 <p><?= $entity->error_id; ?></p>
                             </td><!-- .td -->
                             <td class="td element medium">
-                                <p><?= $entity->name?></p>
+                                <p><?= $entity->name ?></p>
                             </td><!-- .td -->
                             <td class="td element grow">
                                 <p><?= $entity->message; ?></p>
@@ -95,7 +95,7 @@ $header = [
                     ?>
                 </tbody><!-- .tbody -->
             </table><!-- .table -->
-            <?= $this->element('paginator'); ?>
+
         <?php
         } else {
         ?>
