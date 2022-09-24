@@ -64,7 +64,7 @@ $header = [
                 ]
             ); ?>
             <?= $this->Form->control(
-                'year',
+                'year_id',
                 [
                     'label' => 'Año académico',
                     'type' => 'number'

@@ -40,6 +40,18 @@ $header = [
                     'type' => 'number'
                 ]
             ); ?>
+
+            <?= $this->Form->control(
+                'session_id',
+                [
+                    'label' => 'ID de la sesión',
+                    'options' => $sessions,
+                    'empty' => '---- Selecciona el ID de la sesión ----',
+                    'templateVars' => [
+                        'help' => 'Selecciona el ID de la sesión'
+                    ]
+                ]
+            ); ?>
         </div><!-- .form-block -->
 
         <div class="flex-blocks two">

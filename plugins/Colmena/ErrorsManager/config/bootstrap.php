@@ -22,6 +22,18 @@ Configure::write('Colmena/ErrorsManager.menuItems', [
                     'escape' => false,
                 ],
             ],
+            'Errores de ejemplo' => [
+                'icon' => '<i class="far fa-chalkboard-teacher"></i>',
+                'link' => [
+                    'controller' => 'ErrorExamples',
+                    'action' => 'index',
+                    'plugin' => 'Colmena/ErrorsManager',
+                ],
+                'extra' => [
+                    'class' => 'menu-item',
+                    'escape' => false,
+                ],
+            ],
             'Markers' => [
                 'icon' => '<i class="far fa-bookmark"></i>',
                 'link' => [

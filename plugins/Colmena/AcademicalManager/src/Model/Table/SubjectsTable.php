@@ -13,7 +13,7 @@ use App\Encryption\EncryptTrait;
 class SubjectsTable extends AppTable
 {
     use EncryptTrait;
-    
+
     /**
      * Initialize method.
      *

@@ -24,7 +24,7 @@ $header = [
         <?php
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
-            <div class="container table-responsive py-5">
+            <div class="table-responsive py-5">
                 <table class="table table-bordered table-hover">
                     <thead class="thead-dark">
                         <tr>

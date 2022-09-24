@@ -4,12 +4,14 @@ $this->Breadcrumbs->add(ucfirst($entity_name_plural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
-$this->Breadcrumbs->add('Editar ' . $entity_name, [
+
+$this->Breadcrumbs->add('Visualizar ' . $entity_name, [
     'controller' => $this->request->getParam('controller'),
     'action' => 'add'
 ]);
+
 $header = [
-    'title' => 'Editar ' . $entity_name,
+    'title' => 'Visualizar ' . $entity_name,
     'breadcrumbs' => true,
     'tabs' => $tab_actions
 ];
@@ -31,21 +33,24 @@ $header = [
                 'error_id',
                 [
                     'label' => 'Id del error',
-                    'type' => 'number'
+                    'type' => 'number',
+                    'disabled' => true
                 ]
             ); ?>
             <?= $this->Form->control(
                 'name',
                 [
                     'label' => 'Nombre del error',
-                    'type' => 'text'
+                    'type' => 'text',
+                    'disabled' => true
                 ]
             ); ?>
             <?= $this->Form->control(
                 'message',
                 [
                     'label' => 'Mensaje del error',
-                    'type' => 'email'
+                    'type' => 'email',
+                    'disabled' => true
                 ]
             ); ?>
             <?= $this->Form->control(
@@ -56,7 +61,8 @@ $header = [
                     'empty' => '---- Selecciona la familia del error ----',
                     'templateVars' => [
                         'help' => 'Selecciona la familia del error'
-                    ]
+                    ],
+                    'disabled' => true
                 ]
             ); ?>
 

@@ -4,8 +4,6 @@ namespace Colmena\AcademicalManager\Controller;
 
 use Colmena\AcademicalManager\Controller\AppController;
 use App\Encryption\EncryptTrait;
-use Cake\Core\Configure;
-use Cake\Http\Session;
 
 class SubjectsController extends AppController
 {
@@ -135,6 +133,7 @@ class SubjectsController extends AppController
     {
         $project = $this->getSessionProject();
         $entity = $this->{$this->getName()}->newEmptyEntity();
+        $academicalYears = $this->{$this->getName()}->Year->find('all');
 
         if ($this->request->is('post')) {
             $data = $this->request->getData();
@@ -145,16 +144,12 @@ class SubjectsController extends AppController
             if ($this->{$this->getName()}->save($entity)) {
                 $this->Flash->success('la asignatura se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id]);
-            } else {
-                $errorMsg = '<p>La asignatura no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($entity->errors() as $field => $error) {
-                    $errorMsg .= '<p>' . $error['message'] . '</p>';
-                }
-                $this->Flash->error($errorMsg, ['escape' => false]);
             }
+
+            $this->showErrors($entity);
         }
 
-        $this->set(compact('entity', 'project'));
+        $this->set(compact('entity', 'project', 'academicalYears'));
     }
 
     /**
@@ -164,10 +159,11 @@ class SubjectsController extends AppController
      * @return void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null, $locale = null)
+    public function edit($entityID = null, $locale = null)
     {
         $this->setLocale($locale);
-        $entity = $this->{$this->getName()}->get($id);
+        $entity = $this->{$this->getName()}->get($entityID);
+        // $academicalYears = $this->{$this->getName()}->Year->find('all');
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
@@ -175,13 +171,9 @@ class SubjectsController extends AppController
             if ($this->{$this->getName()}->save($entity)) {
                 $this->Flash->success('la asignatura se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
-            } else {
-                $errorMsg = '<p>La asignatura no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($entity->errors() as $field => $error) {
-                    $errorMsg .= '<p>' . $error['message'] . '</p>';
-                }
-                $this->Flash->error($errorMsg, ['escape' => false]);
             }
+
+            $this->showErrors($entity);
         }
 
         $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
@@ -268,5 +260,22 @@ class SubjectsController extends AppController
         $this->response = $this->response->withType('json');
 
         return $this->response;
+    }
+
+    /**
+     * Function which shows the entity error's on saving
+     *
+     * @param [Subject] $entity
+     * @return void
+     */
+    private function showErrors($entity)
+    {
+        $errorMsg = '<p>La sesión no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+
+        foreach ($entity->errors() as $error) {
+            $errorMsg .= '<p>' . $error['message'] . '</p>';
+        }
+
+        $this->Flash->error($errorMsg, ['escape' => false]);
     }
 }

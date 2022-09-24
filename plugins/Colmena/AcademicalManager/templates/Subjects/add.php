@@ -58,10 +58,12 @@ $header = [
                 ]
             ); ?>
             <?= $this->Form->control(
-                'academical_year',
+                'year_id',
                 [
-                    'label' => 'Año académico de la asignatura',
-                    'type' => 'number'
+                    'label' => 'Año académico',
+                    'type' => 'text',
+                    'value' => $academicalYears,
+                    'disabled' => 'disabled'
                 ]
             ); ?>
             <?= $this->Form->control(

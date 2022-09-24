@@ -24,7 +24,7 @@ class SessionsTable extends AppTable
         parent::initialize($config);
 
         $this->setTable('acm_sessions');
-        $this->setDisplayField('title');
+        $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
         $this->belongsTo(
