@@ -63,13 +63,19 @@ $header = [
                     'type' => 'textarea'
                 ]
             ); ?>
+
             <?= $this->Form->control(
-                'year_id',
+                'academical_year_id',
                 [
                     'label' => 'Año académico',
-                    'type' => 'number'
+                    'options' => $academicalYears,
+                    'empty' => '---- Selecciona el año académico ----',
+                    'templateVars' => [
+                        'help' => 'Selecciona el año académico'
+                    ]
                 ]
             ); ?>
+
             <?= $this->Form->control(
                 'semester',
                 [

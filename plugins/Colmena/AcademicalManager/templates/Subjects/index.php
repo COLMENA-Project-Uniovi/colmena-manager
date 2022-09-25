@@ -31,10 +31,10 @@ $header = [
                             Nombre
                         </th><!-- .th -->
                         <th class="th grow">
-                            Semestre
+                            Año académico
                         </th><!-- .th -->
                         <th class="th grow">
-                            Año académico
+                            Semestre
                         </th><!-- .th -->
                         <th class="th grow">
                             Fecha de inicio
@@ -56,28 +56,28 @@ $header = [
                 <tbody class="tbody elements">
                     <?php
                     foreach ($entities as $entity) {
-                        $table_buttons['Sesiones'] = 
-                        [
-                            'icon' => '<i class="far fa-calendar-alt"></i>',
-                            'url' => [
-                                'controller' => 'Sessions',
-                                'action' => 'index',
-                                'plugin' => 'Colmena/AcademicalManager',
-                            ],
-                            'options' => [
-                                'escape' => false
-                            ]
-                        ];
+                        $table_buttons['Sesiones'] =
+                            [
+                                'icon' => '<i class="far fa-calendar-alt"></i>',
+                                'url' => [
+                                    'controller' => 'Sessions',
+                                    'action' => 'index',
+                                    'plugin' => 'Colmena/AcademicalManager',
+                                ],
+                                'options' => [
+                                    'escape' => false
+                                ]
+                            ];
                     ?>
                         <tr class="tr">
                             <td class="td element medium">
                                 <p><?= $entity->name ?></p>
                             </td><!-- .td -->
                             <td class="td element grow">
-                                <p><?= $entity->semester; ?></p>
+                                <p><?= $entity->academical_year_id != 0 ? $entity->academical_year->title : ''; ?></p>
                             </td><!-- .td -->
                             <td class="td element grow">
-                                <p><?= $entity->academical_year; ?></p>
+                                <p><?= $entity->semester; ?></p>
                             </td><!-- .td -->
                             <td class="td element grow">
                                 <p><?= $entity->start_date; ?></p>

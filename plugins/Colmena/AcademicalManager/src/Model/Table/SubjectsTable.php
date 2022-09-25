@@ -38,6 +38,13 @@ class SubjectsTable extends AppTable
             'foreignKey' => 'subject_id',
             'className' => 'Colmena/AcademicalManager.Sessions'
         ]);
+
+        $this->belongsTo(
+            'AcademicalYear',
+            [
+                'className' => 'Colmena/AcademicalManager.AcademicalYears',
+            ]
+        );
     }
 
     /**

@@ -17,6 +17,10 @@ class SubjectsController extends AppController
         'limit' => 20,
         'order' => [
             'id' => 'DESC'
+        ],
+        'contain' => [
+            'AcademicalYear',
+            'Projects'
         ]
     ];
 
@@ -57,8 +61,6 @@ class SubjectsController extends AppController
             ]
         ]
     ];
-
-    protected $tab_actions = [];
 
     /**
      * Before filter
@@ -162,8 +164,10 @@ class SubjectsController extends AppController
     public function edit($entityID = null, $locale = null)
     {
         $this->setLocale($locale);
-        $entity = $this->{$this->getName()}->get($entityID);
-        // $academicalYears = $this->{$this->getName()}->Year->find('all');
+
+        $entity = $this->{$this->getName()}->find('all')->where([$this->getName() . '.id' => $entityID])->contain(['AcademicalYear', 'Projects'])->first();
+
+        $academicalYears = $this->{$this->getName()}->AcademicalYear->find('list')->all();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
@@ -176,8 +180,8 @@ class SubjectsController extends AppController
             $this->showErrors($entity);
         }
 
-        $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
-        $this->set(compact('entity'));
+        $this->set('tab_actions', $this->getTabActions('Subjects', 'edit', $entity));
+        $this->set(compact('entity', 'academicalYears'));
     }
 
     /**
