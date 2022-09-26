@@ -60,7 +60,7 @@ $header = [
                                 <p><?= $entity->name ?></p>
                             </td><!-- .td -->
                             <td class="td element grow">
-                                <p> <?= $entity->language_id != 0? $entity->languages[0]->name: ''; ?></p>
+                                <p> <?= $entity->language_id != 0 ? $entity->language->name : ''; ?></p>
                             </td><!-- .td -->
                             <?php
                             if (!empty($table_buttons)) {
