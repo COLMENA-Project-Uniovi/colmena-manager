@@ -18,13 +18,13 @@ $header = [
 ?>
 
 <?= $this->element("header", $header); ?>
-
+<?= $this->element('paginator'); ?>
 <div class="content m-4">
     <div class="results">
         <?php
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
-            <div class="table-responsive py-5">
+            <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead class="thead-dark">
                         <tr>

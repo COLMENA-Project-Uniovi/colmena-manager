@@ -19,7 +19,7 @@
 
         <?= $this->element('main-menu', $menuItems); ?>
 
-        <div id="main-content" <?= isset($_SESSION['menu_hide']) && $_SESSION['menu_hide'] ? 'class="wide"' : '' ?>>
+        <div id="main-content">
             <?= $this->Flash->render() ?>
             <?= $this->fetch('content'); ?>
         </div><!-- #flow-content -->

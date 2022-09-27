@@ -262,7 +262,7 @@ class AdminUsersController extends AppController
                 $projectsTable = TableRegistry::getTableLocator()->get('acm_projects');
                 $projects = $projectsTable->find('all')->where(['user_id' => $user['id']])->toArray();
                 $session->write('Projects', $projects);
-                
+
                 return $this->redirect($this->Auth->redirectUrl());
             }
 
@@ -301,37 +301,14 @@ class AdminUsersController extends AppController
      */
     public function logout()
     {
+        $session = $this->request->getSession();
+        $session->destroy();
+
         $this->Flash->success(
             'Has cerrado sesión correctamente.',
             ['key' => 'auth']
         );
         return $this->redirect($this->Auth->logout());
-    }
-
-    /**
-     * Store menu size in session.
-     *
-     * @return Response
-     */
-    public function hideMenu()
-    {
-        $this->disableAutoRender();
-        $response = $this->response->withType('json');
-        $data = [];
-
-        $menu_session = isset($_SESSION['menu_hide']) ? $_SESSION['menu_hide'] : false;
-
-        if (!$menu_session) {
-            $_SESSION['menu_hide'] = true;
-        } else {
-            $_SESSION['menu_hide'] = false;
-        }
-
-        $data['status'] = 'success';
-        $data['message'] = 'El menú se ha cambiado de estado correctamente.';
-
-        $response = $response->withStringBody(json_encode($data));
-        return $response;
     }
 
     /**
@@ -343,11 +320,10 @@ class AdminUsersController extends AppController
     {
         $session = $this->request->getSession();
         $response = $this->response->withType('json');
-        
+
         $projectID = $this->request->getData();
         $session->write('Projectid', $projectID);
 
-        Configure::write('Session.project', $projectID);
         return $response->withStringBody(json_encode($projectID));
     }
 }

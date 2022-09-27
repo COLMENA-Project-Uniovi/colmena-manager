@@ -18,6 +18,7 @@ $header = [
 ?>
 
 <?= $this->element("header", $header); ?>
+<?= $this->element('paginator'); ?>
 
 <div class="content m-4">
     <div class="results">
@@ -52,7 +53,7 @@ $header = [
                     foreach ($entities as $entity) {
                     ?>
                         <tr class="tr">
-                        <td class="td element medium">
+                            <td class="td element medium">
                                 <p><?= $entity->name ?></p>
                             </td><!-- .td -->
                             <td class="td element medium">
