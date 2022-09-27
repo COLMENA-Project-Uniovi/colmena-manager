@@ -9,8 +9,8 @@ class CompilationsController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'compilacion';
-    public $entity_name_plural = 'compilaciones';
+    public $entityName = 'compilacion';
+    public $entityNamePlural = 'compilaciones';
 
     // Default pagination settings
     public $paginate = [
@@ -49,7 +49,7 @@ class CompilationsController extends AppController
     ];
 
     protected $header_actions = [];
-    protected $tab_actions = [];
+    protected $tabActions = [];
 
     /**
      * Before filter
@@ -155,7 +155,7 @@ class CompilationsController extends AppController
 
         $families = $this->{$this->getName()}->Family->find('list')->order(['name' => 'ASC']);
 
-        $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
+        $this->set('tabActions', $this->getTabActions('Users', 'edit', $entity));
         $this->set(compact('entity', 'families'));
     }
 

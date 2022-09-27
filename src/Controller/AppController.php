@@ -175,16 +175,16 @@ class AppController extends Controller
         // Set the user info to use in the views if needed
         $this->set('user', $user);
 
-        $roles_table = TableRegistry::getTableLocator()->get('AdminUserRoles');
-        $user_role =  $roles_table->getRoleFromUser($user);
+        $rolesTable = TableRegistry::getTableLocator()->get('AdminUserRoles');
+        $user_role =  $rolesTable->getRoleFromUser($user);
         $this->set('user_role', $user_role);
 
         // MENU ITEMS: load based on user permissions
         $this->set('menuItems', $this->Roles->userMenuItems());
 
         // Controller dependant variables
-        $this->set('entity_name', isset($this->entity_name) ? $this->entity_name : '');
-        $this->set('entity_name_plural', isset($this->entity_name_plural) ? $this->entity_name_plural : '');
+        $this->set('entityName', isset($this->entityName) ? $this->entityName : '');
+        $this->set('entityNamePlural', isset($this->entityNamePlural) ? $this->entityNamePlural : '');
 
         // Relocating names to display into Table
         $displayName = $this->getDisplayName();
@@ -242,8 +242,8 @@ class AppController extends Controller
             return true;
         }
 
-        $roles_table = TableRegistry::getTableLocator()->get('AdminUserRoles');
-        $role =  $roles_table->getRoleFromUser($user);
+        $rolesTable = TableRegistry::getTableLocator()->get('AdminUserRoles');
+        $role =  $rolesTable->getRoleFromUser($user);
 
         // Admin can access every action
         // if user not admin, check privileges from role database table array and rol entities
@@ -261,13 +261,13 @@ class AppController extends Controller
      * Change boolean property through ajax
      * Required Booleable Behavior declared in Model/Table.
      *
-     * @param  $id         // of the entity
+     * @param  $entityID         // of the entity
      * @param  $field_name // name of the boolean field to change
      * @param  $locale     // the language to change the boolean property
      *
      * @return Response
      */
-    public function changeBoolean($id, $field_name, $locale = null)
+    public function changeBoolean($entityID, $fieldName, $locale = null)
     {
         $this->setLocale($locale);
         $this->disableAutoRender();
@@ -276,9 +276,9 @@ class AppController extends Controller
 
         try {
             //recover the entity
-            $entity = $this->{$this->getName()}->get($id);
+            $entity = $this->{$this->getName()}->get($entityID);
 
-            if ($this->{$this->getName()}->changeBoolean($entity, $field_name)) {
+            if ($this->{$this->getName()}->changeBoolean($entity, $fieldName)) {
                 $data['status'] = 'success';
                 $data['message'] = 'Propiedad cambiada correctamente.';
             }
@@ -297,13 +297,13 @@ class AppController extends Controller
      * Change sort property through ajax
      * Required DraggableBehavior declared in Model/Table.
      *
-     * @param  $id         //of the entity
+     * @param  $entityID         //of the entity
      * @param  $sort       //new order of the entity
      * @param  $sort_field //the field to sort if we don't want to use the default
      *
      * @return Response
      */
-    public function changeSort($id = null, $sort = null, $sort_field = null)
+    public function changeSort($entityID = null, $sort = null, $sortField = null)
     {
         $this->disableAutoRender();
         $response = $this->response->withType('json');
@@ -311,9 +311,9 @@ class AppController extends Controller
 
         try {
             //recover the entity
-            $entity = $this->{$this->getName()}->get($id);
+            $entity = $this->{$this->getName()}->get($entityID);
 
-            if ($this->{$this->getName()}->changeSort($entity, $sort, $sort_field)) {
+            if ($this->{$this->getName()}->changeSort($entity, $sort, $sortField)) {
                 $data['status'] = 'success';
                 $data['message'] = 'Ordenación cambiada correctamente.';
             }
@@ -331,21 +331,21 @@ class AppController extends Controller
     /**
      * Reorder a tree element up or down.
      *
-     * @param  $id  //of the element to move
+     * @param  $entityID  //of the element to move
      * @param  $dir //direction to move the element
      *
      * @return Response
      */
-    public function move($id = null, $dir = null)
+    public function move($entityID = null, $dir = null)
     {
         // Get the referer url without the query
         $referer = parse_url($this->referer());
-        $referer_url =  Configure::read('Config.base_url') . substr($referer['path'], 1);
+        $refererUrl =  Configure::read('Config.base_url') . substr($referer['path'], 1);
 
         //recover the entity
-        $entity = $this->{$this->getName()}->get($id);
+        $entity = $this->{$this->getName()}->get($entityID);
         if (!$entity) {
-            return $this->redirect($referer_url);
+            return $this->redirect($refererUrl);
         }
 
         switch ($dir) {
@@ -357,7 +357,7 @@ class AppController extends Controller
                 break;
         }
 
-        return $this->redirect($referer_url);
+        return $this->redirect($refererUrl);
     }
 
     /**
@@ -369,16 +369,16 @@ class AppController extends Controller
     {
         if ($this->{$this->getName()}->behaviors()->has('Exportable')) {
             //if behavior loaded, get export file content
-            $file_content = $this->{$this->getName()}->export($items);
+            $fileContent = $this->{$this->getName()}->export($items);
 
             //if content not empty, export to file
-            if ($file_content !== false) {
+            if ($fileContent !== false) {
                 $now = new Time();
-                $filename = $now->i18nFormat('yyyyMMddHHmmss') . '-' . $this->entity_name_plural . '.csv';
+                $filename = $now->i18nFormat('yyyyMMddHHmmss') . '-' . $this->entityNamePlural . '.csv';
                 return $this->response
                     ->withType('csv')
                     ->withCharset('UTF-8')
-                    ->withStringBody($file_content)
+                    ->withStringBody($fileContent)
                     ->withDownload($filename);
             }
 
@@ -387,7 +387,7 @@ class AppController extends Controller
             return $this->redirect($this->referer());
         }
 
-        $this->Flash->error('Los datos de "' . $this->entity_name_plural . '" no se pueden exportar.');
+        $this->Flash->error('Los datos de "' . $this->entityNamePlural . '" no se pueden exportar.');
 
         return $this->redirect($this->referer());
     }
@@ -411,16 +411,17 @@ class AppController extends Controller
                             'action' => 'index'
                         ]
                     );
-                } else {
-                    $this->Flash->error('Ha habido un error realizando la importación.
-                    Por favor, revisa el fichero e inténtalo de nuevo.');
-                    return $this->redirect(
-                        [
-                            'action' => 'index'
-                        ]
-                    );
                 }
+
+                $this->Flash->error('Ha habido un error realizando la importación.
+                    Por favor, revisa el fichero e inténtalo de nuevo.');
+                return $this->redirect(
+                    [
+                        'action' => 'index'
+                    ]
+                );
             }
+
             $this->set("import_fields", $this->{$this->getName()}->getImportableFields());
             $this->set(compact('entity'));
 
@@ -433,11 +434,11 @@ class AppController extends Controller
      *
      * @return Cake\Http\Response
      */
-    public function parameters($id = null)
+    public function parameters($entityID = null)
     {
-        $entity = $this->{$this->getName()}->get($id);
-        $entity_controller = $this->{$this->getName()}->getEntityController();
-        $entity_plugin = $this->{$this->getName()}->getEntityPlugin();
+        $entity = $this->{$this->getName()}->get($entityID);
+        $entityController = $this->{$this->getName()}->getEntityController();
+        $entityPlugin = $this->{$this->getName()}->getEntityPlugin();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
@@ -454,8 +455,8 @@ class AppController extends Controller
 
                 return $this->redirect(
                     [
-                        'plugin' => $entity_plugin,
-                        'controller' => $entity_controller,
+                        'plugin' => $entityPlugin,
+                        'controller' => $entityController,
                         'action' => 'parameters',
                         $entity->id,
                     ]
@@ -468,24 +469,24 @@ class AppController extends Controller
         /**
          * Parameters config of all entities.
          */
-        $parameters_config = [];
-        $default_classes = [];
+        $parametersConfig = [];
+        $defaultClasses = [];
         foreach (Configure::read() as $key => $config) {
             if (isset($config['parameters'])) {
                 $parameters = $config['parameters'];
 
-                if ($parameters['entities'] == 'all' || in_array($entity_plugin . "." . $entity_controller, $parameters['entities'])) {
-                    $parameters_config = array_merge($parameters_config, $parameters['config']);
-                    if (isset($parameters['default_classes'])) {
-                        $default_classes = array_merge($default_classes, $parameters['default_classes']);
+                if ($parameters['entities'] == 'all' || in_array($entityPlugin . "." . $entityController, $parameters['entities'])) {
+                    $parametersConfig = array_merge($parametersConfig, $parameters['config']);
+                    if (isset($parameters['defaultClasses'])) {
+                        $defaultClasses = array_merge($defaultClasses, $parameters['defaultClasses']);
                     }
                 }
             }
         }
 
-        $this->set('parameters_config', $parameters_config);
-        $this->set('default_classes', $default_classes);
-        $this->set('tab_actions', $this->getTabActions($entity_controller, 'parameters', $entity));
+        $this->set('parametersConfig', $parametersConfig);
+        $this->set('defaultClasses', $defaultClasses);
+        $this->set('tabActions', $this->getTabActions($entityController, 'parameters', $entity));
         $this->set(compact('entity'));
 
         return $this->render('Pages/parameters');
@@ -550,7 +551,7 @@ class AppController extends Controller
             if (isset($config['i18n']) && $config['i18n']) {
                 array_push($aux_config['url'], I18n::getLocale());
             }
-            
+
             $aux_actions[$name] = $aux_config;
         }
 
@@ -568,8 +569,8 @@ class AppController extends Controller
     protected function getTabActions($controller = '', $action = '', $entity = null)
     {
         $aux_actions = [];
-        if (isset($this->tab_actions) && !empty($this->tab_actions)) {
-            foreach ($this->tab_actions as $name => $config) {
+        if (isset($this->tabActions) && !empty($this->tabActions)) {
+            foreach ($this->tabActions as $name => $config) {
                 if ($config['url']['controller'] == $controller && $config['url']['action'] == $action) {
                     $config['current'] = 'current';
                 }

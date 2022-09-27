@@ -9,8 +9,8 @@ class LanguagesController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'lenguaje de programación';
-    public $entity_name_plural = 'lenguajes de programación';
+    public $entityName = 'lenguaje de programación';
+    public $entityNamePlural = 'lenguajes de programación';
 
     // Default pagination settings
     public $paginate = [
@@ -58,7 +58,7 @@ class LanguagesController extends AppController
         ],
     ];
 
-    protected $tab_actions = [];
+    protected $tabActions = [];
 
     /**
      * Before filter
@@ -161,7 +161,7 @@ class LanguagesController extends AppController
             }
         }
 
-        $this->set('tab_actions', $this->getTabActions('Languages', 'edit', $entity));
+        $this->set('tabActions', $this->getTabActions('Languages', 'edit', $entity));
         $this->set(compact('entity'));
     }
 

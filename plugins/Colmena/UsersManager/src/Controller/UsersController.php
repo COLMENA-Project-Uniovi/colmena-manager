@@ -14,8 +14,8 @@ class UsersController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'alumno';
-    public $entity_name_plural = 'alumnos';
+    public $entityName = 'alumno';
+    public $entityNamePlural = 'alumnos';
 
     // Default pagination settings
     public $paginate = [
@@ -66,7 +66,7 @@ class UsersController extends AppController
         ],
     ];
 
-    protected $tab_actions = [];
+    protected $tabActions = [];
 
     /**
      * Before filter
@@ -231,7 +231,7 @@ class UsersController extends AppController
 
         $roles = $this->{$this->getName()}->UserRoles->find('list')->order(['name' => 'ASC'])->toArray();
 
-        $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
+        $this->set('tabActions', $this->getTabActions('Users', 'edit', $entity));
         $this->set(compact('entity', 'roles'));
     }
 

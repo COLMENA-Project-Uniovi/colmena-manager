@@ -13,10 +13,10 @@ use Cake\Core\Configure;
  */
 class NotificationsController extends AppController
 {
-    public $entity_name = 'notificación';
-    public $entity_name_plural = 'notificaciones';
+    public $entityName = 'notificación';
+    public $entityNamePlural = 'notificaciones';
 
-    protected $tab_actions = [];
+    protected $tabActions = [];
 
     public $header_actions = [
         'Añadir Notificación' => [
@@ -87,14 +87,14 @@ class NotificationsController extends AppController
 
         $entities = $this->paginate($this->modelClass);
 
-        $this->tab_actions = Configure::read('Config.tab_actions');
+        $this->tabActions = Configure::read('Config.tabActions');
 
         $this->set('entities', $entities);
         $this->set('_serialize', 'entities');
         $this->set('keyword', $keyword);
         $this->set('header_actions', $this->getHeaderActions());
         $this->set('table_buttons', $this->getTableButtons());
-        $this->set('tab_actions', $this->getTabActions('Notifications', 'index', null));
+        $this->set('tabActions', $this->getTabActions('Notifications', 'index', null));
     }
 
     /**

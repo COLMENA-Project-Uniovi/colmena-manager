@@ -9,8 +9,8 @@ class SessionsController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'sesión';
-    public $entity_name_plural = 'sesiones';
+    public $entityName = 'sesión';
+    public $entityNamePlural = 'sesiones';
 
     // Default pagination settings
     public $paginate = [
@@ -59,7 +59,7 @@ class SessionsController extends AppController
         ]
     ];
 
-    protected $tab_actions = [];
+    protected $tabActions = [];
 
     /**
      * Before filter
@@ -171,7 +171,7 @@ class SessionsController extends AppController
             $this->showErrors($entity);
         }
 
-        $this->set('tab_actions', $this->getTabActions('Sessions', 'edit', $entity));
+        $this->set('tabActions', $this->getTabActions('Sessions', 'edit', $entity));
         $this->set(compact('entity', 'subject', 'programmingLanguages'));
     }
 

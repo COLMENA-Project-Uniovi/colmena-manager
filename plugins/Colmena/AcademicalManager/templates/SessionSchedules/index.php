@@ -20,7 +20,7 @@ $this->Breadcrumbs->add('Editar ' . $session->name, [
     'action' => 'add', $subject->id
 ]);
 
-$tab_actions = [
+$tabActions = [
     'Datos de la sesión' => [
         'url' => [
             'controller' => 'Sessions',
@@ -40,9 +40,9 @@ $tab_actions = [
 ];
 
 $header = [
-    'title' => ucfirst($entity_name_plural),
+    'title' => ucfirst($entityNamePlural),
     'breadcrumbs' => true,
-    'tabs' => $tab_actions,
+    'tabs' => $tabActions,
     'header' => [
         'actions' => [
             'Añadir horario y grupo' => [

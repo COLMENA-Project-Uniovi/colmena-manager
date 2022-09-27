@@ -15,20 +15,20 @@ $this->Breadcrumbs->add('Sesiones', [
     $subject->id
 ]);
 
-$this->Breadcrumbs->add(ucfirst($entity_name_plural), [
+$this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index', 
     $session->id,
     $subject->id
 ]);
 
-$this->Breadcrumbs->add('Editar ' . $entity_name, [
+$this->Breadcrumbs->add('Editar ' . $entityName, [
     'controller' => $this->request->getParam('controller'),
     'action' => 'add', $subject->id
 ]);
 
 $header = [
-    'title' => 'Editar ' . $entity_name,
+    'title' => 'Editar ' . $entityName,
     'breadcrumbs' => true
 ];
 ?>

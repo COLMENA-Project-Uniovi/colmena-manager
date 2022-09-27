@@ -3,14 +3,14 @@ use Cake\Utility\Inflector;
 use Cake\I18n\I18n;
 
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst($entity_name), [
+$this->Breadcrumbs->add(ucfirst($entityName), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
 $header = [
-    'title' => ucfirst($entity_name_plural),
+    'title' => ucfirst($entityNamePlural),
     'breadcrumbs' => true,
-    'tabs' => $tab_actions,
+    'tabs' => $tabActions,
     'header' => [
         'actions' => $header_actions,
         'search_form' => []

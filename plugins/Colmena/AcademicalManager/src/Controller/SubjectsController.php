@@ -9,8 +9,8 @@ class SubjectsController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'asignatura';
-    public $entity_name_plural = 'asignaturas';
+    public $entityName = 'asignatura';
+    public $entityNamePlural = 'asignaturas';
 
     // Default pagination settings
     public $paginate = [
@@ -180,7 +180,7 @@ class SubjectsController extends AppController
             $this->showErrors($entity);
         }
 
-        $this->set('tab_actions', $this->getTabActions('Subjects', 'edit', $entity));
+        $this->set('tabActions', $this->getTabActions('Subjects', 'edit', $entity));
         $this->set(compact('entity', 'academicalYears'));
     }
 

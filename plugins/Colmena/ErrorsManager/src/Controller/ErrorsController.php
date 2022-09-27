@@ -3,18 +3,14 @@
 namespace Colmena\ErrorsManager\Controller;
 
 use Colmena\ErrorsManager\Controller\AppController;
-use Cake\Event\Event;
 use App\Encryption\EncryptTrait;
-use Cake\Http\Exception\ForbiddenException;
-use Cake\Http\Exception\UnauthorizedException;
-use Cake\ORM\TableRegistry;
 
 class ErrorsController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'error';
-    public $entity_name_plural = 'errores';
+    public $entityName = 'error';
+    public $entityNamePlural = 'errores';
 
     // Default pagination settings
     public $paginate = [
@@ -69,7 +65,7 @@ class ErrorsController extends AppController
         ],
     ];
 
-    protected $tab_actions = [];
+    protected $tabActions = [];
 
     /**
      * Before filter
@@ -166,7 +162,7 @@ class ErrorsController extends AppController
 
         $families = $this->{$this->getName()}->Family->find('list')->order(['name' => 'ASC']);
 
-        $this->set('tab_actions', $this->getTabActions('Errors', 'edit', $entity));
+        $this->set('tabActions', $this->getTabActions('Errors', 'edit', $entity));
         $this->set(compact('entity', 'families'));
     }
 

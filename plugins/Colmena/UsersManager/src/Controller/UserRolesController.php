@@ -10,8 +10,8 @@ class UserRolesController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'rol';
-    public $entity_name_plural = 'roles';
+    public $entityName = 'rol';
+    public $entityNamePlural = 'roles';
 
     // Default pagination settings
     public $paginate = [
@@ -59,7 +59,7 @@ class UserRolesController extends AppController
         ],
     ];
 
-    protected $tab_actions = [];
+    protected $tabActions = [];
 
     /**
      * Before filter
@@ -165,7 +165,7 @@ class UserRolesController extends AppController
             }
         }
 
-        $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
+        $this->set('tabActions', $this->getTabActions('Users', 'edit', $entity));
         $this->set(compact('entity'));
     }
 

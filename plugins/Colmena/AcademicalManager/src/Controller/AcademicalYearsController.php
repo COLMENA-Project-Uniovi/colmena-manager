@@ -9,8 +9,8 @@ class AcademicalYearsController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'curso academico';
-    public $entity_name_plural = 'curso academicos';
+    public $entityName = 'curso academico';
+    public $entityNamePlural = 'curso academicos';
 
     // Default pagination settings
     public $paginate = [
@@ -59,7 +59,7 @@ class AcademicalYearsController extends AppController
         ]
     ];
 
-    protected $tab_actions = [];
+    protected $tabActions = [];
 
     /**
      * Before filter
@@ -183,7 +183,7 @@ class AcademicalYearsController extends AppController
             }
         }
 
-        $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
+        $this->set('tabActions', $this->getTabActions('Users', 'edit', $entity));
         $this->set(compact('entity'));
     }
 

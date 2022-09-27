@@ -11,8 +11,8 @@ class PracticeGroupsController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'grupo de practicas';
-    public $entity_name_plural = 'grupos de practicas';
+    public $entityName = 'grupo de practicas';
+    public $entityNamePlural = 'grupos de practicas';
 
     // Default pagination settings
     public $paginate = [
@@ -63,7 +63,7 @@ class PracticeGroupsController extends AppController
         ]
     ];
 
-    protected $tab_actions = [];
+    protected $tabActions = [];
 
     /**
      * Before filter
@@ -175,7 +175,7 @@ class PracticeGroupsController extends AppController
         }
         $students = $this->{$this->getName()}->Users->find('list')->toArray();
 
-        $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
+        $this->set('tabActions', $this->getTabActions('Users', 'edit', $entity));
         $this->set(compact('entity', 'students'));
     }
 

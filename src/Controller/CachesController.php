@@ -13,9 +13,9 @@ use App\Utility\CacheUtility;
  */
 class CachesController extends AppController
 {
-    public $entity_name = 'cache';
+    public $entityName = 'cache';
 
-    protected $tab_actions = [];
+    protected $tabActions = [];
 
     public $header_actions = [
         'Activar cache' => [
@@ -123,7 +123,7 @@ class CachesController extends AppController
         $config_table = TableRegistry::getTableLocator()->get('Configs');
         $config = $config_table->find('all')->where(['name' => 'cache'])->first();
 
-        $this->tab_actions = Configure::read('Config.tab_actions');
+        $this->tabActions = Configure::read('Config.tabActions');
 
         $conditions = [];
 
@@ -138,7 +138,7 @@ class CachesController extends AppController
         $folders = $this->getFolders($conditions);
 
         $this->set('header_actions', $this->getHeaderActions($config));
-        $this->set('tab_actions', $this->getTabActions('Caches', 'index', null));
+        $this->set('tabActions', $this->getTabActions('Caches', 'index', null));
         $this->set('table_buttons', $this->getTableButtons());
         $this->set('keyword', $keyword);
         $this->set(compact('config', 'folders'));

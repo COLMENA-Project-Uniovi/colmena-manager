@@ -9,8 +9,8 @@ class MarkersController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'marcador';
-    public $entity_name_plural = 'marcadores';
+    public $entityName = 'marcador';
+    public $entityNamePlural = 'marcadores';
 
     // Default pagination settings
     public $paginate = [
@@ -51,7 +51,7 @@ class MarkersController extends AppController
 
     protected $header_actions = [];
 
-    protected $tab_actions = [];
+    protected $tabActions = [];
 
     /**
      * Before filter
@@ -154,7 +154,7 @@ class MarkersController extends AppController
             $this->showErrors($entity);
         }
 
-        $this->set('tab_actions', $this->getTabActions('Markers', 'edit', $entity));
+        $this->set('tabActions', $this->getTabActions('Markers', 'edit', $entity));
         $this->set(compact('entity'));
     }
 

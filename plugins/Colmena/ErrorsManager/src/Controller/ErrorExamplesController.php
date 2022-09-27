@@ -9,8 +9,8 @@ class ErrorExamplesController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'ejemplo de error';
-    public $entity_name_plural = 'ejemplos de errores';
+    public $entityName = 'ejemplo de error';
+    public $entityNamePlural = 'ejemplos de errores';
 
     // Default pagination settings
     public $paginate = [
@@ -61,7 +61,7 @@ class ErrorExamplesController extends AppController
         ]
     ];
 
-    protected $tab_actions = [];
+    protected $tabActions = [];
 
     /**
      * Before filter
@@ -161,7 +161,7 @@ class ErrorExamplesController extends AppController
             $this->showErrors($entity);
         }
 
-        $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
+        $this->set('tabActions', $this->getTabActions('Users', 'edit', $entity));
         $this->set(compact('entity', 'sessions'));
     }
 

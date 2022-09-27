@@ -13,8 +13,8 @@ class ErrorsFamilyController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'familia de error';
-    public $entity_name_plural = 'familias de   errores';
+    public $entityName = 'familia de error';
+    public $entityNamePlural = 'familias de   errores';
 
     // Default pagination settings
     public $paginate = [
@@ -62,7 +62,7 @@ class ErrorsFamilyController extends AppController
         ]
     ];
 
-    protected $tab_actions = [];
+    protected $tabActions = [];
 
     /**
      * Before filter
@@ -165,7 +165,7 @@ class ErrorsFamilyController extends AppController
             }
         }
 
-        $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
+        $this->set('tabActions', $this->getTabActions('Users', 'edit', $entity));
         $this->set(compact('entity'));
     }
 

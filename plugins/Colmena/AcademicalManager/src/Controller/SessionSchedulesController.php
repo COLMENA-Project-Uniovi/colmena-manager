@@ -11,8 +11,8 @@ class SessionSchedulesController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'horario de sesión';
-    public $entity_name_plural = 'horarios de sesión';
+    public $entityName = 'horario de sesión';
+    public $entityNamePlural = 'horarios de sesión';
 
     // Default pagination settings
     public $paginate = [
@@ -63,7 +63,7 @@ class SessionSchedulesController extends AppController
         ]
     ];
 
-    protected $tab_actions = [];
+    protected $tabActions = [];
 
     /**
      * Before filter
@@ -169,7 +169,7 @@ class SessionSchedulesController extends AppController
             }
         }
 
-        $this->set('tab_actions', $this->getTabActions('SessionsSchedules', 'edit', $entity));
+        $this->set('tabActions', $this->getTabActions('SessionsSchedules', 'edit', $entity));
         $this->set(compact('entity', 'subject', 'session', 'groups'));
     }
 

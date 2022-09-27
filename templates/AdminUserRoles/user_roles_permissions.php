@@ -18,7 +18,7 @@ $this->Breadcrumbs->add('Permisos', [
 $header = [
     'title' => 'Permisos del rol de usuario "' . $currentRole['name'] . '"',
     'breadcrumbs' => true,
-    'tabs' => $tab_actions
+    'tabs' => $tabActions
 ];
 ?>
 

@@ -3,12 +3,12 @@ use Cake\I18n\I18n;
 
 if(!isset($breadcrumbs) || !$breadcrumbs) {
     $this->Breadcrumbs->add('Inicio', '/');
-    $this->Breadcrumbs->add(ucfirst($entity_name_plural), [
+    $this->Breadcrumbs->add(ucfirst($entityNamePlural), [
         'controller' => $this->request->getParam('controller'),
         'action' => 'index',
         I18n::getLocale()
     ]);
-    $this->Breadcrumbs->add('Editar ' . $entity_name . ' ' . $entity->name, [
+    $this->Breadcrumbs->add('Editar ' . $entityName . ' ' . $entity->name, [
         'controller' => $this->request->getParam('controller'),
         'action' => 'edit',
         $entity->id,
@@ -19,9 +19,9 @@ if(!isset($breadcrumbs) || !$breadcrumbs) {
 }
 
 $header = [
-    'title' => 'Parámetros de la '.$entity_name,
+    'title' => 'Parámetros de la '.$entityName,
     'breadcrumbs' => true,
-    'tabs' => $tab_actions,
+    'tabs' => $tabActions,
 ];
 
 ?>
@@ -57,11 +57,11 @@ $header = [
                 <h3>Configuración visual</h3>
                 <div class="parameters__content">
                     <?php 
-                        foreach($parameters_config as $key => $item) {
+                        foreach($parametersConfig as $key => $item) {
                             echo $this->element('parameters/item', [ 
                                 'item' => $item,
                                 'key' => $key,
-                                'default_classes' => isset($default_classes) ? $default_classes : []
+                                'defaultClasses' => isset($defaultClasses) ? $defaultClasses : []
                             ]);
                         }
                     ?>

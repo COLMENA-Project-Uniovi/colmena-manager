@@ -1,6 +1,6 @@
 <?php
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst($entity_name_plural), [
+$this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
@@ -26,7 +26,7 @@ $header = [
 ); ?>
     <div class="primary full">
         <div class="form-block">
-            <h3>Datos generales del <?= $entity_name ?></h3>
+            <h3>Datos generales del <?= $entityName ?></h3>
             <?= $this->Form->control(
                 'username',
                 [

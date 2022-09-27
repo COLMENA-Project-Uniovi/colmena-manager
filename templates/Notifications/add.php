@@ -1,15 +1,15 @@
 <?php
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst($entity_name_plural), [
+$this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
-$this->Breadcrumbs->add('Añadir ' . $entity_name, [
+$this->Breadcrumbs->add('Añadir ' . $entityName, [
     'controller' => $this->request->getParam('controller'),
     'action' => 'add'
 ]);
 $header = [
-    'title' => 'Añadir ' . $entity_name,
+    'title' => 'Añadir ' . $entityName,
     'breadcrumbs' => true,
 ];
 ?>
@@ -26,7 +26,7 @@ $header = [
 ); ?>
     <div class="primary full">
         <div class="form-block">
-            <h3>Configuración de la <?= $entity_name ?></h3>
+            <h3>Configuración de la <?= $entityName ?></h3>
             <?= $this->Form->control(
                 'name',
                 [

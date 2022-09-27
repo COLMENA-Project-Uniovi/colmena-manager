@@ -5,6 +5,6 @@
 <div class="parameters-item">
     <?= $this->element('parameters/types/'.$item['type'], [ 
         'config' => $config,
-        'default_classes' => $default_classes
+        'defaultClasses' => $defaultClasses
     ]); ?>
 </div>

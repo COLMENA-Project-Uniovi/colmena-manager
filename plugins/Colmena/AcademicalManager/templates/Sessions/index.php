@@ -15,7 +15,7 @@ $this->Breadcrumbs->add($subject->name, [
 array_push($header_actions['Añadir sesión']['url'], $subject->id);
 
 $header = [
-    'title' => ucfirst($entity_name_plural),
+    'title' => ucfirst($entityNamePlural),
     'breadcrumbs' => true,
     'header' => [
         'actions' => $header_actions,

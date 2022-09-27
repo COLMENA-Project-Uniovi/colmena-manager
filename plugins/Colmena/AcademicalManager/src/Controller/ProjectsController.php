@@ -10,8 +10,8 @@ class ProjectsController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'proyecto';
-    public $entity_name_plural = 'proyectos';
+    public $entityName = 'proyecto';
+    public $entityNamePlural = 'proyectos';
 
     // Default pagination settings
     public $paginate = [
@@ -59,7 +59,7 @@ class ProjectsController extends AppController
         ],
     ];
 
-    protected $tab_actions = [];
+    protected $tabActions = [];
 
     /**
      * Before filter
@@ -186,7 +186,7 @@ class ProjectsController extends AppController
             $this->Flash->error($errorMsg, ['escape' => false]);
         }
 
-        $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
+        $this->set('tabActions', $this->getTabActions('Users', 'edit', $entity));
         $this->set(compact('entity'));
     }
 

@@ -37,7 +37,7 @@ echo $this->Form->input('wrappedFrom', [
             'nestingLabel' => '<label class="radio-label"{{attrs}}>{{input}}<img src="'.Configure::read("Config.base_url").'{{text}}"></label>'
         ],
         'type' => 'radio',
-        'options' => $default_classes['wrapped']['from'],
+        'options' => $defaultClasses['wrapped']['from'],
         'label' => false,
         'value' => isset($parameters->wrappedFrom) ? $parameters->wrappedFrom : '',
     ]);
@@ -52,7 +52,7 @@ echo $this->Form->input('wrappedTo', [
         'nestingLabel' => '<label class="radio-label"{{attrs}}>{{input}}<img src="'.Configure::read("Config.base_url").'{{text}}"></label>'
     ],
     'type' => 'radio',
-    'options' => $default_classes['wrapped']['to'],
+    'options' => $defaultClasses['wrapped']['to'],
     'label' => false,
     'value' => isset($parameters->wrappedTo) ? $parameters->wrappedTo : '',
 ]);

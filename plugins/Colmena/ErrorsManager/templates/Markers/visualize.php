@@ -1,17 +1,17 @@
 <?php
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst($entity_name_plural), [
+$this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
-$this->Breadcrumbs->add('Visualizar ' . $entity_name, [
+$this->Breadcrumbs->add('Visualizar ' . $entityName, [
     'controller' => $this->request->getParam('controller'),
     'action' => 'add'
 ]);
 $header = [
-    'title' => 'Visualizar ' . $entity_name,
+    'title' => 'Visualizar ' . $entityName,
     'breadcrumbs' => true,
-    'tabs' => $tab_actions
+    'tabs' => $tabActions
 ];
 ?>
 

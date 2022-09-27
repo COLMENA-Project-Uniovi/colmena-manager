@@ -16,8 +16,8 @@ use Cake\ORM\TableRegistry;
  */
 class AdminUsersController extends AppController
 {
-    public $entity_name = 'usuario de administración';
-    public $entity_name_plural = 'usuarios de administración';
+    public $entityName = 'usuario de administración';
+    public $entityNamePlural = 'usuarios de administración';
 
     public $table_buttons = [
         'Editar' => [
@@ -53,7 +53,7 @@ class AdminUsersController extends AppController
         ]
     ];
 
-    public $tab_actions = [
+    public $tabActions = [
         'Usuarios' => [
             'url' => [
                 'controller' => 'AdminUsers',
@@ -144,7 +144,7 @@ class AdminUsersController extends AppController
 
         $this->set('header_actions', $header_actions);
         $this->set('table_buttons', $table_buttons);
-        $this->set('tab_actions', $this->getTabActions('AdminUsers', 'index'));
+        $this->set('tabActions', $this->getTabActions('AdminUsers', 'index'));
         $this->set('entities', $entities);
         $this->set('_serialize', 'entities');
         $this->set('keyword', $keyword);

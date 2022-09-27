@@ -9,18 +9,18 @@ $this->Breadcrumbs->add($subject->name, [
     'action' => 'edit', $subject->id
 ]);
 
-$this->Breadcrumbs->add(ucfirst($entity_name_plural), [
+$this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index', $subject->id
 ]);
 
-$this->Breadcrumbs->add('Añadir ' . $entity_name, [
+$this->Breadcrumbs->add('Añadir ' . $entityName, [
     'controller' => $this->request->getParam('controller'),
     'action' => 'add', $subject->id
 ]);
 
 $header = [
-    'title' => 'Añadir ' . $entity_name,
+    'title' => 'Añadir ' . $entityName,
     'breadcrumbs' => true
 ];
 ?>
