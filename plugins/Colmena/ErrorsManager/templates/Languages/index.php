@@ -19,7 +19,7 @@ $header = [
 
 <?= $this->element("header", $header); ?>
 <?= $this->element('paginator'); ?>
-<div class="content">
+<div class="content m-4">
     <div class="results">
         <?php
         if (count($entities) !== 0 && !empty($entities)) {

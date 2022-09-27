@@ -252,7 +252,7 @@
     if (isset($tabs) && !empty($tabs)) {
     ?>
         <div class="header-tabs">
-            <div class="content-tabs">
+            <div class="content content-tabs">
                 <?php
                 foreach ($tabs as $tab_name => $config) {
                     echo $this->Html->link(

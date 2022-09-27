@@ -26,7 +26,7 @@ $header = [
 
 <?= $this->element("header", $header); ?>
 
-<div class="content">
+<div class="content m-4">
     <div class="results">
         <?php
         if (count($entities) !== 0 && !empty($entities)) {

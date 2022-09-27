@@ -1,4 +1,4 @@
-    <div class="paginator">
+    <div class="paginator m-4">
     <?php
         echo $this->Paginator->prev('«');
         echo $this->Paginator->numbers(

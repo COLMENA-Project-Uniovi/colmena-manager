@@ -4,7 +4,7 @@ use Cake\Utility\Inflector;
 ?>
 <div class="nav">
     <nav>
-        <div class="content-nav">
+        <div class="content content-nav">
             <div class="logo">
                 <?= $this->Html->link(
                     $this->Html->image(

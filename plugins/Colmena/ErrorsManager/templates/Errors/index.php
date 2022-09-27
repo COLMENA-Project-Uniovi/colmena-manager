@@ -19,7 +19,7 @@ $header = [
 
 <?= $this->element("header", $header); ?>
 <?= $this->element('paginator'); ?>
-<div class="content">
+<div class="content m-4">
     <div class="results">
         <?php
         if (count($entities) !== 0 && !empty($entities)) {
@@ -28,13 +28,13 @@ $header = [
                 <thead class="thead">
                     <tr class="tr">
                         <th class="th medium">
+                            Nombre
+                        </th><!-- .th -->
+                        <th class="th medium">
                             Id del error
                         </th><!-- .th -->
                         <th class="th medium">
-                            Nombre
-                        </th><!-- .th -->
-                        <th class="th grow">
-                            Mensaje
+                            Familia
                         </th><!-- .th -->
                         <?php
                         if (!empty($table_buttons)) {
@@ -52,14 +52,14 @@ $header = [
                     foreach ($entities as $entity) {
                     ?>
                         <tr class="tr">
-                            <td class="td element grow">
-                                <p><?= $entity->error_id; ?></p>
-                            </td><!-- .td -->
                             <td class="td element medium">
                                 <p><?= $entity->name ?></p>
                             </td><!-- .td -->
                             <td class="td element grow">
-                                <p><?= $entity->message; ?></p>
+                                <p><?= $entity->error_id; ?></p>
+                            </td><!-- .td -->
+                            <td class="td element grow">
+                                <p><?= $entity->family_id != 0 ? $entity->family->name : ''; ?></p>
                             </td><!-- .td -->
                             <?php
                             if (!empty($table_buttons)) {

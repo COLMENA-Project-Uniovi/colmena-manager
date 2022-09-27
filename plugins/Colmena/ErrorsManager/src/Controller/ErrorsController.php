@@ -17,6 +17,9 @@ class ErrorsController extends AppController
         'limit' => 20,
         'order' => [
             'id' => 'ASC'
+        ],
+        'contain' => [
+            'Family'
         ]
     ];
 
