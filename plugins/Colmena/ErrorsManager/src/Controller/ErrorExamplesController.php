@@ -19,11 +19,13 @@ class ErrorExamplesController extends AppController
             'id' => 'ASC'
         ],
         'contain' => [
-            'Users'
+            'Users',
+            'Errors',
+            'Sessions'
         ]
     ];
 
-    protected $table_buttons = [
+    protected $tableButtons = [
         'Editar' => [
             'icon' => '<i class="fas fa-edit"></i>',
             'url' => [
@@ -51,18 +53,6 @@ class ErrorExamplesController extends AppController
         ]
     ];
 
-    protected $header_actions = [
-        'Añadir ejemplo de error' => [
-            'url' => [
-                'controller' => 'ErrorExamples',
-                'plugin' => 'Colmena/ErrorsManager',
-                'action' => 'add'
-            ]
-        ]
-    ];
-
-    protected $tabActions = [];
-
     /**
      * Before filter
      *
@@ -80,7 +70,7 @@ class ErrorExamplesController extends AppController
      *
      * @return void
      */
-    public function index($keyword = null)
+    public function index($errorID, $keyword = null)
     {
         if ($this->request->is('post')) {
             //recover the keyword
@@ -91,6 +81,7 @@ class ErrorExamplesController extends AppController
 
         // Paginator
         $settings = $this->paginate;
+
         // If performing search, there is a keyword
         if ($keyword != null) {
             // Change pagination conditions for searching
@@ -103,11 +94,18 @@ class ErrorExamplesController extends AppController
 
         $entities = $this->{$this->getName()}->find('all')
             ->matching('Users', function ($q) {
-                return $q->where(['Users.id' => $this->Auth->user('id')]);
-            })->toList();
+                return $q->where(
+                    ['Users.id' => $this->Auth->user('id')]
+                );
+            })
+            ->matching('Errors', function ($q) use ($errorID) {
+                return $q->where(
+                    [$this->getName() . '.error_id' => $errorID]
+                );
+            })->toArray();
 
         $this->set('header_actions', $this->getHeaderActions());
-        $this->set('table_buttons', $this->getTableButtons());
+        $this->set('tableButtons', $this->getTableButtons());
         $this->set('entities', $entities);
         $this->set('_serialize', 'entities');
         $this->set('keyword', $keyword);

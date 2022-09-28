@@ -40,6 +40,13 @@ class ErrorExamplesTable extends AppTable
                 'className' => 'Colmena/AcademicalManager.Sessions',
             ]
         );
+
+        $this->belongsTo(
+            'Errors',
+            [
+                'className' => 'Colmena/ErrorsManager.Errors',
+            ]
+        );
     }
 
     /**

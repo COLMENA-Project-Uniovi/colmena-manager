@@ -19,7 +19,7 @@ $header = [
 
 <?= $this->element("header", $header); ?>
 
-<div class="content m-4">
+<div class="content p-4">
     <div class="results">
         <?php
         if (count($entities) !== 0 && !empty($entities)) {
@@ -43,7 +43,7 @@ $header = [
                             Fecha de fin
                         </th><!-- .th -->
                         <?php
-                        if (!empty($table_buttons)) {
+                        if (!empty($tableButtons)) {
                         ?>
                             <th class="th actions short">
                                 Operaciones
@@ -56,7 +56,7 @@ $header = [
                 <tbody class="tbody elements">
                     <?php
                     foreach ($entities as $entity) {
-                        $table_buttons['Sesiones'] = 
+                        $tableButtons['Sesiones'] = 
                         [
                             'icon' => '<i class="far fa-calendar-alt"></i>',
                             'url' => [
@@ -86,12 +86,12 @@ $header = [
                                 <p><?= $entity->end_date; ?></p>
                             </td><!-- .td -->
                             <?php
-                            if (!empty($table_buttons)) {
+                            if (!empty($tableButtons)) {
                             ?>
                                 <td class="td actions">
                                     <div class="td-content">
                                         <?php
-                                        foreach ($table_buttons as $key => $value) {
+                                        foreach ($tableButtons as $key => $value) {
                                             array_push($value['url'], $entity->id);
                                             if ($value['url']['action'] != 'delete') {
                                                 echo $this->Html->link(

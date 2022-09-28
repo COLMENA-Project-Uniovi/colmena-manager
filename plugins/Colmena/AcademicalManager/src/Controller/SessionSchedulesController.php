@@ -25,7 +25,7 @@ class SessionSchedulesController extends AppController
         ]
     ];
 
-    protected $table_buttons = [
+    protected $tableButtons = [
         'Editar' => [
             'icon' => '<i class="fas fa-edit"></i>',
             'url' => [
@@ -98,7 +98,7 @@ class SessionSchedulesController extends AppController
         $entities = $this->paginate($entities);
 
         $this->set('header_actions', $this->getHeaderActions());
-        $this->set('table_buttons', $this->getTableButtons());
+        $this->set('tableButtons', $this->getTableButtons());
         $this->set('entities', $entities);
         $this->set('session', $session);
         $this->set('subject', $subject);

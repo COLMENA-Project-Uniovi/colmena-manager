@@ -7,6 +7,7 @@ $this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
+
 $header = [
     'title' => ucfirst($entityNamePlural),
     'breadcrumbs' => true,
@@ -20,7 +21,7 @@ $header = [
 <?= $this->element("header", $header); ?>
 <?= $this->element('paginator'); ?>
 
-<div class="content m-4">
+<div class="content p-4">
     <div class="results">
         <?php
         if (count($entities) !== 0 && !empty($entities)) {
@@ -38,7 +39,7 @@ $header = [
                             Familia
                         </th><!-- .th -->
                         <?php
-                        if (!empty($table_buttons)) {
+                        if (!empty($tableButtons)) {
                         ?>
                             <th class="th actions short">
                                 Operaciones
@@ -63,12 +64,12 @@ $header = [
                                 <p><?= $entity->family_id != 0 ? $entity->family->name : ''; ?></p>
                             </td><!-- .td -->
                             <?php
-                            if (!empty($table_buttons)) {
+                            if (!empty($tableButtons)) {
                             ?>
                                 <td class="td actions">
                                     <div class="td-content">
                                         <?php
-                                        foreach ($table_buttons as $key => $value) {
+                                        foreach ($tableButtons as $key => $value) {
                                             array_push($value['url'], $entity->id);
                                             if ($value['url']['action'] != 'delete') {
                                                 echo $this->Html->link(

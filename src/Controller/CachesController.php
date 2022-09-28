@@ -48,7 +48,7 @@ class CachesController extends AppController
         ]
     ];
 
-    protected $table_buttons = [
+    protected $tableButtons = [
         'Generar' => [
             'url' => [
                 'controller' => 'Caches',
@@ -139,7 +139,7 @@ class CachesController extends AppController
 
         $this->set('header_actions', $this->getHeaderActions($config));
         $this->set('tabActions', $this->getTabActions('Caches', 'index', null));
-        $this->set('table_buttons', $this->getTableButtons());
+        $this->set('tableButtons', $this->getTableButtons());
         $this->set('keyword', $keyword);
         $this->set(compact('config', 'folders'));
     }

@@ -47,7 +47,7 @@ class AppController extends Controller
      * e.g. `$this->loadComponent('Security');`
      * @throws Exception
      */
-    protected $table_buttons = [];
+    protected $tableButtons = [];
 
     public function initialize(): void
     {
@@ -530,7 +530,7 @@ class AppController extends Controller
      */
     protected function getTableButtons()
     {
-        return $this->Roles->composeUserOptions($this->table_buttons);
+        return $this->Roles->composeUserOptions($this->tableButtons);
     }
 
     /**

@@ -23,7 +23,7 @@ class ErrorsController extends AppController
         ]
     ];
 
-    protected $table_buttons = [
+    protected $tableButtons = [
         'Visualizar' => [
             'icon' => '<i class="far fa-eye"></i>',
             'url' => [
@@ -52,13 +52,6 @@ class ErrorsController extends AppController
     ];
 
     protected $header_actions = [
-        'Ver errores de ejemplo' => [
-            'url' => [
-                'controller' => 'ErrorExamples',
-                'plugin' => 'Colmena/ErrorsManager',
-                'action' => 'index'
-            ]
-        ],
         'Ver tipos de errores' => [
             'url' => [
                 'controller' => 'ErrorsFamily',
@@ -113,7 +106,7 @@ class ErrorsController extends AppController
         $entities = $this->paginate($this->modelClass);
 
         $this->set('header_actions', $this->getHeaderActions());
-        $this->set('table_buttons', $this->getTableButtons());
+        $this->set('tableButtons', $this->getTableButtons());
         $this->set('entities', $entities);
         $this->set('_serialize', 'entities');
         $this->set('keyword', $keyword);

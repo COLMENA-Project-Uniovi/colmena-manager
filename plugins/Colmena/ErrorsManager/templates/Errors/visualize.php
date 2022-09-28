@@ -10,15 +10,30 @@ $this->Breadcrumbs->add('Visualizar ' . $entityName, [
     'action' => 'add'
 ]);
 
+$header_actions = [
+    'Ver ejemplos de este error' => [
+        'url' => [
+            'controller' => 'ErrorExamples',
+            'plugin' => 'Colmena/ErrorsManager',
+            'action' => 'index',
+            $entity->error_id
+        ]
+    ]
+];
+
 $header = [
-    'title' => 'Visualizar ' . $entityName,
+    'title' => 'Ver ' . $entityName,
     'breadcrumbs' => true,
-    'tabs' => $tabActions
+    'tabs' => $tabActions,
+    'header' => [
+        'actions' => $header_actions,
+        'search_form' => []
+    ]
 ];
 ?>
 
 <?= $this->element("header", $header); ?>
-<div class="content m-4">
+<div class="content p-4">
     <?= $this->Form->create(
         $entity,
         [

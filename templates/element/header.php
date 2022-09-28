@@ -40,7 +40,7 @@
     }
     ?>
 
-    <div class="mid-header row">
+    <div class="mid-header row pb-5">
         <h2 class="col"><?= $title; ?></h2>
         <?php
         if (isset($header)) {
@@ -180,7 +180,7 @@
                             'value' => $keyword
                         ]
                     );
-                    
+
                     if (isset($header['select_filter']) && $header['select_filter']) {
                         echo $this->Form->select(
                             'filter',

@@ -28,7 +28,7 @@ class NotificationsController extends AppController
         ],
     ];
 
-    public $table_buttons = [
+    public $tableButtons = [
         'Editar' => [
             'url' => [
                 'controller' => 'Notifications',
@@ -93,7 +93,7 @@ class NotificationsController extends AppController
         $this->set('_serialize', 'entities');
         $this->set('keyword', $keyword);
         $this->set('header_actions', $this->getHeaderActions());
-        $this->set('table_buttons', $this->getTableButtons());
+        $this->set('tableButtons', $this->getTableButtons());
         $this->set('tabActions', $this->getTabActions('Notifications', 'index', null));
     }
 

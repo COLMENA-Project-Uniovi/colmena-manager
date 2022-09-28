@@ -22,6 +22,30 @@ class MarkersTable extends AppTable
 
         $this->setTable('em_markers');
         $this->setPrimaryKey('id');
+
+        // Session entity relation
+        $this->belongsTo(
+            'Session',
+            [
+                'className' => 'Colmena/AcademicalManager.Sessions',
+            ]
+        );
+
+        // User entity relation
+        $this->belongsTo(
+            'Student',
+            [
+                'className' => 'Colmena/UsersManager.Users',
+            ]
+        );
+
+        // Error entity relation
+        $this->belongsTo(
+            'Error',
+            [
+                'className' => 'Colmena/ErrorsManager.Errors',
+            ]
+        );
     }
 
     /**

@@ -21,7 +21,7 @@ class SessionsController extends AppController
         'contain' => ['Languages']
     ];
 
-    protected $table_buttons = [
+    protected $tableButtons = [
         'Editar' => [
             'icon' => '<i class="fas fa-edit"></i>',
             'url' => [
@@ -114,7 +114,7 @@ class SessionsController extends AppController
         $subject = $this->{$this->getName()}->Subjects->get($subjectID);
 
         $this->set('header_actions', $this->getHeaderActions());
-        $this->set('table_buttons', $this->getTableButtons());
+        $this->set('tableButtons', $this->getTableButtons());
         $this->set('entities', $entities);
         $this->set('subject', $subject);
         $this->set('keyword', $keyword);

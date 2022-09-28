@@ -19,7 +19,7 @@ class AdminUsersController extends AppController
     public $entityName = 'usuario de administración';
     public $entityNamePlural = 'usuarios de administración';
 
-    public $table_buttons = [
+    public $tableButtons = [
         'Editar' => [
             'url' => [
                 'controller' => 'AdminUsers',
@@ -139,11 +139,11 @@ class AdminUsersController extends AppController
         }
 
         //compose buttons available based on user permissions
-        $table_buttons = $this->Roles->composeUserOptions($this->table_buttons);
+        $tableButtons = $this->Roles->composeUserOptions($this->tableButtons);
         $header_actions = $this->Roles->composeUserOptions($this->header_actions);
 
         $this->set('header_actions', $header_actions);
-        $this->set('table_buttons', $table_buttons);
+        $this->set('tableButtons', $tableButtons);
         $this->set('tabActions', $this->getTabActions('AdminUsers', 'index'));
         $this->set('entities', $entities);
         $this->set('_serialize', 'entities');

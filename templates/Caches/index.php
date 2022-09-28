@@ -16,7 +16,7 @@ $header = [
 ?>
 <?= $this->element('header', $header); ?>
 
-<div class="content m-4">
+<div class="content p-4">
     <div class="results">
         <?php
             if($config->value == 'true') {
@@ -40,7 +40,7 @@ $header = [
                                 Idioma
                             </th>
                             <?php
-                                if (!empty($table_buttons)) {
+                                if (!empty($tableButtons)) {
                             ?>
                             <th class="actions short">
                                 Operaciones
@@ -68,11 +68,11 @@ $header = [
                                 <p><?= $entity->locale; ?></p>
                             </td>
                             <?php
-                                if (!empty($table_buttons)) {
+                                if (!empty($tableButtons)) {
                             ?>
                                 <td class="actions">
                                 <?php
-                                    foreach ($table_buttons as $key => $value) {
+                                    foreach ($tableButtons as $key => $value) {
                                         $value['url']['?'] = [];
                                         $value['url']['?']['model'] = $entity->model;
                                         $value['url']['?']['url'] = $entity->url;

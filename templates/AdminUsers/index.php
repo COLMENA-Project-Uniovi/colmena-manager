@@ -17,7 +17,7 @@ $header = [
 ?>
 
 <?= $this->element("header", $header); ?>
-<div class="content m-4">
+<div class="content p-4">
     <div class="results">
     <?php
         if (!empty($entities->toArray())) {
@@ -44,7 +44,7 @@ $header = [
                         Activo
                     </th>
                 <?php
-                    if (!empty($table_buttons)) {
+                    if (!empty($tableButtons)) {
                 ?>
                     <th class="actions short">
                         Operaciones
@@ -80,11 +80,11 @@ $header = [
                         </p>
                     </td>
                     <?php
-                        if (!empty($table_buttons)) {
+                        if (!empty($tableButtons)) {
                     ?>
                         <td class="actions">
                         <?php
-                            foreach ($table_buttons as $key => $value) {
+                            foreach ($tableButtons as $key => $value) {
                                 array_push($value['url'], $entity->id);
                                 if ($value['url']['action'] != 'delete') {
                                     echo $this->Html->link(
