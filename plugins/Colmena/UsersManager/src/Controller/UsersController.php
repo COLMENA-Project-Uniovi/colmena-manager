@@ -14,8 +14,8 @@ class UsersController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'alumno';
-    public $entity_name_plural = 'alumnos';
+    public $entityName = 'alumno';
+    public $entityNamePlural = 'alumnos';
 
     // Default pagination settings
     public $paginate = [
@@ -28,7 +28,7 @@ class UsersController extends AppController
         ]
     ];
 
-    protected $table_buttons = [
+    protected $tableButtons = [
         'Editar' => [
             'icon' => '<i class="fas fa-edit"></i>',
             'url' => [
@@ -66,7 +66,7 @@ class UsersController extends AppController
         ],
     ];
 
-    protected $tab_actions = [];
+    protected $tabActions = [];
 
     /**
      * Before filter
@@ -168,7 +168,7 @@ class UsersController extends AppController
         }
 
         $this->set('header_actions', $this->getHeaderActions());
-        $this->set('table_buttons', $this->getTableButtons());
+        $this->set('tableButtons', $this->getTableButtons());
         $this->set('entities', $entities);
         $this->set('_serialize', 'entities');
         $this->set('keyword', $keyword);
@@ -189,11 +189,11 @@ class UsersController extends AppController
                 $this->Flash->success('El usuario se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id]);
             } else {
-                $error_msg = '<p>El usuario no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+                $errorMsg = '<p>El usuario no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
                 foreach ($entity->errors() as $field => $error) {
-                    $error_msg .= '<p>' . $error['message'] . '</p>';
+                    $errorMsg .= '<p>' . $error['message'] . '</p>';
                 }
-                $this->Flash->error($error_msg, ['escape' => false]);
+                $this->Flash->error($errorMsg, ['escape' => false]);
             }
         }
 
@@ -221,17 +221,17 @@ class UsersController extends AppController
                 $this->Flash->success('El usuario se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
             } else {
-                $error_msg = '<p>El usuario no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+                $errorMsg = '<p>El usuario no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
                 foreach ($entity->errors() as $field => $error) {
-                    $error_msg .= '<p>' . $error['message'] . '</p>';
+                    $errorMsg .= '<p>' . $error['message'] . '</p>';
                 }
-                $this->Flash->error($error_msg, ['escape' => false]);
+                $this->Flash->error($errorMsg, ['escape' => false]);
             }
         }
 
         $roles = $this->{$this->getName()}->UserRoles->find('list')->order(['name' => 'ASC'])->toArray();
 
-        $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
+        $this->set('tabActions', $this->getTabActions('Users', 'edit', $entity));
         $this->set(compact('entity', 'roles'));
     }
 

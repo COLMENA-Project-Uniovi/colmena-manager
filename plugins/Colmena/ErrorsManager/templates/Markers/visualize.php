@@ -4,13 +4,14 @@ $this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
-$this->Breadcrumbs->add('Añadir ' . $entityName, [
+$this->Breadcrumbs->add('Visualizar ' . $entityName, [
     'controller' => $this->request->getParam('controller'),
     'action' => 'add'
 ]);
 $header = [
-    'title' => 'Añadir ' . $entityName,
-    'breadcrumbs' => true
+    'title' => 'Visualizar ' . $entityName,
+    'breadcrumbs' => true,
+    'tabs' => $tabActions
 ];
 ?>
 
@@ -27,78 +28,83 @@ $header = [
         <div class="form-block">
             <h3>Datos generales</h3>
             <?= $this->Form->control(
-                'name',
+                'user_id',
                 [
-                    'label' => 'Nombre del error',
-                    'type' => 'text'
+                    'label' => 'Id del estudiante',
+                    'type' => 'text',
+                    'disabled' => true
                 ]
             ); ?>
             <?= $this->Form->control(
                 'error_id',
                 [
-                    'label' => 'ID del error',
-                    'type' => 'number'
+                    'label' => 'Id del error',
+                    'type' => 'text',
+                    'disabled' => true
                 ]
             ); ?>
             <?= $this->Form->control(
-                'wrong_start_line',
+                'gender',
                 [
-                    'label' => 'Línea de inicio del error',
-                    'type' => 'number'
+                    'label' => 'Género',
+                    'type' => 'text',
+                    'disabled' => true
                 ]
             ); ?>
             <?= $this->Form->control(
-                'wrong_end_line',
+                'timestamp',
                 [
-                    'label' => 'Línea de fin del error',
-                    'type' => 'number'
-                ]
-            ); ?>
-
-            <?= $this->Form->control(
-                'wrong_source_code',
-                [
-                    'label' => 'Código de error',
-                    'type' => 'textarea'
-                ]
-            ); ?>
-
-            <?= $this->Form->control(
-                'right_start_line',
-                [
-                    'label' => 'Línea de inicio del error',
-                    'type' => 'number'
+                    'label' => 'Fecha de creación',
+                    'type' => 'text',
+                    'disabled' => true
                 ]
             ); ?>
             <?= $this->Form->control(
-                'right_end_line',
+                'class_path',
                 [
-                    'label' => 'Línea de fin del error',
-                    'type' => 'number'
+                    'label' => 'Path de la clase',
+                    'type' => 'text',
+                    'disabled' => true
                 ]
             ); ?>
-
             <?= $this->Form->control(
-                'right_source_code',
+                'project_path',
                 [
-                    'label' => 'Código de error',
-                    'type' => 'textarea'
+                    'label' => 'Path del proyecto',
+                    'type' => 'text',
+                    'disabled' => true
                 ]
             ); ?>
-
             <?= $this->Form->control(
-                'explanation',
+                'ip',
                 [
-                    'label' => 'Código de error',
-                    'type' => 'textarea'
+                    'label' => 'Dirección IP',
+                    'type' => 'text',
+                    'disabled' => true
                 ]
             ); ?>
-
             <?= $this->Form->control(
-                'solution',
+                'line_number',
                 [
-                    'label' => 'Código de error',
-                    'type' => 'textarea'
+                    'label' => 'Linea del error',
+                    'type' => 'text',
+                    'disabled' => true
+                ]
+            ); ?>
+            <?= $this->Form->control(
+                'message',
+                [
+                    'label' => 'Mensaje del error',
+                    'type' => 'text',
+                    'disabled' => true
+                ]
+            ); ?>
+            <?= $this->Form->control(
+                'session_id',
+                [
+                    'label' => 'Sesión',
+                    'type' => 'text',
+                    'disabled' => true
                 ]
             ); ?>
         </div><!-- .form-block -->

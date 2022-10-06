@@ -3,12 +3,12 @@
 use Cake\Utility\Inflector;
 
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst($entity_name_plural), [
+$this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
 $header = [
-    'title' => ucfirst($entity_name_plural),
+    'title' => ucfirst($entityNamePlural),
     'breadcrumbs' => true,
     'header' => [
         'actions' => $header_actions,
@@ -18,23 +18,23 @@ $header = [
 ?>
 
 <?= $this->element("header", $header); ?>
-
-<div class="content">
+<?= $this->element('paginator'); ?>
+<div class="content px-4">
     <div class="results">
         <?php
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
-            <table class="table-responsive">
+            <table class="table">
                 <thead class="thead">
                     <tr class="tr">
                         <th class="th medium">
                             Nombre
                         </th><!-- .th -->
                         <th class="th grow">
-                            Semestre
+                            Año académico
                         </th><!-- .th -->
                         <th class="th grow">
-                            Año académico
+                            Semestre
                         </th><!-- .th -->
                         <th class="th grow">
                             Fecha de inicio
@@ -43,7 +43,7 @@ $header = [
                             Fecha de fin
                         </th><!-- .th -->
                         <?php
-                        if (!empty($table_buttons)) {
+                        if (!empty($tableButtons)) {
                         ?>
                             <th class="th actions short">
                                 Operaciones
@@ -56,28 +56,28 @@ $header = [
                 <tbody class="tbody elements">
                     <?php
                     foreach ($entities as $entity) {
-                        $table_buttons['Sesiones'] = 
-                        [
-                            'icon' => '<i class="far fa-calendar-alt"></i>',
-                            'url' => [
-                                'controller' => 'Sessions',
-                                'action' => 'index',
-                                'plugin' => 'Colmena/AcademicalManager',
-                            ],
-                            'options' => [
-                                'escape' => false
-                            ]
-                        ];
+                        $tableButtons['Sesiones'] =
+                            [
+                                'icon' => '<i class="far fa-calendar-alt"></i>',
+                                'url' => [
+                                    'controller' => 'Sessions',
+                                    'action' => 'index',
+                                    'plugin' => 'Colmena/AcademicalManager',
+                                ],
+                                'options' => [
+                                    'escape' => false
+                                ]
+                            ];
                     ?>
                         <tr class="tr">
                             <td class="td element medium">
                                 <p><?= $entity->name ?></p>
                             </td><!-- .td -->
                             <td class="td element grow">
-                                <p><?= $entity->semester; ?></p>
+                                <p><?= $entity->academical_year_id != 0 ? $entity->academical_year->title : ''; ?></p>
                             </td><!-- .td -->
                             <td class="td element grow">
-                                <p><?= $entity->academical_year; ?></p>
+                                <p><?= $entity->semester; ?></p>
                             </td><!-- .td -->
                             <td class="td element grow">
                                 <p><?= $entity->start_date; ?></p>
@@ -86,12 +86,12 @@ $header = [
                                 <p><?= $entity->end_date; ?></p>
                             </td><!-- .td -->
                             <?php
-                            if (!empty($table_buttons)) {
+                            if (!empty($tableButtons)) {
                             ?>
                                 <td class="td actions">
                                     <div class="td-content">
                                         <?php
-                                        foreach ($table_buttons as $key => $value) {
+                                        foreach ($tableButtons as $key => $value) {
                                             array_push($value['url'], $entity->id);
                                             if ($value['url']['action'] != 'delete') {
                                                 echo $this->Html->link(
@@ -119,7 +119,6 @@ $header = [
                     ?>
                 </tbody><!-- .tbody -->
             </table><!-- .table -->
-            <?= $this->element('paginator'); ?>
         <?php
         } else {
         ?>

@@ -4,7 +4,7 @@ use Cake\Utility\Inflector;
 ?>
 <div class="nav">
     <nav>
-        <div class="content-nav">
+        <div class="content content-nav">
             <div class="logo">
                 <?= $this->Html->link(
                     $this->Html->image(
@@ -47,6 +47,31 @@ use Cake\Utility\Inflector;
                 }
                 ?>
             </div><!-- .items -->
+
+            <div class="logout">
+                <span class="user" style="font-size: 15px;">
+                    <i class="fal fa-user-circle"></i>
+                    <?= $user['username'] ?>
+                    
+                    <?php
+                    if (!isset($user)) {
+                        header('Location: ' . 'https://' . $_SERVER['HTTP_HOST'] . '/admin');
+                        die();
+                    }
+                    ?>
+                </span>
+                <?= $this->Html->link(
+                    '<i class="fa fa-power-off"></i>',
+                    [
+                        'controller' => 'AdminUsers',
+                        'action' => 'logout',
+                        'plugin' => false
+                    ],
+                    [
+                        'escape' => false
+                    ]
+                ); ?>
+            </div><!-- .logout -->
         </div><!-- .content-nav -->
     </nav>
 </div><!-- .nav -->

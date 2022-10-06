@@ -24,7 +24,7 @@ class SessionsTable extends AppTable
         parent::initialize($config);
 
         $this->setTable('acm_sessions');
-        $this->setDisplayField('title');
+        $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
         $this->belongsTo(
@@ -38,6 +38,17 @@ class SessionsTable extends AppTable
             'foreignKey' => 'session_id',
             'className' => 'Colmena/AcademicalManager.SessionSchedules'
         ]);
+
+        $this->belongsToMany(
+            'Languages',
+            [
+                'foreignKey' => 'session_id',
+                'targetForeignKey' => 'language_id',
+                'joinTable' => 'acm_languages_sessions',
+                'sort' => ['Languages.name' => 'ASC'],
+                'className' => 'Colmena/ErrorsManager.Languages',
+            ]
+        );
     }
 
     /**

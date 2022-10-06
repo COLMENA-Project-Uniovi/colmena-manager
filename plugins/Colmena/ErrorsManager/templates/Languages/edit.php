@@ -30,16 +30,8 @@ $header = [
             <?= $this->Form->control(
                 'name',
                 [
-                    'label' => 'Nombre de la familia',
+                    'label' => 'Nombre del error',
                     'type' => 'text'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'description',
-                [
-                    'label' => 'Descripción de la familia de error',
-                    'type' => 'textarea',
-                    'rows' => 5
                 ]
             ); ?>
         </div><!-- .form-block -->

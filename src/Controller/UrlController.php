@@ -49,10 +49,10 @@ class UrlController extends AppController
         $entity = CacheUtility::get($url . '.' . $locale, 'long');
         if ($entity === false) {
             $entity = false;
-            foreach (Configure::read('API.searchable_entities') as $entity_name) {
+            foreach (Configure::read('API.searchable_entities') as $entityName) {
                 $this->setLocale($locale);
                 
-                $entity_table = TableRegistry::getTableLocator()->get($entity_name);
+                $entity_table = TableRegistry::getTableLocator()->get($entityName);
                 $entity = $entity_table->getByUrl($url);
 
                 if ($entity) {
@@ -85,9 +85,9 @@ class UrlController extends AppController
         }
 
         $entity = false;
-        foreach (Configure::read('API.searchable_entities') as $entity_name) {
+        foreach (Configure::read('API.searchable_entities') as $entityName) {
             $this->setLocale($locale);
-            $entity_table = TableRegistry::getTableLocator()->get($entity_name);
+            $entity_table = TableRegistry::getTableLocator()->get($entityName);
             $entity = $entity_table->getByUrl($url);
 
             if ($entity) {

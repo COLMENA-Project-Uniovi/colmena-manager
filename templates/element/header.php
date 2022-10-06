@@ -1,4 +1,4 @@
-<header class="card">
+<header class="card pb-4">
     <?php
 
     use Cake\Core\Configure;
@@ -14,28 +14,6 @@
                 ); ?>
             </div>
 
-            <div class="logout">
-                <span class="user" style="font-size: 15px;">
-                    <i class="fal fa-user-circle"></i>
-                    <?php
-                    if (!isset($user)) {
-                        header('Location: ' . 'https://' . $_SERVER['HTTP_HOST'] . '/admin');
-                        die();
-                    }
-                    ?>
-                </span>
-                <?= $this->Html->link(
-                    '<i class="fa fa-power-off"></i>',
-                    [
-                        'controller' => 'AdminUsers',
-                        'action' => 'logout',
-                        'plugin' => false
-                    ],
-                    [
-                        'escape' => false
-                    ]
-                ); ?>
-            </div><!-- .logout -->
             <?php
             if (isset($languages)) {
             ?>
@@ -63,7 +41,7 @@
     ?>
 
     <div class="mid-header row">
-        <h2 class="col"><?= $title; ?></h2>
+        <h2 class="col" style="padding: 0;"><?= $title; ?></h2>
         <?php
         if (isset($header)) {
             if (isset($header['actions']) && !empty($header['actions'])) {
@@ -202,7 +180,7 @@
                             'value' => $keyword
                         ]
                     );
-                    
+
                     if (isset($header['select_filter']) && $header['select_filter']) {
                         echo $this->Form->select(
                             'filter',
@@ -252,7 +230,7 @@
     if (isset($tabs) && !empty($tabs)) {
     ?>
         <div class="header-tabs">
-            <div class="content-tabs">
+            <div class="content content-tabs">
                 <?php
                 foreach ($tabs as $tab_name => $config) {
                     echo $this->Html->link(

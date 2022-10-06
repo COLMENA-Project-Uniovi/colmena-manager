@@ -9,7 +9,7 @@ $this->Breadcrumbs->add($subject->name, [
     'action' => 'edit', $subject->id
 ]);
 
-$this->Breadcrumbs->add(ucfirst($entity_name_plural), [
+$this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index', $subject->id
 ]);
@@ -19,7 +19,7 @@ $this->Breadcrumbs->add('Editar ' . $entity->name, [
     'action' => 'add', $subject->id
 ]);
 
-$tab_actions = [
+$tabActions = [
     'Datos de la sesión' => [
         'url' => [
             'controller' => 'Sessions',
@@ -41,12 +41,12 @@ $tab_actions = [
 $header = [
     'title' => 'Editar ' . $entity->name,
     'breadcrumbs' => true,
-    'tabs' => $tab_actions
+    'tabs' => $tabActions
 ];
 
 ?>
 <?= $this->element("header", $header); ?>
-<div class="content">
+<div class="content px-4">
     <?= $this->Form->create(
         $entity,
         [
@@ -64,7 +64,7 @@ $header = [
                     'required' => true,
                     'type' => 'text'
                 ]
-            ); ?> 
+            ); ?>
             <?= $this->Form->control(
                 'objective',
                 [
@@ -75,7 +75,19 @@ $header = [
                         'max' =>  200
                     ]
                 ]
-            ); ?> 
+            ); ?>
+
+            <?= $this->Form->control(
+                'language_id',
+                [
+                    'label' => 'Lenguaje de programación',
+                    'options' => $programmingLanguages,
+                    'empty' => '---- Selecciona el lenguaje de programación ----',
+                    'templateVars' => [
+                        'help' => 'Selecciona el lenguaje de programación'
+                    ]
+                ]
+            ); ?>
         </div><!-- .form-block -->
     </div><!-- .primary -->
     <?= $this->element("form/save-block"); ?>

@@ -30,10 +30,12 @@ class ErrorsTable extends AppTable
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-        $this->hasOne('Family', [
-            'className' => 'Colmena/ErrorsManager.ErrorsFamily',
-            'foreignKey' => 'family_id',
-        ]);
+        $this->belongsTo(
+            'Family',
+            [
+                'className' => 'Colmena/ErrorsManager.ErrorsFamily',
+            ]
+        );
     }
 
     /**

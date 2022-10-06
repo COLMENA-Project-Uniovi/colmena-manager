@@ -3,12 +3,13 @@
 use Cake\Utility\Inflector;
 
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst($entity_name_plural), [
+$this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
+
 $header = [
-    'title' => ucfirst($entity_name_plural),
+    'title' => ucfirst($entityNamePlural),
     'breadcrumbs' => true,
     'header' => [
         'actions' => $header_actions,
@@ -18,13 +19,13 @@ $header = [
 ?>
 
 <?= $this->element("header", $header); ?>
-
-<div class="content">
+<?= $this->element('paginator'); ?>
+<div class="content px-4">
     <div class="results">
         <?php
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
-            <div class="container table-responsive py-5">
+            <div class="table">
                 <table class="table table-bordered table-hover">
                     <thead class="thead-dark">
                         <tr>
@@ -33,7 +34,7 @@ $header = [
                             <th scope="col">Género</th><!-- .th -->
                             <th scope="col">Id de sesión</th><!-- .th -->
                             <?php
-                            if (!empty($table_buttons)) {
+                            if (!empty($tableButtons)) {
                             ?>
                                 <th scope="col">Operaciones</th><!-- .th -->
                             <?php
@@ -47,27 +48,33 @@ $header = [
                             $msg = isset($entity->sesion_id) ? $entity->sesion_id : 'REVISAR'
                         ?>
                             <tr>
-                                <th scope="row"><?= $entity->user_id; ?></th>
+                                <th scope="row">
+                                    <a href="/admin/users-manager/users/edit/<?= $entity->user_id ?>" class="user"><?= $entity->user_id ?></a>
+                                </th>
+
                                 <td scope="col">
                                     <?= $entity->message; ?>
                                 </td><!-- .td -->
+
                                 <td scope="col">
                                     <?= $entity->gender; ?>
                                 </td><!-- .td -->
+
                                 <td scope="col">
                                     <?= $msg; ?>
                                 </td><!-- .td -->
+
                                 <?php
-                                if (!empty($table_buttons)) {
+                                if (!empty($tableButtons)) {
                                 ?>
                                     <td class="actions" scope="col">
                                         <div class="td-content">
                                             <?php
-                                            foreach ($table_buttons as $key => $value) {
+                                            foreach ($tableButtons as $key => $value) {
                                                 array_push($value['url'], $entity->id);
 
-                                                ?>
-                                                <?php
+                                            ?>
+                                            <?php
                                                 if ($value['url']['action'] != 'delete') {
                                                     echo $this->Html->link(
                                                         $value['icon'],

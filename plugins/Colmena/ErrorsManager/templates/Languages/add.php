@@ -4,14 +4,13 @@ $this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
-$this->Breadcrumbs->add('Editar ' . $entityName, [
+$this->Breadcrumbs->add('Añadir ' . $entityName, [
     'controller' => $this->request->getParam('controller'),
     'action' => 'add'
 ]);
 $header = [
-    'title' => 'Editar ' . $entityName,
-    'breadcrumbs' => true,
-    'tabs' => $tabActions
+    'title' => 'Añadir ' . $entityName,
+    'breadcrumbs' => true
 ];
 ?>
 
@@ -30,16 +29,8 @@ $header = [
             <?= $this->Form->control(
                 'name',
                 [
-                    'label' => 'Nombre de la familia',
+                    'label' => 'Nombre del error',
                     'type' => 'text'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'description',
-                [
-                    'label' => 'Descripción de la familia de error',
-                    'type' => 'textarea',
-                    'rows' => 5
                 ]
             ); ?>
         </div><!-- .form-block -->

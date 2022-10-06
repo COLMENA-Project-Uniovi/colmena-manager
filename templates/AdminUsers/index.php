@@ -2,14 +2,14 @@
 use Cake\Utility\Inflector;
 
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst($entity_name_plural), [
+$this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
 $header = [
-    'title' => ucfirst($entity_name_plural),
+    'title' => ucfirst($entityNamePlural),
     'breadcrumbs' => true,
-    'tabs' => $tab_actions,
+    'tabs' => $tabActions,
     'header' => [
         'actions' => $header_actions
     ]
@@ -17,7 +17,7 @@ $header = [
 ?>
 
 <?= $this->element("header", $header); ?>
-<div class="content">
+<div class="content px-4">
     <div class="results">
     <?php
         if (!empty($entities->toArray())) {
@@ -44,7 +44,7 @@ $header = [
                         Activo
                     </th>
                 <?php
-                    if (!empty($table_buttons)) {
+                    if (!empty($tableButtons)) {
                 ?>
                     <th class="actions short">
                         Operaciones
@@ -80,11 +80,11 @@ $header = [
                         </p>
                     </td>
                     <?php
-                        if (!empty($table_buttons)) {
+                        if (!empty($tableButtons)) {
                     ?>
                         <td class="actions">
                         <?php
-                            foreach ($table_buttons as $key => $value) {
+                            foreach ($tableButtons as $key => $value) {
                                 array_push($value['url'], $entity->id);
                                 if ($value['url']['action'] != 'delete') {
                                     echo $this->Html->link(

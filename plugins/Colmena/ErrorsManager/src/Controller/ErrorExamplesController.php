@@ -9,8 +9,8 @@ class ErrorExamplesController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'ejemplo de error';
-    public $entity_name_plural = 'ejemplos de errores';
+    public $entityName = 'ejemplo de error';
+    public $entityNamePlural = 'ejemplos de errores';
 
     // Default pagination settings
     public $paginate = [
@@ -19,11 +19,13 @@ class ErrorExamplesController extends AppController
             'id' => 'ASC'
         ],
         'contain' => [
-            'Users'
+            'Users',
+            'Errors',
+            'Sessions'
         ]
     ];
 
-    protected $table_buttons = [
+    protected $tableButtons = [
         'Editar' => [
             'icon' => '<i class="fas fa-edit"></i>',
             'url' => [
@@ -51,25 +53,6 @@ class ErrorExamplesController extends AppController
         ]
     ];
 
-    protected $header_actions = [
-        'Añadir error de ejemplo' => [
-            'url' => [
-                'controller' => 'Errors',
-                'plugin' => 'Colmena/ErrorsManager',
-                'action' => 'add'
-            ]
-        ],
-        'Ver tipos de errores' => [
-            'url' => [
-                'controller' => 'ErrorsFamily',
-                'plugin' => 'Colmena/ErrorsManager',
-                'action' => 'index'
-            ]
-        ],
-    ];
-
-    protected $tab_actions = [];
-
     /**
      * Before filter
      *
@@ -87,7 +70,7 @@ class ErrorExamplesController extends AppController
      *
      * @return void
      */
-    public function index($keyword = null)
+    public function index($errorID, $keyword = null)
     {
         if ($this->request->is('post')) {
             //recover the keyword
@@ -98,6 +81,7 @@ class ErrorExamplesController extends AppController
 
         // Paginator
         $settings = $this->paginate;
+
         // If performing search, there is a keyword
         if ($keyword != null) {
             // Change pagination conditions for searching
@@ -110,11 +94,18 @@ class ErrorExamplesController extends AppController
 
         $entities = $this->{$this->getName()}->find('all')
             ->matching('Users', function ($q) {
-                return $q->where(['Users.id' => $this->Auth->user('id')]);
-            })->toList();
+                return $q->where(
+                    ['Users.id' => $this->Auth->user('id')]
+                );
+            })
+            ->matching('Errors', function ($q) use ($errorID) {
+                return $q->where(
+                    [$this->getName() . '.error_id' => $errorID]
+                );
+            })->toArray();
 
         $this->set('header_actions', $this->getHeaderActions());
-        $this->set('table_buttons', $this->getTableButtons());
+        $this->set('tableButtons', $this->getTableButtons());
         $this->set('entities', $entities);
         $this->set('_serialize', 'entities');
         $this->set('keyword', $keyword);
@@ -128,21 +119,20 @@ class ErrorExamplesController extends AppController
     public function add()
     {
         $entity = $this->{$this->getName()}->newEmptyEntity();
+        $sessions = $this->{$this->getName()}->Sessions->find('list');
+
         if ($this->request->is('post')) {
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
 
             if ($this->{$this->getName()}->save($entity)) {
-                $this->Flash->success('El usuario se ha guardado correctamente.');
+                $this->Flash->success('El ejemplo de error se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id]);
-            } else {
-                $error_msg = '<p>El usuario no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($entity->errors() as $field => $error) {
-                    $error_msg .= '<p>' . $error['message'] . '</p>';
-                }
-                $this->Flash->error($error_msg, ['escape' => false]);
             }
+
+            $this->showErrors($entity);
         }
-        $this->set(compact('entity'));
+
+        $this->set(compact('entity', 'sessions'));
     }
 
     /**
@@ -152,28 +142,25 @@ class ErrorExamplesController extends AppController
      * @return void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null, $locale = null)
+    public function edit($entityID = null, $locale = null)
     {
         $this->setLocale($locale);
-        $entity = $this->{$this->getName()}->get($id);
+        $entity = $this->{$this->getName()}->get($entityID);
+        $sessions = $this->{$this->getName()}->Sessions->find('list');
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
 
             if ($this->{$this->getName()}->save($entity)) {
-                $this->Flash->success('El usuario se ha guardado correctamente.');
+                $this->Flash->success('El ejemplo de error se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
-            } else {
-                $error_msg = '<p>El usuario no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($entity->errors() as $field => $error) {
-                    $error_msg .= '<p>' . $error['message'] . '</p>';
-                }
-                $this->Flash->error($error_msg, ['escape' => false]);
             }
+
+            $this->showErrors($entity);
         }
 
-        $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
-        $this->set(compact('entity'));
+        $this->set('tabActions', $this->getTabActions('Users', 'edit', $entity));
+        $this->set(compact('entity', 'sessions'));
     }
 
     /**
@@ -188,10 +175,27 @@ class ErrorExamplesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $entity = $this->{$this->getName()}->get($id);
         if ($this->{$this->getName()}->delete($entity)) {
-            $this->Flash->success('El usuario se ha borrado correctamente.');
+            $this->Flash->success('El ejemplo de error se ha borrado correctamente.');
         } else {
-            $this->Flash->error('El usuario no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
+            $this->Flash->error('El ejemplo de error no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
         }
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * Function which shows the entity error's on saving
+     *
+     * @param [ErrorExample] $entity
+     * @return void
+     */
+    private function showErrors($entity)
+    {
+        $errorMsg = '<p>La sesión no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+
+        foreach ($entity->errors() as $error) {
+            $errorMsg .= '<p>' . $error['message'] . '</p>';
+        }
+
+        $this->Flash->error($errorMsg, ['escape' => false]);
     }
 }
