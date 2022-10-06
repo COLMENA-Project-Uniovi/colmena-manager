@@ -21,21 +21,21 @@ $header = [
 <?= $this->element("header", $header); ?>
 <?= $this->element('paginator'); ?>
 
-<div class="content p-4">
+<div class="content px-4">
     <div class="results">
         <?php
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
-            <table class="table-responsive">
-                <thead class="thead">
-                    <tr class="tr">
-                        <th class="th medium">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="medium">
                             Nombre
                         </th><!-- .th -->
-                        <th class="th medium">
+                        <th class="medium">
                             Id del error
                         </th><!-- .th -->
-                        <th class="th medium">
+                        <th class="medium">
                             Familia
                         </th><!-- .th -->
                         <?php
@@ -49,24 +49,24 @@ $header = [
                         ?>
                     </tr><!-- .tr -->
                 </thead><!-- .thead -->
-                <tbody class="tbody elements">
+                <tbody class="elements">
                     <?php
                     foreach ($entities as $entity) {
                     ?>
-                        <tr class="tr">
-                            <td class="td element medium">
+                        <tr>
+                            <td class="element medium">
                                 <p><?= $entity->name ?></p>
                             </td><!-- .td -->
-                            <td class="td element grow">
+                            <td class="element grow">
                                 <p><?= $entity->error_id; ?></p>
                             </td><!-- .td -->
-                            <td class="td element grow">
+                            <td class="element grow">
                                 <p><?= $entity->family_id != 0 ? $entity->family->name : ''; ?></p>
                             </td><!-- .td -->
                             <?php
                             if (!empty($tableButtons)) {
                             ?>
-                                <td class="td actions">
+                                <td class="actions">
                                     <div class="td-content">
                                         <?php
                                         foreach ($tableButtons as $key => $value) {
@@ -97,7 +97,6 @@ $header = [
                     ?>
                 </tbody><!-- .tbody -->
             </table><!-- .table -->
-
         <?php
         } else {
         ?>

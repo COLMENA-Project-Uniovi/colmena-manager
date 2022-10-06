@@ -46,7 +46,7 @@ $header = [
 
 ?>
 <?= $this->element("header", $header); ?>
-<div class="content p-4">
+<div class="content px-4">
     <?= $this->Form->create(
         $entity,
         [

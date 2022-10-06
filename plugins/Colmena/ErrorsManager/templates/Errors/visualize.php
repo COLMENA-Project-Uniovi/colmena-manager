@@ -27,7 +27,6 @@ $header = [
     'tabs' => $tabActions,
     'header' => [
         'actions' => $header_actions,
-        'search_form' => []
     ]
 ];
 ?>

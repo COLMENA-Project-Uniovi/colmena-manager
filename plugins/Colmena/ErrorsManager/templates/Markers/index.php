@@ -20,12 +20,12 @@ $header = [
 
 <?= $this->element("header", $header); ?>
 <?= $this->element('paginator'); ?>
-<div class="content p-4">
+<div class="content px-4">
     <div class="results">
         <?php
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
-            <div class="table-responsive">
+            <div class="table">
                 <table class="table table-bordered table-hover">
                     <thead class="thead-dark">
                         <tr>
@@ -45,7 +45,6 @@ $header = [
                     <tbody>
                         <?php
                         foreach ($entities as $entity) {
-                            debug($entity);die;
                             $msg = isset($entity->sesion_id) ? $entity->sesion_id : 'REVISAR'
                         ?>
                             <tr>

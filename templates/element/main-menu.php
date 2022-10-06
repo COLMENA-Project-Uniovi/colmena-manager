@@ -51,6 +51,8 @@ use Cake\Utility\Inflector;
             <div class="logout">
                 <span class="user" style="font-size: 15px;">
                     <i class="fal fa-user-circle"></i>
+                    <?= $user['username'] ?>
+                    
                     <?php
                     if (!isset($user)) {
                         header('Location: ' . 'https://' . $_SERVER['HTTP_HOST'] . '/admin');

@@ -1,4 +1,4 @@
-<header class="card">
+<header class="card pb-4">
     <?php
 
     use Cake\Core\Configure;
@@ -40,8 +40,8 @@
     }
     ?>
 
-    <div class="mid-header row pb-5">
-        <h2 class="col"><?= $title; ?></h2>
+    <div class="mid-header row">
+        <h2 class="col" style="padding: 0;"><?= $title; ?></h2>
         <?php
         if (isset($header)) {
             if (isset($header['actions']) && !empty($header['actions'])) {

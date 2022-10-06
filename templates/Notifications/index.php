@@ -19,7 +19,7 @@ $header = [
 ?>
 <?= $this->element("header", $header); ?>
 
-<div class="content p-4">
+<div class="content px-4">
     <div class="results">
     <?php
         if (!empty($entities->toArray())) {
@@ -30,7 +30,7 @@ $header = [
                 <?= $this->Paginator->counter('<span>Mostrando {{start}}-{{end}} de {{count}} elementos</span>'); ?>
             </div><!-- .num-results -->
         </div><!-- .top-results -->
-        <div class="table-responsive">
+        <div class="table">
             <div class="thead">
                 <div class="tr">
                     <div class="th grow">

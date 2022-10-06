@@ -16,7 +16,7 @@ $header = [
 ?>
 <?= $this->element('header', $header); ?>
 
-<div class="content p-4">
+<div class="content px-4">
     <div class="results">
         <?php
             if($config->value == 'true') {

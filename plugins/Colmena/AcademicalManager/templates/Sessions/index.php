@@ -26,12 +26,12 @@ $header = [
 
 <?= $this->element("header", $header); ?>
 
-<div class="content p-4">
+<div class="content px-4">
     <div class="results">
         <?php
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
-            <table class="table-responsive">
+            <table class="table">
                 <thead class="thead">
                     <tr class="tr">
                         <th class="th grow">
