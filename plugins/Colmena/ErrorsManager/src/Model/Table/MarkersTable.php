@@ -37,7 +37,7 @@ class MarkersTable extends AppTable
             [
                 'className' => 'Colmena/UsersManager.Users',
             ]
-        );
+        )->setForeignKey('user_id');
 
         // Error entity relation
         $this->belongsTo(

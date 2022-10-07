@@ -12,7 +12,6 @@ $header = [
     'title' => ucfirst($entityNamePlural),
     'breadcrumbs' => true,
     'header' => [
-        'actions' => $header_actions,
         'search_form' => []
     ]
 ];
@@ -32,7 +31,8 @@ $header = [
                             <th scope="col">Id usuario</th><!-- .th -->
                             <th scope="col">Mensaje</th><!-- .th -->
                             <th scope="col">Género</th><!-- .th -->
-                            <th scope="col">Id de sesión</th><!-- .th -->
+                            <th scope="col">Fecha de creación</th><!-- .th -->
+                            <th scope="col">Sesión</th><!-- .th -->
                             <?php
                             if (!empty($tableButtons)) {
                             ?>
@@ -61,6 +61,10 @@ $header = [
                                 </td><!-- .td -->
 
                                 <td scope="col">
+                                    <?= $entity->timestamp; ?>
+                                </td><!-- .td -->
+
+                                <td scope="col">
                                     <?= $msg; ?>
                                 </td><!-- .td -->
 
@@ -72,7 +76,6 @@ $header = [
                                             <?php
                                             foreach ($tableButtons as $key => $value) {
                                                 array_push($value['url'], $entity->id);
-
                                             ?>
                                             <?php
                                                 if ($value['url']['action'] != 'delete') {

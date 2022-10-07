@@ -47,24 +47,21 @@ $header = [
                 'error_id',
                 [
                     'label' => 'Id del error',
-                    'type' => 'number',
-                    'disabled' => true
+                    'type' => 'number'
                 ]
             ); ?>
             <?= $this->Form->control(
                 'name',
                 [
                     'label' => 'Nombre del error',
-                    'type' => 'text',
-                    'disabled' => true
+                    'type' => 'text'
                 ]
             ); ?>
             <?= $this->Form->control(
                 'message',
                 [
                     'label' => 'Mensaje del error',
-                    'type' => 'email',
-                    'disabled' => true
+                    'type' => 'text'
                 ]
             ); ?>
             <?= $this->Form->control(
@@ -75,11 +72,34 @@ $header = [
                     'empty' => '---- Selecciona la familia del error ----',
                     'templateVars' => [
                         'help' => 'Selecciona la familia del error'
-                    ],
-                    'disabled' => true
+                    ]
                 ]
             ); ?>
 
+            <?= $this->Form->control(
+                'reference',
+                [
+                    'label' => 'Referencia del error',
+                    'type' => 'textarea'
+                ]
+            ); ?>
+
+            <?= $this->Form->control(
+                'gender',
+                [
+                    'label' => 'Género del error',
+                    'type' => 'text'
+                ]
+            ); ?>
+            
+            <?= $this->Form->control(
+                'problema_reason',
+                [
+                    'label' => 'Razón del problema',
+                    'type' => 'textarea',
+                    'class' => 'texteditor',
+                ]
+            ); ?>
         </div><!-- .form-block -->
     </div><!-- .primary -->
     <?= $this->element("form/save-block"); ?>

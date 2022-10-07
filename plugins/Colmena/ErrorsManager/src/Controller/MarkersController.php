@@ -9,8 +9,8 @@ class MarkersController extends AppController
 {
     use EncryptTrait;
 
-    public $entityName = 'marcador';
-    public $entityNamePlural = 'marcadores';
+    public $entityName = 'marker';
+    public $entityNamePlural = 'markers';
 
     // Default pagination settings
     public $paginate = [
@@ -18,7 +18,9 @@ class MarkersController extends AppController
         'order' => [
             'id' => 'ASC'
         ],
-        'contain' => []
+        'contain' => [
+            'Error', 'Session', 'Student'
+        ]
     ];
 
     protected $tableButtons = [
@@ -113,11 +115,14 @@ class MarkersController extends AppController
     public function add()
     {
         $marker = $this->{$this->getName()}->newEmptyEntity();
+
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-            $marker = $this->{$this->getName()}->patchEntity($marker, $data);
 
-            if ($marker = $this->{$this->getName()}->save($marker)) {
+            $marker = $this->{$this->getName()}->patchEntity($marker, $data);
+            $marker = $this->{$this->getName()}->save($marker);
+
+            if (isset($marker)) {
                 $this->Flash->success('El marker se ha guardado correctamente.');
 
                 $this->linkWithSession($data['creation_time'], $marker);
@@ -149,7 +154,7 @@ class MarkersController extends AppController
             if ($this->{$this->getName()}->save($entity)) {
                 $this->Flash->success('El rol se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
-            } 
+            }
 
             $this->showErrors($entity);
         }
@@ -197,26 +202,6 @@ class MarkersController extends AppController
             ->matching('SessionSchedules', function ($q) use ($date, $hour) {
                 return $q->where(['SessionSchedules.date' => $date, 'SessionSchedules.end_hour >=' => $hour, 'SessionSchedules.start_hour <=' => $hour]);
             });
-
-        if (count($sessions->toArray()) > 1) {
-            $conflictSessions = $sessions->toArray();
-
-            // TODO: correct patch entity to save conflicts
-            $data['conflicts'] = [
-                0 => $conflictSessions[0]['id'],
-                1 => $conflictSessions[1]['id'],
-            ];
-
-            $entity = $this->{$this->getName()}->find()->where(['id' => $entity['id']])->contain(['Conflicts'])->first();
-            $entity = $this->{$this->getName()}->patchEntity($entity, $data);
-            //TODO: Hacer que ponga que existe el conflicto para que el usuario lo resuelva manualmente
-
-            return false;
-        }
-
-        $data['session_id'] = $sessions->first()['id'];
-        $entity = $this->{$this->getName()}->patchEntity($entity, $data);
-        $entity = $this->{$this->getName()}->save($entity);
 
         return true;
     }
