@@ -26,24 +26,24 @@ $header = [
 
 <?= $this->element("header", $header); ?>
 
-<div class="content px-4">
+<div class="content p-4">
     <div class="results">
         <?php
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
             <table class="table">
                 <thead class="thead">
-                    <tr class="tr">
-                        <th class="th grow">
+                    <tr>
+                        <th class="grow">
                             Nombre
                         </th><!-- .th -->
-                        <th class="th grow">
+                        <th class="grow">
                             Lenguaje de programación
                         </th><!-- .th -->
                         <?php
                         if (!empty($tableButtons)) {
                         ?>
-                            <th class="th actions short">
+                            <th class="actions short">
                                 Operaciones
                             </th><!-- .th -->
                         <?php
@@ -51,21 +51,21 @@ $header = [
                         ?>
                     </tr><!-- .tr -->
                 </thead><!-- .thead -->
-                <tbody class="tbody elements">
+                <tbody class="elements">
                     <?php
                     foreach ($entities as $entity) {
                     ?>
-                        <tr class="tr">
-                            <td class="td element grow">
+                        <tr>
+                            <td class="element grow">
                                 <p><?= $entity->name ?></p>
                             </td><!-- .td -->
-                            <td class="td element grow">
+                            <td class="element grow">
                                 <p> <?= $entity->language_id != 0 ? $entity->language->name : ''; ?></p>
                             </td><!-- .td -->
                             <?php
                             if (!empty($tableButtons)) {
                             ?>
-                                <td class="td actions">
+                                <td class="actions">
                                     <div class="td-content">
                                         <?php
                                         foreach ($tableButtons as $key => $value) {
