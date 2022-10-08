@@ -140,6 +140,7 @@ class SessionsController extends AppController
     {
         $entity = $this->{$this->getName()}->newEmptyEntity();
         $subject = $this->{$this->getName()}->Subjects->get($subjectID);
+        $programmingLanguages = $this->{$this->getName()}->Languages->find('list')->order(['name' => 'ASC'])->toArray();
 
         if ($this->request->is('post')) {
             $data = $this->request->getData();
@@ -154,7 +155,7 @@ class SessionsController extends AppController
             $this->showErrors($entity);
         }
 
-        $this->set(compact('entity', 'subject'));
+        $this->set(compact('entity', 'subject', 'programmingLanguages'));
     }
 
     /**

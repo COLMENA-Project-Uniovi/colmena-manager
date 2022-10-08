@@ -28,7 +28,7 @@ $header = [
                 <table class="table table-bordered table-hover">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">Id usuario</th><!-- .th -->
+                            <th scope="col">Usuario</th><!-- .th -->
                             <th scope="col">Mensaje</th><!-- .th -->
                             <th scope="col">Género</th><!-- .th -->
                             <th scope="col">Fecha de creación</th><!-- .th -->
@@ -49,7 +49,13 @@ $header = [
                         ?>
                             <tr>
                                 <th scope="row">
-                                    <a href="/admin/users-manager/users/edit/<?= $entity->user_id ?>" class="user"><?= $entity->user_id ?></a>
+                                    <?php
+                                    if ($entity->user_id != 0) {
+                                    ?>
+                                        <a href="/admin/users-manager/users/edit/<?= $entity->user_id ?>" class="user"><?= $entity->student->name ?></a>
+                                    <?php
+                                    }
+                                    ?>
                                 </th>
 
                                 <td scope="col">

@@ -19,6 +19,7 @@ $header = [
 
 <?= $this->element("header", $header); ?>
 <?= $this->element('paginator'); ?>
+
 <div class="content px-4">
     <div class="results">
         <?php

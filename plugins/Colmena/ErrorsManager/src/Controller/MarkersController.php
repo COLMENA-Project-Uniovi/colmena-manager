@@ -19,7 +19,9 @@ class MarkersController extends AppController
             'id' => 'ASC'
         ],
         'contain' => [
-            'Error', 'Session', 'Student'
+            'Error',
+            'Session',
+            'Student'
         ]
     ];
 
@@ -44,7 +46,7 @@ class MarkersController extends AppController
                 'plugin' => 'Colmena/ErrorsManager'
             ],
             'options' => [
-                'confirm' => '¿Estás seguro de que quieres eliminar el rol?',
+                'confirm' => '¿Estás seguro de que quieres eliminar El marker?',
                 'class' => 'red-icon',
                 'escape' => false
             ]
@@ -118,16 +120,27 @@ class MarkersController extends AppController
 
         if ($this->request->is('post')) {
             $data = $this->request->getData();
+            $user = $this->{$this->getName()}->Student->find('all')->where(['identifier' => $data['user_id']])->first();
 
-            $marker = $this->{$this->getName()}->patchEntity($marker, $data);
-            $marker = $this->{$this->getName()}->save($marker);
+            if (!isset($user)) {
+                $user = $this->{$this->getName()}->Student->newEntity([
+                    'identifier' => $data['user_id'],
+                    'name' => '-',
+                    'surname' => '-'
+                ]);
+
+                $user = $this->{$this->getName()}->Student->save($user);
+            }
+
+            $data['user_id'] = $user->id;
+
+            // $marker = $this->{$this->getName()}->patchEntity($marker, $data);
+            // $marker = $this->{$this->getName()}->save($marker);
+
+            $marker = $this->linkRelations($marker);
 
             if (isset($marker)) {
                 $this->Flash->success('El marker se ha guardado correctamente.');
-
-                $this->linkWithSession($data['creation_time'], $marker);
-
-                //TODO: crear error con los datos que tiene el marcador
             }
 
             $this->showErrors($marker);
@@ -146,13 +159,17 @@ class MarkersController extends AppController
     public function visualize($entityID = null, $locale = null)
     {
         $this->setLocale($locale);
-        $entity = $this->{$this->getName()}->get($entityID);
+        $entity = $this->{$this->getName()}->find('all')->where([$this->getName() . '.id' => $entityID])->contain([
+            'Error',
+            'Session',
+            'Student'
+        ])->first();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
 
             if ($this->{$this->getName()}->save($entity)) {
-                $this->Flash->success('El rol se ha guardado correctamente.');
+                $this->Flash->success('El marker se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
             }
 
@@ -175,9 +192,9 @@ class MarkersController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $entity = $this->{$this->getName()}->get($id);
         if ($this->{$this->getName()}->delete($entity)) {
-            $this->Flash->success('El rol se ha borrado correctamente.');
+            $this->Flash->success('El marker se ha borrado correctamente.');
         } else {
-            $this->Flash->error('El rol no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
+            $this->Flash->error('El marker no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
         }
         return $this->redirect(['action' => 'index']);
     }
@@ -191,9 +208,9 @@ class MarkersController extends AppController
      * @param [type] $entity
      * @return void
      */
-    private function linkWithSession($creationTime, $entity)
+    private function linkRelations($entity)
     {
-        $dateParts = explode(' ', $creationTime);
+        $dateParts = explode(' ', $entity->creation_time);
         $date = date('Y-m-d', strtotime($dateParts[0])); // Y-m-d
         $hour = date('H:i:s', strtotime($dateParts[1])); // H:i:s
 
