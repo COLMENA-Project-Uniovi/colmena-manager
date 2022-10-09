@@ -27,26 +27,26 @@ $header = [
         ?>
             <table class="table">
                 <thead class="thead">
-                    <tr class="tr">
-                        <th class="th medium">
+                    <tr>
+                        <th class="medium">
                             Nombre
                         </th><!-- .th -->
-                        <th class="th grow">
+                        <th class="grow">
                             Año académico
                         </th><!-- .th -->
-                        <th class="th grow">
+                        <th class="grow">
                             Semestre
                         </th><!-- .th -->
-                        <th class="th grow">
+                        <th class="grow">
                             Fecha de inicio
                         </th><!-- .th -->
-                        <th class="th grow">
+                        <th class="grow">
                             Fecha de fin
                         </th><!-- .th -->
                         <?php
                         if (!empty($tableButtons)) {
                         ?>
-                            <th class="th actions short">
+                            <th class="actions short">
                                 Operaciones
                             </th><!-- .th -->
                         <?php
@@ -70,26 +70,26 @@ $header = [
                                 ]
                             ];
                     ?>
-                        <tr class="tr">
-                            <td class="td element medium">
+                        <tr>
+                            <td class="element medium">
                                 <p><?= $entity->name ?></p>
                             </td><!-- .td -->
-                            <td class="td element grow">
+                            <td class="element grow">
                                 <p><?= $entity->academical_year_id != 0 ? $entity->academical_year->title : ''; ?></p>
                             </td><!-- .td -->
-                            <td class="td element grow">
+                            <td class="element grow">
                                 <p><?= $entity->semester; ?></p>
                             </td><!-- .td -->
-                            <td class="td element grow">
+                            <td class="element grow">
                                 <p><?= $entity->start_date; ?></p>
                             </td><!-- .td -->
-                            <td class="td element grow">
+                            <td class="element grow">
                                 <p><?= $entity->end_date; ?></p>
                             </td><!-- .td -->
                             <?php
                             if (!empty($tableButtons)) {
                             ?>
-                                <td class="td actions">
+                                <td class="actions">
                                     <div class="td-content">
                                         <?php
                                         foreach ($tableButtons as $key => $value) {

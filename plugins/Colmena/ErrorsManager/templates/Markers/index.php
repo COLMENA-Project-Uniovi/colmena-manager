@@ -111,7 +111,6 @@ $header = [
                     </tbody>
                 </table>
             </div>
-            <?= $this->element('paginator'); ?>
         <?php
         } else {
         ?>

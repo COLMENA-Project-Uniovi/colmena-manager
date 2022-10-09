@@ -18,6 +18,7 @@ $header = [
 ?>
 
 <?= $this->element("header", $header); ?>
+<?= $this->element('paginator'); ?>
 
 <div class="content px-4">
     <div class="results">
@@ -26,26 +27,20 @@ $header = [
         ?>
             <table class="table">
                 <thead class="thead">
-                    <tr class="tr">
-                        <th class="th medium">
+                    <tr>
+                        <th class="medium">
                             Nombre
                         </th><!-- .th -->
-                        <th class="th grow">
-                            Semestre
-                        </th><!-- .th -->
-                        <th class="th grow">
-                            Año académico
-                        </th><!-- .th -->
-                        <th class="th grow">
+                        <th class="grow">
                             Fecha de inicio
                         </th><!-- .th -->
-                        <th class="th grow">
+                        <th class="grow">
                             Fecha de fin
                         </th><!-- .th -->
                         <?php
                         if (!empty($tableButtons)) {
                         ?>
-                            <th class="th actions short">
+                            <th class="actions short">
                                 Operaciones
                             </th><!-- .th -->
                         <?php
@@ -56,39 +51,21 @@ $header = [
                 <tbody class="tbody elements">
                     <?php
                     foreach ($entities as $entity) {
-                        $tableButtons['Sesiones'] = 
-                        [
-                            'icon' => '<i class="far fa-calendar-alt"></i>',
-                            'url' => [
-                                'controller' => 'Sessions',
-                                'action' => 'index',
-                                'plugin' => 'Colmena/AcademicalManager',
-                            ],
-                            'options' => [
-                                'escape' => false
-                            ]
-                        ];
                     ?>
-                        <tr class="tr">
-                            <td class="td element medium">
-                                <p><?= $entity->name ?></p>
+                        <tr>
+                            <td class="element medium">
+                                <p><?= $entity->title ?></p>
                             </td><!-- .td -->
-                            <td class="td element grow">
-                                <p><?= $entity->semester; ?></p>
+                            <td class="element grow">
+                                <p><?= $entity->startDate; ?></p>
                             </td><!-- .td -->
-                            <td class="td element grow">
-                                <p><?= $entity->academical_year; ?></p>
-                            </td><!-- .td -->
-                            <td class="td element grow">
-                                <p><?= $entity->start_date; ?></p>
-                            </td><!-- .td -->
-                            <td class="td element grow">
-                                <p><?= $entity->end_date; ?></p>
+                            <td class="element grow">
+                                <p><?= $entity->endDate; ?></p>
                             </td><!-- .td -->
                             <?php
                             if (!empty($tableButtons)) {
                             ?>
-                                <td class="td actions">
+                                <td class="actions">
                                     <div class="td-content">
                                         <?php
                                         foreach ($tableButtons as $key => $value) {
@@ -119,7 +96,6 @@ $header = [
                     ?>
                 </tbody><!-- .tbody -->
             </table><!-- .table -->
-            <?= $this->element('paginator'); ?>
         <?php
         } else {
         ?>

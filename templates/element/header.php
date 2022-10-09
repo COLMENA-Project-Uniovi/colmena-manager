@@ -1,4 +1,7 @@
-<header class="card pb-4">
+<?php
+$padding = isset($tabs) && !empty($tabs) ? '' : 'pb-4';
+?>
+<header class="card <?= $padding ?>">
     <?php
 
     use Cake\Core\Configure;
@@ -86,54 +89,7 @@
                 </div><!-- .actions -->
             <?php
             }
-            if (isset($header['invoice']) && !empty($header['invoice'])) {
-            ?>
-                <div class="actions">
-                    <?php
-                    foreach ($header['invoice'] as $action_name => $config) {
-                        $class = isset($config['class']) ? $config['class'] : '';
-                    ?>
-                        <?= $this->Form->create(
-                            null,
-                            [
-                                'class' => 'button form-invoice'
-                            ]
-                        ); ?>
-                        <?= $this->Form->control(
-                            'file',
-                            [
-                                'label' => 'Factura',
-                                'type' => 'file'
-                            ]
-                        ); ?>
-                        <?= $this->Form->control(
-                            'date',
-                            [
-                                'type' => 'hidden',
-                                'value' => substr(str_replace('/', '', $config['date']), 0, 8),
-                            ]
-                        ); ?>
-                        <?= $this->Form->control(
-                            'ref',
-                            [
-                                'type' => 'hidden',
-                                'value' => $config['ref'],
-                            ]
-                        ); ?>
-                        <?= $this->Form->control(
-                            'username',
-                            [
-                                'type' => 'hidden',
-                                'value' => $config['username'],
-                            ]
-                        ); ?>
-                        <?= $this->Form->end(); ?>
-                    <?php
-                    }
-                    ?>
-                </div><!-- .actions -->
-            <?php
-            }
+
             if (isset($header['dropdown']) && !empty($header['dropdown'])) {
                 $layout = isset($header['dropdown']['layout']) ? $header['dropdown']['layout'] : 'four';
             ?>

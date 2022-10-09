@@ -4,6 +4,7 @@ namespace Colmena\ErrorsManager\Controller;
 
 use Colmena\ErrorsManager\Controller\AppController;
 use App\Encryption\EncryptTrait;
+use Cake\ORM\TableRegistry;
 
 class MarkersController extends AppController
 {

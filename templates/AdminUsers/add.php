@@ -16,7 +16,7 @@ $header = [
 
 <?= $this->element("header", $header); ?>
 
-<div class="content px-4">
+<div class="content p-4">
 <?= $this->Form->create(
     $entity,
     [
@@ -51,15 +51,6 @@ $header = [
                     'templateVars' => [
                         'help' => 'Repite la contraseña que has introducido anteriormente. Si dejas el campo anterior en blanco, no es necesario que introduzcas nada.',
                     ],
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'restaurant_id',
-                [
-                    'label' => 'Sidrería',
-                    'options' => $restaurants,
-                    'empty' => 'Selecciona la sidreria a la que tendrá acceso',
-                    'required' => false,
                 ]
             ); ?>
             <?= $this->Form->control(

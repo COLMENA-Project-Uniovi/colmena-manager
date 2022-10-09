@@ -21,10 +21,7 @@ class UsersController extends AppController
     public $paginate = [
         'limit' => 20,
         'order' => [
-            'User.id' => 'ASC'
-        ],
-        'contain' => [
-            'UserRoles'
+            'id' => 'ASC'
         ]
     ];
 
@@ -57,7 +54,7 @@ class UsersController extends AppController
     ];
 
     protected $header_actions = [
-        'Añadir usuario' => [
+        'Añadir alumno' => [
             'url' => [
                 'controller' => 'Users',
                 'plugin' => 'Colmena/UsersManager',
@@ -148,24 +145,27 @@ class UsersController extends AppController
 
         // Paginator
         $settings = $this->paginate;
+
         // If performing search, there is a keyword
         if ($keyword != null) {
             // Change pagination conditions for searching
             $settings['conditions'] = [
                 'OR' => [
                     $this->getName() . '.name LIKE' => '%' . $keyword . '%',
+                    $this->getName() . '.email LIKE' => '%' . $keyword . '%',
                 ]
             ];
         }
 
+        $projectID = $this->getSessionProject();
+        $users = $this->{$this->getName()}->Groups->find('all')->toArray();
+
+        echo '<pre>', var_dump($users), '</pre>';
+        die;
+
         //prepare the pagination
         $this->paginate = $settings;
         $entities = $this->paginate($this->modelClass);
-
-        foreach ($entities as $entity) {
-            if (isset($entity['role_id']))
-                $entity['role_name'] = $this->{$this->getName()}->UserRoles->get($entity['role_id'])->name;
-        }
 
         $this->set('header_actions', $this->getHeaderActions());
         $this->set('tableButtons', $this->getTableButtons());
@@ -174,6 +174,13 @@ class UsersController extends AppController
         $this->set('keyword', $keyword);
     }
 
+    private function getSessionProject()
+    {
+        $session = $this->request->getSession();
+        $projectID = $session->read('Projectid');
+
+        return $projectID['projectID'];
+    }
     /**
      * Add method
      *
@@ -188,18 +195,12 @@ class UsersController extends AppController
             if ($this->{$this->getName()}->save($entity)) {
                 $this->Flash->success('El usuario se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id]);
-            } else {
-                $errorMsg = '<p>El usuario no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($entity->errors() as $field => $error) {
-                    $errorMsg .= '<p>' . $error['message'] . '</p>';
-                }
-                $this->Flash->error($errorMsg, ['escape' => false]);
             }
+
+            $this->showErrors($entity);
         }
 
-        $roles = $this->{$this->getName()}->UserRoles->find('list')->order(['name' => 'ASC']);
-
-        $this->set(compact('entity', 'roles'));
+        $this->set(compact('entity'));
     }
 
     /**
@@ -220,19 +221,13 @@ class UsersController extends AppController
             if ($this->{$this->getName()}->save($entity)) {
                 $this->Flash->success('El usuario se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
-            } else {
-                $errorMsg = '<p>El usuario no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($entity->errors() as $field => $error) {
-                    $errorMsg .= '<p>' . $error['message'] . '</p>';
-                }
-                $this->Flash->error($errorMsg, ['escape' => false]);
             }
+
+            $this->showErrors($entity);
         }
 
-        $roles = $this->{$this->getName()}->UserRoles->find('list')->order(['name' => 'ASC'])->toArray();
-
         $this->set('tabActions', $this->getTabActions('Users', 'edit', $entity));
-        $this->set(compact('entity', 'roles'));
+        $this->set(compact('entity'));
     }
 
     /**
@@ -252,5 +247,22 @@ class UsersController extends AppController
             $this->Flash->error('El usuario no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
         }
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * Function which shows the entity error's on saving
+     *
+     * @param [Session] $entity
+     * @return void
+     */
+    private function showErrors($entity)
+    {
+        $errorMsg = '<p>El alumno no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+
+        foreach ($entity->errors() as $error) {
+            $errorMsg .= '<p>' . $error['message'] . '</p>';
+        }
+
+        $this->Flash->error($errorMsg, ['escape' => false]);
     }
 }
