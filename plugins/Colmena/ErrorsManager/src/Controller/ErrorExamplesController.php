@@ -53,17 +53,9 @@ class ErrorExamplesController extends AppController
         ]
     ];
 
-    /**
-     * Before filter
-     *
-     * @param \Cake\Event\Event $event The beforeFilter event.
-     *
-     */
-    public function beforeFilter(\Cake\Event\EventInterface $event)
-    {
-        parent::beforeFilter($event);
-        $this->Auth->allow([]);
-    }
+    protected $header_actions = [];
+
+    protected $tabActions = [];
 
     /**
      * Index method

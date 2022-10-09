@@ -18,6 +18,7 @@ $header = [
 ?>
 
 <?= $this->element("header", $header); ?>
+<?= $this->element('paginator'); ?>
 
 <div class="content px-4">
     <div class="results">
@@ -83,7 +84,6 @@ $header = [
                     ?>
                 </tbody><!-- .tbody -->
             </table><!-- .table -->
-            <?= $this->element('paginator'); ?>
         <?php
         } else {
         ?>

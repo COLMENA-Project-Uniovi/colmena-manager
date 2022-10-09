@@ -4,13 +4,14 @@ namespace Colmena\ErrorsManager\Controller;
 
 use Colmena\ErrorsManager\Controller\AppController;
 use App\Encryption\EncryptTrait;
+use Cake\ORM\TableRegistry;
 
 class MarkersController extends AppController
 {
     use EncryptTrait;
 
-    public $entityName = 'marcador';
-    public $entityNamePlural = 'marcadores';
+    public $entityName = 'marker';
+    public $entityNamePlural = 'markers';
 
     // Default pagination settings
     public $paginate = [
@@ -18,7 +19,11 @@ class MarkersController extends AppController
         'order' => [
             'id' => 'ASC'
         ],
-        'contain' => []
+        'contain' => [
+            'Error',
+            'Session',
+            'Student'
+        ]
     ];
 
     protected $tableButtons = [
@@ -42,7 +47,7 @@ class MarkersController extends AppController
                 'plugin' => 'Colmena/ErrorsManager'
             ],
             'options' => [
-                'confirm' => '¿Estás seguro de que quieres eliminar el rol?',
+                'confirm' => '¿Estás seguro de que quieres eliminar El marker?',
                 'class' => 'red-icon',
                 'escape' => false
             ]
@@ -113,16 +118,30 @@ class MarkersController extends AppController
     public function add()
     {
         $marker = $this->{$this->getName()}->newEmptyEntity();
+
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-            $marker = $this->{$this->getName()}->patchEntity($marker, $data);
+            $user = $this->{$this->getName()}->Student->find('all')->where(['identifier' => $data['user_id']])->first();
 
-            if ($marker = $this->{$this->getName()}->save($marker)) {
+            if (!isset($user)) {
+                $user = $this->{$this->getName()}->Student->newEntity([
+                    'identifier' => $data['user_id'],
+                    'name' => '-',
+                    'surname' => '-'
+                ]);
+
+                $user = $this->{$this->getName()}->Student->save($user);
+            }
+
+            $data['user_id'] = $user->id;
+
+            // $marker = $this->{$this->getName()}->patchEntity($marker, $data);
+            // $marker = $this->{$this->getName()}->save($marker);
+
+            $marker = $this->linkRelations($marker);
+
+            if (isset($marker)) {
                 $this->Flash->success('El marker se ha guardado correctamente.');
-
-                $this->linkWithSession($data['creation_time'], $marker);
-
-                //TODO: crear error con los datos que tiene el marcador
             }
 
             $this->showErrors($marker);
@@ -141,15 +160,19 @@ class MarkersController extends AppController
     public function visualize($entityID = null, $locale = null)
     {
         $this->setLocale($locale);
-        $entity = $this->{$this->getName()}->get($entityID);
+        $entity = $this->{$this->getName()}->find('all')->where([$this->getName() . '.id' => $entityID])->contain([
+            'Error',
+            'Session',
+            'Student'
+        ])->first();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
 
             if ($this->{$this->getName()}->save($entity)) {
-                $this->Flash->success('El rol se ha guardado correctamente.');
+                $this->Flash->success('El marker se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
-            } 
+            }
 
             $this->showErrors($entity);
         }
@@ -170,9 +193,9 @@ class MarkersController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $entity = $this->{$this->getName()}->get($id);
         if ($this->{$this->getName()}->delete($entity)) {
-            $this->Flash->success('El rol se ha borrado correctamente.');
+            $this->Flash->success('El marker se ha borrado correctamente.');
         } else {
-            $this->Flash->error('El rol no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
+            $this->Flash->error('El marker no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
         }
         return $this->redirect(['action' => 'index']);
     }
@@ -186,9 +209,9 @@ class MarkersController extends AppController
      * @param [type] $entity
      * @return void
      */
-    private function linkWithSession($creationTime, $entity)
+    private function linkRelations($entity)
     {
-        $dateParts = explode(' ', $creationTime);
+        $dateParts = explode(' ', $entity->creation_time);
         $date = date('Y-m-d', strtotime($dateParts[0])); // Y-m-d
         $hour = date('H:i:s', strtotime($dateParts[1])); // H:i:s
 
@@ -197,26 +220,6 @@ class MarkersController extends AppController
             ->matching('SessionSchedules', function ($q) use ($date, $hour) {
                 return $q->where(['SessionSchedules.date' => $date, 'SessionSchedules.end_hour >=' => $hour, 'SessionSchedules.start_hour <=' => $hour]);
             });
-
-        if (count($sessions->toArray()) > 1) {
-            $conflictSessions = $sessions->toArray();
-
-            // TODO: correct patch entity to save conflicts
-            $data['conflicts'] = [
-                0 => $conflictSessions[0]['id'],
-                1 => $conflictSessions[1]['id'],
-            ];
-
-            $entity = $this->{$this->getName()}->find()->where(['id' => $entity['id']])->contain(['Conflicts'])->first();
-            $entity = $this->{$this->getName()}->patchEntity($entity, $data);
-            //TODO: Hacer que ponga que existe el conflicto para que el usuario lo resuelva manualmente
-
-            return false;
-        }
-
-        $data['session_id'] = $sessions->first()['id'];
-        $entity = $this->{$this->getName()}->patchEntity($entity, $data);
-        $entity = $this->{$this->getName()}->save($entity);
 
         return true;
     }

@@ -13,32 +13,12 @@ $this->Breadcrumbs->add('Editar ' . $entityName, [
 $header = [
     'title' => 'Editar ' . $entityName,
     'breadcrumbs' => true,
-    'tabs' => $tabActions,
-    'header' => [
-        'actions' => [
-            'Añadir sesión' => [
-                'url' => [
-                    'controller' => 'Sessions',
-                    'plugin' => 'Colmena/AcademicalManager',
-                    'action' => 'add',
-                    $entity->id
-                ]
-            ],
-            'Ver sesiones' => [
-                'url' => [
-                    'controller' => 'Sessions',
-                    'plugin' => 'Colmena/AcademicalManager',
-                    'action' => 'index',
-                    $entity->id
-                ]
-            ]
-        ]
-    ]
+    'tabs' => $tabActions
 ];
 ?>
 
 <?= $this->element("header", $header); ?>
-<div class="content px-4">
+<div class="content p-4">
     <?= $this->Form->create(
         $entity,
         [
@@ -50,50 +30,21 @@ $header = [
         <div class="form-block">
             <h3>Datos generales</h3>
             <?= $this->Form->control(
-                'name',
+                'title',
                 [
-                    'label' => 'Nombre',
+                    'label' => 'Nombre del curso académico',
                     'type' => 'text'
                 ]
             ); ?>
             <?= $this->Form->control(
-                'description',
-                [
-                    'label' => 'Descripción',
-                    'type' => 'textarea'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'year',
-                [
-                    'label' => 'Año académico',
-                    'type' => 'number'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'semester',
-                [
-                    'label' => 'Semestre',
-                    'type' => 'number'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'project_id',
-                [
-                    'label' => 'Proyecto',
-                    'type' => 'number',
-                    'disabled' => true
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'start_date',
+                'startDate',
                 [
                     'label' => 'Fecha de inicio',
                     'type' => 'date'
                 ]
             ); ?>
             <?= $this->Form->control(
-                'end_date',
+                'endDate',
                 [
                     'label' => 'Fecha de fin',
                     'type' => 'date'

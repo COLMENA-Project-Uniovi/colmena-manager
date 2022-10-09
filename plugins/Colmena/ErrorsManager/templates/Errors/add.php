@@ -4,18 +4,35 @@ $this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
-$this->Breadcrumbs->add('Añadir ' . $entityName, [
+
+$this->Breadcrumbs->add('Visualizar ' . $entityName, [
     'controller' => $this->request->getParam('controller'),
     'action' => 'add'
 ]);
+
+$header_actions = [
+    'Ver ejemplos de este error' => [
+        'url' => [
+            'controller' => 'ErrorExamples',
+            'plugin' => 'Colmena/ErrorsManager',
+            'action' => 'index',
+            $entity->error_id
+        ]
+    ]
+];
+
 $header = [
-    'title' => 'Añadir ' . $entityName,
-    'breadcrumbs' => true
+    'title' => 'Ver ' . $entityName,
+    'breadcrumbs' => true,
+    'tabs' => $tabActions,
+    'header' => [
+        'actions' => $header_actions,
+    ]
 ];
 ?>
 
 <?= $this->element("header", $header); ?>
-<div class="content px-4">
+<div class="content p-4">
     <?= $this->Form->create(
         $entity,
         [
@@ -27,6 +44,13 @@ $header = [
         <div class="form-block">
             <h3>Datos generales</h3>
             <?= $this->Form->control(
+                'error_id',
+                [
+                    'label' => 'Id del error',
+                    'type' => 'number'
+                ]
+            ); ?>
+            <?= $this->Form->control(
                 'name',
                 [
                     'label' => 'Nombre del error',
@@ -34,71 +58,46 @@ $header = [
                 ]
             ); ?>
             <?= $this->Form->control(
-                'error_id',
+                'message',
                 [
-                    'label' => 'ID del error',
-                    'type' => 'number'
+                    'label' => 'Mensaje del error',
+                    'type' => 'text'
                 ]
             ); ?>
             <?= $this->Form->control(
-                'wrong_start_line',
+                'family_id',
                 [
-                    'label' => 'Línea de inicio del error',
-                    'type' => 'number'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'wrong_end_line',
-                [
-                    'label' => 'Línea de fin del error',
-                    'type' => 'number'
+                    'label' => 'Familia del error',
+                    'options' => $families,
+                    'empty' => '---- Selecciona la familia del error ----',
+                    'templateVars' => [
+                        'help' => 'Selecciona la familia del error'
+                    ]
                 ]
             ); ?>
 
             <?= $this->Form->control(
-                'wrong_source_code',
+                'reference',
                 [
-                    'label' => 'Código de error',
+                    'label' => 'Referencia del error',
                     'type' => 'textarea'
                 ]
             ); ?>
 
             <?= $this->Form->control(
-                'right_start_line',
+                'gender',
                 [
-                    'label' => 'Línea de inicio del error',
-                    'type' => 'number'
+                    'label' => 'Género del error',
+                    'type' => 'text'
                 ]
             ); ?>
+            
             <?= $this->Form->control(
-                'right_end_line',
+                'problema_reason',
                 [
-                    'label' => 'Línea de fin del error',
-                    'type' => 'number'
-                ]
-            ); ?>
-
-            <?= $this->Form->control(
-                'right_source_code',
-                [
-                    'label' => 'Código de error',
-                    'type' => 'textarea'
-                ]
-            ); ?>
-
-            <?= $this->Form->control(
-                'explanation',
-                [
-                    'label' => 'Código de error',
-                    'type' => 'textarea'
-                ]
-            ); ?>
-
-            <?= $this->Form->control(
-                'solution',
-                [
-                    'label' => 'Código de error',
-                    'type' => 'textarea'
+                    'label' => 'Razón del problema',
+                    'type' => 'textarea',
+                    'class' => 'texteditor',
                 ]
             ); ?>
         </div><!-- .form-block -->

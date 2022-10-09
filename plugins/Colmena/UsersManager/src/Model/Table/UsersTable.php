@@ -30,11 +30,15 @@ class UsersTable extends AppTable
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-        $this->hasMany('UserRoles', [
-            'foreignKey' => 'id',
-            'bindingKey' => 'role_id',
-            'className' => 'Colmena/UsersManager.UserRoles'
-        ]);
+        $this->belongsToMany(
+            'Groups',
+            [
+                'className' => 'Colmena/UsersManager.PracticeGroups',
+                'joinTable' => 'um_practice_groups_users',
+                'foreignKey' => 'user_id',
+                'targetForeignKey' => 'practice_group_id',
+            ]
+        );
     }
 
     /**
