@@ -158,14 +158,15 @@ class UsersController extends AppController
         }
 
         $projectID = $this->getSessionProject();
-        $users = $this->{$this->getName()}->Groups->find('all')->toArray();
-
-        echo '<pre>', var_dump($users), '</pre>';
-        die;
+        $users = $this->{$this->getName()}
+            ->find('all')
+            ->matching('Groups.Schedules.Sessions.Subjects.Projects', function ($q)  use ($projectID) {
+                return $q->where(['Projects.id =' => $projectID]);
+            });
 
         //prepare the pagination
         $this->paginate = $settings;
-        $entities = $this->paginate($this->modelClass);
+        $entities = $this->paginate($users);
 
         $this->set('header_actions', $this->getHeaderActions());
         $this->set('tableButtons', $this->getTableButtons());

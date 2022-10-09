@@ -37,6 +37,6 @@ class SessionSchedulesTable extends AppTable
 
         $this->belongsTo('PracticeGroups', [
             'className' => 'Colmena/UsersManager.PracticeGroups'
-        ]);
+        ])->setForeignKey('practice_group_id');
     }
 }
