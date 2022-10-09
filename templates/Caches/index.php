@@ -1,13 +1,13 @@
 <?php
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst($entity_name), [
+$this->Breadcrumbs->add(ucfirst($entityName), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
 $header = [
-    'title' => ucfirst($entity_name),
+    'title' => ucfirst($entityName),
     'breadcrumbs' => true,
-    'tabs' => $tab_actions,
+    'tabs' => $tabActions,
     'header' => [
         'actions' => $header_actions,
         'search_form' => []
@@ -16,7 +16,7 @@ $header = [
 ?>
 <?= $this->element('header', $header); ?>
 
-<div class="content">
+<div class="content px-4">
     <div class="results">
         <?php
             if($config->value == 'true') {
@@ -40,7 +40,7 @@ $header = [
                                 Idioma
                             </th>
                             <?php
-                                if (!empty($table_buttons)) {
+                                if (!empty($tableButtons)) {
                             ?>
                             <th class="actions short">
                                 Operaciones
@@ -68,11 +68,11 @@ $header = [
                                 <p><?= $entity->locale; ?></p>
                             </td>
                             <?php
-                                if (!empty($table_buttons)) {
+                                if (!empty($tableButtons)) {
                             ?>
                                 <td class="actions">
                                 <?php
-                                    foreach ($table_buttons as $key => $value) {
+                                    foreach ($tableButtons as $key => $value) {
                                         $value['url']['?'] = [];
                                         $value['url']['?']['model'] = $entity->model;
                                         $value['url']['?']['url'] = $entity->url;

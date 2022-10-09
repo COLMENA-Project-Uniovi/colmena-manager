@@ -3,12 +3,13 @@
 use Cake\Utility\Inflector;
 
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst($entity_name_plural), [
+$this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
+
 $header = [
-    'title' => ucfirst($entity_name_plural),
+    'title' => ucfirst($entityNamePlural),
     'breadcrumbs' => true,
     'header' => [
         'actions' => $header_actions,
@@ -19,14 +20,17 @@ $header = [
 
 <?= $this->element("header", $header); ?>
 
-<div class="content">
+<div class="content px-4">
     <div class="results">
         <?php
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
-            <table class="table-responsive">
+            <table class="table">
                 <thead class="thead">
                     <tr class="tr">
+                        <th class="th medium">
+                            Nombre del error
+                        </th><!-- .th -->
                         <th class="th medium">
                             Id del error
                         </th><!-- .th -->
@@ -34,7 +38,7 @@ $header = [
                             Explicación
                         </th><!-- .th -->
                         <?php
-                        if (!empty($table_buttons)) {
+                        if (!empty($tableButtons)) {
                         ?>
                             <th class="th actions short">
                                 Operaciones
@@ -50,18 +54,21 @@ $header = [
                     ?>
                         <tr class="tr">
                             <td class="td element medium">
+                                <p><?= $entity->name ?></p>
+                            </td><!-- .td -->
+                            <td class="td element medium">
                                 <p><?= $entity->error_id ?></p>
                             </td><!-- .td -->
                             <td class="td element grow">
                                 <p><?= $entity->explanation; ?></p>
                             </td><!-- .td -->
                             <?php
-                            if (!empty($table_buttons)) {
+                            if (!empty($tableButtons)) {
                             ?>
                                 <td class="td actions">
                                     <div class="td-content">
                                         <?php
-                                        foreach ($table_buttons as $key => $value) {
+                                        foreach ($tableButtons as $key => $value) {
                                             array_push($value['url'], $entity->id);
                                             if ($value['url']['action'] != 'delete') {
                                                 echo $this->Html->link(

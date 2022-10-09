@@ -1,19 +1,19 @@
 <?php
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst($entity_name_plural), [
+$this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
 
-$this->Breadcrumbs->add('Editar ' . $entity_name, [
+$this->Breadcrumbs->add('Editar ' . $entityName, [
     'controller' => $this->request->getParam('controller'),
     'action' => 'add'
 ]);
 
 $header = [
-    'title' => 'Editar ' . $entity_name,
+    'title' => 'Editar ' . $entityName,
     'breadcrumbs' => true,
-    'tabs' => $tab_actions,
+    'tabs' => $tabActions,
     'header' => [
         'actions' => [
             'Añadir sesión' => [
@@ -38,7 +38,7 @@ $header = [
 ?>
 
 <?= $this->element("header", $header); ?>
-<div class="content">
+<div class="content px-4">
     <?= $this->Form->create(
         $entity,
         [
@@ -63,13 +63,19 @@ $header = [
                     'type' => 'textarea'
                 ]
             ); ?>
+
             <?= $this->Form->control(
-                'year',
+                'academical_year_id',
                 [
                     'label' => 'Año académico',
-                    'type' => 'number'
+                    'options' => $academicalYears,
+                    'empty' => '---- Selecciona el año académico ----',
+                    'templateVars' => [
+                        'help' => 'Selecciona el año académico'
+                    ]
                 ]
             ); ?>
+
             <?= $this->Form->control(
                 'semester',
                 [

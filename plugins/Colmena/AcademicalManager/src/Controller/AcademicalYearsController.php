@@ -9,8 +9,8 @@ class AcademicalYearsController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'curso academico';
-    public $entity_name_plural = 'curso academicos';
+    public $entityName = 'curso academico';
+    public $entityNamePlural = 'curso academicos';
 
     // Default pagination settings
     public $paginate = [
@@ -20,7 +20,7 @@ class AcademicalYearsController extends AppController
         ]
     ];
 
-    protected $table_buttons = [
+    protected $tableButtons = [
         'Editar' => [
             'icon' => '<i class="fas fa-edit"></i>',
             'url' => [
@@ -59,7 +59,7 @@ class AcademicalYearsController extends AppController
         ]
     ];
 
-    protected $tab_actions = [];
+    protected $tabActions = [];
 
     /**
      * Before filter
@@ -120,7 +120,7 @@ class AcademicalYearsController extends AppController
         }
 
         $this->set('header_actions', $this->getHeaderActions());
-        $this->set('table_buttons', $this->getTableButtons());
+        $this->set('tableButtons', $this->getTableButtons());
         $this->set('entities', $filteredEntities);
         $this->set('keyword', $keyword);
     }
@@ -145,11 +145,11 @@ class AcademicalYearsController extends AppController
                 $this->Flash->success('la curso academico se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id]);
             } else {
-                $error_msg = '<p>La curso academico no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+                $errorMsg = '<p>La curso academico no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
                 foreach ($entity->errors() as $field => $error) {
-                    $error_msg .= '<p>' . $error['message'] . '</p>';
+                    $errorMsg .= '<p>' . $error['message'] . '</p>';
                 }
-                $this->Flash->error($error_msg, ['escape' => false]);
+                $this->Flash->error($errorMsg, ['escape' => false]);
             }
         }
 
@@ -175,15 +175,15 @@ class AcademicalYearsController extends AppController
                 $this->Flash->success('la curso academico se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
             } else {
-                $error_msg = '<p>La curso academico no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+                $errorMsg = '<p>La curso academico no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
                 foreach ($entity->errors() as $field => $error) {
-                    $error_msg .= '<p>' . $error['message'] . '</p>';
+                    $errorMsg .= '<p>' . $error['message'] . '</p>';
                 }
-                $this->Flash->error($error_msg, ['escape' => false]);
+                $this->Flash->error($errorMsg, ['escape' => false]);
             }
         }
 
-        $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
+        $this->set('tabActions', $this->getTabActions('Users', 'edit', $entity));
         $this->set(compact('entity'));
     }
 

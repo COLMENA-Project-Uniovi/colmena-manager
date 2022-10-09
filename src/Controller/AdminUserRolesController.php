@@ -14,10 +14,10 @@ use Cake\Http\Response;
  */
 class AdminUserRolesController extends AppController
 {
-    public $entity_name = 'roles de usuario';
-    public $entity_name_plural = 'roles de usuarios';
+    public $entityName = 'roles de usuario';
+    public $entityNamePlural = 'roles de usuarios';
 
-    public $table_buttons = [
+    public $tableButtons = [
         'Editar' => [
             'url' => [
                 'controller' => 'AdminUserRoles',
@@ -51,7 +51,7 @@ class AdminUserRolesController extends AppController
         ]
     ];
 
-    public $tab_actions = [
+    public $tabActions = [
         'Usuarios' => [
             'url' => [
                 'controller' => 'AdminUsers',
@@ -70,7 +70,7 @@ class AdminUserRolesController extends AppController
         ]
     ];
 
-    public $roles_tab_actions = [
+    public $roles_tabActions = [
         'Datos del rol' => [
             'url' => [
                 'controller' => 'AdminUserRoles',
@@ -131,12 +131,12 @@ class AdminUserRolesController extends AppController
         $entities = $this->paginate($this->modelClass);
 
         //compose buttons available based on user permissions
-        $table_buttons = $this->Roles->composeUserOptions($this->table_buttons);
+        $tableButtons = $this->Roles->composeUserOptions($this->tableButtons);
         $header_actions = $this->Roles->composeUserOptions($this->header_actions);
 
         $this->set('header_actions', $header_actions);
-        $this->set('table_buttons', $table_buttons);
-        $this->set('tab_actions', $this->getTabActions('AdminUserRoles', 'index'));
+        $this->set('tableButtons', $tableButtons);
+        $this->set('tabActions', $this->getTabActions('AdminUserRoles', 'index'));
         $this->set('entities', $entities);
         $this->set('_serialize', 'entities');
         $this->set('keyword', $keyword);
@@ -190,7 +190,7 @@ class AdminUserRolesController extends AppController
             }
         }
 
-        $this->set('tab_actions', $this->getRolesTabActions('AdminUserRoles', 'edit', $entity));
+        $this->set('tabActions', $this->getRolesTabActions('AdminUserRoles', 'edit', $entity));
         $this->set(compact('entity'));
     }
 
@@ -255,7 +255,7 @@ class AdminUserRolesController extends AppController
 
         $this->set('entities', $entities);
         $this->set('possiblePermissions', $possiblePermissions);
-        $this->set('tab_actions', $this->getRolesTabActions('AdminUserRoles', 'userRolesPermissions', $role));
+        $this->set('tabActions', $this->getRolesTabActions('AdminUserRoles', 'userRolesPermissions', $role));
         $this->set('currentRole', $role);
     }
 
@@ -271,7 +271,7 @@ class AdminUserRolesController extends AppController
     protected function getRolesTabActions($controller = '', $action = '', $entity = null)
     {
         $aux_actions = [];
-        foreach ($this->roles_tab_actions as $name => $config) {
+        foreach ($this->roles_tabActions as $name => $config) {
             if ($config['url']['controller'] == $controller && $config['url']['action'] == $action) {
                 $config['current'] = 'current';
             }

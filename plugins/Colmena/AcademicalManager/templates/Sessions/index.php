@@ -15,7 +15,7 @@ $this->Breadcrumbs->add($subject->name, [
 array_push($header_actions['Añadir sesión']['url'], $subject->id);
 
 $header = [
-    'title' => ucfirst($entity_name_plural),
+    'title' => ucfirst($entityNamePlural),
     'breadcrumbs' => true,
     'header' => [
         'actions' => $header_actions,
@@ -26,19 +26,22 @@ $header = [
 
 <?= $this->element("header", $header); ?>
 
-<div class="content">
+<div class="content px-4">
     <div class="results">
         <?php
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
-            <table class="table-responsive">
+            <table class="table">
                 <thead class="thead">
                     <tr class="tr">
                         <th class="th grow">
                             Nombre
                         </th><!-- .th -->
+                        <th class="th grow">
+                            Lenguaje de programación
+                        </th><!-- .th -->
                         <?php
-                        if (!empty($table_buttons)) {
+                        if (!empty($tableButtons)) {
                         ?>
                             <th class="th actions short">
                                 Operaciones
@@ -56,15 +59,19 @@ $header = [
                             <td class="td element grow">
                                 <p><?= $entity->name ?></p>
                             </td><!-- .td -->
+                            <td class="td element grow">
+                                <p> <?= $entity->language_id != 0 ? $entity->language->name : ''; ?></p>
+                            </td><!-- .td -->
                             <?php
-                            if (!empty($table_buttons)) {
+                            if (!empty($tableButtons)) {
                             ?>
                                 <td class="td actions">
                                     <div class="td-content">
                                         <?php
-                                        foreach ($table_buttons as $key => $value) {
+                                        foreach ($tableButtons as $key => $value) {
                                             array_push($value['url'], $entity->id);
                                             array_push($value['url'], $subject->id);
+
                                             if ($value['url']['action'] != 'delete') {
                                                 echo $this->Html->link(
                                                     $value['icon'],

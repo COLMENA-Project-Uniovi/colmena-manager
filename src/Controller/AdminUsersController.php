@@ -16,10 +16,10 @@ use Cake\ORM\TableRegistry;
  */
 class AdminUsersController extends AppController
 {
-    public $entity_name = 'usuario de administración';
-    public $entity_name_plural = 'usuarios de administración';
+    public $entityName = 'usuario de administración';
+    public $entityNamePlural = 'usuarios de administración';
 
-    public $table_buttons = [
+    public $tableButtons = [
         'Editar' => [
             'url' => [
                 'controller' => 'AdminUsers',
@@ -53,7 +53,7 @@ class AdminUsersController extends AppController
         ]
     ];
 
-    public $tab_actions = [
+    public $tabActions = [
         'Usuarios' => [
             'url' => [
                 'controller' => 'AdminUsers',
@@ -139,12 +139,12 @@ class AdminUsersController extends AppController
         }
 
         //compose buttons available based on user permissions
-        $table_buttons = $this->Roles->composeUserOptions($this->table_buttons);
+        $tableButtons = $this->Roles->composeUserOptions($this->tableButtons);
         $header_actions = $this->Roles->composeUserOptions($this->header_actions);
 
         $this->set('header_actions', $header_actions);
-        $this->set('table_buttons', $table_buttons);
-        $this->set('tab_actions', $this->getTabActions('AdminUsers', 'index'));
+        $this->set('tableButtons', $tableButtons);
+        $this->set('tabActions', $this->getTabActions('AdminUsers', 'index'));
         $this->set('entities', $entities);
         $this->set('_serialize', 'entities');
         $this->set('keyword', $keyword);
@@ -262,7 +262,7 @@ class AdminUsersController extends AppController
                 $projectsTable = TableRegistry::getTableLocator()->get('acm_projects');
                 $projects = $projectsTable->find('all')->where(['user_id' => $user['id']])->toArray();
                 $session->write('Projects', $projects);
-                
+
                 return $this->redirect($this->Auth->redirectUrl());
             }
 
@@ -301,37 +301,14 @@ class AdminUsersController extends AppController
      */
     public function logout()
     {
+        $session = $this->request->getSession();
+        $session->destroy();
+
         $this->Flash->success(
             'Has cerrado sesión correctamente.',
             ['key' => 'auth']
         );
         return $this->redirect($this->Auth->logout());
-    }
-
-    /**
-     * Store menu size in session.
-     *
-     * @return Response
-     */
-    public function hideMenu()
-    {
-        $this->disableAutoRender();
-        $response = $this->response->withType('json');
-        $data = [];
-
-        $menu_session = isset($_SESSION['menu_hide']) ? $_SESSION['menu_hide'] : false;
-
-        if (!$menu_session) {
-            $_SESSION['menu_hide'] = true;
-        } else {
-            $_SESSION['menu_hide'] = false;
-        }
-
-        $data['status'] = 'success';
-        $data['message'] = 'El menú se ha cambiado de estado correctamente.';
-
-        $response = $response->withStringBody(json_encode($data));
-        return $response;
     }
 
     /**
@@ -343,11 +320,10 @@ class AdminUsersController extends AppController
     {
         $session = $this->request->getSession();
         $response = $this->response->withType('json');
-        
+
         $projectID = $this->request->getData();
         $session->write('Projectid', $projectID);
 
-        Configure::write('Session.project', $projectID);
         return $response->withStringBody(json_encode($projectID));
     }
 }

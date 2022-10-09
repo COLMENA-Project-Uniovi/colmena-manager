@@ -11,8 +11,8 @@ class PracticeGroupsController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'grupo de practicas';
-    public $entity_name_plural = 'grupos de practicas';
+    public $entityName = 'grupo de practicas';
+    public $entityNamePlural = 'grupos de practicas';
 
     // Default pagination settings
     public $paginate = [
@@ -25,7 +25,7 @@ class PracticeGroupsController extends AppController
         ]
     ];
 
-    protected $table_buttons = [
+    protected $tableButtons = [
         'Editar' => [
             'icon' => '<i class="fas fa-edit"></i>',
             'url' => [
@@ -63,7 +63,7 @@ class PracticeGroupsController extends AppController
         ]
     ];
 
-    protected $tab_actions = [];
+    protected $tabActions = [];
 
     /**
      * Before filter
@@ -110,7 +110,7 @@ class PracticeGroupsController extends AppController
         $entities = $this->paginate($this->modelClass);
 
         $this->set('header_actions', $this->getHeaderActions());
-        $this->set('table_buttons', $this->getTableButtons());
+        $this->set('tableButtons', $this->getTableButtons());
         $this->set('entities', $entities);
         $this->set('keyword', $keyword);
     }
@@ -132,13 +132,13 @@ class PracticeGroupsController extends AppController
                 $this->Flash->success('El grupo de prácticas se ha guardado correctamente.');
                 return $this->redirect(['action' => 'index']);
             } else {
-                $error_msg = '<p>El grupo de prácticas no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+                $errorMsg = '<p>El grupo de prácticas no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
 
                 foreach ($entity->getErrors() as $field => $error) {
-                    $error_msg .= '<p>' . $error['message'] . '</p>';
+                    $errorMsg .= '<p>' . $error['message'] . '</p>';
                 }
 
-                $this->Flash->error($error_msg, ['escape' => false]);
+                $this->Flash->error($errorMsg, ['escape' => false]);
             }
         }
 
@@ -166,16 +166,16 @@ class PracticeGroupsController extends AppController
                 $this->Flash->success('El grupo de prácticas se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
             } else {
-                $error_msg = '<p>El grupo de prácticas no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+                $errorMsg = '<p>El grupo de prácticas no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
                 foreach ($entity->errors() as $field => $error) {
-                    $error_msg .= '<p>' . $error['message'] . '</p>';
+                    $errorMsg .= '<p>' . $error['message'] . '</p>';
                 }
-                $this->Flash->error($error_msg, ['escape' => false]);
+                $this->Flash->error($errorMsg, ['escape' => false]);
             }
         }
         $students = $this->{$this->getName()}->Users->find('list')->toArray();
 
-        $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
+        $this->set('tabActions', $this->getTabActions('Users', 'edit', $entity));
         $this->set(compact('entity', 'students'));
     }
 

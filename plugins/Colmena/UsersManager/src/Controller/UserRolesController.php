@@ -10,8 +10,8 @@ class UserRolesController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'rol';
-    public $entity_name_plural = 'roles';
+    public $entityName = 'rol';
+    public $entityNamePlural = 'roles';
 
     // Default pagination settings
     public $paginate = [
@@ -21,7 +21,7 @@ class UserRolesController extends AppController
         ],
     ];
 
-    protected $table_buttons = [
+    protected $tableButtons = [
         'Editar' => [
             'icon' => '<i class="fas fa-edit"></i>',
             'url' => [
@@ -59,7 +59,7 @@ class UserRolesController extends AppController
         ],
     ];
 
-    protected $tab_actions = [];
+    protected $tabActions = [];
 
     /**
      * Before filter
@@ -106,7 +106,7 @@ class UserRolesController extends AppController
         $entities = $this->paginate($this->modelClass);
 
         $this->set('header_actions', $this->getHeaderActions());
-        $this->set('table_buttons', $this->getTableButtons());
+        $this->set('tableButtons', $this->getTableButtons());
         $this->set('entities', $entities);
         $this->set('_serialize', 'entities');
         $this->set('keyword', $keyword);
@@ -127,11 +127,11 @@ class UserRolesController extends AppController
                 $this->Flash->success('El rol se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id]);
             } else {
-                $error_msg = '<p>El rol no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+                $errorMsg = '<p>El rol no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
                 foreach ($entity->errors() as $field => $error) {
-                    $error_msg .= '<p>' . $error['message'] . '</p>';
+                    $errorMsg .= '<p>' . $error['message'] . '</p>';
                 }
-                $this->Flash->error($error_msg, ['escape' => false]);
+                $this->Flash->error($errorMsg, ['escape' => false]);
             }
         }
 
@@ -157,15 +157,15 @@ class UserRolesController extends AppController
                 $this->Flash->success('El rol se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
             } else {
-                $error_msg = '<p>El rol no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+                $errorMsg = '<p>El rol no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
                 foreach ($entity->errors() as $field => $error) {
-                    $error_msg .= '<p>' . $error['message'] . '</p>';
+                    $errorMsg .= '<p>' . $error['message'] . '</p>';
                 }
-                $this->Flash->error($error_msg, ['escape' => false]);
+                $this->Flash->error($errorMsg, ['escape' => false]);
             }
         }
 
-        $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
+        $this->set('tabActions', $this->getTabActions('Users', 'edit', $entity));
         $this->set(compact('entity'));
     }
 

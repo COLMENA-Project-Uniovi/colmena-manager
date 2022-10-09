@@ -1,21 +1,21 @@
 <?php
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst($entity_name_plural), [
+$this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
-$this->Breadcrumbs->add('Añadir ' . $entity_name, [
+$this->Breadcrumbs->add('Añadir ' . $entityName, [
     'controller' => $this->request->getParam('controller'),
     'action' => 'add'
 ]);
 $header = [
-    'title' => 'Añadir ' . $entity_name,
+    'title' => 'Añadir ' . $entityName,
     'breadcrumbs' => true
 ];
 ?>
 
 <?= $this->element("header", $header); ?>
-<div class="content">
+<div class="content px-4">
     <?= $this->Form->create(
         $entity,
         [
@@ -58,10 +58,12 @@ $header = [
                 ]
             ); ?>
             <?= $this->Form->control(
-                'academical_year',
+                'year_id',
                 [
-                    'label' => 'Año académico de la asignatura',
-                    'type' => 'number'
+                    'label' => 'Año académico',
+                    'type' => 'text',
+                    'value' => $academicalYears,
+                    'disabled' => 'disabled'
                 ]
             ); ?>
             <?= $this->Form->control(

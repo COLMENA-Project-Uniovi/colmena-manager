@@ -3,14 +3,14 @@ use Cake\Utility\Inflector;
 use Cake\I18n\I18n;
 
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst($entity_name), [
+$this->Breadcrumbs->add(ucfirst($entityName), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
 $header = [
-    'title' => ucfirst($entity_name_plural),
+    'title' => ucfirst($entityNamePlural),
     'breadcrumbs' => true,
-    'tabs' => $tab_actions,
+    'tabs' => $tabActions,
     'header' => [
         'actions' => $header_actions,
         'search_form' => []
@@ -19,7 +19,7 @@ $header = [
 ?>
 <?= $this->element("header", $header); ?>
 
-<div class="content">
+<div class="content px-4">
     <div class="results">
     <?php
         if (!empty($entities->toArray())) {
@@ -30,7 +30,7 @@ $header = [
                 <?= $this->Paginator->counter('<span>Mostrando {{start}}-{{end}} de {{count}} elementos</span>'); ?>
             </div><!-- .num-results -->
         </div><!-- .top-results -->
-        <div class="table-responsive">
+        <div class="table">
             <div class="thead">
                 <div class="tr">
                     <div class="th grow">
@@ -46,7 +46,7 @@ $header = [
                         Activo
                     </div>
                 <?php
-                    if (!empty($table_buttons)) {
+                    if (!empty($tableButtons)) {
                 ?>
                     <div class="th actions">
                         Operaciones
@@ -88,12 +88,12 @@ $header = [
                         </p>
                     </div><!-- .td -->
                     <?php
-                        if (!empty($table_buttons)) {
+                        if (!empty($tableButtons)) {
                     ?>
                         <div class="td actions">
                             <div class="td-content">
                             <?php
-                            foreach ($table_buttons as $key => $value) {
+                            foreach ($tableButtons as $key => $value) {
                                 array_push($value['url'], $entity->id);
                                 if ($value['url']['action'] != 'delete') {
                                     echo $this->Html->link(

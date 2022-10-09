@@ -352,7 +352,7 @@ Configure::write('Admin.api_entities', [
     ],
 ]);
 
-$default_classes = [
+$defaultClasses = [
     'test1' => [
         'name' => 'Test1',
         'img' => 'webroot/img/advanced-configuration/test1.png',
@@ -365,8 +365,8 @@ $default_classes = [
     ]
 ];
 
-$default_classes['wrapped']['from'] = [];
-$default_classes['wrapped']['to'] = [];
+$defaultClasses['wrapped']['from'] = [];
+$defaultClasses['wrapped']['to'] = [];
 for ($i = 1; $i <= 13; $i++) {
     if ($i < 10) {
         $num = str_pad($i, 2, 0, STR_PAD_LEFT);
@@ -380,7 +380,7 @@ for ($i = 1; $i <= 13; $i++) {
                 'img' => 'webroot/img/advanced-configuration/wrapped-' . $i . '.png',
             ]
         ];
-        $default_classes['wrapped']['from'] += $class;
+        $defaultClasses['wrapped']['from'] += $class;
     }
     if ($i >= 2 && $i <= 13) {
         $class = [
@@ -389,17 +389,17 @@ for ($i = 1; $i <= 13; $i++) {
             ]
         ];
 
-        $default_classes['wrapped']['to'] += $class;
+        $defaultClasses['wrapped']['to'] += $class;
     }
 }
 
-$default_classes_formatted = [];
-foreach ($default_classes as $class => $value) {
+$defaultClasses_formatted = [];
+foreach ($defaultClasses as $class => $value) {
     $name = isset($value['name']) ? $value['name'] : $class;
-    $default_classes_formatted[$class] = $name;
+    $defaultClasses_formatted[$class] = $name;
 
     if (isset($value['img'])) {
-        $default_classes[$class]['img'] = Configure::read('Config.base_url') . $value['img'];
+        $defaultClasses[$class]['img'] = Configure::read('Config.base_url') . $value['img'];
     }
 }
 
@@ -408,7 +408,7 @@ foreach ($default_classes as $class => $value) {
  */
 Configure::write('Admin.parameters', [
     'entities' => 'all',
-    'default_classes' => $default_classes,
+    'defaultClasses' => $defaultClasses,
     'config' => [
         'classes' => [
             'type' => 'form-control',
@@ -417,7 +417,7 @@ Configure::write('Admin.parameters', [
                 'type' => 'select',
                 'class' => 'keywords',
                 'multiple' => true,
-                'options' => $default_classes_formatted
+                'options' => $defaultClasses_formatted
             ]
         ],
         // 'variables' => [
@@ -454,7 +454,7 @@ Configure::write("tinypng.available_extensions", [
 /*
  * Configure the entities that can be queried using the API
  */
-Configure::write('Config.tab_actions', [
+Configure::write('Config.tabActions', [
     'Caché' => [
         'url' => [
             'controller' => 'Caches',

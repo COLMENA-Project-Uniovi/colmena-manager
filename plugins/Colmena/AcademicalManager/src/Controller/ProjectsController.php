@@ -10,8 +10,8 @@ class ProjectsController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'proyecto';
-    public $entity_name_plural = 'proyectos';
+    public $entityName = 'proyecto';
+    public $entityNamePlural = 'proyectos';
 
     // Default pagination settings
     public $paginate = [
@@ -21,7 +21,7 @@ class ProjectsController extends AppController
         ]
     ];
 
-    protected $table_buttons = [
+    protected $tableButtons = [
         'Editar' => [
             'icon' => '<i class="fas fa-edit"></i>',
             'url' => [
@@ -59,7 +59,7 @@ class ProjectsController extends AppController
         ],
     ];
 
-    protected $tab_actions = [];
+    protected $tabActions = [];
 
     /**
      * Before filter
@@ -120,7 +120,7 @@ class ProjectsController extends AppController
         $entities = $this->paginate($this->modelClass);
 
         $this->set('header_actions', $this->getHeaderActions());
-        $this->set('table_buttons', $this->getTableButtons());
+        $this->set('tableButtons', $this->getTableButtons());
         $this->set('entities', $entities);
         $this->set('_serialize', 'entities');
         $this->set('keyword', $keyword);
@@ -141,18 +141,19 @@ class ProjectsController extends AppController
             $data['user_id'] = $userID;
 
             $entity = $this->{$this->getName()}->patchEntity($entity, $data);
+            $project = $this->{$this->getName()}->save($entity);
 
-            if ($project = $this->{$this->getName()}->save($entity)) {
+            if (isset($project)) {
                 $this->startSession($project['id']);
                 $this->Flash->success('El proyecto se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id]);
-            } else {
-                $error_msg = '<p>El proyecto no se ha guardado. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($entity->errors() as $field => $error) {
-                    $error_msg .= '<p>' . $error['message'] . '</p>';
-                }
-                $this->Flash->error($error_msg, ['escape' => false]);
             }
+
+            $errorMsg = '<p>El proyecto no se ha guardado. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+            foreach ($entity->errors() as $error) {
+                $errorMsg .= '<p>' . $error['message'] . '</p>';
+            }
+            $this->Flash->error($errorMsg, ['escape' => false]);
         }
 
         $this->set(compact('entity'));
@@ -165,10 +166,10 @@ class ProjectsController extends AppController
      * @return void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null, $locale = null)
+    public function edit($entityID = null, $locale = null)
     {
         $this->setLocale($locale);
-        $entity = $this->{$this->getName()}->get($id);
+        $entity = $this->{$this->getName()}->get($entityID);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
@@ -176,16 +177,16 @@ class ProjectsController extends AppController
             if ($this->{$this->getName()}->save($entity)) {
                 $this->Flash->success('el proyecto se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
-            } else {
-                $error_msg = '<p>el proyecto no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($entity->errors() as $field => $error) {
-                    $error_msg .= '<p>' . $error['message'] . '</p>';
-                }
-                $this->Flash->error($error_msg, ['escape' => false]);
             }
+
+            $errorMsg = '<p>el proyecto no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+            foreach ($entity->errors() as $error) {
+                $errorMsg .= '<p>' . $error['message'] . '</p>';
+            }
+            $this->Flash->error($errorMsg, ['escape' => false]);
         }
 
-        $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
+        $this->set('tabActions', $this->getTabActions('Users', 'edit', $entity));
         $this->set(compact('entity'));
     }
 
@@ -205,6 +206,7 @@ class ProjectsController extends AppController
         } else {
             $this->Flash->error('el proyecto no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
         }
+        
         return $this->redirect(['action' => 'index']);
     }
 

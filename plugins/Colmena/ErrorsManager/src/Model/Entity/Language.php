@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Model\Entity;
+namespace Colmena\ErrorsManager\Model\Entity;
 
 use Cake\ORM\Entity;
-use Cake\ORM\Behavior\Translate\TranslateTrait;
 
 /**
- * Contact Entity.
+ * Error Entity.
  *
+ * @property int $id
+ * @property string $name
+ * @property string $excerpt
+ * @property string $description
+ * @property bool $is_visible
+ * @property bool $featured
+ * @property \Cake\I18n\Time $created
+ * @property \Cake\I18n\Time $modified
  */
-class Contact extends Entity
+class Language extends Entity
 {
-    /**
-    *
-    *Translate
-    *
-    */
-    use TranslateTrait;
-
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *

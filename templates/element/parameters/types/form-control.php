@@ -9,11 +9,11 @@ use Cake\Core\Configure;
 ); ?>
 
 <?php
-if($config['key'] == 'classes' && isset($default_classes) && $default_classes){
+if($config['key'] == 'classes' && isset($defaultClasses) && $defaultClasses){
 ?>
     <div class="parameters-class-previsualization">
 <?php
-    // foreach($default_classes as $class => $value) {
+    // foreach($defaultClasses as $class => $value) {
 ?>
         <!-- <img class="parameters-class-previsualization__image" src="<?= $value['img'] ?>" data-class="<?= $class ?>" /> -->
 <?php

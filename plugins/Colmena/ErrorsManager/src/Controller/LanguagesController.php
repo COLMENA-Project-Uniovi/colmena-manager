@@ -5,30 +5,27 @@ namespace Colmena\ErrorsManager\Controller;
 use Colmena\ErrorsManager\Controller\AppController;
 use App\Encryption\EncryptTrait;
 
-class ErrorsController extends AppController
+class LanguagesController extends AppController
 {
     use EncryptTrait;
 
-    public $entityName = 'error';
-    public $entityNamePlural = 'errores';
+    public $entityName = 'lenguaje de programación';
+    public $entityNamePlural = 'lenguajes de programación';
 
     // Default pagination settings
     public $paginate = [
         'limit' => 20,
         'order' => [
             'id' => 'ASC'
-        ],
-        'contain' => [
-            'Family'
         ]
     ];
 
     protected $tableButtons = [
-        'Visualizar' => [
-            'icon' => '<i class="far fa-eye"></i>',
+        'Editar' => [
+            'icon' => '<i class="fas fa-edit"></i>',
             'url' => [
-                'controller' => 'Errors',
-                'action' => 'visualize',
+                'controller' => 'Languages',
+                'action' => 'edit',
                 'plugin' => 'Colmena/ErrorsManager'
             ],
             'options' => [
@@ -39,12 +36,12 @@ class ErrorsController extends AppController
         'Borrar' => [
             'icon' => '<i class="fas fa-trash-alt"></i>',
             'url' => [
-                'controller' => 'Errors',
+                'controller' => 'Languages',
                 'action' => 'delete',
                 'plugin' => 'Colmena/ErrorsManager'
             ],
             'options' => [
-                'confirm' => '¿Estás seguro de que quieres eliminar el error?',
+                'confirm' => '¿Estás seguro de que quieres eliminar El lenguaje de programación?',
                 'class' => 'red-icon',
                 'escape' => false
             ]
@@ -52,11 +49,11 @@ class ErrorsController extends AppController
     ];
 
     protected $header_actions = [
-        'Ver tipos de errores' => [
+        'Añadir lenguaje' => [
             'url' => [
-                'controller' => 'ErrorsFamily',
+                'controller' => 'Languages',
                 'plugin' => 'Colmena/ErrorsManager',
-                'action' => 'index'
+                'action' => 'add'
             ]
         ],
     ];
@@ -124,11 +121,15 @@ class ErrorsController extends AppController
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
 
             if ($this->{$this->getName()}->save($entity)) {
-                $this->Flash->success('El error se ha guardado correctamente.');
+                $this->Flash->success('El lenguaje de programación se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id]);
+            } else {
+                $error_msg = '<p>El lenguaje de programación no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+                foreach ($entity->errors() as $field => $error) {
+                    $error_msg .= '<p>' . $error['message'] . '</p>';
+                }
+                $this->Flash->error($error_msg, ['escape' => false]);
             }
-
-            $this->showErrors($entity);
         }
         $this->set(compact('entity'));
     }
@@ -140,26 +141,28 @@ class ErrorsController extends AppController
      * @return void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
-    public function visualize($entityID = null, $locale = null)
+    public function edit($id = null, $locale = null)
     {
         $this->setLocale($locale);
-        $entity = $this->{$this->getName()}->get($entityID);
+        $entity = $this->{$this->getName()}->get($id);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
 
             if ($this->{$this->getName()}->save($entity)) {
-                $this->Flash->success('El error se ha guardado correctamente.');
+                $this->Flash->success('El lenguaje de programación se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
+            } else {
+                $error_msg = '<p>El lenguaje de programación no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+                foreach ($entity->errors() as $field => $error) {
+                    $error_msg .= '<p>' . $error['message'] . '</p>';
+                }
+                $this->Flash->error($error_msg, ['escape' => false]);
             }
-
-            $this->showErrors($entity);
         }
 
-        $families = $this->{$this->getName()}->Family->find('list')->order(['name' => 'ASC']);
-
-        $this->set('tabActions', $this->getTabActions('Errors', 'edit', $entity));
-        $this->set(compact('entity', 'families'));
+        $this->set('tabActions', $this->getTabActions('Languages', 'edit', $entity));
+        $this->set(compact('entity'));
     }
 
     /**
@@ -174,27 +177,10 @@ class ErrorsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $entity = $this->{$this->getName()}->get($id);
         if ($this->{$this->getName()}->delete($entity)) {
-            $this->Flash->success('El error se ha borrado correctamente.');
+            $this->Flash->success('El lenguaje de programación se ha borrado correctamente.');
         } else {
-            $this->Flash->error('El error no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
+            $this->Flash->error('El lenguaje de programación no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
         }
         return $this->redirect(['action' => 'index']);
-    }
-
-    /**
-     * Function which shows the entity error's on saving
-     *
-     * @param [Error] $entity
-     * @return void
-     */
-    private function showErrors($entity)
-    {
-        $errorMsg = '<p>La sesión no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-
-        foreach ($entity->errors() as $error) {
-            $errorMsg .= '<p>' . $error['message'] . '</p>';
-        }
-
-        $this->Flash->error($errorMsg, ['escape' => false]);
     }
 }

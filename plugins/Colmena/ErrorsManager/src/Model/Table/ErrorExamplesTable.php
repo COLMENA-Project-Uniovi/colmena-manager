@@ -24,13 +24,27 @@ class ErrorExamplesTable extends AppTable
         parent::initialize($config);
 
         $this->setTable('em_error_examples');
-        $this->setDisplayField('title');
+        $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
         $this->belongsTo(
             'Users',
             [
                 'className' => 'AdminUsers',
+            ]
+        );
+
+        $this->belongsTo(
+            'Sessions',
+            [
+                'className' => 'Colmena/AcademicalManager.Sessions',
+            ]
+        );
+
+        $this->belongsTo(
+            'Errors',
+            [
+                'className' => 'Colmena/ErrorsManager.Errors',
             ]
         );
     }

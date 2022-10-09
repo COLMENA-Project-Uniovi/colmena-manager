@@ -15,24 +15,24 @@ $this->Breadcrumbs->add('Sesiones', [
     $subject->id
 ]);
 
-$this->Breadcrumbs->add(ucfirst($entity_name_plural), [
+$this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index', $subject->id
 ]);
 
-$this->Breadcrumbs->add('Añadir ' . $entity_name, [
+$this->Breadcrumbs->add('Añadir ' . $entityName, [
     'controller' => $this->request->getParam('controller'),
     'action' => 'add', $subject->id
 ]);
 
 $header = [
-    'title' => 'Añadir ' . $entity_name,
+    'title' => 'Añadir ' . $entityName,
     'breadcrumbs' => true
 ];
 ?>
 
 <?= $this->element("header", $header); ?>
-<div class="content">
+<div class="content px-4">
     <?= $this->Form->create(
         $entity,
         [

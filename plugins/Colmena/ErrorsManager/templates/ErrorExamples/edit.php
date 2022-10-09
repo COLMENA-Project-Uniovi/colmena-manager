@@ -1,21 +1,21 @@
 <?php
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst($entity_name_plural), [
+$this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
-$this->Breadcrumbs->add('Añadir ' . $entity_name, [
+$this->Breadcrumbs->add('Añadir ' . $entityName, [
     'controller' => $this->request->getParam('controller'),
     'action' => 'add'
 ]);
 $header = [
-    'title' => 'Editar ' . $entity_name,
+    'title' => 'Editar ' . $entityName,
     'breadcrumbs' => true
 ];
 ?>
 
 <?= $this->element("header", $header); ?>
-<div class="content">
+<div class="content px-4">
     <?= $this->Form->create(
         $entity,
         [
@@ -27,10 +27,29 @@ $header = [
         <div class="form-block">
             <h3>Datos generales</h3>
             <?= $this->Form->control(
+                'name',
+                [
+                    'label' => 'Nombre del error',
+                    'type' => 'text'
+                ]
+            ); ?>
+            <?= $this->Form->control(
                 'error_id',
                 [
                     'label' => 'ID del error',
                     'type' => 'number'
+                ]
+            ); ?>
+
+            <?= $this->Form->control(
+                'session_id',
+                [
+                    'label' => 'ID de la sesión',
+                    'options' => $sessions,
+                    'empty' => '---- Selecciona el ID de la sesión ----',
+                    'templateVars' => [
+                        'help' => 'Selecciona el ID de la sesión'
+                    ]
                 ]
             ); ?>
         </div><!-- .form-block -->

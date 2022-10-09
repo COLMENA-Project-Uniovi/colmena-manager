@@ -18,12 +18,12 @@ $this->Breadcrumbs->add('Permisos', [
 $header = [
     'title' => 'Permisos del rol de usuario "' . $currentRole['name'] . '"',
     'breadcrumbs' => true,
-    'tabs' => $tab_actions
+    'tabs' => $tabActions
 ];
 ?>
 
 <?= $this->element("header", $header); ?>
-<div class="content">
+<div class="content px-4">
 <?php
 if ($currentRole->is_admin) {
 ?>

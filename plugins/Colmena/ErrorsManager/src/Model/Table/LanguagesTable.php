@@ -1,6 +1,6 @@
 <?php
 
-namespace Colmena\AcademicalManager\Model\Table;
+namespace Colmena\ErrorsManager\Model\Table;
 
 use App\Model\Table\AppTable;
 use Cake\Validation\Validator;
@@ -10,7 +10,7 @@ use App\Encryption\EncryptTrait;
  * Student Model.
  *
  */
-class SubjectsTable extends AppTable
+class LanguagesTable extends AppTable
 {
     use EncryptTrait;
 
@@ -23,28 +23,9 @@ class SubjectsTable extends AppTable
     {
         parent::initialize($config);
 
-        $this->setTable('acm_subjects');
-        $this->setDisplayField('title');
+        $this->setTable('em_languages');
+        $this->setDisplayField('name');
         $this->setPrimaryKey('id');
-
-        $this->belongsTo(
-            'Projects',
-            [
-                'className' => 'Colmena/AcademicalManager.Projects',
-            ]
-        );
-
-        $this->hasMany('Sessions', [
-            'foreignKey' => 'subject_id',
-            'className' => 'Colmena/AcademicalManager.Sessions'
-        ]);
-
-        $this->belongsTo(
-            'AcademicalYear',
-            [
-                'className' => 'Colmena/AcademicalManager.AcademicalYears',
-            ]
-        );
     }
 
     /**
@@ -57,7 +38,6 @@ class SubjectsTable extends AppTable
     public function validationDefault(Validator $validator): Validator
     {
         $validator = parent::validateId($validator);
-        $validator = parent::validateField('name', $validator);
         return $validator;
     }
 }

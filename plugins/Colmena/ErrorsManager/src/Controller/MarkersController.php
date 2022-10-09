@@ -3,16 +3,14 @@
 namespace Colmena\ErrorsManager\Controller;
 
 use Colmena\ErrorsManager\Controller\AppController;
-use Cake\Event\Event;
 use App\Encryption\EncryptTrait;
-use Cake\Http\Exception\ForbiddenException;
 
 class MarkersController extends AppController
 {
     use EncryptTrait;
 
-    public $entity_name = 'marcador';
-    public $entity_name_plural = 'marcadores';
+    public $entityName = 'marcador';
+    public $entityNamePlural = 'marcadores';
 
     // Default pagination settings
     public $paginate = [
@@ -20,17 +18,15 @@ class MarkersController extends AppController
         'order' => [
             'id' => 'ASC'
         ],
-        'contain' => [
-            'Sessions', 'Conflicts'
-        ]
+        'contain' => []
     ];
 
-    protected $table_buttons = [
-        'Editar' => [
-            'icon' => '<i class="fas fa-edit"></i>',
+    protected $tableButtons = [
+        'Visualizar' => [
+            'icon' => '<i class="far fa-eye"></i>',
             'url' => [
                 'controller' => 'Markers',
-                'action' => 'edit',
+                'action' => 'visualize',
                 'plugin' => 'Colmena/ErrorsManager'
             ],
             'options' => [
@@ -55,7 +51,7 @@ class MarkersController extends AppController
 
     protected $header_actions = [];
 
-    protected $tab_actions = [];
+    protected $tabActions = [];
 
     /**
      * Before filter
@@ -87,6 +83,7 @@ class MarkersController extends AppController
 
         // Paginator
         $settings = $this->paginate;
+
         // If performing search, there is a keyword
         if ($keyword != null) {
             // Change pagination conditions for searching
@@ -102,7 +99,7 @@ class MarkersController extends AppController
         $entities = $this->paginate($this->modelClass);
 
         $this->set('header_actions', $this->getHeaderActions());
-        $this->set('table_buttons', $this->getTableButtons());
+        $this->set('tableButtons', $this->getTableButtons());
         $this->set('entities', $entities);
         $this->set('_serialize', 'entities');
         $this->set('keyword', $keyword);
@@ -126,16 +123,12 @@ class MarkersController extends AppController
                 $this->linkWithSession($data['creation_time'], $marker);
 
                 //TODO: crear error con los datos que tiene el marcador
-            } else {
-                $error_msg = '<p>El marker no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($marker->errors() as $field => $error) {
-                    $error_msg .= '<p>' . $error['message'] . '</p>';
-                }
-                $this->Flash->error($error_msg, ['escape' => false]);
             }
+
+            $this->showErrors($marker);
         }
 
-        $this->set(compact('entity'));
+        $this->set(compact('marker'));
     }
 
     /**
@@ -145,10 +138,10 @@ class MarkersController extends AppController
      * @return void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null, $locale = null)
+    public function visualize($entityID = null, $locale = null)
     {
         $this->setLocale($locale);
-        $entity = $this->{$this->getName()}->get($id);
+        $entity = $this->{$this->getName()}->get($entityID);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
@@ -156,16 +149,12 @@ class MarkersController extends AppController
             if ($this->{$this->getName()}->save($entity)) {
                 $this->Flash->success('El rol se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
-            } else {
-                $error_msg = '<p>El rol no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($entity->errors() as $field => $error) {
-                    $error_msg .= '<p>' . $error['message'] . '</p>';
-                }
-                $this->Flash->error($error_msg, ['escape' => false]);
-            }
+            } 
+
+            $this->showErrors($entity);
         }
 
-        $this->set('tab_actions', $this->getTabActions('Users', 'edit', $entity));
+        $this->set('tabActions', $this->getTabActions('Markers', 'edit', $entity));
         $this->set(compact('entity'));
     }
 
@@ -220,21 +209,32 @@ class MarkersController extends AppController
 
             $entity = $this->{$this->getName()}->find()->where(['id' => $entity['id']])->contain(['Conflicts'])->first();
             $entity = $this->{$this->getName()}->patchEntity($entity, $data);
-
-            echo '<pre>',var_dump($entity),'</pre>';die;
-
-            echo '<pre>',var_dump($entity),'</pre>';die;
-
-            echo '<pre>',var_dump($conflictSessions),'</pre>';die;
             //TODO: Hacer que ponga que existe el conflicto para que el usuario lo resuelva manualmente
 
             return false;
-        } else {
-            $data['session_id'] = $sessions->first()['id'];
-            $entity = $this->{$this->getName()}->patchEntity($entity, $data);
-            $entity = $this->{$this->getName()}->save($entity);
-
-            return true;
         }
+
+        $data['session_id'] = $sessions->first()['id'];
+        $entity = $this->{$this->getName()}->patchEntity($entity, $data);
+        $entity = $this->{$this->getName()}->save($entity);
+
+        return true;
+    }
+
+    /**
+     * Function which shows the entity error's on saving
+     *
+     * @param [Session] $entity
+     * @return void
+     */
+    private function showErrors($entity)
+    {
+        $errorMsg = '<p>La sesión no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+
+        foreach ($entity->errors() as $error) {
+            $errorMsg .= '<p>' . $error['message'] . '</p>';
+        }
+
+        $this->Flash->error($errorMsg, ['escape' => false]);
     }
 }
