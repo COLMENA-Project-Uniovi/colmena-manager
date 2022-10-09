@@ -188,10 +188,10 @@ class MarkersController extends AppController
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete($entityID = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $entity = $this->{$this->getName()}->get($id);
+        $entity = $this->{$this->getName()}->get($entityID);
         if ($this->{$this->getName()}->delete($entity)) {
             $this->Flash->success('El marker se ha borrado correctamente.');
         } else {
@@ -239,5 +239,19 @@ class MarkersController extends AppController
         }
 
         $this->Flash->error($errorMsg, ['escape' => false]);
+    }
+
+    /**
+     * Method which shows the markers produced in a session
+     *
+     * @param [int] $sessionID
+     * @param [int] $subjectID
+     * @return void
+     */
+    public function sessionsMarkers($sessionID, $subjectID){
+        $session = $this->{$this->getName()}->Session->get($sessionID);
+        $markers = $this->{$this->getName()}->find('all')->where(['session_id' => $session->id]);
+
+        $this->set(compact('markers'));
     }
 }
