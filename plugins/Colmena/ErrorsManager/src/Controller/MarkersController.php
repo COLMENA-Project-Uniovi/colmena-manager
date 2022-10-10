@@ -4,7 +4,6 @@ namespace Colmena\ErrorsManager\Controller;
 
 use Colmena\ErrorsManager\Controller\AppController;
 use App\Encryption\EncryptTrait;
-use Cake\ORM\TableRegistry;
 
 class MarkersController extends AppController
 {
@@ -122,6 +121,7 @@ class MarkersController extends AppController
         if ($this->request->is('post')) {
             $data = $this->request->getData();
             $user = $this->{$this->getName()}->Student->find('all')->where(['identifier' => $data['user_id']])->first();
+            $error = $this->{$this->getName()}->Error->find('all')->where(['error_id' => $data['error_id']])->first();
 
             if (!isset($user)) {
                 $user = $this->{$this->getName()}->Student->newEntity([
@@ -134,20 +134,21 @@ class MarkersController extends AppController
             }
 
             $data['user_id'] = $user->id;
+            $data['error_id'] = $error->id;
 
-            // $marker = $this->{$this->getName()}->patchEntity($marker, $data);
-            // $marker = $this->{$this->getName()}->save($marker);
-
+            $marker = $this->{$this->getName()}->patchEntity($marker, $data);
+            $marker = $this->{$this->getName()}->save($marker);
             $marker = $this->linkRelations($marker);
 
-            if (isset($marker)) {
-                $this->Flash->success('El marker se ha guardado correctamente.');
+            if (!isset($marker)) {
+                $this->showErrors($marker);
             }
 
-            $this->showErrors($marker);
+            $this->Flash->success('El marker se ha guardado correctamente.');
         }
 
         $this->set(compact('marker'));
+        $this->set('_serialize', 'marker');
     }
 
     /**
@@ -166,19 +167,21 @@ class MarkersController extends AppController
             'Student'
         ])->first();
 
+        $sessions = $this->{$this->getName()}->Session->find('list');
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
 
             if ($this->{$this->getName()}->save($entity)) {
                 $this->Flash->success('El marker se ha guardado correctamente.');
-                return $this->redirect(['action' => 'edit', $entity->id, $locale]);
+                return $this->redirect(['action' => 'visualize', $entity->id, $locale]);
             }
 
             $this->showErrors($entity);
         }
 
         $this->set('tabActions', $this->getTabActions('Markers', 'edit', $entity));
-        $this->set(compact('entity'));
+        $this->set(compact('entity', 'sessions'));
     }
 
     /**
@@ -209,19 +212,27 @@ class MarkersController extends AppController
      * @param [type] $entity
      * @return void
      */
-    private function linkRelations($entity)
+    private function linkRelations($marker)
     {
-        $dateParts = explode(' ', $entity->creation_time);
+        $dateParts = explode(' ', $marker->creation_time);
         $date = date('Y-m-d', strtotime($dateParts[0])); // Y-m-d
         $hour = date('H:i:s', strtotime($dateParts[1])); // H:i:s
 
-        $sessions = $this->{$this->getName()}->Sessions
+        $session = $this->{$this->getName()}->Session
             ->find('all')
-            ->matching('SessionSchedules', function ($q) use ($date, $hour) {
-                return $q->where(['SessionSchedules.date' => $date, 'SessionSchedules.end_hour >=' => $hour, 'SessionSchedules.start_hour <=' => $hour]);
-            });
+            ->matching('SessionSchedules.PracticeGroups.Users', function ($q) use ($date, $hour, $marker) {
+                return $q->where(['SessionSchedules.date' => $date, 'SessionSchedules.end_hour >=' => $hour, 'SessionSchedules.start_hour <=' => $hour, 'Users.id' => $marker->user_id]);
+            })->first();
 
-        return true;
+        $newEntity = [];
+        if(isset($session)){
+            $newEntity['session_id'] = $session->id; 
+        }
+
+        $marker = $this->{$this->getName()}->patchEntity($marker, $newEntity);
+        $marker = $this->{$this->getName()}->save($marker);        
+
+        return $marker;
     }
 
     /**
@@ -234,7 +245,7 @@ class MarkersController extends AppController
     {
         $errorMsg = '<p>La sesión no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
 
-        foreach ($entity->errors() as $error) {
+        foreach ($entity->getErrors() as $error) {
             $errorMsg .= '<p>' . $error['message'] . '</p>';
         }
 

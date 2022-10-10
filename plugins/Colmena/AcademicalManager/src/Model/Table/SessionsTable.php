@@ -39,13 +39,9 @@ class SessionsTable extends AppTable
             'className' => 'Colmena/AcademicalManager.SessionSchedules'
         ]);
 
-        $this->belongsToMany(
+        $this->belongsTo(
             'Languages',
             [
-                'foreignKey' => 'session_id',
-                'targetForeignKey' => 'language_id',
-                'joinTable' => 'acm_languages_sessions',
-                'sort' => ['Languages.name' => 'ASC'],
                 'className' => 'Colmena/ErrorsManager.Languages',
             ]
         );
