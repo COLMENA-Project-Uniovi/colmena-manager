@@ -6,7 +6,8 @@ $this->Breadcrumbs->add('Inicio', '/');
 
 $this->Breadcrumbs->add($subject->name, [
     'controller' => 'Subjects',
-    'action' => 'edit', $subject->id
+    'action' => 'edit',
+    $subject->id
 ]);
 
 $this->Breadcrumbs->add('Sesiones', [
@@ -17,12 +18,15 @@ $this->Breadcrumbs->add('Sesiones', [
 
 $this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),
-    'action' => 'index', $subject->id
+    'action' => 'index',
+    $session->id,
+    $subject->id
 ]);
 
 $this->Breadcrumbs->add('Añadir ' . $entityName, [
     'controller' => $this->request->getParam('controller'),
-    'action' => 'add', $subject->id
+    'action' => 'add',
+    $subject->id
 ]);
 
 $header = [
@@ -32,7 +36,7 @@ $header = [
 ?>
 
 <?= $this->element("header", $header); ?>
-<div class="content px-4">
+<div class="content p-4">
     <?= $this->Form->create(
         $entity,
         [
@@ -43,16 +47,21 @@ $header = [
     <div class="primary full">
         <div class="form-block">
             <h3>Datos generales</h3>
+            <?php
+            ?>
             <?= $this->Form->control(
                 'date',
                 [
                     'label' => 'Fecha de la sesión para el grupo',
                     'type' => 'date',
+                    'min' => date($subject->academical_year->startDate->i18nFormat('yyyy-MM-dd')),
+                    'max' => date($subject->academical_year->endDate->i18nFormat('yyyy-MM-dd')),
                     'templateVars' => [
                         'help' => 'Fecha de inicio de la sesión para el grupo'
                     ]
                 ]
             ); ?>
+
             <?= $this->Form->control(
                 'start_hour',
                 [
@@ -101,3 +110,17 @@ $header = [
     <?= $this->element("form/save-block"); ?>
     <?= $this->Form->end(); ?>
 </div><!-- .content -->
+
+<script>
+    var $dp = $("#date");
+
+    $(document).ready(function() {
+        $dp.datepicker({
+            changeYear: true,
+            changeMonth: true,
+            minDate
+            dateFormat: "yy-m-dd",
+            yearRange: "-100:+20",
+        });
+    });
+</script>

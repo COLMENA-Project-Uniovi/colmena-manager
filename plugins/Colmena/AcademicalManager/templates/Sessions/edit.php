@@ -16,7 +16,9 @@ $this->Breadcrumbs->add(ucfirst($entityNamePlural), [
 
 $this->Breadcrumbs->add('Editar ' . $entity->name, [
     'controller' => $this->request->getParam('controller'),
-    'action' => 'add', $subject->id
+    'action' => 'edit',
+    $entity->id,
+    $subject->id
 ]);
 
 $tabActions = [
