@@ -430,6 +430,69 @@ class AppController extends Controller
     }
 
     /**
+     * Paramenters page
+     *
+     * @return Cake\Http\Response
+     */
+    public function parameters($entityID = null)
+    {
+        $entity = $this->{$this->getName()}->get($entityID);
+        $entityController = $this->{$this->getName()}->getEntityController();
+        $entityPlugin = $this->{$this->getName()}->getEntityPlugin();
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $data = $this->request->getData();
+            unset($data['parameter']);
+            $data = [
+                'parameter' => [
+                    'content' => json_encode($data)
+                ]
+            ];
+            $entity = $this->{$this->getName()}->patchEntity($entity, $data);
+
+            if ($this->{$this->getName()}->save($entity)) {
+                $this->Flash->success('La configuración avanzada se han guardado correctamente.');
+
+                return $this->redirect(
+                    [
+                        'plugin' => $entityPlugin,
+                        'controller' => $entityController,
+                        'action' => 'parameters',
+                        $entity->id,
+                    ]
+                );
+            }
+
+            $this->Flash->error('La configuración avanzada no se han guardado correctamente. Por favor, inténtalo de nuevo más tarde.');
+        }
+
+        /**
+         * Parameters config of all entities.
+         */
+        $parametersConfig = [];
+        $defaultClasses = [];
+        foreach (Configure::read() as $key => $config) {
+            if (isset($config['parameters'])) {
+                $parameters = $config['parameters'];
+
+                if ($parameters['entities'] == 'all' || in_array($entityPlugin . "." . $entityController, $parameters['entities'])) {
+                    $parametersConfig = array_merge($parametersConfig, $parameters['config']);
+                    if (isset($parameters['defaultClasses'])) {
+                        $defaultClasses = array_merge($defaultClasses, $parameters['defaultClasses']);
+                    }
+                }
+            }
+        }
+
+        $this->set('parametersConfig', $parametersConfig);
+        $this->set('defaultClasses', $defaultClasses);
+        $this->set('tabActions', $this->getTabActions($entityController, 'parameters', $entity));
+        $this->set(compact('entity'));
+
+        return $this->render('Pages/parameters');
+    }
+
+    /**
      * Get available colours to configure the background and text color.
      *
      * @return array with the available colours

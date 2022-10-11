@@ -336,7 +336,11 @@ Configure::write('Admin.rolable_entities', [
  * Special method entity roles
  */
 Configure::write('Admin.special_method_entity_roles', [
-    
+    'index,add,edit' => [
+        'Users' => [
+            'userRoles',
+        ],
+    ],
 ]);
 
 /*
@@ -346,6 +350,105 @@ Configure::write('Admin.api_entities', [
     'Url' => [
         'order' => 1,
     ],
+]);
+
+$defaultClasses = [
+    'test1' => [
+        'name' => 'Test1',
+        'img' => 'webroot/img/advanced-configuration/test1.png',
+        // 'order' => 0,
+    ],
+    'test2' => [
+        'name' => 'Test2',
+        'img' => 'webroot/img/advanced-configuration/test2.png',
+        // 'order' => 0,
+    ]
+];
+
+$defaultClasses['wrapped']['from'] = [];
+$defaultClasses['wrapped']['to'] = [];
+for ($i = 1; $i <= 13; $i++) {
+    if ($i < 10) {
+        $num = str_pad($i, 2, 0, STR_PAD_LEFT);
+    } else {
+        $num = $i;
+    }
+
+    if ($i >= 1 && $i <= 12) {
+        $class = [
+            'wrapped-from-' . $i => [
+                'img' => 'webroot/img/advanced-configuration/wrapped-' . $i . '.png',
+            ]
+        ];
+        $defaultClasses['wrapped']['from'] += $class;
+    }
+    if ($i >= 2 && $i <= 13) {
+        $class = [
+            'wrapped-to-' . $i => [
+                'img' => 'webroot/img/advanced-configuration/wrapped-' . $i . '.png',
+            ]
+        ];
+
+        $defaultClasses['wrapped']['to'] += $class;
+    }
+}
+
+$defaultClasses_formatted = [];
+foreach ($defaultClasses as $class => $value) {
+    $name = isset($value['name']) ? $value['name'] : $class;
+    $defaultClasses_formatted[$class] = $name;
+
+    if (isset($value['img'])) {
+        $defaultClasses[$class]['img'] = Configure::read('Config.base_url') . $value['img'];
+    }
+}
+
+/*
+ * Configure the generic parameters
+ */
+Configure::write('Admin.parameters', [
+    'entities' => 'all',
+    'defaultClasses' => $defaultClasses,
+    'config' => [
+        'classes' => [
+            'type' => 'form-control',
+            'config' => [
+                'label' => 'Clases',
+                'type' => 'select',
+                'class' => 'keywords',
+                'multiple' => true,
+                'options' => $defaultClasses_formatted
+            ]
+        ],
+        // 'variables' => [
+        //     'type' => 'variables',
+        //     'config' => [
+        //         'name' => 'Variables',
+        //     ]
+        // ],
+        'wrapped' => [
+            'type' => 'wrapped',
+            'config' => [
+                'name' => 'Clases Wrapped',
+            ]
+        ],
+        'decoration-images' => [
+            'type' => 'decoration-images',
+            'config' => [
+                'name' => 'Imágenes decorativas',
+            ]
+        ]
+    ],
+]);
+
+/*
+ * Set API key of TinyPNG to reduce jpg and png images 
+ */
+Configure::write("tinypng.api_key", "XHWMjj1DlYRCz0lzBW7R4fWQPvg0W9FV");
+Configure::write("tinypng.available_extensions", [
+    'jpg',
+    'jpeg',
+    'png'
 ]);
 
 /*

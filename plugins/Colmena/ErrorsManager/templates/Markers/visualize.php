@@ -91,30 +91,14 @@ $header = [
                     'disabled' => true
                 ]
             ); ?>
-            <?php
-            if (!isset($entity->session_id)) {
-                echo $this->Form->control(
-                    'session_id',
-                    [
-                        'label' => 'ID de la sesión',
-                        'options' => $sessions,
-                        'empty' => '---- Selecciona el ID de la sesión ----',
-                        'templateVars' => [
-                            'help' => 'Selecciona el ID de la sesión'
-                        ]
-                    ]
-                );
-            } else {
-                echo $this->Form->control(
-                    'session_id',
-                    [
-                        'label' => 'Sesión',
-                        'type' => 'text',
-                        'disabled' => true
-                    ]
-                );
-            }
-            ?>
+            <?= $this->Form->control(
+                'session_id',
+                [
+                    'label' => 'Sesión',
+                    'type' => 'text',
+                    'disabled' => true
+                ]
+            ); ?>
         </div><!-- .form-block -->
 
     </div><!-- .primary -->
@@ -158,6 +142,8 @@ $header = [
                     ]
                 ); ?>
             </div>
+
+
         </div>
     </div><!-- .form-block -->
     <?= $this->element("form/save-block"); ?>

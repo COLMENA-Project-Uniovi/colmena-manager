@@ -211,10 +211,10 @@ class UsersController extends AppController
      * @return void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
-    public function edit($entityID = null, $locale = null)
+    public function edit($id = null, $locale = null)
     {
         $this->setLocale($locale);
-        $entity = $this->{$this->getName()}->get($entityID);
+        $entity = $this->{$this->getName()}->get($id);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
@@ -238,10 +238,10 @@ class UsersController extends AppController
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
-    public function delete($entityID = null)
+    public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $entity = $this->{$this->getName()}->get($entityID);
+        $entity = $this->{$this->getName()}->get($id);
         if ($this->{$this->getName()}->delete($entity)) {
             $this->Flash->success('El usuario se ha borrado correctamente.');
         } else {
