@@ -24,7 +24,7 @@ class AcademicalYearsController extends AppController
         'Editar' => [
             'icon' => '<i class="fas fa-edit"></i>',
             'url' => [
-                'controller' => 'AcademicalYear',
+                'controller' => 'AcademicalYears',
                 'action' => 'edit',
                 'plugin' => 'Colmena/AcademicalManager'
             ],
@@ -37,7 +37,7 @@ class AcademicalYearsController extends AppController
         'Borrar' => [
             'icon' => '<i class="fas fa-trash-alt"></i>',
             'url' => [
-                'controller' => 'AcademicalYear',
+                'controller' => 'AcademicalYears',
                 'action' => 'delete',
                 'plugin' => 'Colmena/AcademicalManager'
             ],

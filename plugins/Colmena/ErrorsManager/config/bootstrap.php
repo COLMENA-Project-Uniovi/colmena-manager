@@ -8,10 +8,10 @@ use Cake\Core\Configure;
 
 Configure::write('Colmena/ErrorsManager.menuItems', [
     'Errores' => [
-        'order' => 1,
+        'order' => 2,
         'items' => [
             'Errores' => [
-                'icon' => '<i class="far fa-bug"></i>',
+                'icon' => '<i class="far fa-bookmark"></i>',
                 'link' => [
                     'controller' => 'Errors',
                     'action' => 'index',
@@ -23,7 +23,7 @@ Configure::write('Colmena/ErrorsManager.menuItems', [
                 ],
             ],
             'Markers' => [
-                'icon' => '<i class="far fa-bookmark"></i>',
+                'icon' => '<i class="far fa-bug"></i>',
                 'link' => [
                     'controller' => 'Markers',
                     'action' => 'index',
@@ -94,6 +94,9 @@ Configure::write('Colmena/ErrorsManager.api_entities', [
     ],
     'Colmena/ErrorsManager.Markers' => [
         'order' => 2,
+    ],
+    'Colmena/ErrorsManager.ErrorExamples' => [
+        'order' => 3,
     ]
 ]);
 

@@ -18,6 +18,7 @@ $header = [
 ?>
 
 <?= $this->element("header", $header); ?>
+<?= $this->element('paginator'); ?>
 
 <div class="content px-4">
     <div class="results">
@@ -26,23 +27,20 @@ $header = [
         ?>
             <table class="table">
                 <thead class="thead">
-                    <tr class="tr">
-                        <th class="th grow">
+                    <tr>
+                        <th class="grow">
                             Identificador
                         </th><!-- .th -->
-                        <th class="th medium">
+                        <th class="medium">
                             Nombre y apellidos
                         </th><!-- .th -->
-                        <th class="th grow">
+                        <th class="grow">
                             Email
-                        </th><!-- .th -->
-                        <th class="th grow">
-                            Rol
                         </th><!-- .th -->
                         <?php
                         if (!empty($tableButtons)) {
                         ?>
-                            <th class="th actions short">
+                            <th class="actions short">
                                 Operaciones
                             </th><!-- .th -->
                         <?php
@@ -54,18 +52,15 @@ $header = [
                     <?php
                     foreach ($entities as $entity) {
                     ?>
-                        <tr class="tr">
-                        <td class="td element grow">
+                        <tr>
+                            <td class="element grow">
                                 <p><?= $entity->identifier; ?></p>
                             </td><!-- .td -->
-                            <td class="td element medium">
+                            <td class="element medium">
                                 <p><?= $entity->name . ' ' . $entity->surname . ' ' . $entity->surname2; ?></p>
                             </td><!-- .td -->
-                            <td class="td element grow">
+                            <td class="element grow">
                                 <p><?= $entity->email; ?></p>
-                            </td><!-- .td -->
-                            <td class="td element grow">
-                                <p><?= $entity->role_name; ?></p>
                             </td><!-- .td -->
                             <?php
                             if (!empty($tableButtons)) {
@@ -101,7 +96,6 @@ $header = [
                     ?>
                 </tbody><!-- .tbody -->
             </table><!-- .table -->
-            <?= $this->element('paginator'); ?>
         <?php
         } else {
         ?>

@@ -46,7 +46,18 @@ class SessionsController extends AppController
                 'class' => 'red-icon',
                 'escape' => false
             ]
-        ]
+        ],
+        'Markers' => [
+            'icon' => '<i class="fas fa-bug"></i>',
+            'url' => [
+                'controller' => 'Markers',
+                'action' => 'sessions-markers',
+                'plugin' => 'Colmena/ErrorsManager'
+            ],
+            'options' => [
+                'escape' => false
+            ]
+        ],
     ];
 
     protected $header_actions = [
@@ -129,6 +140,7 @@ class SessionsController extends AppController
     {
         $entity = $this->{$this->getName()}->newEmptyEntity();
         $subject = $this->{$this->getName()}->Subjects->get($subjectID);
+        $programmingLanguages = $this->{$this->getName()}->Languages->find('list')->order(['name' => 'ASC'])->toArray();
 
         if ($this->request->is('post')) {
             $data = $this->request->getData();
@@ -143,7 +155,7 @@ class SessionsController extends AppController
             $this->showErrors($entity);
         }
 
-        $this->set(compact('entity', 'subject'));
+        $this->set(compact('entity', 'subject', 'programmingLanguages'));
     }
 
     /**
@@ -159,10 +171,10 @@ class SessionsController extends AppController
         $entity = $this->{$this->getName()}->get($entityID);
         $subject = $this->{$this->getName()}->Subjects->get($subjectID);
         $programmingLanguages = $this->{$this->getName()}->Languages->find('list')->order(['name' => 'ASC'])->toArray();
-        
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
-             
+
             if ($this->{$this->getName()}->save($entity)) {
                 $this->Flash->success('La sesión se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $subjectID, $locale]);

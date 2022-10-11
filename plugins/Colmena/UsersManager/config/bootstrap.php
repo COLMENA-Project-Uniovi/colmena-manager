@@ -33,19 +33,7 @@ Configure::write('Colmena/UsersManager.menuItems', [
                     'class' => 'menu-item',
                     'escape' => false
                 ],
-            ],
-            'Gestionar roles' => [
-                'icon' => '<i class="far fa-user-tag"></i>',
-                'link' => [
-                    'controller' => 'UserRoles',
-                    'action' => 'index',
-                    'plugin' => 'Colmena/UsersManager',
-                ],
-                'extra' => [
-                    'class' => 'menu-item',
-                    'escape' => false
-                ],
-            ],
+            ]
         ],
         'extra' => [
             'ico' => '<i class=" fa fa-solid fa-user"></i>',

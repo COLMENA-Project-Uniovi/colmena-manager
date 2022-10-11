@@ -24,11 +24,11 @@ class ErrorsController extends AppController
     ];
 
     protected $tableButtons = [
-        'Visualizar' => [
-            'icon' => '<i class="far fa-eye"></i>',
+        'Editar' => [
+            'icon' => '<i class="fas fa-edit"></i>',
             'url' => [
                 'controller' => 'Errors',
-                'action' => 'visualize',
+                'action' => 'edit',
                 'plugin' => 'Colmena/ErrorsManager'
             ],
             'options' => [
@@ -52,7 +52,14 @@ class ErrorsController extends AppController
     ];
 
     protected $header_actions = [
-        'Ver tipos de errores' => [
+        'Añadir error' => [
+            'url' => [
+                'controller' => 'Errors',
+                'plugin' => 'Colmena/ErrorsManager',
+                'action' => 'add'
+            ]
+        ],
+        'Ver familias de errores' => [
             'url' => [
                 'controller' => 'ErrorsFamily',
                 'plugin' => 'Colmena/ErrorsManager',
@@ -130,7 +137,11 @@ class ErrorsController extends AppController
 
             $this->showErrors($entity);
         }
-        $this->set(compact('entity'));
+
+        $families = $this->{$this->getName()}->Family->find('list')->order(['name' => 'ASC']);
+        
+        $this->set('tabActions', $this->getTabActions('Errors', 'add', $entity));
+        $this->set(compact('entity', 'families'));
     }
 
     /**
@@ -140,7 +151,7 @@ class ErrorsController extends AppController
      * @return void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
-    public function visualize($entityID = null, $locale = null)
+    public function edit($entityID = null, $locale = null)
     {
         $this->setLocale($locale);
         $entity = $this->{$this->getName()}->get($entityID);

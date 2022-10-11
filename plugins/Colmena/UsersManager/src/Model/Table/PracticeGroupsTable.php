@@ -41,6 +41,12 @@ class PracticeGroupsTable extends AppTable
                 'targetForeignKey' => 'user_id',
             ]
         );
+
+        $this->hasOne('Schedules', [
+            'className' => 'Colmena/AcademicalManager.SessionSchedules',
+            'foreignKey' => 'practice_group_id',
+            'bindingKey' => 'id'
+        ]);
     }
 
     /**
