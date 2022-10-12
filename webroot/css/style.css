@@ -3047,7 +3047,8 @@ nav.small .logout {
 /* -------------------------- */
 /* ------- LOGIN PAGE ------- */
 /* -------------------------- */
-#container .wrap-login100 {
+#container .wrap-login100,
+#container .wrap-register100 {
   width: 400px;
   background: white;
   border: 1px solid rgba(254, 254, 254, 0.18);
@@ -3061,13 +3062,17 @@ nav.small .logout {
   transform: translate(-50%, -50%);
 }
 
-#container .wrap-login100 .logo {
+#container .wrap-login100 .logo,
+#container .wrap-register100 .logo {
   width: 60%;
   margin: auto;
   margin-bottom: 20px;
 }
 
-#container .wrap-login100 .container-login100 {
+#container .wrap-login100 .container-login100,
+#container .wrap-login100 .container-register100,
+#container .wrap-register100 .container-login100,
+#container .wrap-register100 .container-register100 {
   width: 100%;
   min-height: 100vh;
   display: flex;
@@ -3078,11 +3083,17 @@ nav.small .logout {
   background: #f2f2f2;
 }
 
-#container .wrap-login100 .login100-form {
+#container .wrap-login100 .login100-form,
+#container .wrap-login100 .register100-form,
+#container .wrap-register100 .login100-form,
+#container .wrap-register100 .register100-form {
   width: 100%;
 }
 
-#container .wrap-login100 .login100-form--title {
+#container .wrap-login100 .login100-form--title,
+#container .wrap-login100 .register100-form--title,
+#container .wrap-register100 .login100-form--title,
+#container .wrap-register100 .register100-form--title {
   display: block;
   font-size: 30px;
   color: #333333;
@@ -3090,13 +3101,19 @@ nav.small .logout {
   text-align: center;
 }
 
-#container .wrap-login100 .login100-form .wrap-input100 {
+#container .wrap-login100 .login100-form .wrap-input100,
+#container .wrap-login100 .register100-form .wrap-input100,
+#container .wrap-register100 .login100-form .wrap-input100,
+#container .wrap-register100 .register100-form .wrap-input100 {
   width: 100%;
   position: relative;
   margin-bottom: 37px;
 }
 
-#container .wrap-login100 .login100-form .wrap-input100 .input100 {
+#container .wrap-login100 .login100-form .wrap-input100 .input100,
+#container .wrap-login100 .register100-form .wrap-input100 .input100,
+#container .wrap-register100 .login100-form .wrap-input100 .input100,
+#container .wrap-register100 .register100-form .wrap-input100 .input100 {
   font-size: 15px;
   color: black;
   line-height: 1.2;
@@ -3109,7 +3126,10 @@ nav.small .logout {
   border-radius: 10px;
 }
 
-#container .wrap-login100 .login100-form .wrap-input100 .focus-input100 {
+#container .wrap-login100 .login100-form .wrap-input100 .focus-input100,
+#container .wrap-login100 .register100-form .wrap-input100 .focus-input100,
+#container .wrap-register100 .login100-form .wrap-input100 .focus-input100,
+#container .wrap-register100 .register100-form .wrap-input100 .focus-input100 {
   position: absolute;
   display: block;
   width: 100%;
@@ -3119,7 +3139,10 @@ nav.small .logout {
   pointer-events: none;
 }
 
-#container .wrap-login100 .login100-form .wrap-input100 .focus-input100::before {
+#container .wrap-login100 .login100-form .wrap-input100 .focus-input100::before,
+#container .wrap-login100 .register100-form .wrap-input100 .focus-input100::before,
+#container .wrap-register100 .login100-form .wrap-input100 .focus-input100::before,
+#container .wrap-register100 .register100-form .wrap-input100 .focus-input100::before {
   content: "";
   display: block;
   position: absolute;
@@ -3131,7 +3154,10 @@ nav.small .logout {
   background: #F3933D;
 }
 
-#container .wrap-login100 .login100-form .wrap-input100 .focus-input100 ::after {
+#container .wrap-login100 .login100-form .wrap-input100 .focus-input100 ::after,
+#container .wrap-login100 .register100-form .wrap-input100 .focus-input100 ::after,
+#container .wrap-register100 .login100-form .wrap-input100 .focus-input100 ::after,
+#container .wrap-register100 .register100-form .wrap-input100 .focus-input100 ::after {
   font-size: 15px;
   color: #505050;
   line-height: 1.2;
@@ -3146,7 +3172,38 @@ nav.small .logout {
   transition: all 0.4s;
 }
 
-#container .wrap-login100 .login100-form .container-login100-form-btn .wrap-login100-form-btn .login100-form-btn {
+#container .wrap-login100 .login100-form .container-login100-form-btn .wrap-login100-form-btn .login100-form-btn,
+#container .wrap-login100 .login100-form .container-login100-form-btn .wrap-login100-form-btn .register100-form-btn,
+#container .wrap-login100 .login100-form .container-login100-form-btn .wrap-register100-form-btn .login100-form-btn,
+#container .wrap-login100 .login100-form .container-login100-form-btn .wrap-register100-form-btn .register100-form-btn,
+#container .wrap-login100 .login100-form .container-register100-form-btn .wrap-login100-form-btn .login100-form-btn,
+#container .wrap-login100 .login100-form .container-register100-form-btn .wrap-login100-form-btn .register100-form-btn,
+#container .wrap-login100 .login100-form .container-register100-form-btn .wrap-register100-form-btn .login100-form-btn,
+#container .wrap-login100 .login100-form .container-register100-form-btn .wrap-register100-form-btn .register100-form-btn,
+#container .wrap-login100 .register100-form .container-login100-form-btn .wrap-login100-form-btn .login100-form-btn,
+#container .wrap-login100 .register100-form .container-login100-form-btn .wrap-login100-form-btn .register100-form-btn,
+#container .wrap-login100 .register100-form .container-login100-form-btn .wrap-register100-form-btn .login100-form-btn,
+#container .wrap-login100 .register100-form .container-login100-form-btn .wrap-register100-form-btn .register100-form-btn,
+#container .wrap-login100 .register100-form .container-register100-form-btn .wrap-login100-form-btn .login100-form-btn,
+#container .wrap-login100 .register100-form .container-register100-form-btn .wrap-login100-form-btn .register100-form-btn,
+#container .wrap-login100 .register100-form .container-register100-form-btn .wrap-register100-form-btn .login100-form-btn,
+#container .wrap-login100 .register100-form .container-register100-form-btn .wrap-register100-form-btn .register100-form-btn,
+#container .wrap-register100 .login100-form .container-login100-form-btn .wrap-login100-form-btn .login100-form-btn,
+#container .wrap-register100 .login100-form .container-login100-form-btn .wrap-login100-form-btn .register100-form-btn,
+#container .wrap-register100 .login100-form .container-login100-form-btn .wrap-register100-form-btn .login100-form-btn,
+#container .wrap-register100 .login100-form .container-login100-form-btn .wrap-register100-form-btn .register100-form-btn,
+#container .wrap-register100 .login100-form .container-register100-form-btn .wrap-login100-form-btn .login100-form-btn,
+#container .wrap-register100 .login100-form .container-register100-form-btn .wrap-login100-form-btn .register100-form-btn,
+#container .wrap-register100 .login100-form .container-register100-form-btn .wrap-register100-form-btn .login100-form-btn,
+#container .wrap-register100 .login100-form .container-register100-form-btn .wrap-register100-form-btn .register100-form-btn,
+#container .wrap-register100 .register100-form .container-login100-form-btn .wrap-login100-form-btn .login100-form-btn,
+#container .wrap-register100 .register100-form .container-login100-form-btn .wrap-login100-form-btn .register100-form-btn,
+#container .wrap-register100 .register100-form .container-login100-form-btn .wrap-register100-form-btn .login100-form-btn,
+#container .wrap-register100 .register100-form .container-login100-form-btn .wrap-register100-form-btn .register100-form-btn,
+#container .wrap-register100 .register100-form .container-register100-form-btn .wrap-login100-form-btn .login100-form-btn,
+#container .wrap-register100 .register100-form .container-register100-form-btn .wrap-login100-form-btn .register100-form-btn,
+#container .wrap-register100 .register100-form .container-register100-form-btn .wrap-register100-form-btn .login100-form-btn,
+#container .wrap-register100 .register100-form .container-register100-form-btn .wrap-register100-form-btn .register100-form-btn {
   font-size: 18px;
   color: #fff;
   letter-spacing: 1.1px;
@@ -3159,7 +3216,38 @@ nav.small .logout {
   border-radius: 10px;
 }
 
-#container .wrap-login100 .login100-form .container-login100-form-btn .wrap-login100-form-btn .login100-form-btn:hover {
+#container .wrap-login100 .login100-form .container-login100-form-btn .wrap-login100-form-btn .login100-form-btn:hover,
+#container .wrap-login100 .login100-form .container-login100-form-btn .wrap-login100-form-btn .register100-form-btn:hover,
+#container .wrap-login100 .login100-form .container-login100-form-btn .wrap-register100-form-btn .login100-form-btn:hover,
+#container .wrap-login100 .login100-form .container-login100-form-btn .wrap-register100-form-btn .register100-form-btn:hover,
+#container .wrap-login100 .login100-form .container-register100-form-btn .wrap-login100-form-btn .login100-form-btn:hover,
+#container .wrap-login100 .login100-form .container-register100-form-btn .wrap-login100-form-btn .register100-form-btn:hover,
+#container .wrap-login100 .login100-form .container-register100-form-btn .wrap-register100-form-btn .login100-form-btn:hover,
+#container .wrap-login100 .login100-form .container-register100-form-btn .wrap-register100-form-btn .register100-form-btn:hover,
+#container .wrap-login100 .register100-form .container-login100-form-btn .wrap-login100-form-btn .login100-form-btn:hover,
+#container .wrap-login100 .register100-form .container-login100-form-btn .wrap-login100-form-btn .register100-form-btn:hover,
+#container .wrap-login100 .register100-form .container-login100-form-btn .wrap-register100-form-btn .login100-form-btn:hover,
+#container .wrap-login100 .register100-form .container-login100-form-btn .wrap-register100-form-btn .register100-form-btn:hover,
+#container .wrap-login100 .register100-form .container-register100-form-btn .wrap-login100-form-btn .login100-form-btn:hover,
+#container .wrap-login100 .register100-form .container-register100-form-btn .wrap-login100-form-btn .register100-form-btn:hover,
+#container .wrap-login100 .register100-form .container-register100-form-btn .wrap-register100-form-btn .login100-form-btn:hover,
+#container .wrap-login100 .register100-form .container-register100-form-btn .wrap-register100-form-btn .register100-form-btn:hover,
+#container .wrap-register100 .login100-form .container-login100-form-btn .wrap-login100-form-btn .login100-form-btn:hover,
+#container .wrap-register100 .login100-form .container-login100-form-btn .wrap-login100-form-btn .register100-form-btn:hover,
+#container .wrap-register100 .login100-form .container-login100-form-btn .wrap-register100-form-btn .login100-form-btn:hover,
+#container .wrap-register100 .login100-form .container-login100-form-btn .wrap-register100-form-btn .register100-form-btn:hover,
+#container .wrap-register100 .login100-form .container-register100-form-btn .wrap-login100-form-btn .login100-form-btn:hover,
+#container .wrap-register100 .login100-form .container-register100-form-btn .wrap-login100-form-btn .register100-form-btn:hover,
+#container .wrap-register100 .login100-form .container-register100-form-btn .wrap-register100-form-btn .login100-form-btn:hover,
+#container .wrap-register100 .login100-form .container-register100-form-btn .wrap-register100-form-btn .register100-form-btn:hover,
+#container .wrap-register100 .register100-form .container-login100-form-btn .wrap-login100-form-btn .login100-form-btn:hover,
+#container .wrap-register100 .register100-form .container-login100-form-btn .wrap-login100-form-btn .register100-form-btn:hover,
+#container .wrap-register100 .register100-form .container-login100-form-btn .wrap-register100-form-btn .login100-form-btn:hover,
+#container .wrap-register100 .register100-form .container-login100-form-btn .wrap-register100-form-btn .register100-form-btn:hover,
+#container .wrap-register100 .register100-form .container-register100-form-btn .wrap-login100-form-btn .login100-form-btn:hover,
+#container .wrap-register100 .register100-form .container-register100-form-btn .wrap-login100-form-btn .register100-form-btn:hover,
+#container .wrap-register100 .register100-form .container-register100-form-btn .wrap-register100-form-btn .login100-form-btn:hover,
+#container .wrap-register100 .register100-form .container-register100-form-btn .wrap-register100-form-btn .register100-form-btn:hover {
   background-color: white;
   color: #F3933D;
   transition: all 0.2s ease-out;

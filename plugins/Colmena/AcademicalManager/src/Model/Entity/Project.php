@@ -3,8 +3,6 @@
 namespace Colmena\AcademicalManager\Model\Entity;
 
 use Cake\ORM\Entity;
-use Cake\I18n\Time;
-use Cake\Auth\DefaultPasswordHasher;
 
 /**
  * Subject Entity.

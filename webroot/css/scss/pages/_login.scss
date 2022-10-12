@@ -2,7 +2,9 @@
 /* ------- LOGIN PAGE ------- */
 /* -------------------------- */
 #container {
-    .wrap-login100 {
+
+    .wrap-login100,
+    .wrap-register100 {
         width: 400px;
         background: white;
         border: 1px solid rgba(254, 254, 254, 0.18);
@@ -21,7 +23,8 @@
             margin-bottom: 20px;
         }
 
-        .container-login100 {
+        .container-login100,
+        .container-register100 {
             width: 100%;
             min-height: 100vh;
             display: flex;
@@ -32,7 +35,8 @@
             background: #f2f2f2;
         }
 
-        .login100-form {
+        .login100-form,
+        .register100-form {
             width: 100%;
 
             &--title {
@@ -99,9 +103,14 @@
                 }
             }
 
-            .container-login100-form-btn {
-                .wrap-login100-form-btn {
-                    .login100-form-btn {
+            .container-login100-form-btn,
+            .container-register100-form-btn {
+
+                .wrap-login100-form-btn,
+                .wrap-register100-form-btn {
+
+                    .login100-form-btn,
+                    .register100-form-btn {
                         font-size: 18px;
                         color: #fff;
                         letter-spacing: 1.1px;

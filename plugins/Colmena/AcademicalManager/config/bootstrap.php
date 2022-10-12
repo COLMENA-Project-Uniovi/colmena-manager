@@ -76,6 +76,7 @@ Configure::write(
  */
 Configure::write('Colmena/AcademicalManager.rolable_entities', [
     'Subjects' => 'Asignaturas',
+    'Projects' => 'Proyectos',
 ]);
 
 /*

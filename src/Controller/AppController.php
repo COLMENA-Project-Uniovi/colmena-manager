@@ -89,10 +89,7 @@ class AppController extends Controller
 
         // Allow the display action so our pages controller
         // continues to work.
-        $this->Auth->allow(['index', 'login']);
-
-        // Set the API Key to use TinyPNG
-        \Tinify\setKey(Configure::read("tinypng.api_key"));
+        $this->Auth->allow(['index', 'login', 'register']);
 
         $this->encryption_key = Configure::read('API.key');
         $this->encryption_method = Configure::read('API.method');
