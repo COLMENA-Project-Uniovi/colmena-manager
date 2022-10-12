@@ -33,12 +33,21 @@ $logo = $this->Html->image(
             <input type="password" name="password_repeat" class="input100" id="password_repeat" placeholder="Repetir contraseña">
             <span class="focus-input100" data-placeholder="Repetir contraseña"></span>
         </div>
-        <div class="container-register100-form-btn">
-            <div class="wrap-register100-form-btn">
-                <div class="register100-form-bgbtn"></div>
-                <input type="submit" class="register100-form-btn" value="Registrarse">
+
+        <div class="buttons" style="display: flex;align-items: center;justify-content: space-between;">
+            <div class="container-register100-form-btn">
+                <div class="wrap-register100-form-btn">
+                    <div class="register100-form-bgbtn"></div>
+                    <input type="submit" class="register100-form-btn" value="Registrarse">
+                </div>
+            </div>
+            <div class="container-login100-form-btn">
+                <div class="wrap-login100-form-btn">
+                    <a class="login100-form-btn" href="./login">Acceder</a>
+                </div>
             </div>
         </div>
+        
         <?= $this->Form->end(); ?>
     </div>
 </div>

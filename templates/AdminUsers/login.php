@@ -28,18 +28,22 @@ $logo = $this->Html->image(
             <input type="password" name="password" class="input100" id="password" placeholder="Contraseña">
             <span class="focus-input100" data-placeholder="Contraseña"></span>
         </div>
-        
-        <div class="container-login100-form-btn">
-            <div class="wrap-login100-form-btn">
-                <div class="login100-form-bgbtn"></div>
-                <input type="submit" class="login100-form-btn" value="Acceder">
+
+        <div class="buttons" style="display: flex;align-items: center;justify-content: space-between;">
+            <div class="container-login100-form-btn">
+                <div class="wrap-login100-form-btn">
+                    <div class="login100-form-bgbtn"></div>
+                    <input type="submit" class="login100-form-btn" value="Acceder">
+                </div>
+            </div>
+            
+            <div class="container-register100-form-btn">
+                <div class="wrap-register100-form-btn">
+                    <a class="register100-form-btn" href="./register">Registrarse</a>
+                </div>
             </div>
         </div>
         <?= $this->Form->end(); ?>
-
-        <div>
-            <a href="./register">Registrarse</a>
-        </div>
     </div>
 </div>
 
