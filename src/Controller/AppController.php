@@ -89,10 +89,7 @@ class AppController extends Controller
 
         // Allow the display action so our pages controller
         // continues to work.
-        $this->Auth->allow(['index', 'login']);
-
-        // Set the API Key to use TinyPNG
-        \Tinify\setKey(Configure::read("tinypng.api_key"));
+        $this->Auth->allow(['index', 'login', 'register']);
 
         $this->encryption_key = Configure::read('API.key');
         $this->encryption_method = Configure::read('API.method');
@@ -243,11 +240,11 @@ class AppController extends Controller
         }
 
         $rolesTable = TableRegistry::getTableLocator()->get('AdminUserRoles');
-        $role =  $rolesTable->getRoleFromUser($user);
+        $role = $rolesTable->getRoleFromUser($user);
 
         // Admin can access every action
         // if user not admin, check privileges from role database table array and rol entities
-        if (isset($role) && ($role['is_admin'] || $this->Roles->checkAuthorized($role))) {
+        if (isset($role) && ($role['is_admin'] || $this->Roles->checkAuthorized($role, $this->request))) {
             return true;
         }
 

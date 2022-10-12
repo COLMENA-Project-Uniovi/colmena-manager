@@ -8,14 +8,14 @@ $logo = $this->Html->image(
 );
 ?>
 <div class="scene flex">
-    <div class="wrap-login100">
+    <div class="wrap-register100">
         <div class="logo">
             <?= $logo ?>
         </div>
         <?= $this->Form->create(
             null,
             [
-                'class' => 'login100-form'
+                'class' => 'register100-form'
             ]
         ); ?>
 
@@ -29,20 +29,25 @@ $logo = $this->Html->image(
             <span class="focus-input100" data-placeholder="Contraseña"></span>
         </div>
 
+        <div class="wrap-input100 validate-input" data-validate="Repeat password">
+            <input type="password" name="password_repeat" class="input100" id="password_repeat" placeholder="Repetir contraseña">
+            <span class="focus-input100" data-placeholder="Repetir contraseña"></span>
+        </div>
+
         <div class="buttons" style="display: flex;align-items: center;justify-content: space-between;">
-            <div class="container-login100-form-btn">
-                <div class="wrap-login100-form-btn">
-                    <div class="login100-form-bgbtn"></div>
-                    <input type="submit" class="login100-form-btn" value="Acceder">
-                </div>
-            </div>
-            
             <div class="container-register100-form-btn">
                 <div class="wrap-register100-form-btn">
-                    <a class="register100-form-btn" href="./register">Registrarse</a>
+                    <div class="register100-form-bgbtn"></div>
+                    <input type="submit" class="register100-form-btn" value="Registrarse">
+                </div>
+            </div>
+            <div class="container-login100-form-btn">
+                <div class="wrap-login100-form-btn">
+                    <a class="login100-form-btn" href="./login">Acceder</a>
                 </div>
             </div>
         </div>
+        
         <?= $this->Form->end(); ?>
     </div>
 </div>

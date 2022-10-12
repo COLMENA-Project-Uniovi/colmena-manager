@@ -35,7 +35,7 @@ $projects = $session->read('Projects');
                 }
                 ?>
                 <div class="col">
-                    <a class="card card-plain border add-project" href="/admin/academical-manager/projects/add">
+                    <a class="card card-plain border add-project" href="<?= $this->Url->build(['plugin' => 'Colmena/AcademicalManager', 'controller' => 'projects', 'action' => 'add']) ?>">
                         <div class="card-body d-flex flex-column justify-content-center">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                             <h2 class="p-2">Nuevo proyecto</h2>

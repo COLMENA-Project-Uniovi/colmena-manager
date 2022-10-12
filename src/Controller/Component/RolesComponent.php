@@ -8,6 +8,7 @@ use Cake\Utility\Inflector;
 use Cake\ORM\TableRegistry;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
+
 class RolesComponent extends Component
 {
     public $components = ['Auth'];
@@ -18,30 +19,28 @@ class RolesComponent extends Component
      * @param AdminUserRole $user_role
      * @return boolean if the user is authorized or not
      */
-    public function checkAuthorized($role)
+    public function checkAuthorized($role, $request)
     {
-        $rolable_entities = Configure::read('Roles.rolable_entities');
-        $special_method_entity_roles = Configure::read('Roles.special_method_entity_roles');
-        $special_method_general_roles = Configure::read('Roles.special_method_general_roles');
+        $rolableEntities = Configure::read('Roles.rolable_entities');
+        $specialMethodEntityRoles = Configure::read('Roles.special_method_entity_roles');
+        $specialMethodGeneralRoles = Configure::read('Roles.special_method_general_roles');
 
-        $current_entity = $this->request->getParam('plugin') != null ?
-            $this->request->getParam('plugin') . '.' . Inflector::camelize($this->request->getParam('controller')) :
-            Inflector::camelize($this->request->getParam('controller'));
+        $currentEntity = Inflector::camelize($request->getParam('controller'));
 
         //if specific entity role exists, check if action is allowed (load from Model)
-        if (isset($rolable_entities[$current_entity])) {
-            $roles_permissions_table = TableRegistry::getTableLocator()->get('AdminUserRolesPermissions');
-            $entity_roles = $roles_permissions_table->find('all', [
+        if (isset($rolableEntities[$currentEntity])) {
+            $rolesPermissionsTable = TableRegistry::getTableLocator()->get('AdminUserRolesPermissions');
+            $entityRoles = $rolesPermissionsTable->find('all', [
                 'conditions' => [
                     'role_id' => $role['id'],
-                    'model' => $current_entity
+                    'model' => $currentEntity
                 ]
             ])->toArray();
 
-            if (!empty($entity_roles)) {
-                $allowed_actions = $entity_roles[0]['actions'];
+            if (!empty($entityRoles)) {
+                $allowedActions = $entityRoles[0]['actions'];
 
-                if (sizeof(explode(',', $allowed_actions)) == 4) {
+                if (sizeof(explode(',', $allowedActions)) == 4) {
                     //if user has full actions (index,add,edit,delete) for entity
                     /**
                      * This is for special actions (like user_roles in AdminUsersController),
@@ -49,22 +48,20 @@ class RolesComponent extends Component
                      * all of the entity's actions.
                      */
                     return true;
-                } elseif (in_array($this->request->getParam('action'), explode(',', $allowed_actions))) {
+                } elseif (in_array($this->request->getParam('action'), explode(',', $allowedActions))) {
                     //if user hasn't full roles, check entity specific actions
                     return true;
                 } else {
                     //check special entity roles and general roles
-                    $entity_special_methods =
-                        isset($special_method_entity_roles[$allowed_actions][$current_entity]) ?
-                        $special_method_entity_roles[$allowed_actions][$current_entity] :
+                    $entitySpecialMethods =
+                        isset($specialMethodEntityRoles[$allowedActions][$currentEntity]) ?
+                        $specialMethodEntityRoles[$allowedActions][$currentEntity] :
                         [];
-                    $general_special_methods =
-                        isset($special_method_general_roles[$allowed_actions]) ?
-                        $special_method_general_roles[$allowed_actions] :
+                    $genSpecialMethods = isset($specialMethodGeneralRoles[$allowedActions]) ? $specialMethodGeneralRoles[$allowedActions] :
                         [];
-                    if (in_array($this->request->getParam('action'), $entity_special_methods)) {
+                    if (in_array($this->request->getParam('action'), $entitySpecialMethods)) {
                         return true;
-                    } elseif (in_array($this->request->getParam('action'), $general_special_methods)) {
+                    } elseif (in_array($this->request->getParam('action'), $genSpecialMethods)) {
                         return true;
                     }
                 }
@@ -85,24 +82,24 @@ class RolesComponent extends Component
         $menuItems = Configure::read('UI.menuItems');
         $user = $this->Auth->user();
 
-        $roles_table = TableRegistry::getTableLocator()->get('AdminUserRoles');
-        $role =  $roles_table->getRoleFromUser($user);
+        $rolesTable = TableRegistry::getTableLocator()->get('AdminUserRoles');
+        $role =  $rolesTable->getRoleFromUser($user);
 
         if (isset($this->request) && $this->request->getParam('action') != 'login' && !is_null($user) && !$role['is_admin']) {
             //only check when action is not login and user is not admin
-            foreach ($menuItems as $section_name => $content_menu) {
-                $items = $content_menu['items'];
-                foreach ($items as $title => $menu_item) {
-                    if (!$this->isItemAvailable($menu_item['link'])) {
-                        //unset menu_item due to lack of permissions
+            foreach ($menuItems as $sectionName => $contentMenu) {
+                $items = $contentMenu['items'];
+                foreach ($items as $title => $menuItem) {
+                    if (!$this->isItemAvailable($menuItem['link'])) {
+                        //unset menuItem due to lack of permissions
                         unset($items[$title]);
                     }
                 }
 
                 if (!empty($items)) {
-                    $menuItems[$section_name]['items'] = $items;
+                    $menuItems[$sectionName]['items'] = $items;
                 } else {
-                    unset($menuItems[$section_name]);
+                    unset($menuItems[$sectionName]);
                 }
             }
         }
@@ -111,59 +108,59 @@ class RolesComponent extends Component
     }
 
     /**
-     * Method to calculate the home_blocks to display for the current user
+     * Method to calculate the homeBlocks to display for the current user
      *
-     * @param  $home_blocks all home_blocks
+     * @param  $homeBlocks all homeBlocks
      * @param  $user        current user
      *
-     * @return home_blocks to display
+     * @return homeBlocks to display
      */
     public function userHomeBlocks()
     {
-        $home_blocks = Configure::read('UI.home_blocks');
+        $homeBlocks = Configure::read('UI.home_blocks');
         $user = $this->Auth->user();
 
-        $roles_table = TableRegistry::getTableLocator()->get('AdminUserRoles');
-        $role =  $roles_table->getRoleFromUser($user);
+        $rolesTable = TableRegistry::getTableLocator()->get('AdminUserRoles');
+        $role =  $rolesTable->getRoleFromUser($user);
 
         if (isset($this->request) && $this->request->getParam('action') == 'display' && !$role['is_admin']) {
             //only check when action is display and user is not admin
-            foreach ($home_blocks as $block_name => $content_block) {
-                if ($this->isBlockAvailable($content_block['className'])) {
-                    if (isset($content_block['query']['button'])) {
+            foreach ($homeBlocks as $blockName => $contentBlock) {
+                if ($this->isBlockAvailable($contentBlock['className'])) {
+                    if (isset($contentBlock['query']['button'])) {
                         //if button for each row is present, check permissions
-                        if (!$this->isItemAvailable($content_block['query']['button']['link'])) {
-                            unset($home_blocks[$block_name]['query']['button']);
+                        if (!$this->isItemAvailable($contentBlock['query']['button']['link'])) {
+                            unset($homeBlocks[$blockName]['query']['button']);
                         }
                     }
                     //if block available, check button permissions (main_buttons)
-                    if (!empty($content_block['main_buttons'])) {
-                        foreach ($content_block['main_buttons'] as $action_name => $action_link) {
-                            if (!$this->isItemAvailable($action_link['link'])) {
+                    if (!empty($contentBlock['main_buttons'])) {
+                        foreach ($contentBlock['main_buttons'] as $actionName => $actionLink) {
+                            if (!$this->isItemAvailable($actionLink['link'])) {
                                 //unset menu_item due to lack of permissions
-                                unset($content_block['main_buttons'][$action_name]);
+                                unset($contentBlock['main_buttons'][$actionName]);
                             }
                         }
-                        $home_blocks[$block_name]['main_buttons'] = $content_block['main_buttons'];
+                        $homeBlocks[$blockName]['main_buttons'] = $contentBlock['main_buttons'];
                     }
                     //if block available, check button permissions (bottom_buttons)
-                    if (!empty($content_block['bottom_buttons'])) {
-                        foreach ($content_block['bottom_buttons'] as $action_name => $action_link) {
-                            if (!$this->isItemAvailable($action_link['link'])) {
+                    if (!empty($contentBlock['bottom_buttons'])) {
+                        foreach ($contentBlock['bottom_buttons'] as $actionName => $actionLink) {
+                            if (!$this->isItemAvailable($actionLink['link'])) {
                                 //unset menu_item due to lack of permissions
-                                unset($content_block['bottom_buttons'][$action_name]);
+                                unset($contentBlock['bottom_buttons'][$actionName]);
                             }
                         }
-                        $home_blocks[$block_name]['bottom_buttons'] = $content_block['bottom_buttons'];
+                        $homeBlocks[$blockName]['bottom_buttons'] = $contentBlock['bottom_buttons'];
                     }
                 } else {
                     //block unavailable, remove completely
-                    unset($home_blocks[$block_name]);
+                    unset($homeBlocks[$blockName]);
                 }
             }
         }
 
-        return $home_blocks;
+        return $homeBlocks;
     }
 
     /**
@@ -292,7 +289,7 @@ class RolesComponent extends Component
         $role =  $roles_table->getRoleFromUser($user);
 
         if (isset($role) && !$role['is_admin']) {
-            if(isset($general_options)){
+            if (isset($general_options)) {
                 foreach ($general_options as $key => $value) {
                     if (!$this->isItemAvailable($value['url'])) {
                         unset($general_options[$key]);
