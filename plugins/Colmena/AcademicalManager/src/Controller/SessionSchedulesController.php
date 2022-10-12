@@ -46,7 +46,7 @@ class SessionSchedulesController extends AppController
                 'plugin' => 'Colmena/AcademicalManager'
             ],
             'options' => [
-                'confirm' => '¿Estás seguro de que quieres eliminar el horario de la sesión?',
+                'confirm' => '¿Estás seguro de que quieres eliminar el horario?',
                 'class' => 'red-icon',
                 'escape' => false
             ]
@@ -64,18 +64,6 @@ class SessionSchedulesController extends AppController
     ];
 
     protected $tabActions = [];
-
-    /**
-     * Before filter
-     *
-     * @param \Cake\Event\Event $event The beforeFilter event.
-     *
-     */
-    public function beforeFilter(\Cake\Event\EventInterface $event)
-    {
-        parent::beforeFilter($event);
-        $this->Auth->allow([]);
-    }
 
     /**
      * Index method
@@ -113,26 +101,20 @@ class SessionSchedulesController extends AppController
     {
         $entity = $this->{$this->getName()}->newEmptyEntity();
         $session = $this->{$this->getName()}->Sessions->get($sessionID);
-        $subject = $this->{$this->getName()}->Sessions->Subjects->get($subjectID);
+        $subject = $this->{$this->getName()}->Sessions->Subjects->find('all')->where(['Subjects.id' => $subjectID])->contain(['AcademicalYear'])->first();
         $groups = $this->{$this->getName()}->PracticeGroups->find('list');
 
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-
             $data['session_id'] = $sessionID;
             $entity = $this->{$this->getName()}->patchEntity($entity, $data);
 
             if ($this->{$this->getName()}->save($entity)) {
-                $this->Flash->success('la sesión se ha guardado correctamente.');
+                $this->Flash->success('El horario se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id]);
-            } else {
-                $errorMsg = '<p>El horario de sesión no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($entity->getErrors() as $field => $error) {
-                    $errorMsg .= '<p>' . $field . ': ' . print_r($error, true) . '</p>';
-                }
-
-                $this->Flash->error($errorMsg, ['escape' => false]);
-            }
+            } 
+            
+            $this->showErrors(($entity));
         }
 
         $this->set(compact('entity', 'session', 'subject', 'groups'));
@@ -141,32 +123,27 @@ class SessionSchedulesController extends AppController
     /**
      * Edit method
      *
-     * @param string|null $id Product id.
+     * @param string|null $entityID Product id.
      * @return void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
-    public function edit($id, $locale = null)
+    public function edit($entityID, $locale = null)
     {
         $this->setLocale($locale);
-        $entity = $this->{$this->getName()}->get($id);
+        $entity = $this->{$this->getName()}->get($entityID);
         $session = $this->{$this->getName()}->Sessions->get($entity->session_id);
-        $subject = $this->{$this->getName()}->Sessions->Subjects->get($session->subject_id);
-
+        $subject = $this->{$this->getName()}->Sessions->Subjects->find('all')->where(['Subjects.id' => $session->subject_id])->contain(['AcademicalYear'])->first();
         $groups = $this->{$this->getName()}->PracticeGroups->find('list');
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
 
             if ($this->{$this->getName()}->save($entity)) {
-                $this->Flash->success('la sesión se ha guardado correctamente.');
+                $this->Flash->success('El horario se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
-            } else {
-                $errorMsg = '<p>La sesión no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($entity->errors() as $field => $error) {
-                    $errorMsg .= '<p>' . $error['message'] . '</p>';
-                }
-                $this->Flash->error($errorMsg, ['escape' => false]);
             }
+
+            $this->showErrors($entity);
         }
 
         $this->set('tabActions', $this->getTabActions('SessionsSchedules', 'edit', $entity));
@@ -185,10 +162,27 @@ class SessionSchedulesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $entity = $this->{$this->getName()}->get($id);
         if ($this->{$this->getName()}->delete($entity)) {
-            $this->Flash->success('la sesión se ha borrado correctamente.');
+            $this->Flash->success('El horario se ha borrado correctamente.');
         } else {
-            $this->Flash->error('la sesión no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
+            $this->Flash->error('El horario no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
         }
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * Function which shows the entity error's on saving
+     *
+     * @param [Session] $entity
+     * @return void
+     */
+    private function showErrors($entity)
+    {
+        $errorMsg = '<p>El horario no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+
+        foreach ($entity->errors() as $error) {
+            $errorMsg .= '<p>' . $error['message'] . '</p>';
+        }
+
+        $this->Flash->error($errorMsg, ['escape' => false]);
     }
 }

@@ -17,7 +17,9 @@ $this->Breadcrumbs->add('Sesiones', [
 
 $this->Breadcrumbs->add('Editar ' . $session->name, [
     'controller' => $this->request->getParam('controller'),
-    'action' => 'add', $subject->id
+    'action' => 'add',
+    $session->id,
+    $subject->id
 ]);
 
 $tabActions = [
@@ -49,7 +51,7 @@ $header = [
                 'url' => [
                     'controller' => 'SessionSchedules',
                     'plugin' => 'Colmena/AcademicalManager',
-                    'action' => 'add', 
+                    'action' => 'add',
                     $session->id,
                     $subject->id
                 ]
@@ -61,7 +63,7 @@ $header = [
 
 <?= $this->element("header", $header); ?>
 
-<div class="content px-4">
+<div class="content p-4">
     <div class="results">
         <?php
         if (count($entities) !== 0 && !empty($entities)) {

@@ -17,7 +17,7 @@ $this->Breadcrumbs->add('Sesiones', [
 
 $this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),
-    'action' => 'index', 
+    'action' => 'index',
     $session->id,
     $subject->id
 ]);
@@ -52,6 +52,8 @@ $header = [
                 [
                     'label' => 'Fecha de la sesión para el grupo',
                     'type' => 'date',
+                    'min' => date($subject->academical_year->startDate->i18nFormat('yyyy-MM-dd')),
+                    'max' => date($subject->academical_year->endDate->i18nFormat('yyyy-MM-dd')),
                     'templateVars' => [
                         'help' => 'Fecha de inicio de la sesión para el grupo'
                     ]
