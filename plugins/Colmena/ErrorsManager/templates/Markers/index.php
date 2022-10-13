@@ -51,8 +51,9 @@ $header = [
                                 <th scope="row">
                                     <?php
                                     if ($entity->user_id != 0) {
+                                        $name = $entity->student->name != '' && $entity->student->name != '-' ? $entity->student->name. ' ' . $entity->student->surname. ' ' . $entity->student->surname2 : $entity->student->identifier;
                                     ?>
-                                        <a href="/admin/users-manager/users/edit/<?= $entity->user_id ?>" class="user"><?= $entity->student->name ?></a>
+                                        <a href="/admin/users-manager/users/edit/<?= $entity->user_id ?>" class="user"><?= $name ?></a>
                                     <?php
                                     }
                                     ?>
