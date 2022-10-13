@@ -4,6 +4,7 @@ namespace Colmena\ErrorsManager\Controller;
 
 use Colmena\ErrorsManager\Controller\AppController;
 use App\Encryption\EncryptTrait;
+use Cake\ORM\TableRegistry;
 
 class MarkersController extends AppController
 {
@@ -16,7 +17,7 @@ class MarkersController extends AppController
     public $paginate = [
         'limit' => 20,
         'order' => [
-            'id' => 'ASC'
+            'Markers.id' => 'ASC'
         ],
         'contain' => [
             'Error',
@@ -225,12 +226,12 @@ class MarkersController extends AppController
             })->first();
 
         $newEntity = [];
-        if(isset($session)){
-            $newEntity['session_id'] = $session->id; 
+        if (isset($session)) {
+            $newEntity['session_id'] = $session->id;
         }
 
         $marker = $this->{$this->getName()}->patchEntity($marker, $newEntity);
-        $marker = $this->{$this->getName()}->save($marker);        
+        $marker = $this->{$this->getName()}->save($marker);
 
         return $marker;
     }
@@ -251,4 +252,6 @@ class MarkersController extends AppController
 
         $this->Flash->error($errorMsg, ['escape' => false]);
     }
+
+    
 }
