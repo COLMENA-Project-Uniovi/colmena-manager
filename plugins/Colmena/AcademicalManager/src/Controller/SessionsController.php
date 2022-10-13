@@ -4,6 +4,7 @@ namespace Colmena\AcademicalManager\Controller;
 
 use Colmena\AcademicalManager\Controller\AppController;
 use App\Encryption\EncryptTrait;
+use Cake\ORM\TableRegistry;
 
 class SessionsController extends AppController
 {
@@ -50,9 +51,9 @@ class SessionsController extends AppController
         'Markers' => [
             'icon' => '<i class="fas fa-bug"></i>',
             'url' => [
-                'controller' => 'Markers',
-                'action' => 'sessions-markers',
-                'plugin' => 'Colmena/ErrorsManager'
+                'controller' => 'Sessions',
+                'action' => 'session_markers',
+                'plugin' => 'Colmena/AcademicalManager'
             ],
             'options' => [
                 'escape' => false
@@ -71,18 +72,6 @@ class SessionsController extends AppController
     ];
 
     protected $tabActions = [];
-
-    /**
-     * Before filter
-     *
-     * @param \Cake\Event\Event $event The beforeFilter event.
-     *
-     */
-    public function beforeFilter(\Cake\Event\EventInterface $event)
-    {
-        parent::beforeFilter($event);
-        $this->Auth->allow([]);
-    }
 
     /**
      * Index method
@@ -247,4 +236,43 @@ class SessionsController extends AppController
 
         return $this->response;
     }
+
+    /**
+     * Method which shows the markers associated to the current session
+     *
+     * @param [int] $sessionID
+     * @param [int] $subjectID
+     * @return void
+     */
+    public function sessionMarkers($sessionID, $subjectID)
+    {
+        $session = $this->{$this->getName()}->get($sessionID);
+        $subject = $this->{$this->getName()}->Subjects->get($subjectID);
+        
+        $markersTable = TableRegistry::getTableLocator()->get('Colmena/ErrorsManager.Markers');
+        $entities = $markersTable->find('all')->where(['session_id' => $sessionID])->contain(['Session', 'Student', 'Error'])->toArray();
+
+        $this->set(compact('entities', 'session', 'subject'));
+        $this->set('entities', $entities);
+    }
+
+    // /**
+    //  * Method which shows the markers associated to the current session
+    //  *
+    //  * @param [int] $sessionID
+    //  * @param [int] $subjectID
+    //  * @return void
+    //  */
+    // public function sessionMarkers($sessionID, $subjectID)
+    // {
+    //     $session = $this->{$this->getName()}->Session->get($sessionID);
+
+        
+
+    //     $entities = $this->{$this->getName()}->find('all')->where(['session_id' => $sessionID])->contain(['Session', 'Student', 'Error']);
+    //     $entities = $this->paginate($entities);
+
+    //     $this->set(compact('entities', 'session', 'subject'));
+    //     $this->set('entities', $entities);
+    // }
 }
