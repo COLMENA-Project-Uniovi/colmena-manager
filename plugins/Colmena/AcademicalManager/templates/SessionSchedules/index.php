@@ -69,24 +69,24 @@ $header = [
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
             <table class="table">
-                <thead class="thead">
-                    <tr class="tr">
-                        <th class="th medium">
-                            Grupo
+                <thead>
+                    <tr>
+                        <th class="medium">
+                            Id del Grupo
                         </th><!-- .th -->
-                        <th class="th grow">
-                            Fecha
+                        <th class="medium">
+                            Nombre del Grupo
                         </th><!-- .th -->
-                        <th class="th grow">
-                            Hora de inicio
+                        <th class="grow">
+                            Fecha de inicio
                         </th><!-- .th -->
-                        <th class="th grow">
-                            Hora de fin
+                        <th class="grow">
+                            Fecha de fin
                         </th><!-- .th -->
                         <?php
                         if (!empty($tableButtons)) {
                         ?>
-                            <th class="th actions short">
+                            <th class="actions short">
                                 Operaciones
                             </th><!-- .th -->
                         <?php
@@ -94,27 +94,27 @@ $header = [
                         ?>
                     </tr><!-- .tr -->
                 </thead><!-- .thead -->
-                <tbody class="tbody elements">
+                <tbody class="elements">
                     <?php
                     foreach ($entities as $entity) {
                     ?>
-                        <tr class="tr">
-                            <td class="td element medium">
+                        <tr>
+                            <td class="element medium">
                                 <p><?= $entity->practice_group_id ?></p>
                             </td><!-- .td -->
-                            <td class="td element grow">
-                                <p><?= $entity->date; ?></p>
+                            <td class="element medium">
+                                <p><?= $entity->practice_group->name ?></p>
                             </td><!-- .td -->
-                            <td class="td element grow">
+                            <td class="element grow">
                                 <p><?= $entity->start_hour; ?></p>
                             </td><!-- .td -->
-                            <td class="td element grow">
+                            <td class="element grow">
                                 <p><?= $entity->end_hour; ?></p>
                             </td><!-- .td -->
                             <?php
                             if (!empty($tableButtons)) {
                             ?>
-                                <td class="td actions">
+                                <td class="actions">
                                     <div class="td-content">
                                         <?php
                                         foreach ($tableButtons as $key => $value) {

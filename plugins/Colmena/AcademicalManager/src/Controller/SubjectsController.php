@@ -133,9 +133,10 @@ class SubjectsController extends AppController
      */
     public function add()
     {
-        $project = $this->getSessionProject();
+        $projectID = $this->getSessionProject();
+        $project = $this->{$this->getName()}->Projects->find('all')->where(["id" => $projectID])->first();
         $entity = $this->{$this->getName()}->newEmptyEntity();
-        $academicalYears = $this->{$this->getName()}->Year->find('all');
+        $academicalYears = $this->{$this->getName()}->AcademicalYear->find('list')->toArray();
 
         if ($this->request->is('post')) {
             $data = $this->request->getData();

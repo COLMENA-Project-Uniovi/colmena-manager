@@ -36,7 +36,6 @@ $header = [
                             <th scope="col">Mensaje</th><!-- .th -->
                             <th scope="col">Género</th><!-- .th -->
                             <th scope="col">Fecha de creación</th><!-- .th -->
-                            <th scope="col">Sesión</th><!-- .th -->
                             <?php
                             if (!empty($tableButtons)) {
                             ?>
@@ -49,7 +48,6 @@ $header = [
                     <tbody>
                         <?php
                         foreach ($entities as $entity) {
-                            $msg = isset($entity->sesion_id) ? $entity->sesion_id : 'REVISAR'
                         ?>
                             <tr>
                                 <th scope="row">
@@ -73,10 +71,6 @@ $header = [
 
                                 <td scope="col">
                                     <?= $entity->timestamp; ?>
-                                </td><!-- .td -->
-
-                                <td scope="col">
-                                    <?= $msg; ?>
                                 </td><!-- .td -->
 
                                 <?php
