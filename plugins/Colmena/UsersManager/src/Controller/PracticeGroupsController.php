@@ -21,7 +21,8 @@ class PracticeGroupsController extends AppController
             'id' => 'DESC'
         ],
         'contain' => [
-            'Users'
+            'Users',
+            'Supervisor'
         ]
     ];
 
@@ -131,33 +132,28 @@ class PracticeGroupsController extends AppController
             if ($this->{$this->getName()}->save($entity)) {
                 $this->Flash->success('El grupo de prácticas se ha guardado correctamente.');
                 return $this->redirect(['action' => 'index']);
-            } else {
-                $errorMsg = '<p>El grupo de prácticas no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-
-                foreach ($entity->getErrors() as $field => $error) {
-                    $errorMsg .= '<p>' . $error['message'] . '</p>';
-                }
-
-                $this->Flash->error($errorMsg, ['escape' => false]);
             }
+
+            $this->showErrors($entity);
         }
 
         $students = $this->{$this->getName()}->Users->find('list')->toArray();
+        $supervisors = $this->{$this->getName()}->Supervisor->find('list')->where(['role_id' => 1])->toArray();
 
-        $this->set(compact('entity', 'students'));
+        $this->set(compact('entity', 'students', 'supervisors'));
     }
 
     /**
      * Edit method
      *
-     * @param string|null $id Product id.
+     * @param string|null $entityID Product id.
      * @return void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null, $locale = null)
+    public function edit($entityID = null, $locale = null)
     {
         $this->setLocale($locale);
-        $entity = $this->{$this->getName()}->find('all')->where([$this->getName() . '.id' => $id])->contain(['Users'])->first();
+        $entity = $this->{$this->getName()}->find('all')->where([$this->getName() . '.id' => $entityID])->contain(['Users', 'Supervisor'])->first();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
@@ -165,45 +161,35 @@ class PracticeGroupsController extends AppController
             if ($this->{$this->getName()}->save($entity)) {
                 $this->Flash->success('El grupo de prácticas se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
-            } else {
-                $errorMsg = '<p>El grupo de prácticas no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($entity->errors() as $field => $error) {
-                    $errorMsg .= '<p>' . $error['message'] . '</p>';
-                }
-                $this->Flash->error($errorMsg, ['escape' => false]);
             }
+
+            $this->showErrors($entity);
         }
+
         $students = $this->{$this->getName()}->Users->find('list')->toArray();
+        $supervisors = $this->{$this->getName()}->Supervisor->find('list')->where(['role_id' => 1])->toArray();
 
         $this->set('tabActions', $this->getTabActions('Users', 'edit', $entity));
-        $this->set(compact('entity', 'students'));
+        $this->set(compact('entity', 'students', 'supervisors'));
     }
 
     /**
      * Delete method
      *
-     * @param string|null $id Article id.
+     * @param string|null $entityID Article id.
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete($entityID = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $entity = $this->{$this->getName()}->get($id);
+        $entity = $this->{$this->getName()}->get($entityID);
         if ($this->{$this->getName()}->delete($entity)) {
             $this->Flash->success('El grupo de prácticas se ha borrado correctamente.');
         } else {
             $this->Flash->error('El grupo de prácticas no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
         }
         return $this->redirect(['action' => 'index']);
-    }
-
-    private function getSessionProject()
-    {
-        $session = $this->request->getSession();
-        $projectID = $session->read('Projectid');
-
-        return $projectID['projectID'];
     }
 
     /**
@@ -259,5 +245,22 @@ class PracticeGroupsController extends AppController
         $this->response = $this->response->withType('json');
 
         return $this->response;
+    }
+
+    /**
+     * Function which shows the entity error's on saving
+     *
+     * @param [Session] $entity
+     * @return void
+     */
+    private function showErrors($entity)
+    {
+        $errorMsg = '<p>El grupo de prácticas no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+
+        foreach ($entity->errors() as $error) {
+            $errorMsg .= '<p>' . $error['message'] . '</p>';
+        }
+
+        $this->Flash->error($errorMsg, ['escape' => false]);
     }
 }

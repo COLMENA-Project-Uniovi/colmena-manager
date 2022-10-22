@@ -35,6 +35,14 @@ $header = [
                 ]
             ); ?>
             <?= $this->Form->control(
+                'supervisor_id',
+                [
+                    'label' => 'Supervisor',
+                    'options' => $supervisors,
+                    'empty' => 'Selecciona el supervisor de este grupo',
+                ]
+            ); ?>
+            <?= $this->Form->control(
                 'users._ids',
                 [
                     'label' => 'Estudiantes',
