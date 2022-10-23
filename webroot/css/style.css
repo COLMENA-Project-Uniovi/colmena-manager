@@ -819,6 +819,16 @@ strong {
 .results .table .tbody .td.actions .td-content .red-icon {
   color: red;
 }
+.results table tbody td.actions .td-content .blue-icon,
+.results table tbody .td.actions .td-content .blue-icon,
+.results table .tbody td.actions .td-content .blue-icon,
+.results table .tbody .td.actions .td-content .blue-icon,
+.results .table tbody td.actions .td-content .blue-icon,
+.results .table tbody .td.actions .td-content .blue-icon,
+.results .table .tbody td.actions .td-content .blue-icon,
+.results .table .tbody .td.actions .td-content .blue-icon {
+  color: #0096FF;
+}
 .results table tbody .check,
 .results table .tbody .check,
 .results .table tbody .check,

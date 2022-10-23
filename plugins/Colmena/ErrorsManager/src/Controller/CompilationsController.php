@@ -17,12 +17,17 @@ class CompilationsController extends AppController
         'limit' => 20,
         'order' => [
             'id' => 'DESC'
+        ],
+        'contain' => [
+            'Markers',
+            'Session',
+            'Student'
         ]
     ];
 
     protected $tableButtons = [
         'Editar' => [
-            'icon' => '<i class="fas fa-edit"></i>',
+            'icon' => '<i class="far fa-edit"></i>',
             'url' => [
                 'controller' => 'Compilations',
                 'action' => 'edit',
@@ -45,7 +50,18 @@ class CompilationsController extends AppController
                 'class' => 'red-icon',
                 'escape' => false
             ]
-        ]
+        ],
+        'Markers' => [
+            'icon' => '<i class="fas fa-bug"></i>',
+            'url' => [
+                'controller' => 'Compilations',
+                'action' => 'markers',
+                'plugin' => 'Colmena/ErrorsManager'
+            ],
+            'options' => [
+                'escape' => false
+            ]
+        ],
     ];
 
     protected $header_actions = [];
@@ -112,34 +128,93 @@ class CompilationsController extends AppController
         $compilation = $this->{$this->getName()}->newEmptyEntity();
 
         if ($this->request->is('post')) {
-            $compilation = $this->{$this->getName()}->patchEntity($compilation, $this->request->getData());
+            $data = $this->request->getData();
 
-            if ($this->{$this->getName()}->save($compilation)) {
-                // TODO Añadir que si el numMarkers > 1 se relacionen los markers con las compilaciones y así poder ver los markers de cada compilacion con un boton
-                $this->Flash->success('La compilación se ha guardado correctamente.');
-                
+            $user = $this->{$this->getName()}->Student->find('all')->where(['identifier' => $data['user_id']])->first();
+
+            if (!isset($user)) {
+                $user = $this->{$this->getName()}->Student->newEntity([
+                    'identifier' => $data['user_id'],
+                    'name' => '-',
+                    'surname' => '-'
+                ]);
+
+                $user = $this->{$this->getName()}->Student->save($user);
             }
 
-            $this->showErrors($compilation);
+            $data['user_id'] = $user->id;
+
+            $compilation = $this->{$this->getName()}->patchEntity($compilation, $data);
+            $compilation = $this->{$this->getName()}->save($compilation);
+
+            $compilation = $this->linkSession($compilation);
+
+            if (!isset($compilation)) {
+                $this->showErrors($compilation);
+            }
         }
 
         $compilationID = $compilation->id;
-        
+
         $this->set(compact('compilationID'));
         $this->set('_serialize', 'compilationID');
     }
 
     /**
+     * Function with links the compilation with the corresponding session.
+     * If there are more than one, it creates a conflict that will be
+     * solved by the user
+     *
+     * @param [Compilation] $compilation
+     * @return void
+     */
+    private function linkSession($compilation)
+    {
+        $dateParts = explode(' ', $compilation->timestamp);
+        $date = date('Y-m-d', strtotime($dateParts[0])); // Y-m-d
+        $hour = date('H:i:s', strtotime($dateParts[1])); // H:i:s
+
+        $session = $this->{$this->getName()}->Session
+            ->find('all')
+            ->matching('SessionSchedules.PracticeGroups.Users', function ($q) use ($date, $hour, $compilation) {
+                return $q->where(['SessionSchedules.date' => $date, 'SessionSchedules.end_hour >=' => $hour, 'SessionSchedules.start_hour <=' => $hour, 'Users.id' => $compilation->user_id]);
+            })->first();
+
+        $newEntity = [];
+        if (isset($session)) {
+            $newEntity['session_id'] = $session->id;
+        }
+
+        $compilation = $this->{$this->getName()}->patchEntity($compilation, $newEntity);
+        $compilation = $this->{$this->getName()}->save($compilation);
+
+        return $compilation;
+    }
+
+    /**
      * Edit method
      *
-     * @param string|null $id Product id.
+     * @param string|null $entityID Product id.
      * @return void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
     public function edit($entityID = null, $locale = null)
     {
         $this->setLocale($locale);
-        $entity = $this->{$this->getName()}->get($entityID);
+
+        $projectID = $this->getSessionProject();
+        $sessions = $this->{$this->getName()}->Session->find('list')->toArray();
+
+        $entity = $this->{$this->getName()}->find('all')->where([$this->getName() . '.id' => $entityID])->contain([
+            'Markers',
+            'Session',
+            'Student'
+        ])->first();
+
+        $students = $this->{$this->getName()}->Student->find('list')
+            ->matching('Groups.Schedules.Sessions.Subjects.Projects', function ($q)  use ($projectID) {
+                return $q->where(['Projects.id =' => $projectID]);
+            })->toArray();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
@@ -152,10 +227,8 @@ class CompilationsController extends AppController
             $this->showErrors($entity);
         }
 
-        $families = $this->{$this->getName()}->Family->find('list')->order(['name' => 'ASC']);
-
         $this->set('tabActions', $this->getTabActions('Users', 'edit', $entity));
-        $this->set(compact('entity', 'families'));
+        $this->set(compact('entity', 'sessions', 'students'));
     }
 
     /**
@@ -178,6 +251,20 @@ class CompilationsController extends AppController
     }
 
     /**
+     * Makers method
+     *
+     * @param [int] $compilationID
+     * @return void
+     */
+    public function markers($compilationID)
+    {
+        $compilation = $this->{$this->getName()}->get($compilationID);
+        $entities = $this->{$this->getName()}->Markers->find('all')->contain(['Error', 'Session', 'Student'])->where(['compilation_id' => $compilationID])->toArray();
+
+        $this->set(compact('entities', 'compilation'));
+    }
+
+    /**
      * Function which shows the entity error's on saving
      *
      * @param [Session] $entity
@@ -192,5 +279,18 @@ class CompilationsController extends AppController
         }
 
         $this->Flash->error($errorMsg, ['escape' => false]);
+    }
+
+    /**
+     * Function which obtains the project id stored in session
+     *
+     * @return projectID
+     */
+    private function getSessionProject()
+    {
+        $session = $this->request->getSession();
+        $projectID = $session->read('Projectid');
+
+        return $projectID['projectID'];
     }
 }

@@ -48,6 +48,18 @@ class SessionsTable extends AppTable
                 'className' => 'Colmena/ErrorsManager.Languages',
             ]
         );
+
+        $this->hasMany('Markers', [
+            'foreignKey' => 'session_id',
+            'bindingKey' => 'id',
+            'className' => 'Colmena/ErrorsManager.Markers'
+        ]);
+
+        $this->hasMany('Compilations', [
+            'foreignKey' => 'session_id',
+            'bindingKey' => 'id',
+            'className' => 'Colmena/ErrorsManager.Compilations'
+        ]);
     }
 
     /**
