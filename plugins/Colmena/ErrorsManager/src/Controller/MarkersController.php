@@ -123,6 +123,7 @@ class MarkersController extends AppController
             $data = $this->request->getData();
             $user = $this->{$this->getName()}->Student->find('all')->where(['identifier' => $data['user_id']])->first();
             $error = $this->{$this->getName()}->Error->find('all')->where(['error_id' => $data['error_id']])->first();
+            $compilation = $this->{$this->getName()}->Compilation->find('all')->where(['id' => $data['compilation_id']])->first();
 
             if (!isset($user)) {
                 $user = $this->{$this->getName()}->Student->newEntity([
@@ -136,6 +137,7 @@ class MarkersController extends AppController
 
             $data['user_id'] = $user->id;
             $data['error_id'] = $error->id;
+            $data['compilation_id'] = $compilation->id ?? 0;
 
             $marker = $this->{$this->getName()}->patchEntity($marker, $data);
             $marker = $this->{$this->getName()}->save($marker);

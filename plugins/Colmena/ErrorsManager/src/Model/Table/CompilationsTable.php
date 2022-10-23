@@ -4,7 +4,6 @@ namespace Colmena\ErrorsManager\Model\Table;
 
 use App\Model\Table\AppTable;
 use Cake\Validation\Validator;
-use App\Encryption\EncryptTrait;
 
 /**
  * Student Model.

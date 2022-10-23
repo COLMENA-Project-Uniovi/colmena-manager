@@ -109,20 +109,24 @@ class CompilationsController extends AppController
      */
     public function add()
     {
-        $entity = $this->{$this->getName()}->newEmptyEntity();
+        $compilation = $this->{$this->getName()}->newEmptyEntity();
 
         if ($this->request->is('post')) {
-            $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
+            $compilation = $this->{$this->getName()}->patchEntity($compilation, $this->request->getData());
 
-            if ($this->{$this->getName()}->save($entity)) {
+            if ($this->{$this->getName()}->save($compilation)) {
                 // TODO Añadir que si el numMarkers > 1 se relacionen los markers con las compilaciones y así poder ver los markers de cada compilacion con un boton
                 $this->Flash->success('La compilación se ha guardado correctamente.');
-                return $this->redirect(['action' => 'edit', $entity->id]);
+                
             }
 
-            $this->showErrors($entity);
+            $this->showErrors($compilation);
         }
-        $this->set(compact('entity'));
+
+        $compilationID = $compilation->id;
+        
+        $this->set(compact('compilationID'));
+        $this->set('_serialize', 'compilationID');
     }
 
     /**
