@@ -4,8 +4,6 @@ namespace Colmena\UsersManager\Controller;
 
 use Colmena\AcademicalManager\Controller\AppController;
 use App\Encryption\EncryptTrait;
-use Cake\Core\Configure;
-use Cake\Http\Session;
 
 class PracticeGroupsController extends AppController
 {

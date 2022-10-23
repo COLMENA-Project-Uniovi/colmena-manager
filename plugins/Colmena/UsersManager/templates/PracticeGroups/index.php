@@ -57,7 +57,7 @@ $header = [
                                 <p><?= $entity->name; ?></p>
                             </td><!-- .td -->
                             <td class="element grow">
-                                <p><?= $entity->supervisor->name; ?></p>
+                                <p><?= $entity->supervisor->username; ?></p>
                             </td><!-- .td -->
                             <td class="element grow">
                                 <p><?= count($entity->users); ?></p>

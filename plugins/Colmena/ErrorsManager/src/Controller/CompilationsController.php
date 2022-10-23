@@ -60,6 +60,9 @@ class CompilationsController extends AppController
     public function beforeFilter(\Cake\Event\EventInterface $event)
     {
         parent::beforeFilter($event);
+        $this->Auth->allow([
+            'add'
+        ]);
     }
 
     /**
@@ -107,19 +110,17 @@ class CompilationsController extends AppController
     public function add()
     {
         $entity = $this->{$this->getName()}->newEmptyEntity();
+
         if ($this->request->is('post')) {
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
 
             if ($this->{$this->getName()}->save($entity)) {
+                // TODO Añadir que si el numMarkers > 1 se relacionen los markers con las compilaciones y así poder ver los markers de cada compilacion con un boton
                 $this->Flash->success('La compilación se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id]);
             }
 
-            $errorMsg = '<p>La compilación no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-            foreach ($entity->errors() as $error) {
-                $errorMsg .= '<p>' . $error['message'] . '</p>';
-            }
-            $this->Flash->error($errorMsg, ['escape' => false]);
+            $this->showErrors($entity);
         }
         $this->set(compact('entity'));
     }
@@ -144,13 +145,7 @@ class CompilationsController extends AppController
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
             }
 
-            $errorMsg = '<p>La compilación no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-
-            foreach ($entity->errors() as $error) {
-                $errorMsg .= '<p>' . $error['message'] . '</p>';
-            }
-
-            $this->Flash->error($errorMsg, ['escape' => false]);
+            $this->showErrors($entity);
         }
 
         $families = $this->{$this->getName()}->Family->find('list')->order(['name' => 'ASC']);
@@ -176,5 +171,22 @@ class CompilationsController extends AppController
             $this->Flash->error('La compilación no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
         }
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * Function which shows the entity error's on saving
+     *
+     * @param [Session] $entity
+     * @return void
+     */
+    private function showErrors($entity)
+    {
+        $errorMsg = '<p>La compilación no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
+
+        foreach ($entity->getErrors() as $error) {
+            $errorMsg .= '<p>' . $error['message'] . '</p>';
+        }
+
+        $this->Flash->error($errorMsg, ['escape' => false]);
     }
 }
