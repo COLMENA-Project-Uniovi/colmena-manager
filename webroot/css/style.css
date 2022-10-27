@@ -2319,14 +2319,15 @@ nav.small .logout {
   min-width: 0;
   word-wrap: break-word;
   background-color: white;
-  border-radius: 10px;
   margin-bottom: 1.5rem;
   box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05);
   height: 100%;
+  border-radius: unset !important;
 }
 .home-selector.visible .card.card-plain {
   background-color: transparent;
   box-shadow: none;
+  border: unset !important;
 }
 .home-selector.visible .card.border {
   border: 1px solid #dee2e6;
@@ -2337,6 +2338,7 @@ nav.small .logout {
   justify-content: center;
   text-align: center;
   height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.125) !important;
 }
 .home-selector.visible .card.add-project:hover {
   background-color: #AAAAAA;
@@ -2356,6 +2358,8 @@ nav.small .logout {
   justify-content: center;
   padding: 2rem;
   padding-top: 3rem;
+  background-color: #3e4450;
+  color: white;
 }
 .home-selector.visible .card .card-body {
   padding: 2rem;

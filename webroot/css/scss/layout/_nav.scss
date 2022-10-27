@@ -297,14 +297,15 @@ nav {
             min-width: 0;
             word-wrap: break-word;
             background-color: white;
-            border-radius: 10px;
             margin-bottom: 1.5rem;
             box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
             height: 100%;
+            border-radius: unset !important;
 
             &.card-plain {
                 background-color: transparent;
                 box-shadow: none;
+                border: unset !important;
             }
 
             &.border {
@@ -317,6 +318,7 @@ nav {
                 justify-content: center;
                 text-align: center;
                 height: 100%;
+                border: 1px solid rgba(0, 0, 0, .125) !important;
 
                 &:hover {
                     background-color: $gray-a;
@@ -340,6 +342,8 @@ nav {
                 justify-content: center;
                 padding: 2rem;
                 padding-top: 3rem;
+                background-color: #3e4450;
+                color: white;
             }
 
             .card-body {
