@@ -232,13 +232,21 @@ class MarkersController extends AppController
                 return $q->where(['SessionSchedules.date' => $date, 'SessionSchedules.end_hour >=' => $hour, 'SessionSchedules.start_hour <=' => $hour, 'Users.id' => $marker->user_id]);
             })->first();
 
+        $parent = $this->{$this->getName()}->find('all')->where(['id !=' => $marker->id, 'message' => $marker->message, 'session_id' => $marker->session_id, 'line_number' => $marker->line_number, 'error_id' => $marker->error_id, 'class_name' => $marker->class_name])->toArray();
+
         $newEntity = [];
         if (isset($session)) {
             $newEntity['session_id'] = $session->id;
         }
 
-        $marker = $this->{$this->getName()}->patchEntity($marker, $newEntity);
-        $marker = $this->{$this->getName()}->save($marker);
+        if (isset($parent)) {
+            $newEntity['parent_id'] = $parent->id;
+        }
+
+        if(!empty($newEntity)){
+            $marker = $this->{$this->getName()}->patchEntity($marker, $newEntity);
+            $marker = $this->{$this->getName()}->save($marker);
+        }
 
         return $marker;
     }
