@@ -24,7 +24,7 @@ class SessionsController extends AppController
 
     protected $tableButtons = [
         'Editar' => [
-            'icon' => '<i class="fas fa-edit"></i>',
+            'icon' => '<i class="far fa-edit"></i>',
             'url' => [
                 'controller' => 'Sessions',
                 'action' => 'edit',
@@ -36,7 +36,7 @@ class SessionsController extends AppController
             ]
         ],
         'Borrar' => [
-            'icon' => '<i class="fas fa-trash-alt"></i>',
+            'icon' => '<i class="far fa-trash-alt"></i>',
             'url' => [
                 'controller' => 'Sessions',
                 'action' => 'delete',
@@ -49,7 +49,7 @@ class SessionsController extends AppController
             ]
         ],
         'Markers' => [
-            'icon' => '<i class="fas fa-bug"></i>',
+            'icon' => '<i class="far fa-bug"></i>',
             'url' => [
                 'controller' => 'Sessions',
                 'action' => 'session_markers',
@@ -59,6 +59,18 @@ class SessionsController extends AppController
                 'escape' => false
             ]
         ],
+        'Compilations' => [
+            'icon' => '<i class="far fa-box"></i>',
+            'url' => [
+                'controller' => 'Sessions',
+                'action' => 'session_compilations',
+                'plugin' => 'Colmena/AcademicalManager'
+            ],
+            'options' => [
+                'escape' => false,
+                'class' => 'blue-icon',
+            ]
+        ]
     ];
 
     protected $header_actions = [
@@ -248,31 +260,28 @@ class SessionsController extends AppController
     {
         $session = $this->{$this->getName()}->get($sessionID);
         $subject = $this->{$this->getName()}->Subjects->get($subjectID);
-        
-        $markersTable = TableRegistry::getTableLocator()->get('Colmena/ErrorsManager.Markers');
-        $entities = $markersTable->find('all')->where(['session_id' => $sessionID])->contain(['Session', 'Student', 'Error'])->toArray();
+
+        $entities = $this->{$this->getName()}->Markers->find('all')->where(['session_id' => $sessionID])->contain(['Session', 'Student', 'Error'])->toArray();
 
         $this->set(compact('entities', 'session', 'subject'));
         $this->set('entities', $entities);
     }
 
-    // /**
-    //  * Method which shows the markers associated to the current session
-    //  *
-    //  * @param [int] $sessionID
-    //  * @param [int] $subjectID
-    //  * @return void
-    //  */
-    // public function sessionMarkers($sessionID, $subjectID)
-    // {
-    //     $session = $this->{$this->getName()}->Session->get($sessionID);
+    /**
+     * Method which shows the compilations associated to the current session
+     *
+     * @param [int] $sessionID
+     * @param [int] $subjectID
+     * @return void
+     */
+    public function sessionCompilations($sessionID, $subjectID)
+    {
+        $session = $this->{$this->getName()}->get($sessionID);
+        $subject = $this->{$this->getName()}->Subjects->get($subjectID);
 
-        
+        $entities = $this->{$this->getName()}->Compilations->find('all')->where(['session_id' => $sessionID])->contain(['Session', 'Student', 'Markers'])->toArray();
 
-    //     $entities = $this->{$this->getName()}->find('all')->where(['session_id' => $sessionID])->contain(['Session', 'Student', 'Error']);
-    //     $entities = $this->paginate($entities);
-
-    //     $this->set(compact('entities', 'session', 'subject'));
-    //     $this->set('entities', $entities);
-    // }
+        $this->set(compact('entities', 'session', 'subject'));
+        $this->set('entities', $entities);
+    }
 }

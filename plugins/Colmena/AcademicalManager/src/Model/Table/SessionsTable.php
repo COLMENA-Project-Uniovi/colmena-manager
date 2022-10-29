@@ -13,7 +13,7 @@ use App\Encryption\EncryptTrait;
 class SessionsTable extends AppTable
 {
     use EncryptTrait;
-    
+
     /**
      * Initialize method.
      *
@@ -34,10 +34,13 @@ class SessionsTable extends AppTable
             ]
         );
 
-        $this->hasMany('SessionSchedules', [
-            'foreignKey' => 'session_id',
-            'className' => 'Colmena/AcademicalManager.SessionSchedules'
-        ]);
+        $this->hasMany(
+            'SessionSchedules',
+            [
+                'foreignKey' => 'session_id',
+                'className' => 'Colmena/AcademicalManager.SessionSchedules'
+            ]
+        );
 
         $this->belongsTo(
             'Languages',
@@ -45,6 +48,18 @@ class SessionsTable extends AppTable
                 'className' => 'Colmena/ErrorsManager.Languages',
             ]
         );
+
+        $this->hasMany('Markers', [
+            'foreignKey' => 'session_id',
+            'bindingKey' => 'id',
+            'className' => 'Colmena/ErrorsManager.Markers'
+        ]);
+
+        $this->hasMany('Compilations', [
+            'foreignKey' => 'session_id',
+            'bindingKey' => 'id',
+            'className' => 'Colmena/ErrorsManager.Compilations'
+        ]);
     }
 
     /**

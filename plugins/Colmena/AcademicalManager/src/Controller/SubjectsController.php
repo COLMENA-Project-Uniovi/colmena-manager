@@ -26,7 +26,7 @@ class SubjectsController extends AppController
 
     protected $tableButtons = [
         'Editar' => [
-            'icon' => '<i class="fas fa-edit"></i>',
+            'icon' => '<i class="far fa-edit"></i>',
             'url' => [
                 'controller' => 'Subjects',
                 'action' => 'edit',
@@ -133,9 +133,10 @@ class SubjectsController extends AppController
      */
     public function add()
     {
-        $project = $this->getSessionProject();
+        $projectID = $this->getSessionProject();
+        $project = $this->{$this->getName()}->Projects->find('all')->where(["id" => $projectID])->first();
         $entity = $this->{$this->getName()}->newEmptyEntity();
-        $academicalYears = $this->{$this->getName()}->Year->find('all');
+        $academicalYears = $this->{$this->getName()}->AcademicalYear->find('list')->toArray();
 
         if ($this->request->is('post')) {
             $data = $this->request->getData();

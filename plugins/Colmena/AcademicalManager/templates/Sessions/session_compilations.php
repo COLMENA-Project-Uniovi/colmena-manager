@@ -15,18 +15,43 @@ $this->Breadcrumbs->add('Sesiones', [
     'action' => 'index',
     $subject->id
 ]);
-$this->Breadcrumbs->add('Markers', [
-    'plugin' => 'Colmena/AcademicalManager',
-    'controller' => 'Sessions',
-    'action' => 'session_markers',
-    $session->id,
-    $subject->id
+$this->Breadcrumbs->add('Compilaciones', [
+    'plugin' => 'Colmena/ErrorsManager',
+    'controller' => 'Compilations',
+    'action' => 'index'
 ]);
 
 $header = [
-    'title' => 'Markers de la sesión',
+    'title' => 'Compilaciones de la sesión',
     'breadcrumbs' => true,
 ];
+$tableButtons = [
+    'Editar' => [
+        'icon' => '<i class="far fa-edit"></i>',
+        'url' => [
+            'controller' => 'Compilations',
+            'action' => 'edit',
+            'plugin' => 'Colmena/ErrorsManager'
+        ],
+        'options' => [
+            'class' => 'green-icon',
+            'escape' => false
+        ]
+    ],
+    'Borrar' => [
+        'icon' => '<i class="fas fa-trash"></i>',
+        'url' => [
+            'controller' => 'Compilations',
+            'action' => 'delete',
+            'plugin' => 'Colmena/ErrorsManager'
+        ],
+        'options' => [
+            'confirm' => '¿Estás seguro de que quieres eliminar El marker?',
+            'class' => 'red-icon',
+            'escape' => false
+        ]
+    ]
+]
 ?>
 
 <?= $this->element("header", $header); ?>
@@ -37,60 +62,64 @@ $header = [
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
             <div>
-                <table class="table table-bordered table-hover">
-                    <thead class="thead-dark">
+                <table class="table">
+                    <thead>
                         <tr>
-                            <th scope="col">Usuario</th><!-- .th -->
-                            <th scope="col">Mensaje</th><!-- .th -->
-                            <th scope="col">Género</th><!-- .th -->
-                            <th scope="col">Fecha de creación</th><!-- .th -->
+                            <th class="medium">
+                                Nombre del alumno
+                            </th><!-- .th -->
+                            <th class="grow">
+                                Sesión
+                            </th><!-- .th -->
+                            <th class="grow">
+                                Tipo
+                            </th><!-- .th -->
+                            <th class="grow">
+                                Proyecto
+                            </th><!-- .th -->
+                            <th class="grow">
+                                Número de markers
+                            </th><!-- .th -->
                             <?php
                             if (!empty($tableButtons)) {
                             ?>
-                                <th scope="col">Operaciones</th><!-- .th -->
+                                <th class="actions short">
+                                    Operaciones
+                                </th><!-- .th -->
                             <?php
                             }
                             ?>
-                        </tr>
-                    </thead>
-                    <tbody>
+                        </tr><!-- .tr -->
+                    </thead><!-- .thead -->
+                    <tbody class="elements">
                         <?php
                         foreach ($entities as $entity) {
+                            $sessionName = $entity->session->name ?? '-- Sin asignar --';
                         ?>
                             <tr>
-                                <th scope="row">
-                                    <?php
-                                    if ($entity->user_id != 0) {
-                                        $name = $entity->student->name != '' && $entity->student->name != '-' ? $entity->student->name . ' ' . $entity->student->surname . ' ' . $entity->student->surname2 : $entity->student->identifier;
-                                    ?>
-                                        <a href="/admin/users-manager/users/edit/<?= $entity->user_id ?>" class="user"><?= $name ?></a>
-                                    <?php
-                                    }
-                                    ?>
-                                </th>
-
-                                <td scope="col">
-                                    <?= $entity->message; ?>
+                                <td class="element medium">
+                                    <p><?= $entity->student->name ?></p>
                                 </td><!-- .td -->
-
-                                <td scope="col">
-                                    <?= $entity->gender; ?>
+                                <td class="element grow">
+                                    <p><?= $sessionName ?></p>
                                 </td><!-- .td -->
-
-                                <td scope="col">
-                                    <?= $entity->timestamp; ?>
+                                <td class="element grow">
+                                    <p><?= $entity->type; ?></p>
                                 </td><!-- .td -->
-
+                                <td class="element grow">
+                                    <p><?= $entity->project_name; ?></p>
+                                </td><!-- .td -->
+                                <td class="element grow">
+                                    <p><?= $entity->num_markers; ?></p>
+                                </td><!-- .td -->
                                 <?php
                                 if (!empty($tableButtons)) {
                                 ?>
-                                    <td class="actions" scope="col">
+                                    <td class="actions">
                                         <div class="td-content">
                                             <?php
                                             foreach ($tableButtons as $key => $value) {
                                                 array_push($value['url'], $entity->id);
-                                            ?>
-                                            <?php
                                                 if ($value['url']['action'] != 'delete') {
                                                     echo $this->Html->link(
                                                         $value['icon'],
@@ -115,8 +144,8 @@ $header = [
                         <?php
                         }
                         ?>
-                    </tbody>
-                </table>
+                    </tbody><!-- .tbody -->
+                </table><!-- .table -->
             </div>
         <?php
         } else {

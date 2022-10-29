@@ -87,7 +87,8 @@ $header = [
                 'project_id',
                 [
                     'label' => 'Proyecto',
-                    'type' => 'number',
+                    'type' => 'text',
+                    'value' => $entity->project->name,
                     'disabled' => true
                 ]
             ); ?>

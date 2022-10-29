@@ -27,7 +27,7 @@ class ErrorExamplesController extends AppController
 
     protected $tableButtons = [
         'Editar' => [
-            'icon' => '<i class="fas fa-edit"></i>',
+            'icon' => '<i class="far fa-edit"></i>',
             'url' => [
                 'controller' => 'ErrorExamples',
                 'action' => 'edit',
@@ -84,17 +84,7 @@ class ErrorExamplesController extends AppController
             ];
         }
 
-        $entities = $this->{$this->getName()}->find('all')
-            ->matching('Users', function ($q) {
-                return $q->where(
-                    ['Users.id' => $this->Auth->user('id')]
-                );
-            })
-            ->matching('Errors', function ($q) use ($errorID) {
-                return $q->where(
-                    [$this->getName() . '.error_id' => $errorID]
-                );
-            })->toArray();
+        $entities = $this->{$this->getName()}->find('all')->contain(['Errors'])->where(['user_id' => $this->Auth->user('id'), $this->getName() . '.error_id' => $errorID])->toArray();
 
         $this->set('header_actions', $this->getHeaderActions());
         $this->set('tableButtons', $this->getTableButtons());

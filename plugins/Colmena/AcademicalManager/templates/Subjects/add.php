@@ -15,7 +15,7 @@ $header = [
 ?>
 
 <?= $this->element("header", $header); ?>
-<div class="content px-4">
+<div class="content p-4">
     <?= $this->Form->create(
         $entity,
         [
@@ -29,54 +29,50 @@ $header = [
             <?= $this->Form->control(
                 'name',
                 [
-                    'label' => 'Nombre de la asignatura',
+                    'label' => 'Nombre',
                     'type' => 'text'
                 ]
             ); ?>
             <?= $this->Form->control(
                 'description',
                 [
-                    'label' => 'Descripción de la asignatura',
-                    'type' => 'textarea',
+                    'label' => 'Descripción',
+                    'type' => 'textarea'
+                ]
+            ); ?>
+
+            <?= $this->Form->control(
+                'academical_year_id',
+                [
+                    'label' => 'Año académico',
+                    'options' => $academicalYears,
+                    'empty' => '---- Selecciona el año académico ----',
                     'templateVars' => [
-                        'max' =>  200
+                        'help' => 'Selecciona el año académico'
                     ]
                 ]
             ); ?>
+
             <?= $this->Form->control(
                 'semester',
                 [
-                    'label' => 'Semestre de la asignatura',
+                    'label' => 'Semestre',
                     'type' => 'number'
                 ]
             ); ?>
-            <?= $this->Form->control(
-                'year',
-                [
-                    'label' => 'Año de la asignatura',
-                    'type' => 'number'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'year_id',
-                [
-                    'label' => 'Año académico',
-                    'type' => 'text',
-                    'value' => $academicalYears,
-                    'disabled' => 'disabled'
-                ]
-            ); ?>
+
             <?= $this->Form->control(
                 'start_date',
                 [
-                    'label' => 'Fecha de inicio de la asignatura',
+                    'label' => 'Fecha de inicio',
                     'type' => 'date'
                 ]
             ); ?>
+
             <?= $this->Form->control(
                 'end_date',
                 [
-                    'label' => 'Fecha de fin de la asignatura',
+                    'label' => 'Fecha de fin',
                     'type' => 'date'
                 ]
             ); ?>
@@ -90,7 +86,7 @@ $header = [
                 [
                     'label' => 'Proyecto',
                     'type' => 'text',
-                    'value' => $project,
+                    'value' => $project->name,
                     'disabled' => 'disabled'
                 ]
             ); ?>

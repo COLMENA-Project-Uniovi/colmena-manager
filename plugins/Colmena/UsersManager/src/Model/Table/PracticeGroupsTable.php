@@ -47,6 +47,13 @@ class PracticeGroupsTable extends AppTable
             'foreignKey' => 'practice_group_id',
             'bindingKey' => 'id'
         ]);
+
+        $this->belongsTo(
+            'Supervisor',
+            [
+                'className' => 'AdminUsers',
+            ]
+        );
     }
 
     /**
@@ -61,16 +68,5 @@ class PracticeGroupsTable extends AppTable
         $validator = parent::validateId($validator);
         $validator = parent::validateField('name', $validator);
         return $validator;
-    }
-
-
-    public function login($data = null)
-    {
-        if (!isset($data) || empty($data)) {
-            throw new InvalidArgumentException('Invalid login data');
-        }
-        $user = $this->find('all')->where(['email' => $data])->first();
-
-        return $user;
     }
 }

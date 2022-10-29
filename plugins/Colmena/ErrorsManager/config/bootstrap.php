@@ -97,7 +97,10 @@ Configure::write('Colmena/ErrorsManager.api_entities', [
     ],
     'Colmena/ErrorsManager.ErrorExamples' => [
         'order' => 3,
-    ]
+    ],
+    'Colmena/ErrorsManager.Compilations' => [
+        'order' => 4,
+    ],
 ]);
 
 /*

@@ -20,6 +20,7 @@ $header = [
 ?>
 
 <?= $this->element("header", $header); ?>
+<?= $this->element('paginator'); ?>
 
 <div class="content px-4">
     <div class="results">
@@ -27,27 +28,30 @@ $header = [
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
             <table class="table">
-                <thead class="thead">
-                    <tr class="tr">
-                        <th class="th medium">
-                            Id de la compilacion
+                <thead>
+                    <tr>
+                        <th class="grow">
+                            Nombre del alumno
                         </th><!-- .th -->
-                        <th class="th medium">
-                            Id del alumno
-                        </th><!-- .th -->
-                        <th class="th grow">
+                        <th class="grow">
                             Sesión
                         </th><!-- .th -->
-                        <th class="th grow">
+                        <th class="grow">
                             Tipo
                         </th><!-- .th -->
-                        <th class="th grow">
+                        <th class="grow">
                             Proyecto
+                        </th><!-- .th -->
+                        <th class="grow">
+                            Fecha
+                        </th><!-- .th -->
+                        <th class="grow">
+                            Número de markers
                         </th><!-- .th -->
                         <?php
                         if (!empty($tableButtons)) {
                         ?>
-                            <th class="th actions short">
+                            <th class="actions short">
                                 Operaciones
                             </th><!-- .th -->
                         <?php
@@ -55,30 +59,34 @@ $header = [
                         ?>
                     </tr><!-- .tr -->
                 </thead><!-- .thead -->
-                <tbody class="tbody elements">
+                <tbody class="elements">
                     <?php
                     foreach ($entities as $entity) {
+                        $sessionName = $entity->session->name ?? '-- Sin asignar --';
                     ?>
-                        <tr class="tr">
-                            <td class="td element grow">
-                                <p><?= $entity->id; ?></p>
+                        <tr>
+                            <td class="element">
+                                <p><?= $entity->student->name ?></p>
                             </td><!-- .td -->
-                            <td class="td element medium">
-                                <p><?= $entity->user_id ?></p>
+                            <td class="element">
+                                <p><?= $sessionName ?></p>
                             </td><!-- .td -->
-                            <td class="td element grow">
-                                <p><?= $entity->session_id; ?></p>
-                            </td><!-- .td -->
-                            <td class="td element grow">
+                            <td class="element">
                                 <p><?= $entity->type; ?></p>
                             </td><!-- .td -->
-                            <td class="td element grow">
+                            <td class="element">
                                 <p><?= $entity->project_name; ?></p>
+                            </td><!-- .td -->
+                            <td class="element">
+                                <p><?= $entity->timestamp; ?></p>
+                            </td><!-- .td -->
+                            <td class="element">
+                                <p><?= $entity->num_markers; ?></p>
                             </td><!-- .td -->
                             <?php
                             if (!empty($tableButtons)) {
                             ?>
-                                <td class="td actions">
+                                <td class="actions">
                                     <div class="td-content">
                                         <?php
                                         foreach ($tableButtons as $key => $value) {
