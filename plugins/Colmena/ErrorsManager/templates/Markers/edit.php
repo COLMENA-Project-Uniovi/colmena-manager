@@ -93,8 +93,7 @@ $header = [
                 ); ?>
             </div>
             <div class="flex-blocks two">
-                <?php
-                echo $this->Form->control(
+                <?= $this->Form->control(
                     'session_id',
                     [
                         'label' => 'Sesión del marker',
@@ -107,8 +106,7 @@ $header = [
                 );
                 ?>
 
-                <?php
-                echo $this->Form->control(
+                <?= $this->Form->control(
                     'user_id',
                     [
                         'label' => 'Estudiante',
@@ -122,6 +120,19 @@ $header = [
                 ?>
             </div>
         </div><!-- .form-block -->
+
+        <div class="form-block">
+            <h3>Código del marcador</h3>
+            <?= $this->Form->control(
+                'source',
+                [
+                    'label' => 'Código del marker',
+                    'type' => 'textarea',
+                    'class' => 'codeeditor',
+                    'help' => 'Introduce el código erróneo'
+                ]
+            ); ?>
+        </div>
     </div>
     <?= $this->element("form/save-block"); ?>
     <?= $this->Form->end(); ?>

@@ -134,6 +134,7 @@ class MarkersController extends AppController
                 $user = $this->{$this->getName()}->Student->save($user);
             }
 
+            $data['source'] = isset($data['source']) ? base64_decode($data['source']) : '';
             $data['user_id'] = $user->id;
             $data['error_id'] = $error->id;
             $data['compilation_id'] = $compilation->id ?? 0;
@@ -232,7 +233,22 @@ class MarkersController extends AppController
                 return $q->where(['SessionSchedules.date' => $date, 'SessionSchedules.end_hour >=' => $hour, 'SessionSchedules.start_hour <=' => $hour, 'Users.id' => $marker->user_id]);
             })->first();
 
-        $parent = $this->{$this->getName()}->find('all')->where(['id !=' => $marker->id, 'message' => $marker->message, 'session_id' => $marker->session_id, 'line_number' => $marker->line_number, 'error_id' => $marker->error_id, 'class_name' => $marker->class_name])->toArray();
+        $conditions = [
+            'id !=' => $marker->id,
+            'message' => $marker->message,
+            'line_number' => $marker->line_number,
+            'error_id' => $marker->error_id,
+            'class_name' => $marker->class_name
+        ];
+
+        if (isset($marker->session_id)) {
+            array_push($conditions, [
+                'session_id' => $marker->session_id
+            ]);
+        }
+
+        $parent = $this->{$this->getName()}->find('all')
+            ->where($conditions)->first();
 
         $newEntity = [];
         if (isset($session)) {
@@ -243,7 +259,7 @@ class MarkersController extends AppController
             $newEntity['parent_id'] = $parent->id;
         }
 
-        if(!empty($newEntity)){
+        if (!empty($newEntity)) {
             $marker = $this->{$this->getName()}->patchEntity($marker, $newEntity);
             $marker = $this->{$this->getName()}->save($marker);
         }
