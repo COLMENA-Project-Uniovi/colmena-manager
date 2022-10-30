@@ -4,7 +4,6 @@ namespace Colmena\ErrorsManager\Model\Table;
 
 use App\Model\Table\AppTable;
 use Cake\Validation\Validator;
-use App\Encryption\EncryptTrait;
 
 /**
  * Student Model.
@@ -25,6 +24,32 @@ class CompilationsTable extends AppTable
         $this->setTable('em_compilations');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
+
+        // User entity relation
+        $this->belongsTo(
+            'Student',
+            [
+                'className' => 'Colmena/UsersManager.Users',
+            ]
+        )->setForeignKey('user_id');
+
+        // Marker entity relation
+        $this->hasMany(
+            'Markers',
+            [
+                'foreignKey' => 'compilation_id',
+                'bindingKey' => 'id',
+                'className' => 'Colmena/ErrorsManager.Markers'
+            ]
+        );
+
+        // Session entity relation
+        $this->belongsTo(
+            'Session',
+            [
+                'className' => 'Colmena/AcademicalManager.Sessions',
+            ]
+        );
     }
 
     /**

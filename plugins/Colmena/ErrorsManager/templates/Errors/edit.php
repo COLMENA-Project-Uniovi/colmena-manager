@@ -16,7 +16,7 @@ $header_actions = [
             'controller' => 'ErrorExamples',
             'plugin' => 'Colmena/ErrorsManager',
             'action' => 'index',
-            $entity->error_id
+            $entity->id
         ]
     ]
 ];
@@ -80,7 +80,8 @@ $header = [
                 'reference',
                 [
                     'label' => 'Referencia del error',
-                    'type' => 'textarea'
+                    'type' => 'textarea',
+                    'class' => 'texteditor',
                 ]
             ); ?>
 
@@ -91,7 +92,7 @@ $header = [
                     'type' => 'text'
                 ]
             ); ?>
-            
+
             <?= $this->Form->control(
                 'problema_reason',
                 [

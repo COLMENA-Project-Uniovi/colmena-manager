@@ -1,36 +1,53 @@
 <?php
 
+use Cake\Utility\Inflector;
 
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add('Asignaturas', [
-    'controller' => 'Subjects',
+$this->Breadcrumbs->add(ucfirst($entityNamePlural), [
+    'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
-$this->Breadcrumbs->add($subject->name, [
-    'controller' => 'Subjects',
-    'action' => 'edit', $subject->id
-]);
-$this->Breadcrumbs->add('Sesiones', [
-    'controller' => 'Sessions',
-    'action' => 'index',
-    $subject->id
-]);
+
 $this->Breadcrumbs->add('Markers', [
-    'plugin' => 'Colmena/AcademicalManager',
-    'controller' => 'Sessions',
-    'action' => 'session_markers',
-    $session->id,
-    $subject->id
+    'controller' => 'Markers',
+    'action' => 'index'
 ]);
 
 $header = [
-    'title' => 'Markers de la sesión',
-    'breadcrumbs' => true,
+    'title' => 'Markers de la compilación',
+    'breadcrumbs' => true
 ];
+
+$tableButtons = [
+    'Editar' => [
+        'icon' => '<i class="far fa-edit"></i>',
+        'url' => [
+            'controller' => 'Markers',
+            'action' => 'edit',
+            'plugin' => 'Colmena/ErrorsManager'
+        ],
+        'options' => [
+            'class' => 'green-icon',
+            'escape' => false
+        ]
+    ],
+    'Borrar' => [
+        'icon' => '<i class="fas fa-trash"></i>',
+        'url' => [
+            'controller' => 'Markers',
+            'action' => 'delete',
+            'plugin' => 'Colmena/ErrorsManager'
+        ],
+        'options' => [
+            'confirm' => '¿Estás seguro de que quieres eliminar El marker?',
+            'class' => 'red-icon',
+            'escape' => false
+        ]
+    ]
+]
 ?>
 
 <?= $this->element("header", $header); ?>
-
 <div class="content p-4">
     <div class="results">
         <?php
@@ -44,6 +61,7 @@ $header = [
                             <th scope="col">Mensaje</th><!-- .th -->
                             <th scope="col">Género</th><!-- .th -->
                             <th scope="col">Fecha de creación</th><!-- .th -->
+                            <th scope="col">Sesión</th><!-- .th -->
                             <?php
                             if (!empty($tableButtons)) {
                             ?>
@@ -56,6 +74,7 @@ $header = [
                     <tbody>
                         <?php
                         foreach ($entities as $entity) {
+                            $msg = isset($entity->session) ? $entity->session->name : '-- Sin asignar --'
                         ?>
                             <tr>
                                 <th scope="row">
@@ -79,6 +98,10 @@ $header = [
 
                                 <td scope="col">
                                     <?= $entity->timestamp; ?>
+                                </td><!-- .td -->
+
+                                <td scope="col">
+                                    <?= $msg; ?>
                                 </td><!-- .td -->
 
                                 <?php

@@ -25,7 +25,7 @@ class ErrorsController extends AppController
 
     protected $tableButtons = [
         'Editar' => [
-            'icon' => '<i class="fas fa-edit"></i>',
+            'icon' => '<i class="far fa-edit"></i>',
             'url' => [
                 'controller' => 'Errors',
                 'action' => 'edit',

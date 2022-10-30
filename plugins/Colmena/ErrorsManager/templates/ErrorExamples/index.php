@@ -20,27 +20,27 @@ $header = [
 
 <?= $this->element("header", $header); ?>
 
-<div class="content px-4">
+<div class="content p-4">
     <div class="results">
         <?php
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
             <table class="table">
-                <thead class="thead">
-                    <tr class="tr">
-                        <th class="th medium">
+                <thead>
+                    <tr>
+                        <th class="medium">
                             Nombre del error
                         </th><!-- .th -->
-                        <th class="th medium">
+                        <th class="medium">
                             Id del error
                         </th><!-- .th -->
-                        <th class="th grow">
+                        <th class="grow">
                             Explicación
                         </th><!-- .th -->
                         <?php
                         if (!empty($tableButtons)) {
                         ?>
-                            <th class="th actions short">
+                            <th class="actions short">
                                 Operaciones
                             </th><!-- .th -->
                         <?php
@@ -48,18 +48,18 @@ $header = [
                         ?>
                     </tr><!-- .tr -->
                 </thead><!-- .thead -->
-                <tbody class="tbody elements">
+                <tbody class="elements">
                     <?php
                     foreach ($entities as $entity) {
                     ?>
-                        <tr class="tr">
-                            <td class="td element medium">
+                        <tr>
+                            <td class="element medium">
                                 <p><?= $entity->name ?></p>
                             </td><!-- .td -->
-                            <td class="td element medium">
-                                <p><?= $entity->error_id ?></p>
+                            <td class="element medium">
+                                <p><?= $entity->error->error_id ?></p>
                             </td><!-- .td -->
-                            <td class="td element grow">
+                            <td class="element grow">
                                 <p><?= $entity->explanation; ?></p>
                             </td><!-- .td -->
                             <?php

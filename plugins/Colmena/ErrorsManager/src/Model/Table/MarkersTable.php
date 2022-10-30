@@ -46,6 +46,14 @@ class MarkersTable extends AppTable
                 'className' => 'Colmena/ErrorsManager.Errors',
             ]
         );
+
+        // Error entity relation
+        $this->belongsTo(
+            'Compilation',
+            [
+                'className' => 'Colmena/ErrorsManager.Compilations',
+            ]
+        );
     }
 
     /**

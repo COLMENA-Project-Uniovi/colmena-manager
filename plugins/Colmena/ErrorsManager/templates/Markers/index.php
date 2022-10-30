@@ -19,12 +19,12 @@ $header = [
 
 <?= $this->element("header", $header); ?>
 <?= $this->element('paginator'); ?>
-<div class="content px-4">
+<div class="content px-4 pb-4">
     <div class="results">
         <?php
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
-            <div class="table">
+            <div>
                 <table class="table table-bordered table-hover">
                     <thead class="thead-dark">
                         <tr>
@@ -45,13 +45,13 @@ $header = [
                     <tbody>
                         <?php
                         foreach ($entities as $entity) {
-                            $msg = isset($entity->sesion_id) ? $entity->sesion_id : 'REVISAR'
+                            $msg = isset($entity->session) ? $entity->session->name : '-- Sin asignar --'
                         ?>
                             <tr>
                                 <th scope="row">
                                     <?php
                                     if ($entity->user_id != 0) {
-                                        $name = $entity->student->name != '' && $entity->student->name != '-' ? $entity->student->name. ' ' . $entity->student->surname. ' ' . $entity->student->surname2 : $entity->student->identifier;
+                                        $name = $entity->student->name != '' && $entity->student->name != '-' ? $entity->student->name . ' ' . $entity->student->surname . ' ' . $entity->student->surname2 : $entity->student->identifier;
                                     ?>
                                         <a href="/admin/users-manager/users/edit/<?= $entity->user_id ?>" class="user"><?= $name ?></a>
                                     <?php

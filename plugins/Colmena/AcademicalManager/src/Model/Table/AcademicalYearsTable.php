@@ -26,18 +26,6 @@ class AcademicalYearsTable extends AppTable
         $this->setTable('acm_academical_years');
         $this->setDisplayField('title');
         $this->setPrimaryKey('id');
-
-        // $this->belongsTo(
-        //     'Projects',
-        //     [
-        //         'className' => 'Colmena/AcademicalManager.Projects',
-        //     ]
-        // );
-
-        // $this->hasMany('Sessions', [
-        //     'foreignKey' => 'subject_id',
-        //     'className' => 'Colmena/AcademicalManager.Sessions'
-        // ]);
     }
 
     /**

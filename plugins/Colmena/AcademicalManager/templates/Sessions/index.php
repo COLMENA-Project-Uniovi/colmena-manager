@@ -12,6 +12,12 @@ $this->Breadcrumbs->add($subject->name, [
     'action' => 'edit', $subject->id
 ]);
 
+$this->Breadcrumbs->add('Sesiones', [
+    'controller' => 'Sessions',
+    'action' => 'index', 
+    $subject->id
+]);
+
 array_push($header_actions['Añadir sesión']['url'], $subject->id);
 
 $header = [
@@ -66,7 +72,7 @@ $header = [
                             if (!empty($tableButtons)) {
                             ?>
                                 <td class="actions">
-                                    <div class="td-content">
+                                    <div class="td-content" style="width: 50%;">
                                         <?php
                                         foreach ($tableButtons as $key => $value) {
                                             array_push($value['url'], $entity->id);

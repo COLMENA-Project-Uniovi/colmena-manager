@@ -29,18 +29,16 @@ $logo = $this->Html->image(
             <span class="focus-input100" data-placeholder="Contraseña"></span>
         </div>
 
-        <div class="buttons" style="display: flex;align-items: center;justify-content: space-between;">
+        <div class="buttons">
             <div class="container-login100-form-btn">
                 <div class="wrap-login100-form-btn">
                     <div class="login100-form-bgbtn"></div>
                     <input type="submit" class="login100-form-btn" value="Acceder">
                 </div>
             </div>
-            
-            <div class="container-register100-form-btn">
-                <div class="wrap-register100-form-btn">
-                    <a class="register100-form-btn" href="./register">Registrarse</a>
-                </div>
+
+            <div class="register100-form-btn">
+                ¿Aún no te has registrado? <a href="./register"> Regístrate</a>
             </div>
         </div>
         <?= $this->Form->end(); ?>

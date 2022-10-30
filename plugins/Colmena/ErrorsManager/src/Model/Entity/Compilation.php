@@ -38,6 +38,5 @@ class Compilation extends Entity
      * @var array
      */
     protected $_hidden = [
-        'id'
     ];
 }

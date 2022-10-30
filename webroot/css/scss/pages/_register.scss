@@ -7,7 +7,7 @@
         background: white;
         border: 1px solid rgba(254, 254, 254, 0.18);
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        border-radius: 10px;
+        border-radius: $border-radius-size;
         overflow: hidden;
         padding: 60px 60px;
         position: absolute;
@@ -58,66 +58,54 @@
                     background: transparent;
                     padding: 0 5px;
                     border: 1px solid $gray-a;
-                    border-radius: 10px;
+                    border-radius: $border-radius-size;
+                }
+            }
+
+            .buttons {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: $gap;
+
+                .container-register100-form-btn {
+                    .wrap-register100-form-btn {
+                        .register100-form-btn {
+                            font-size: 18px;
+                            color: #fff;
+                            letter-spacing: 1.1px;
+                            justify-content: center;
+                            padding: 10px 20px;
+                            width: 100%;
+                            cursor: pointer;
+                            background-color: $orange;
+                            border: 1px solid $orange;
+                            border-radius: $border-radius-size;
+
+                            &:hover {
+                                background-color: white;
+                                color: $orange;
+                                transition: all 0.2s ease-out;
+                            }
+                        }
+                    }
                 }
 
-                .focus-input100 {
-                    position: absolute;
-                    display: block;
-                    width: 100%;
-                    height: 100%;
-                    top: 0;
-                    left: 0;
-                    pointer-events: none;
+                .login100-form-btn {
+                    color: $navGray;
 
-                    &::before {
-                        content: "";
-                        display: block;
-                        position: absolute;
-                        bottom: -2px;
-                        left: 0;
-                        width: 0;
-                        height: 2px;
-                        transition: all 0.4s;
-                        background: $orange;
-                    }
+                    a {
+                        transition: all 0.2s ease-out;
+                        color: $orange;
 
-                    ::after {
-                        font-size: 15px;
-                        color: #505050;
-                        line-height: 1.2;
-                        font-weight: 700;
-                        content: attr(data-placeholder);
-                        display: block;
-                        width: 100%;
-                        position: absolute;
-                        top: 16px;
-                        left: 0px;
-                        padding-left: 5px;
-                        transition: all 0.4s;
+                        &:hover {
+                            color: $gray-a;
+                            transition: all 0.2s ease-out;
+                        }
                     }
                 }
             }
         }
-    }
-}
-
-.register100-form-btn {
-    font-size: 18px;
-    color: #fff;
-    letter-spacing: 1.1px;
-    justify-content: center;
-    padding: 10px 20px;
-    width: 100%;
-    cursor: pointer;
-    background-color: $orange;
-    border: 1px solid $orange;
-    border-radius: 10px;
-
-    &:hover {
-        background-color: white;
-        color: $orange;
-        transition: all 0.2s ease-out;
     }
 }
 

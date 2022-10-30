@@ -26,7 +26,7 @@ class AdminUsersTable extends AppTable
 
 
         $this->setTable('admin_users');
-        $this->setDisplayField('id');
+        $this->setDisplayField('username');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
