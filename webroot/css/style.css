@@ -5,6 +5,7 @@
 /* ------- TYPOGRAPHY ------- */
 /* -------------------------- */
 @import url(https://fonts.googleapis.com/css?family=Roboto:100,100italic,300,300italic,400,400italic,500,500italic,700,700italic,900,900italic);
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap");
 /* -------------------------- */
 @-webkit-keyframes arrow-up {
   from {
@@ -124,7 +125,7 @@ body {
   min-height: 100%;
   height: 100%;
   font-size: 14px;
-  font-family: "Raleway", sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: 300;
   line-height: 1.2em;
   background: #f3f4f6;
@@ -135,7 +136,7 @@ body {
 }
 
 #container {
-  background-color: #F4F4F4;
+  background-color: white;
 }
 
 body.lock {
@@ -177,6 +178,8 @@ a {
 /* ----- CONTENT LAYOUT ----- */
 /* -------------------------- */
 .paginator {
+  display: flex;
+  justify-content: center;
   margin-bottom: 5px;
   text-align: right;
   font-size: 1.2em;
@@ -187,30 +190,33 @@ a {
 }
 .paginator li a {
   display: inline-block;
-  padding: 5px;
+  padding: 10px 20px;
+  border-radius: 0.7em;
+  color: #3e4550;
   transition: all 0.2s ease-out;
 }
 .paginator li a:hover {
   color: #FFFFFF;
-  background-color: #999999;
+  background-color: #F3933D;
+  text-decoration: none;
 }
 .paginator li.active {
   color: #FFFFFF;
-  background-color: #666666;
+  background-color: #F3933D;
+  border-radius: 0.7em;
 }
 .paginator li.active a {
   color: #FFFFFF;
+  border-radius: 0.7em;
 }
-.paginator li.disabled {
-  display: none;
+.paginator li.active a:hover {
+  color: #FFFFFF;
+  background-color: #F3933D;
+  text-decoration: none;
 }
 .paginator li.disabled a {
   color: #DDDDDD;
   background-color: transparent;
-}
-
-.block.resume.guests .input.number {
-  justify-content: center;
 }
 
 .results .top-results {
@@ -251,66 +257,9 @@ a {
 }
 .results table th,
 .results table td {
-  padding: 20px;
+  padding: 15px;
   text-align: left;
   vertical-align: middle;
-  border-bottom: 1px solid #DDDDDD;
-}
-.results table th:last-child,
-.results table td:last-child {
-  border-right: none;
-}
-.results table th.center,
-.results table td.center {
-  text-align: center !important;
-}
-.results table th.boolean,
-.results table td.boolean {
-  width: 130px;
-  text-align: center !important;
-}
-.results table th.sort,
-.results table td.sort {
-  width: 65px;
-  text-align: center !important;
-}
-.results table th.date,
-.results table td.date {
-  width: 150px;
-  text-align: center !important;
-}
-.results table th.medium-left,
-.results table td.medium-left {
-  width: 350px;
-}
-.results table th.medium,
-.results table td.medium {
-  width: 350px;
-  text-align: center !important;
-}
-.results table th.small,
-.results table td.small {
-  width: 250px;
-  text-align: center !important;
-}
-.results table th.tiny,
-.results table td.tiny {
-  width: 160px;
-  text-align: center !important;
-}
-.results table th.status,
-.results table td.status {
-  width: 130px;
-  text-align: center !important;
-}
-.results table th.image,
-.results table td.image {
-  width: 100px;
-}
-.results table th.arrow,
-.results table td.arrow {
-  width: 60px;
-  padding: 0;
 }
 .results table th.actions,
 .results table td.actions {
@@ -322,40 +271,15 @@ a {
 .results table td.actions.short {
   min-width: 0;
 }
-.results table th.sortable,
-.results table td.sortable {
-  text-align: center;
-}
-.results table th.sortable a,
-.results table td.sortable a {
-  padding-right: 40px;
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-image: url(../img/style/ordenable.png);
-}
-.results table th.sortable a.asc, .results table th.sortable a.desc.locked,
-.results table td.sortable a.asc,
-.results table td.sortable a.desc.locked {
-  background-image: url(../img/style/arrow_up.png);
-}
-.results table th.sortable a.desc, .results table th.sortable a.asc.locked,
-.results table td.sortable a.desc,
-.results table td.sortable a.asc.locked {
-  background-image: url(../img/style/arrow_down.png);
-}
-.results table th.key,
-.results table td.key {
-  width: 250px;
-}
 .results table thead {
-  background-color: #F4F4F4;
+  background-color: #3e4550;
+  color: white;
 }
 .results table thead th {
-  padding: 10px 20px;
-  color: #3e4550;
+  padding: 1rem 2rem;
   text-align: start;
-  font-weight: 600;
-  text-transform: uppercase;
+  font-weight: 500;
+  border: unset;
 }
 .results table thead th.fa-wrapper {
   font-size: 20px;
@@ -366,8 +290,21 @@ a {
 .results table thead th a:hover {
   text-decoration: underline;
 }
+.results table thead th:first-child {
+  padding: 1rem 2rem;
+}
 .results table tbody tr {
   background-color: white;
+}
+.results table tbody tr:nth-child(1n) {
+  background-color: #FFFFFF;
+}
+.results table tbody tr:nth-child(2n) {
+  background-color: #F4F4F4;
+}
+.results table tbody td {
+  border: unset !important;
+  padding: 1rem 2rem;
 }
 .results table tbody td.actions .td-content {
   display: flex;
@@ -384,55 +321,6 @@ a {
 }
 .results table tbody td.actions .td-content .blue-icon {
   color: #0096FF;
-}
-.results table tbody .check {
-  border: 1px solid #3e4550;
-  background: white;
-  width: 20px;
-  height: 20px;
-  margin: 0 auto;
-  cursor: pointer;
-}
-.results table tbody .check img {
-  display: none;
-  max-width: none;
-}
-.results table tbody .check.checked img {
-  display: block;
-  width: 30px;
-  margin-top: -7px;
-  margin-left: -3px;
-  margin-bottom: -23px;
-}
-.results table tbody .locks {
-  display: flex;
-  flex-direction: row;
-}
-.results table tbody .locks .lock {
-  width: 35px;
-  height: 35px;
-  margin: 0 auto;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.5s ease-out;
-}
-.results table tbody .locks .lock:hover {
-  background-color: #151A1C;
-  color: #FFFFFF;
-}
-.results table tbody .locks .lock.is_active {
-  background-color: #F3933D;
-  color: #000000;
-}
-.results table tbody .locks .lock.is_active:hover {
-  background-color: #151A1C;
-  color: #FFFFFF;
-}
-.results table tbody .locks .lock svg {
-  width: 25px;
-  height: 25px;
 }
 .results table tbody .user-perms {
   display: block;
@@ -500,27 +388,6 @@ a {
 }
 .results table tbody .actions .button.more {
   min-width: 0px;
-}
-.results table.tree .element {
-  text-align: left;
-}
-.results table.tree .element .level-1 {
-  padding-left: 20px;
-}
-.results table.tree .element .level-2 {
-  padding-left: 40px;
-}
-.results table.tree .element .level-3 {
-  padding-left: 60px;
-}
-.results table.tree .element .level-4 {
-  padding-left: 80px;
-}
-.results table.tree .element .level-5 {
-  padding-left: 100px;
-}
-.results table.tree .element .level-6 {
-  padding-left: 120px;
 }
 .results .table .tr {
   display: flex;
@@ -842,7 +709,7 @@ a {
   padding: 5px 10px;
   border: 1px solid #DDDDDD;
   font-size: 14px;
-  font-family: "Raleway", sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: 300;
 }
 .admin-form .input input[readonly],
@@ -1858,8 +1725,9 @@ nav.small .logout {
 }
 .home-selector.visible .card .card-body .project-description {
   margin-bottom: 1.5rem;
-  font-size: 0.875rem;
+  font-size: 1rem;
   line-height: 1.5;
+  font-weight: 300;
 }
 .home-selector.visible .card .card-body .project-title {
   font-size: 1.25rem;
@@ -2128,6 +1996,7 @@ nav.small .logout {
 }
 #container .wrap-login100 .login100-form .buttons .register100-form-btn {
   color: #3e4550;
+  font-weight: 600;
 }
 #container .wrap-login100 .login100-form .buttons .register100-form-btn a {
   transition: all 0.2s ease-out;
@@ -2206,6 +2075,7 @@ nav.small .logout {
 #container .wrap-register100 .register100-form .buttons .container-register100-form-btn .wrap-register100-form-btn .register100-form-btn {
   font-size: 18px;
   color: #fff;
+  font-weight: 600;
   letter-spacing: 1.1px;
   justify-content: center;
   padding: 10px 20px;
