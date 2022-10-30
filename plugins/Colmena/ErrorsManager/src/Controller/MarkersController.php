@@ -14,7 +14,7 @@ class MarkersController extends AppController
 
     // Default pagination settings
     public $paginate = [
-        'limit' => 15,
+        'limit' => 10,
         'order' => [
             'Markers.id' => 'ASC'
         ],

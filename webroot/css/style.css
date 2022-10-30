@@ -271,6 +271,11 @@ a {
 .results table td.actions.short {
   min-width: 0;
 }
+.results table th.boolean,
+.results table td.boolean {
+  width: 130px;
+  text-align: center !important;
+}
 .results table thead {
   background-color: #3e4550;
   color: white;
@@ -321,6 +326,25 @@ a {
 }
 .results table tbody td.actions .td-content .blue-icon {
   color: #0096FF;
+}
+.results table tbody td .check {
+  border: 1px solid #3e4550;
+  background: white;
+  width: 20px;
+  height: 20px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+.results table tbody td .check img {
+  display: none;
+  max-width: none;
+}
+.results table tbody td .check.checked img {
+  display: block;
+  width: 30px;
+  margin-top: -7px;
+  margin-left: -3px;
+  margin-bottom: -23px;
 }
 .results table tbody .user-perms {
   display: block;

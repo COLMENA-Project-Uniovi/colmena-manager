@@ -168,7 +168,6 @@ a {
             padding: $medium-gap;
             text-align: left;
             vertical-align: middle;
-            // border-bottom: 1px solid $gray-d;
 
             &.actions {
                 min-width: 240px;
@@ -178,6 +177,11 @@ a {
                 &.short {
                     min-width: 0;
                 }
+            }
+
+            &.boolean {
+                width: 130px;
+                text-align: center !important;
             }
         }
 
@@ -246,6 +250,31 @@ a {
 
                         .blue-icon {
                             color: $blue-icon;
+                        }
+                    }
+                }
+
+                // CHECKS
+                .check {
+                    border: 1px solid $navGray;
+                    background: white;
+                    width: 20px;
+                    height: 20px;
+                    margin: 0 auto;
+                    cursor: pointer;
+
+                    img {
+                        display: none;
+                        max-width: none;
+                    }
+
+                    &.checked {
+                        img {
+                            display: block;
+                            width: 30px;
+                            margin-top: -7px;
+                            margin-left: -3px;
+                            margin-bottom: -23px;
                         }
                     }
                 }

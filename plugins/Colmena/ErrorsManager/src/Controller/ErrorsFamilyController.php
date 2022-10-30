@@ -18,7 +18,7 @@ class ErrorsFamilyController extends AppController
 
     // Default pagination settings
     public $paginate = [
-        'limit' => 20,
+        'limit' => 10,
         'order' => [
             'id' => 'ASC'
         ]
