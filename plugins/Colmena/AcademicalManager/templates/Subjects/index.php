@@ -26,22 +26,14 @@ $header = [
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
             <table class="table">
-                <thead class="thead">
+                <thead>
                     <tr>
-                        <th class="medium">
-                            Nombre
-                        </th><!-- .th -->
-                        <th class="grow">
+                        <th>Nombre</th><!-- .th -->
+                        <th>
                             Año académico
                         </th><!-- .th -->
-                        <th class="grow">
+                        <th>
                             Semestre
-                        </th><!-- .th -->
-                        <th class="grow">
-                            Fecha de inicio
-                        </th><!-- .th -->
-                        <th class="grow">
-                            Fecha de fin
                         </th><!-- .th -->
                         <?php
                         if (!empty($tableButtons)) {
@@ -71,20 +63,14 @@ $header = [
                             ];
                     ?>
                         <tr>
-                            <td class="element medium">
+                            <td>
                                 <p><?= $entity->name ?></p>
                             </td><!-- .td -->
-                            <td class="element grow">
+                            <td>
                                 <p><?= $entity->academical_year_id != 0 ? $entity->academical_year->title : ''; ?></p>
                             </td><!-- .td -->
-                            <td class="element grow">
+                            <td>
                                 <p><?= $entity->semester; ?></p>
-                            </td><!-- .td -->
-                            <td class="element grow">
-                                <p><?= $entity->start_date; ?></p>
-                            </td><!-- .td -->
-                            <td class="element grow">
-                                <p><?= $entity->end_date; ?></p>
                             </td><!-- .td -->
                             <?php
                             if (!empty($tableButtons)) {
