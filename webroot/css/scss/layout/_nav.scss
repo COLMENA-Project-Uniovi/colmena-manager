@@ -7,7 +7,7 @@ nav {
     height: 100%;
     position: fixed;
     z-index: 10;
-    background-color: #3e4450;
+    background-color: $navGray;
     @include default-transition(0.2s);
 
     &.closed {
@@ -340,14 +340,14 @@ nav {
             .card-header {
                 display: flex;
                 justify-content: center;
-                padding: 2rem;
-                padding-top: 3rem;
-                background-color: #3e4450;
+                padding: $card-padding-s;
+                padding-top: $card-padding-m;
+                background-color: $navGray;
                 color: white;
             }
 
             .card-body {
-                padding: 2rem;
+                padding: $card-padding-s;
 
                 .project {
                     &-description {
@@ -364,7 +364,7 @@ nav {
                     }
 
                     &-button {
-                        border-radius: 10px;
+                        border-radius: $border-radius-size;
                         padding: 10px 20px;
 
                         &:hover {

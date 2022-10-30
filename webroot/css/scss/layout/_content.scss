@@ -57,10 +57,6 @@ a {
     text-align: center;
 }
 
-strong {
-    font-weight: bold;
-}
-
 /* -------------------------- */
 
 /* -------------------------- */
@@ -98,6 +94,8 @@ strong {
         }
 
         &.disabled {
+            display: none;
+            
             a {
                 color: $gray-d;
                 background-color: transparent;
@@ -115,7 +113,6 @@ strong {
 
 // RESULTS
 .results {
-    margin-bottom: $gap;
 
     .top-results {
         display: table;
@@ -136,20 +133,6 @@ strong {
         }
     }
 
-    .reservation-date {
-        font-weight: 500;
-        font-size: 2em;
-        margin: 50px;
-        color: var(--bc-1);
-        text-align: center;
-    }
-
-    .reservation-date span {
-        border-top: 2px solid var(--bc-1);
-        border-bottom: 2px solid var(--bc-1);
-        padding: 5px 50px;
-    }
-
     .status {
         padding: $tiny-gap;
 
@@ -168,20 +151,19 @@ strong {
     }
 
     // RESULTS TABLE
-    table,
-    .table {
+    table {
         width: 100%;
         margin-bottom: $gap;
-        border: 1px solid $gray-d;
+        box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+        overflow: hidden;
+        border-radius: $border-radius-size;
 
         th,
-        .th,
-        td,
-        .td {
+        td {
             padding: $gap;
-            text-align: center;
+            text-align: left;
             vertical-align: middle;
-            border-right: 1px solid $gray-d;
+            border-bottom: 1px solid $gray-d;
 
             &:last-child {
                 border-right: none;
@@ -276,23 +258,15 @@ strong {
         }
 
         // TABLE HEADER
-        thead,
-        .thead {
-            background-color: $navGray;
+        thead {
+            background-color: $light-gray;
 
-            th,
-            .th {
+            th {
                 padding: $small-gap $gap;
-                background-color: $navGray;
-                border: 1px solid $navGray;
-                color: $white;
-                text-align: center;
+                color: $navGray;
+                text-align: start;
+                font-weight: 600;
                 text-transform: uppercase;
-                letter-spacing: 1px;
-
-                &:last-child {
-                    border-right: 1px solid $navGray;
-                }
 
                 &.fa-wrapper {
                     font-size: 20px;
@@ -306,93 +280,15 @@ strong {
                     }
                 }
             }
-
-            &.sticky {
-                position: relative;
-                z-index: 10;
-
-                tr:nth-child(1),
-                .tr:nth-child(1) {
-
-                    th,
-                    .th {
-                        position: sticky;
-                        top: 0;
-                        z-index: 10;
-                    }
-                }
-            }
         }
 
-        tbody,
-        .tbody {
+        tbody {
 
-            tr,
-            .tr {
-                &:nth-child(1n) {
-                    background-color: $white;
-                }
-
-                &:nth-child(2n) {
-                    background-color: $light-gray;
-                }
-
-                &.alert {
-                    background-color: $orange;
-                }
-
-                &:hover {
-                    background-color: $gray-d;
-                }
-
-                &.ui-sortable-helper {
-                    background-color: $white;
-                }
-
-                td,
-                .td {
-                    img {
-                        max-height: 80px;
-
-                        &.part-image {
-                            margin-right: $gap;
-                            border: 1px solid $gray-d;
-                            box-shadow: 0px 0px 1px 1px $gray-d;
-                        }
-                    }
-
-                    &.arrow {
-
-                        /* arrow up and down */
-                        .moveup,
-                        .movedown {
-                            display: block;
-                            width: $gap;
-                            height: $gap;
-                            margin: auto;
-                            cursor: pointer;
-                        }
-
-                        .moveup {
-                            background: url(../img/style/arrow_up_black.png) no-repeat center;
-                            background-size: contain;
-                        }
-
-                        .movedown {
-                            background: url(../img/style/arrow_down_black.png) no-repeat center;
-                            background-size: contain;
-                        }
-                    }
-
-                    &.image {
-                        text-align: center;
-                        padding: $tiny-gap;
-                    }
-                }
+            tr {
+                background-color: white;
             }
 
-            td,
-            .td {
+            td {
                 &.actions {
                     .td-content {
                         display: flex;
@@ -410,7 +306,7 @@ strong {
                         }
 
                         .blue-icon {
-                            color: #0096FF;
+                            color: $blue-icon;
                         }
                     }
                 }
@@ -418,7 +314,7 @@ strong {
 
             // CHECKS
             .check {
-                border: 1px solid #999;
+                border: 1px solid $navGray;
                 background: white;
                 width: 20px;
                 height: 20px;

@@ -7,7 +7,8 @@
 
     .primary {
         width: 70%;
-        &.half-grid{
+
+        &.half-grid {
             display: grid;
             width: 100%;
             grid-template-columns: 1fr 1fr;
@@ -668,7 +669,7 @@
 
     .select2-selection__rendered {
         flex-wrap: wrap;
-        padding: 0 5px 5px 5px !important;
+        padding: 0 $tiny-gap $tiny-gap $tiny-gap !important;
     }
 
     .color-block {
@@ -677,7 +678,7 @@
         height: 20px;
         margin-right: $small-gap;
         border: 1px solid $gray-a;
-        border-radius: 5px;
+        border-radius: $border-radius-size;
     }
 }
 

@@ -2,13 +2,12 @@
 /* ------- LOGIN PAGE ------- */
 /* -------------------------- */
 #container {
-
     .wrap-login100 {
         width: 400px;
         background: white;
         border: 1px solid rgba(254, 254, 254, 0.18);
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        border-radius: 10px;
+        border-radius: $border-radius-size;
         overflow: hidden;
         padding: 60px 60px;
         position: absolute;
@@ -59,7 +58,7 @@
                     background: transparent;
                     padding: 0 5px;
                     border: 1px solid $gray-a;
-                    border-radius: 10px;
+                    border-radius: $border-radius-size;
                 }
 
                 .focus-input100 {
@@ -99,27 +98,54 @@
                     }
                 }
             }
+
+            .buttons {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: $gap;
+
+                .container-login100-form-btn {
+                    .wrap-login100-form-btn {
+                        .login100-form-btn {
+                            font-size: 18px;
+                            color: #fff;
+                            letter-spacing: 1.1px;
+                            justify-content: center;
+                            padding: 10px 20px;
+                            width: 100%;
+                            cursor: pointer;
+                            background-color: $orange;
+                            border: 1px solid $orange;
+                            border-radius: $border-radius-size;
+
+                            &:hover {
+                                background-color: white;
+                                color: $orange;
+                                transition: all 0.2s ease-out;
+                            }
+                        }
+                    }
+                }
+
+                .register100-form-btn {
+                    color: $navGray;
+
+                    a {
+                        transition: all 0.2s ease-out;
+                        color: $orange;
+
+                        &:hover {
+                            color: $gray-a;
+                            transition: all 0.2s ease-out;
+                        }
+                    }
+                }
+            }
         }
     }
 }
 
-.login100-form-btn {
-    font-size: 18px;
-    color: #fff;
-    letter-spacing: 1.1px;
-    justify-content: center;
-    padding: 10px 20px;
-    width: 100%;
-    cursor: pointer;
-    background-color: $orange;
-    border: 1px solid $orange;
-    border-radius: 10px;
 
-    &:hover {
-        background-color: white;
-        color: $orange;
-        transition: all 0.2s ease-out;
-    }
-}
 
 /* -------------------------- */
