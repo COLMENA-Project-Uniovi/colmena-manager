@@ -23,7 +23,7 @@ class UserRolesController extends AppController
 
     protected $tableButtons = [
         'Editar' => [
-            'icon' => '<i class="far fa-edit"></i>',
+            'icon' => '<i class="fal fa-edit"></i>',
             'url' => [
                 'controller' => 'Roles',
                 'action' => 'edit',

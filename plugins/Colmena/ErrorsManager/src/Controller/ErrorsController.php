@@ -25,7 +25,7 @@ class ErrorsController extends AppController
 
     protected $tableButtons = [
         'Editar' => [
-            'icon' => '<i class="far fa-edit"></i>',
+            'icon' => '<i class="fal fa-edit"></i>',
             'url' => [
                 'controller' => 'Errors',
                 'action' => 'edit',
@@ -37,7 +37,7 @@ class ErrorsController extends AppController
             ]
         ],
         'Borrar' => [
-            'icon' => '<i class="fas fa-trash-alt"></i>',
+            'icon' => '<i class="fal fa-trash-alt"></i>',
             'url' => [
                 'controller' => 'Errors',
                 'action' => 'delete',

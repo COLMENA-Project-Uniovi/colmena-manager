@@ -22,16 +22,16 @@ $header = [
         <?php
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
-            <table class="table">
-                <thead class="thead">
-                    <tr class="tr">
-                        <th class="th grow">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
                             Nombre del proyecto
                         </th><!-- .th -->
                         <?php
                         if (!empty($tableButtons)) {
                         ?>
-                            <th class="th actions short">
+                            <th class="actions">
                                 Operaciones
                             </th><!-- .th -->
                         <?php
@@ -39,18 +39,18 @@ $header = [
                         ?>
                     </tr><!-- .tr -->
                 </thead><!-- .thead -->
-                <tbody class="tbody elements">
+                <tbody class="elements">
                     <?php
                     foreach ($entities as $entity) {
                     ?>
-                        <tr class="tr">
-                            <td class="td element grow">
+                        <tr>
+                            <td class="element">
                                 <p><?= $entity->name ?></p>
                             </td><!-- .td -->
                             <?php
                             if (!empty($tableButtons)) {
                             ?>
-                                <td class="td actions">
+                                <td class="actions">
                                     <div class="td-content">
                                         <?php
                                         foreach ($tableButtons as $key => $value) {

@@ -159,7 +159,7 @@ a {
     table {
         width: 100%;
         margin-bottom: $gap;
-        box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+        box-shadow: $box-shadow;
         overflow: hidden;
         border-radius: $border-radius-size;
 
@@ -170,8 +170,7 @@ a {
             vertical-align: middle;
 
             &.actions {
-                min-width: 240px;
-                width: 15%;
+                width: 25%;
                 text-align: center;
 
                 &.short {
@@ -219,10 +218,6 @@ a {
             tr {
                 background-color: white;
 
-                &:nth-child(1n) {
-                    background-color: $white;
-                }
-
                 &:nth-child(2n) {
                     background-color: $light-gray;
                 }
@@ -230,18 +225,25 @@ a {
 
             td {
                 border: unset !important;
-                padding: 1rem 2rem;
+                padding: $padding-s $padding-m;
 
                 &.actions {
                     .td-content {
                         display: flex;
-                        width: 30%;
+                        justify-content: center;
                         margin: auto;
-                        font-size: 1.4rem;
-                        justify-content: space-between;
+                        gap: $gap;
 
                         .green-icon {
-                            color: $iconsGreen;
+                            color: $green-icon;
+                        }
+
+                        .orange-icon {
+                            color: $orange;
+                        }
+
+                        .gray-icon {
+                            color: $navGray;
                         }
 
                         .red-icon {

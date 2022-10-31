@@ -263,8 +263,7 @@ a {
 }
 .results table th.actions,
 .results table td.actions {
-  min-width: 240px;
-  width: 15%;
+  width: 25%;
   text-align: center;
 }
 .results table th.actions.short,
@@ -301,9 +300,6 @@ a {
 .results table tbody tr {
   background-color: white;
 }
-.results table tbody tr:nth-child(1n) {
-  background-color: #FFFFFF;
-}
 .results table tbody tr:nth-child(2n) {
   background-color: #F4F4F4;
 }
@@ -313,13 +309,18 @@ a {
 }
 .results table tbody td.actions .td-content {
   display: flex;
-  width: 30%;
+  justify-content: center;
   margin: auto;
-  font-size: 1.4rem;
-  justify-content: space-between;
+  gap: 20px;
 }
 .results table tbody td.actions .td-content .green-icon {
   color: #53C7AD;
+}
+.results table tbody td.actions .td-content .orange-icon {
+  color: #F3933D;
+}
+.results table tbody td.actions .td-content .gray-icon {
+  color: #3e4550;
 }
 .results table tbody td.actions .td-content .red-icon {
   color: red;
@@ -586,8 +587,9 @@ a {
 .admin-form .form-block {
   padding-bottom: 10px;
   margin-bottom: 20px;
-  border: 1px solid #DDDDDD;
-  background-color: #FFFFFF;
+  border-radius: 0.7em;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 .admin-form .form-block.primary {
   border: none;
@@ -643,8 +645,8 @@ a {
 }
 .admin-form .form-block.save-block .button {
   background-color: #F3933D;
-  color: #3e4550;
-  border-color: #F3933D;
+  color: white;
+  border: unset;
 }
 .admin-form .form-block.save-block .button:hover {
   background-color: #3e4550;
@@ -991,7 +993,7 @@ a {
   width: calc(100% - 20px);
   max-width: 500px;
   padding: 20px 40px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   border-radius: 0.7em;
   background-color: #4285F4;
   color: #FFFFFF;
@@ -1028,19 +1030,12 @@ a {
 .button {
   display: inline-block;
   padding: 5px 10px;
-  margin: auto;
   color: #666666;
-  background-color: white;
-  border: 1px solid #AAAAAA;
   border-radius: 0.7em;
-  font-size: 0.9em;
-  font-weight: 600;
   text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.2s ease-out;
-  box-shadow: 0 2px 6px 0 rgba(136, 148, 171, 0.2), 0 24px 20px -24px rgba(71, 82, 107, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 .button.white {
   border-color: #FFFFFF;
@@ -1160,7 +1155,7 @@ a {
 header {
   background-color: #F4F4F4;
   position: fixed;
-  box-shadow: 0 2px 6px 0 rgba(136, 148, 171, 0.2), 0 24px 20px -24px rgba(71, 82, 107, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 header.home {
   padding: 10px;
@@ -1266,7 +1261,7 @@ header.home h1 {
   color: #000000;
   font-size: 2.5em;
   line-height: 1.2em;
-  flex-grow: 2;
+  flex-grow: 4;
 }
 .mid-header h3 {
   color: #000000;
@@ -1323,7 +1318,7 @@ header.home h1 {
   width: 600px;
   padding: 20px 10px;
   border: 1px solid #DDDDDD;
-  box-shadow: 0 2px 6px 0 rgba(136, 148, 171, 0.2), 0 24px 20px -24px rgba(71, 82, 107, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   background-color: #FFFFFF;
   transition: visibility 0s linear 0.2s, opacity 0.2s ease-out 0s, transform 0.2s ease-out 0s;
 }
@@ -1345,7 +1340,7 @@ header.home h1 {
   width: 100px;
   margin-bottom: 10px;
   border: 1px solid #DDDDDD;
-  box-shadow: 0 10px 25px rgba(10, 10, 51, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 .mid-header .dropdown .options .action:hover {
   background-color: #F3933D;
@@ -1372,7 +1367,7 @@ header.home h1 {
   transition: visibility 0s linear 0s, opacity 0.2s ease-out 0s, transform 0.2s ease-out 0s;
 }
 .mid-header .search {
-  width: 250px;
+  width: 125px;
   margin-left: 10px;
 }
 .mid-header .search.long {
@@ -1394,24 +1389,21 @@ header.home h1 {
   width: 100%;
   height: 34px;
   padding: 10px 20px;
+  font-size: 0.9em;
+  border-radius: 0.7em 0 0 0.7em;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  font-size: 0.9em;
   border: unset;
-  font-size: 0.9em;
-  border-radius: 20px 0 0 20px;
-  margin: 5px;
-  box-shadow: 0 2px 6px 0 rgba(136, 148, 171, 0.2), 0 24px 20px -24px rgba(71, 82, 107, 0.1);
-  font-size: 0.9em;
-  border: 1px solid #AAAAAA;
 }
 .mid-header .search .search-form .input.text input:focus-visible {
   outline: unset;
 }
 .mid-header .search .search-form .button {
-  border-radius: 0 20px 20px 0;
+  border-radius: 0 0.7em 0.7em 0;
   border: unset;
   background: white;
   height: 34px;
   font-size: 0.9em;
-  border: 1px solid #AAAAAA;
 }
 .mid-header .search .search-form .button:hover {
   background-color: #F3933D;
@@ -1703,9 +1695,9 @@ nav.small .logout {
   word-wrap: break-word;
   background-color: white;
   margin-bottom: 1.5rem;
-  box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   height: 100%;
-  border-radius: unset !important;
+  border-radius: 0.7em;
 }
 .home-selector.visible .card.card-plain {
   background-color: transparent;
@@ -1910,7 +1902,7 @@ nav.small .logout {
   width: 400px;
   background: white;
   border: 1px solid rgba(254, 254, 254, 0.18);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   border-radius: 0.7em;
   overflow: hidden;
   padding: 60px 60px;
@@ -2039,7 +2031,7 @@ nav.small .logout {
   width: 400px;
   background: white;
   border: 1px solid rgba(254, 254, 254, 0.18);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   border-radius: 0.7em;
   overflow: hidden;
   padding: 60px 60px;
@@ -2722,7 +2714,7 @@ span.CodeMirror-selectedtext {
   list-style: none;
   margin: 0;
   padding: 2px;
-  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   border-radius: 3px;
   border: 1px solid silver;
   background: white;

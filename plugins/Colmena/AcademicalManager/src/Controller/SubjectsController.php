@@ -26,7 +26,7 @@ class SubjectsController extends AppController
 
     protected $tableButtons = [
         'Editar' => [
-            'icon' => '<i class="far fa-edit"></i>',
+            'icon' => '<i class="fal fa-edit"></i>',
             'url' => [
                 'controller' => 'Subjects',
                 'action' => 'edit',
@@ -38,7 +38,7 @@ class SubjectsController extends AppController
             ]
         ],
         'Borrar' => [
-            'icon' => '<i class="fas fa-trash-alt"></i>',
+            'icon' => '<i class="fal fa-trash-alt"></i>',
             'url' => [
                 'controller' => 'Subjects',
                 'action' => 'delete',
@@ -48,6 +48,18 @@ class SubjectsController extends AppController
                 'confirm' => '¿Estás seguro de que quieres eliminar la asignatura?',
                 'class' => 'red-icon',
                 'escape' => false
+            ]
+        ],
+        'Sesiones' => [
+            'icon' => '<i class="fal fa-calendar-alt"></i>',
+            'url' => [
+                'controller' => 'Sessions',
+                'action' => 'index',
+                'plugin' => 'Colmena/AcademicalManager',
+            ],
+            'options' => [
+                'escape' => false,
+                'class' => 'gray-icon'
             ]
         ]
     ];

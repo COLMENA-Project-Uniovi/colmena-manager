@@ -172,8 +172,9 @@
     .form-block {
         padding-bottom: $small-gap;
         margin-bottom: $gap;
-        border: 1px solid $gray-d;
-        background-color: $white;
+        border-radius: $border-radius-size;
+        overflow: hidden;
+        box-shadow: $box-shadow;
 
         &.primary {
             border: none;
@@ -240,8 +241,8 @@
 
             .button {
                 background-color: $orange;
-                color: $navGray;
-                border-color: $orange;
+                color: white;
+                border: unset;
 
                 &:hover {
                     background-color: $navGray;

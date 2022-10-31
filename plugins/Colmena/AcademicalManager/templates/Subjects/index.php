@@ -49,18 +49,6 @@ $header = [
                 <tbody class="tbody elements">
                     <?php
                     foreach ($entities as $entity) {
-                        $tableButtons['Sesiones'] =
-                            [
-                                'icon' => '<i class="far fa-calendar-alt"></i>',
-                                'url' => [
-                                    'controller' => 'Sessions',
-                                    'action' => 'index',
-                                    'plugin' => 'Colmena/AcademicalManager',
-                                ],
-                                'options' => [
-                                    'escape' => false
-                                ]
-                            ];
                     ?>
                         <tr>
                             <td>
