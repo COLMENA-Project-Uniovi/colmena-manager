@@ -311,7 +311,8 @@ a {
   display: flex;
   justify-content: center;
   margin: auto;
-  gap: 20px;
+  gap: 1rem;
+  font-size: 1.2em;
 }
 .results table tbody td.actions .td-content .green-icon {
   color: #53C7AD;
@@ -1752,11 +1753,14 @@ nav.small .logout {
   padding: 1rem 0;
 }
 .home-selector.visible .card .card-body .project-button {
-  border-radius: 0.7em;
-  padding: 10px 20px;
+  font-size: 1.2em;
+  color: #fff;
+  padding: 1rem 2rem;
+  background-color: #F3933D;
+  border: unset;
 }
 .home-selector.visible .card .card-body .project-button:hover {
-  background-color: #F3933D;
+  background-color: #3e4550;
   color: white;
 }
 
@@ -1798,7 +1802,6 @@ nav.small .logout {
   font-weight: 600;
 }
 
-/* ---------------------------------- */
 /* ---------------------------------- */
 /* ------ PAGE SPECIFIC STYLES ------ */
 /* ---------------------------------- */
@@ -1994,16 +1997,16 @@ nav.small .logout {
   gap: 20px;
 }
 #container .wrap-login100 .login100-form .buttons .container-login100-form-btn .wrap-login100-form-btn .login100-form-btn {
-  font-size: 18px;
-  color: #fff;
-  letter-spacing: 1.1px;
-  justify-content: center;
-  padding: 10px 20px;
   width: 100%;
+  font-size: 1.2em;
+  color: #fff;
+  justify-content: center;
+  padding: 1rem 2rem;
   cursor: pointer;
   background-color: #F3933D;
-  border: 1px solid #F3933D;
   border-radius: 0.7em;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  border: unset;
 }
 #container .wrap-login100 .login100-form .buttons .container-login100-form-btn .wrap-login100-form-btn .login100-form-btn:hover {
   background-color: white;
@@ -2089,17 +2092,16 @@ nav.small .logout {
   gap: 20px;
 }
 #container .wrap-register100 .register100-form .buttons .container-register100-form-btn .wrap-register100-form-btn .register100-form-btn {
-  font-size: 18px;
-  color: #fff;
-  font-weight: 600;
-  letter-spacing: 1.1px;
-  justify-content: center;
-  padding: 10px 20px;
   width: 100%;
+  font-size: 1.2em;
+  color: #fff;
+  justify-content: center;
+  padding: 1rem 2rem;
   cursor: pointer;
   background-color: #F3933D;
-  border: 1px solid #F3933D;
   border-radius: 0.7em;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  border: unset;
 }
 #container .wrap-register100 .register100-form .buttons .container-register100-form-btn .wrap-register100-form-btn .register100-form-btn:hover {
   background-color: white;

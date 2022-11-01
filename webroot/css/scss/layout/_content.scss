@@ -232,7 +232,8 @@ a {
                         display: flex;
                         justify-content: center;
                         margin: auto;
-                        gap: $gap;
+                        gap: $padding-s;
+                        font-size: $medium-font-size;
 
                         .green-icon {
                             color: $green-icon;

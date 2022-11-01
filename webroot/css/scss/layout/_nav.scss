@@ -365,11 +365,14 @@ nav {
                     }
 
                     &-button {
-                        border-radius: $border-radius-size;
-                        padding: 10px 20px;
+                        font-size: $medium-font-size;
+                        color: #fff;
+                        padding: $padding-s $padding-m;
+                        background-color: $orange;
+                        border: unset;
 
                         &:hover {
-                            background-color: $orange;
+                            background-color: $navGray;
                             color: white;
                         }
                     }

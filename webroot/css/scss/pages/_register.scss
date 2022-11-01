@@ -71,17 +71,16 @@
                 .container-register100-form-btn {
                     .wrap-register100-form-btn {
                         .register100-form-btn {
-                            font-size: 18px;
-                            color: #fff;
-                            font-weight: 600;
-                            letter-spacing: 1.1px;
-                            justify-content: center;
-                            padding: 10px 20px;
                             width: 100%;
+                            font-size: $medium-font-size;
+                            color: #fff;
+                            justify-content: center;
+                            padding: $padding-s $padding-m;
                             cursor: pointer;
                             background-color: $orange;
-                            border: 1px solid $orange;
                             border-radius: $border-radius-size;
+                            box-shadow: $box-shadow;
+                            border: unset;
 
                             &:hover {
                                 background-color: white;
