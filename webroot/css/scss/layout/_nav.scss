@@ -298,9 +298,9 @@ nav {
             word-wrap: break-word;
             background-color: white;
             margin-bottom: 1.5rem;
-            box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+            box-shadow: $box-shadow;
             height: 100%;
-            border-radius: unset !important;
+            border-radius: $border-radius-size;
 
             &.card-plain {
                 background-color: transparent;
@@ -352,8 +352,9 @@ nav {
                 .project {
                     &-description {
                         margin-bottom: 1.5rem;
-                        font-size: .875rem;
+                        font-size: 1rem;
                         line-height: 1.5;
+                        font-weight: 300;
                     }
 
                     &-title {
@@ -364,11 +365,14 @@ nav {
                     }
 
                     &-button {
-                        border-radius: $border-radius-size;
-                        padding: 10px 20px;
+                        font-size: $medium-font-size;
+                        color: #fff;
+                        padding: $padding-s $padding-m;
+                        background-color: $orange;
+                        border: unset;
 
                         &:hover {
-                            background-color: $orange;
+                            background-color: $navGray;
                             color: white;
                         }
                     }

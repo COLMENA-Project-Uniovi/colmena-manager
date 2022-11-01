@@ -25,6 +25,7 @@ $font-weight: 400;
 $content-max-width: 1200px;
 $tiny-gap: 5px;
 $small-gap: 10px;
+$medium-gap: 15px;
 $gap: 20px;
 $big-gap: 40px;
 
@@ -41,11 +42,19 @@ $social-icon-size: 30px;
 $social-icon-border-width: 2.5px;
 
 // FONT
-$main-font: $raleway;
-$titles-font: $raleway;
+$main-font: $lato;
+$titles-font: $lato;
 
 // CARDS
 $card-padding-s: 2rem;
 $card-padding-m: 3rem;
+
+// PADDINGS
+$padding-s: 1rem;
+$padding-m: 2rem;
+
+// BOX SHADOWS
+$box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+
 
 // -------------------------- */

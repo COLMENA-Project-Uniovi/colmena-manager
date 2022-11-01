@@ -3,18 +3,18 @@
 /* -------------------------- */
 
 // BLOQUES HOME
-.blocks{
+.blocks {
     display: flex;
     flex-wrap: wrap;
     padding: $small-gap;
 
-    .block{
+    .block {
         display: flex;
         flex-direction: column;
         width: 33.33%;
         padding: $small-gap;
 
-        .header{
+        .header {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -22,80 +22,88 @@
             color: $white;
             padding: $small-gap + $tiny-gap;
 
-            .title{
+            .title {
                 display: flex;
                 align-items: center;
-                .number{
+
+                .number {
                     padding: $tiny-gap $gap;
-                    //border: 1px solid $white;
                     line-height: 1em;
                     font-size: ($bigger-font-size*2) - 1;
                     color: $orange;
                 }
-                .text{
+
+                .text {
                     padding: $small-gap;
                     text-transform: uppercase;
                     font-size: $big-font-size;
                     line-height: $line-height;
                     color: $orange;
 
-                    span{
+                    span {
                         display: block;
                     }
                 }
             }
-            .main-buttons{
+
+            .main-buttons {
                 align-self: flex-end;
-                .button{
+
+                .button {
                     display: block;
                     text-align: center;
                     margin-bottom: $tiny-gap;
 
-                    &:last-child{
+                    &:last-child {
                         margin-bottom: 0;
                     }
                 }
             }
         }
 
-        .results{
+        .results {
             flex-grow: 1;
             margin-bottom: 0;
             border: 1px solid $gray-d;
             background-color: $white;
-            table{
+
+            table {
                 margin-bottom: 0;
                 border: none;
-                .actions{
+
+                .actions {
                     width: 15%;
                     min-width: 100px;
                 }
+
                 tbody {
                     tr {
                         &.pair {
-                            &:hover{
+                            &:hover {
                                 background-color: white;
                             }
                         }
+
                         &.odd {
-                            &:hover{
+                            &:hover {
                                 background-color: $light-gray;
                             }
                         }
                     }
                 }
+
                 td {
                     padding: $small-gap;
                     border: none;
 
-                    &.date{
+                    &.date {
                         width: 100px;
                     }
                 }
             }
         }
 
-        .buttons{
+        .buttons {
             display: flex;
             justify-content: flex-end;
             padding: $small-gap;
@@ -103,10 +111,11 @@
             border-top: none;
             background-color: $white;
 
-            .button{
+            .button {
                 margin: 0 $tiny-gap;
             }
         }
     }
 }
+
 /* -------------------------- */

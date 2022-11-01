@@ -18,7 +18,7 @@ body {
 }
 
 #container {
-    background-color: $light-gray;
+    background-color: white;
 }
 
 body.lock {
@@ -65,6 +65,9 @@ a {
 
 // PAGINATOR
 .paginator {
+    display: flex;
+    justify-content: center;
+
     margin-bottom: $tiny-gap;
     text-align: right;
     font-size: $medium-font-size;
@@ -75,27 +78,37 @@ a {
 
         a {
             display: inline-block;
-            padding: $tiny-gap;
+            padding: $small-gap $gap;
+            border-radius: $border-radius-size;
+            color: $navGray;
+
             @include default-transition(0.2s);
 
             &:hover {
                 color: $white;
-                background-color: $gray-9;
+                background-color: $orange;
+                text-decoration: none;
             }
         }
 
         &.active {
             color: $white;
-            background-color: $medium-gray;
+            background-color: $orange;
+            border-radius: $border-radius-size;
 
             a {
                 color: $white;
+                border-radius: $border-radius-size;
+
+                &:hover {
+                    color: $white;
+                    background-color: $orange;
+                    text-decoration: none;
+                }
             }
         }
 
         &.disabled {
-            display: none;
-            
             a {
                 color: $gray-d;
                 background-color: transparent;
@@ -104,16 +117,8 @@ a {
     }
 }
 
-
-.block.resume.guests {
-    .input.number {
-        justify-content: center;
-    }
-}
-
 // RESULTS
 .results {
-
     .top-results {
         display: table;
         width: 100%;
@@ -154,76 +159,18 @@ a {
     table {
         width: 100%;
         margin-bottom: $gap;
-        box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+        box-shadow: $box-shadow;
         overflow: hidden;
         border-radius: $border-radius-size;
 
         th,
         td {
-            padding: $gap;
+            padding: $medium-gap;
             text-align: left;
             vertical-align: middle;
-            border-bottom: 1px solid $gray-d;
-
-            &:last-child {
-                border-right: none;
-            }
-
-            &.center {
-                text-align: center !important;
-            }
-
-            &.boolean {
-                width: 130px;
-                text-align: center !important;
-            }
-
-            &.sort {
-                width: 65px;
-                text-align: center !important;
-            }
-
-            &.date {
-                width: 150px;
-                text-align: center !important;
-            }
-
-            &.medium-left {
-                width: 350px;
-            }
-
-            &.medium {
-                width: 350px;
-                text-align: center !important;
-            }
-
-            &.small {
-                width: 250px;
-                text-align: center !important;
-            }
-
-            &.tiny {
-                width: 160px;
-                text-align: center !important;
-            }
-
-            &.status {
-                width: 130px;
-                text-align: center !important;
-            }
-
-            &.image {
-                width: 100px;
-            }
-
-            &.arrow {
-                width: 60px;
-                padding: 0;
-            }
 
             &.actions {
-                min-width: 240px;
-                width: 15%;
+                width: 25%;
                 text-align: center;
 
                 &.short {
@@ -231,42 +178,22 @@ a {
                 }
             }
 
-            &.sortable {
-                text-align: center;
-
-                a {
-                    padding-right: $gap * 2;
-                    background-repeat: no-repeat;
-                    background-position: right $small-gap center;
-                    background-image: url(../img/style/ordenable.png);
-
-                    &.asc,
-                    &.desc.locked {
-                        background-image: url(../img/style/arrow_up.png);
-                    }
-
-                    &.desc,
-                    &.asc.locked {
-                        background-image: url(../img/style/arrow_down.png);
-                    }
-                }
-            }
-
-            &.key {
-                width: 250px;
+            &.boolean {
+                width: 130px;
+                text-align: center !important;
             }
         }
 
         // TABLE HEADER
         thead {
-            background-color: $light-gray;
+            background-color: $navGray;
+            color: white;
 
             th {
-                padding: $small-gap $gap;
-                color: $navGray;
+                padding: $padding-s $padding-m;
                 text-align: start;
-                font-weight: 600;
-                text-transform: uppercase;
+                font-weight: 500;
+                border: unset;
 
                 &.fa-wrapper {
                     font-size: 20px;
@@ -279,6 +206,10 @@ a {
                         text-decoration: underline;
                     }
                 }
+
+                &:first-child {
+                    padding: $padding-s $padding-m;
+                }
             }
         }
 
@@ -286,19 +217,34 @@ a {
 
             tr {
                 background-color: white;
+
+                &:nth-child(2n) {
+                    background-color: $light-gray;
+                }
             }
 
             td {
+                border: unset !important;
+                padding: $padding-s $padding-m;
+
                 &.actions {
                     .td-content {
                         display: flex;
-                        width: 30%;
+                        justify-content: center;
                         margin: auto;
-                        font-size: 1.4rem;
-                        justify-content: space-between;
+                        gap: $padding-s;
+                        font-size: $medium-font-size;
 
                         .green-icon {
-                            color: $iconsGreen;
+                            color: $green-icon;
+                        }
+
+                        .orange-icon {
+                            color: $orange;
+                        }
+
+                        .gray-icon {
+                            color: $navGray;
                         }
 
                         .red-icon {
@@ -310,66 +256,29 @@ a {
                         }
                     }
                 }
-            }
 
-            // CHECKS
-            .check {
-                border: 1px solid $navGray;
-                background: white;
-                width: 20px;
-                height: 20px;
-                margin: 0 auto;
-                cursor: pointer;
-
-                img {
-                    display: none;
-                    max-width: none;
-                }
-
-                &.checked {
-                    img {
-                        display: block;
-                        width: 30px;
-                        margin-top: -7px;
-                        margin-left: -3px;
-                        margin-bottom: -23px;
-                    }
-                }
-            }
-
-            .locks {
-                display: flex;
-                flex-direction: row;
-
-                .lock {
-                    width: 35px;
-                    height: 35px;
+                // CHECKS
+                .check {
+                    border: 1px solid $navGray;
+                    background: white;
+                    width: 20px;
+                    height: 20px;
                     margin: 0 auto;
                     cursor: pointer;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
 
-                    @include default-transition(0.5s);
-
-                    &:hover {
-                        background-color: $dark-gray;
-                        color: $white;
+                    img {
+                        display: none;
+                        max-width: none;
                     }
 
-                    &.is_active {
-                        background-color: $orange;
-                        color: $black;
-
-                        &:hover {
-                            background-color: $dark-gray;
-                            color: $white;
+                    &.checked {
+                        img {
+                            display: block;
+                            width: 30px;
+                            margin-top: -7px;
+                            margin-left: -3px;
+                            margin-bottom: -23px;
                         }
-                    }
-
-                    svg {
-                        width: 25px;
-                        height: 25px;
                     }
                 }
             }
@@ -452,21 +361,6 @@ a {
 
                     &.more {
                         min-width: 0px;
-                    }
-                }
-            }
-        }
-
-        // TREE TABLE
-        &.tree {
-            .element {
-                text-align: left;
-
-                $class-slug: level !default;
-
-                @for $i from 1 through 6 {
-                    .#{$class-slug}-#{$i} {
-                        padding-left: $gap * $i;
                     }
                 }
             }

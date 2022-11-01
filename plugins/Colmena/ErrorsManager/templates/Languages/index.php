@@ -1,7 +1,4 @@
 <?php
-
-use Cake\Utility\Inflector;
-
 $this->Breadcrumbs->add('Inicio', '/');
 $this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),
@@ -18,8 +15,8 @@ $header = [
 ?>
 
 <?= $this->element("header", $header); ?>
-<?= $this->element('paginator'); ?>
-<div class="content px-4">
+
+<div class="content m-4">
     <div class="results">
         <?php
         if (count($entities) !== 0 && !empty($entities)) {
@@ -92,4 +89,6 @@ $header = [
         }
         ?>
     </div><!-- .results -->
+
+    <?= $this->element('paginator'); ?>
 </div><!-- .content -->

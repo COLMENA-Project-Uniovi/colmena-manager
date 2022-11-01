@@ -14,7 +14,7 @@ class ErrorExamplesController extends AppController
 
     // Default pagination settings
     public $paginate = [
-        'limit' => 20,
+        'limit' => 10,
         'order' => [
             'id' => 'ASC'
         ],
@@ -27,7 +27,7 @@ class ErrorExamplesController extends AppController
 
     protected $tableButtons = [
         'Editar' => [
-            'icon' => '<i class="far fa-edit"></i>',
+            'icon' => '<i class="fal fa-edit"></i>',
             'url' => [
                 'controller' => 'ErrorExamples',
                 'action' => 'edit',
@@ -39,7 +39,7 @@ class ErrorExamplesController extends AppController
             ]
         ],
         'Borrar' => [
-            'icon' => '<i class="fas fa-trash-alt"></i>',
+            'icon' => '<i class="fal fa-trash-alt"></i>',
             'url' => [
                 'controller' => 'ErrorExamples',
                 'action' => 'delete',
