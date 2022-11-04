@@ -14,7 +14,7 @@ class SubjectsController extends AppController
 
     // Default pagination settings
     public $paginate = [
-        'limit' => 20,
+        'limit' => 10,
         'order' => [
             'id' => 'DESC'
         ],
@@ -26,7 +26,7 @@ class SubjectsController extends AppController
 
     protected $tableButtons = [
         'Editar' => [
-            'icon' => '<i class="far fa-edit"></i>',
+            'icon' => '<i class="fal fa-edit"></i>',
             'url' => [
                 'controller' => 'Subjects',
                 'action' => 'edit',
@@ -38,7 +38,7 @@ class SubjectsController extends AppController
             ]
         ],
         'Borrar' => [
-            'icon' => '<i class="fas fa-trash-alt"></i>',
+            'icon' => '<i class="fal fa-trash-alt"></i>',
             'url' => [
                 'controller' => 'Subjects',
                 'action' => 'delete',
@@ -48,6 +48,18 @@ class SubjectsController extends AppController
                 'confirm' => '¿Estás seguro de que quieres eliminar la asignatura?',
                 'class' => 'red-icon',
                 'escape' => false
+            ]
+        ],
+        'Sesiones' => [
+            'icon' => '<i class="fal fa-calendar-alt"></i>',
+            'url' => [
+                'controller' => 'Sessions',
+                'action' => 'index',
+                'plugin' => 'Colmena/AcademicalManager',
+            ],
+            'options' => [
+                'escape' => false,
+                'class' => 'gray-icon'
             ]
         ]
     ];
@@ -90,11 +102,6 @@ class SubjectsController extends AppController
             return $this->redirect(['action' => 'index', $keyword]);
         }
 
-        // Add the project id to the pagination
-        $this->paginate['where'] = [
-            'project_id' => $projectID
-        ];
-
         // Paginator
         $settings = $this->paginate;
 
@@ -111,18 +118,12 @@ class SubjectsController extends AppController
         //prepare the pagination
         $this->paginate = $settings;
 
-        $entities = $this->paginate($this->modelClass);
-        $filteredEntities = array();
-
-        foreach ($entities as $entity) {
-            if ($entity['project_id'] == $projectID) {
-                array_push($filteredEntities, $entity);
-            }
-        }
+        $entities = $this->{$this->getName()}->find('all')->where([$this->getName() . '.project_id' => $projectID]);
+        $entities = $this->paginate($entities);
 
         $this->set('header_actions', $this->getHeaderActions());
         $this->set('tableButtons', $this->getTableButtons());
-        $this->set('entities', $filteredEntities);
+        $this->set('entities', $entities);
         $this->set('keyword', $keyword);
     }
 
@@ -140,7 +141,7 @@ class SubjectsController extends AppController
 
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-            $data['project_id'] = $project;
+            $entity['project_id'] = $projectID;
 
             $entity = $this->{$this->getName()}->patchEntity($entity, $data);
 

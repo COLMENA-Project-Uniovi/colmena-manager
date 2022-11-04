@@ -49,7 +49,7 @@ $padding = isset($tabs) && !empty($tabs) ? '' : 'pb-4';
         if (isset($header)) {
             if (isset($header['actions']) && !empty($header['actions'])) {
         ?>
-                <div class="actions col">
+                <div class="actions col-md-auto">
                     <?php
                     if (isset($header['title']) && !empty($header['title'])) {
                     ?>
@@ -77,7 +77,7 @@ $padding = isset($tabs) && !empty($tabs) ? '' : 'pb-4';
             }
             if (isset($header['buttons']) && !empty($header['buttons'])) {
             ?>
-                <div class="actions col">
+                <div class="actions col-md-auto">
                     <?php
                     foreach ($header['buttons'] as $action_name => $config) {
                         $class = isset($config['class']) ? $config['class'] : '';
@@ -120,7 +120,7 @@ $padding = isset($tabs) && !empty($tabs) ? '' : 'pb-4';
             if (isset($header['search_form'])) {
                 $search_form = $header['search_form'];
             ?>
-                <div class="search col <?= isset($header['select_filter']) && $header['select_filter'] ? "long" : "" ?>">
+                <div class="search col<?= isset($header['select_filter']) && $header['select_filter'] ? "long" : "" ?>">
                     <?= $this->Form->create(
                         null,
                         [
@@ -128,6 +128,7 @@ $padding = isset($tabs) && !empty($tabs) ? '' : 'pb-4';
                             'class' => 'search-form'
                         ]
                     ); ?>
+
                     <?= $this->Form->control(
                         'keyword',
                         [
@@ -136,16 +137,8 @@ $padding = isset($tabs) && !empty($tabs) ? '' : 'pb-4';
                             'value' => $keyword
                         ]
                     );
-
-                    if (isset($header['select_filter']) && $header['select_filter']) {
-                        echo $this->Form->select(
-                            'filter',
-                            $filter_options,
-                            ['empty' => $header['select_filter']['empty']]
-                        );
-                    }
-
                     ?>
+
                     <?= $this->Form->button(
                         '<i class="fa fa-search" aria-hidden="true"></i>',
                         [

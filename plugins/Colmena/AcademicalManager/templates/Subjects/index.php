@@ -7,6 +7,7 @@ $this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
+
 $header = [
     'title' => ucfirst($entityNamePlural),
     'breadcrumbs' => true,
@@ -18,30 +19,21 @@ $header = [
 ?>
 
 <?= $this->element("header", $header); ?>
-<?= $this->element('paginator'); ?>
 
-<div class="content px-4">
+<div class="content m-4">
     <div class="results">
         <?php
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
             <table class="table">
-                <thead class="thead">
+                <thead>
                     <tr>
-                        <th class="medium">
-                            Nombre
-                        </th><!-- .th -->
-                        <th class="grow">
+                        <th>Nombre</th><!-- .th -->
+                        <th>
                             Año académico
                         </th><!-- .th -->
-                        <th class="grow">
+                        <th>
                             Semestre
-                        </th><!-- .th -->
-                        <th class="grow">
-                            Fecha de inicio
-                        </th><!-- .th -->
-                        <th class="grow">
-                            Fecha de fin
                         </th><!-- .th -->
                         <?php
                         if (!empty($tableButtons)) {
@@ -57,34 +49,16 @@ $header = [
                 <tbody class="tbody elements">
                     <?php
                     foreach ($entities as $entity) {
-                        $tableButtons['Sesiones'] =
-                            [
-                                'icon' => '<i class="far fa-calendar-alt"></i>',
-                                'url' => [
-                                    'controller' => 'Sessions',
-                                    'action' => 'index',
-                                    'plugin' => 'Colmena/AcademicalManager',
-                                ],
-                                'options' => [
-                                    'escape' => false
-                                ]
-                            ];
                     ?>
                         <tr>
-                            <td class="element medium">
+                            <td>
                                 <p><?= $entity->name ?></p>
                             </td><!-- .td -->
-                            <td class="element grow">
+                            <td>
                                 <p><?= $entity->academical_year_id != 0 ? $entity->academical_year->title : ''; ?></p>
                             </td><!-- .td -->
-                            <td class="element grow">
+                            <td>
                                 <p><?= $entity->semester; ?></p>
-                            </td><!-- .td -->
-                            <td class="element grow">
-                                <p><?= $entity->start_date; ?></p>
-                            </td><!-- .td -->
-                            <td class="element grow">
-                                <p><?= $entity->end_date; ?></p>
                             </td><!-- .td -->
                             <?php
                             if (!empty($tableButtons)) {
@@ -128,4 +102,6 @@ $header = [
         }
         ?>
     </div><!-- .results -->
+
+    <?= $this->element('paginator'); ?>
 </div><!-- .content -->

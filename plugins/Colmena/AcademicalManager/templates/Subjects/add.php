@@ -60,22 +60,6 @@ $header = [
                     'type' => 'number'
                 ]
             ); ?>
-
-            <?= $this->Form->control(
-                'start_date',
-                [
-                    'label' => 'Fecha de inicio',
-                    'type' => 'date'
-                ]
-            ); ?>
-
-            <?= $this->Form->control(
-                'end_date',
-                [
-                    'label' => 'Fecha de fin',
-                    'type' => 'date'
-                ]
-            ); ?>
         </div><!-- .form-block -->
     </div><!-- .primary -->
     <div class="primary full">

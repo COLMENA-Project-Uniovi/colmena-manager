@@ -14,7 +14,7 @@ class MarkersController extends AppController
 
     // Default pagination settings
     public $paginate = [
-        'limit' => 15,
+        'limit' => 10,
         'order' => [
             'Markers.id' => 'ASC'
         ],
@@ -27,7 +27,7 @@ class MarkersController extends AppController
 
     protected $tableButtons = [
         'Editar' => [
-            'icon' => '<i class="far fa-edit"></i>',
+            'icon' => '<i class="fal fa-edit"></i>',
             'url' => [
                 'controller' => 'Markers',
                 'action' => 'edit',
@@ -39,7 +39,7 @@ class MarkersController extends AppController
             ]
         ],
         'Borrar' => [
-            'icon' => '<i class="fas fa-trash"></i>',
+            'icon' => '<i class="fal fa-trash-alt"></i>',
             'url' => [
                 'controller' => 'Markers',
                 'action' => 'delete',

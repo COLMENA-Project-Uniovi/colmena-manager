@@ -14,7 +14,7 @@ class CompilationsController extends AppController
 
     // Default pagination settings
     public $paginate = [
-        'limit' => 20,
+        'limit' => 10,
         'order' => [
             'id' => 'DESC'
         ],
@@ -27,7 +27,7 @@ class CompilationsController extends AppController
 
     protected $tableButtons = [
         'Editar' => [
-            'icon' => '<i class="far fa-edit"></i>',
+            'icon' => '<i class="fal fa-edit"></i>',
             'url' => [
                 'controller' => 'Compilations',
                 'action' => 'edit',
@@ -39,7 +39,7 @@ class CompilationsController extends AppController
             ]
         ],
         'Borrar' => [
-            'icon' => '<i class="fas fa-trash-alt"></i>',
+            'icon' => '<i class="fal fa-trash-alt"></i>',
             'url' => [
                 'controller' => 'Compilations',
                 'action' => 'delete',
@@ -52,13 +52,14 @@ class CompilationsController extends AppController
             ]
         ],
         'Markers' => [
-            'icon' => '<i class="fas fa-bug"></i>',
+            'icon' => '<i class="fal fa-bug"></i>',
             'url' => [
                 'controller' => 'Compilations',
                 'action' => 'markers',
                 'plugin' => 'Colmena/ErrorsManager'
             ],
             'options' => [
+                'class' => 'gray-icon',
                 'escape' => false
             ]
         ],

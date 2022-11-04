@@ -1,7 +1,4 @@
 <?php
-
-use Cake\Utility\Inflector;
-
 $this->Breadcrumbs->add('Inicio', '/');
 $this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),

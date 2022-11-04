@@ -15,7 +15,7 @@ class ProjectsController extends AppController
 
     // Default pagination settings
     public $paginate = [
-        'limit' => 20,
+        'limit' => 10,
         'order' => [
             'id' => 'ASC'
         ]
@@ -23,7 +23,7 @@ class ProjectsController extends AppController
 
     protected $tableButtons = [
         'Editar' => [
-            'icon' => '<i class="far fa-edit"></i>',
+            'icon' => '<i class="fal fa-edit"></i>',
             'url' => [
                 'controller' => 'Projects',
                 'action' => 'edit',
@@ -35,7 +35,7 @@ class ProjectsController extends AppController
             ]
         ],
         'Borrar' => [
-            'icon' => '<i class="fas fa-trash-alt"></i>',
+            'icon' => '<i class="fal fa-trash-alt"></i>',
             'url' => [
                 'controller' => 'Projects',
                 'action' => 'delete',

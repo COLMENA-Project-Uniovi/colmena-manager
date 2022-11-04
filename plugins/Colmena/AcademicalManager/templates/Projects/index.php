@@ -1,12 +1,10 @@
 <?php
-
-use Cake\Utility\Inflector;
-
 $this->Breadcrumbs->add('Inicio', '/');
 $this->Breadcrumbs->add(ucfirst($entityNamePlural), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
+
 $header = [
     'title' => ucfirst($entityNamePlural),
     'breadcrumbs' => true,
@@ -18,23 +16,22 @@ $header = [
 ?>
 
 <?= $this->element("header", $header); ?>
-<?= $this->element('paginator'); ?>
 
-<div class="content px-4">
+<div class="content m-4">
     <div class="results">
         <?php
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
-            <table class="table">
-                <thead class="thead">
-                    <tr class="tr">
-                        <th class="th grow">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
                             Nombre del proyecto
                         </th><!-- .th -->
                         <?php
                         if (!empty($tableButtons)) {
                         ?>
-                            <th class="th actions short">
+                            <th class="actions">
                                 Operaciones
                             </th><!-- .th -->
                         <?php
@@ -42,18 +39,18 @@ $header = [
                         ?>
                     </tr><!-- .tr -->
                 </thead><!-- .thead -->
-                <tbody class="tbody elements">
+                <tbody class="elements">
                     <?php
                     foreach ($entities as $entity) {
                     ?>
-                        <tr class="tr">
-                            <td class="td element grow">
+                        <tr>
+                            <td class="element">
                                 <p><?= $entity->name ?></p>
                             </td><!-- .td -->
                             <?php
                             if (!empty($tableButtons)) {
                             ?>
-                                <td class="td actions">
+                                <td class="actions">
                                     <div class="td-content">
                                         <?php
                                         foreach ($tableButtons as $key => $value) {
@@ -92,4 +89,6 @@ $header = [
         }
         ?>
     </div><!-- .results -->
+
+    <?= $this->element('paginator'); ?>
 </div><!-- .content -->

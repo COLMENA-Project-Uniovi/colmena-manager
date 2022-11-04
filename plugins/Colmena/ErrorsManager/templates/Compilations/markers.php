@@ -20,7 +20,7 @@ $header = [
 
 $tableButtons = [
     'Editar' => [
-        'icon' => '<i class="far fa-edit"></i>',
+        'icon' => '<i class="fal fa-edit"></i>',
         'url' => [
             'controller' => 'Markers',
             'action' => 'edit',
@@ -32,7 +32,7 @@ $tableButtons = [
         ]
     ],
     'Borrar' => [
-        'icon' => '<i class="fas fa-trash"></i>',
+        'icon' => '<i class="fal fa-trash-alt"></i>',
         'url' => [
             'controller' => 'Markers',
             'action' => 'delete',
@@ -54,18 +54,18 @@ $tableButtons = [
         if (count($entities) !== 0 && !empty($entities)) {
         ?>
             <div>
-                <table class="table table-bordered table-hover">
-                    <thead class="thead-dark">
+                <table>
+                    <thead>
                         <tr>
-                            <th scope="col">Usuario</th><!-- .th -->
-                            <th scope="col">Mensaje</th><!-- .th -->
-                            <th scope="col">Género</th><!-- .th -->
-                            <th scope="col">Fecha de creación</th><!-- .th -->
-                            <th scope="col">Sesión</th><!-- .th -->
+                            <th>Usuario</th><!-- .th -->
+                            <th>Mensaje</th><!-- .th -->
+                            <th>Género</th><!-- .th -->
+                            <th>Fecha de creación</th><!-- .th -->
+                            <th>Sesión</th><!-- .th -->
                             <?php
                             if (!empty($tableButtons)) {
                             ?>
-                                <th scope="col">Operaciones</th><!-- .th -->
+                                <th class="actions">Operaciones</th><!-- .th -->
                             <?php
                             }
                             ?>
@@ -77,7 +77,7 @@ $tableButtons = [
                             $msg = isset($entity->session) ? $entity->session->name : '-- Sin asignar --'
                         ?>
                             <tr>
-                                <th scope="row">
+                                <th>
                                     <?php
                                     if ($entity->user_id != 0) {
                                         $name = $entity->student->name != '' && $entity->student->name != '-' ? $entity->student->name . ' ' . $entity->student->surname . ' ' . $entity->student->surname2 : $entity->student->identifier;
@@ -88,26 +88,26 @@ $tableButtons = [
                                     ?>
                                 </th>
 
-                                <td scope="col">
+                                <td>
                                     <?= $entity->message; ?>
                                 </td><!-- .td -->
 
-                                <td scope="col">
+                                <td>
                                     <?= $entity->gender; ?>
                                 </td><!-- .td -->
 
-                                <td scope="col">
+                                <td>
                                     <?= $entity->timestamp; ?>
                                 </td><!-- .td -->
 
-                                <td scope="col">
+                                <td>
                                     <?= $msg; ?>
                                 </td><!-- .td -->
 
                                 <?php
                                 if (!empty($tableButtons)) {
                                 ?>
-                                    <td class="actions" scope="col">
+                                    <td class="actions">
                                         <div class="td-content">
                                             <?php
                                             foreach ($tableButtons as $key => $value) {

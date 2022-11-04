@@ -4,7 +4,7 @@
 header {
     background-color: $light-gray;
     position: fixed;
-    box-shadow: 0 2px 6px 0 rgb(136 148 171 / 20%), 0 24px 20px -24px rgb(71 82 107 / 10%);
+    box-shadow: $box-shadow;
 
     &.home {
         padding: $small-gap;
@@ -133,7 +133,7 @@ header {
         color: $black;
         font-size: $bigger-font-size;
         line-height: $line-height;
-        flex-grow: 2;
+        flex-grow: 4;
     }
 
     h3 {
@@ -196,7 +196,7 @@ header {
             width: 600px;
             padding: $gap $small-gap;
             border: 1px solid $gray-d;
-            box-shadow: 0 2px 6px 0 rgba(136, 148, 171, .2), 0 24px 20px -24px rgba(71, 82, 107, .1);
+            box-shadow: $box-shadow;
             background-color: $white;
             transition: visibility 0s linear 0.2s, opacity 0.2s ease-out 0s,
                 transform 0.2s ease-out 0s;
@@ -219,7 +219,7 @@ header {
                     width: 100px;
                     margin-bottom: $small-gap;
                     border: 1px solid $gray-d;
-                    box-shadow: 0 10px 25px rgba(10, 10, 51, 0.1);
+                    box-shadow: $box-shadow;
                 }
 
                 &:hover {
@@ -261,7 +261,7 @@ header {
 
     // TOP SEARCH
     .search {
-        width: 250px;
+        width: 125px;
         margin-left: $small-gap;
 
         &.long {
@@ -286,14 +286,12 @@ header {
                     input {
                         width: 100%;
                         height: 34px;
-                        padding: $tiny-gap*2 $tiny-gap*4;
-                        border: unset;
+                        padding: $small-gap $gap;
                         font-size: $small-font-size;
-                        border-radius: $gap 0 0 $gap;
-                        margin: $tiny-gap;
-                        box-shadow: 0 2px 6px 0 rgb(136 148 171 / 20%), 0 24px 20px -24px rgb(71 82 107 / 10%);
+                        border-radius: $border-radius-size 0 0 $border-radius-size;
+                        box-shadow: $box-shadow;
                         font-size: 0.9em;
-                        border: 1px solid #AAAAAA;
+                        border: unset;
 
                         &:focus-visible {
                             outline: unset;
@@ -303,12 +301,11 @@ header {
             }
 
             .button {
-                border-radius: 0 $gap $gap 0;
+                border-radius: 0 $border-radius-size $border-radius-size 0;
                 border: unset;
                 background: white;
                 height: 34px;
                 font-size: 0.9em;
-                border: 1px solid #AAAAAA;
 
                 &:hover {
                     background-color: $orange;
