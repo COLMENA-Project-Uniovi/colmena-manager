@@ -15,7 +15,7 @@ $header = [
 ?>
 
 <?= $this->element("header", $header); ?>
-<div class="content px-4">
+<div class="content p-4">
     <?= $this->Form->create(
         $entity,
         [
@@ -66,17 +66,6 @@ $header = [
                 [
                     'label' => 'Identificador del usuario (UO)',
                     'type' => 'text'
-                ]
-            ); ?>
-            <?= $this->Form->control(
-                'role_id',
-                [
-                    'label' => 'Rol',
-                    'options' => $roles,
-                    'empty' => 'Selecciona el rol del usuario',
-                    'templateVars' => [
-                        'help' => 'Selecciona el rol del usuario'
-                    ]
                 ]
             ); ?>
         </div><!-- .form-block -->

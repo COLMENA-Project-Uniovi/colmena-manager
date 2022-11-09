@@ -15,7 +15,7 @@ $header = [
 ?>
 
 <?= $this->element("header", $header); ?>
-<div class="content px-4">
+<div class="content p-4">
     <?= $this->Form->create(
         $entity,
         [
@@ -29,7 +29,7 @@ $header = [
             <?= $this->Form->control(
                 'name',
                 [
-                    'label' => 'Nombre del error',
+                    'label' => 'Nombre del lenguaje de programación',
                     'type' => 'text'
                 ]
             ); ?>
