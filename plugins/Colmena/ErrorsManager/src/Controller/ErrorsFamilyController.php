@@ -129,7 +129,7 @@ class ErrorsFamilyController extends AppController
                 return $this->redirect(['action' => 'index']);
             } else {
                 $errorMsg = '<p>El usuario no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($entity->errors() as $field => $error) {
+                foreach ($entity->getErrors() as $field => $error) {
                     $errorMsg .= '<p>' . $error['message'] . '</p>';
                 }
                 $this->Flash->error($errorMsg, ['escape' => false]);
@@ -158,7 +158,7 @@ class ErrorsFamilyController extends AppController
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
             } else {
                 $errorMsg = '<p>El usuario no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($entity->errors() as $field => $error) {
+                foreach ($entity->getErrors() as $field => $error) {
                     $errorMsg .= '<p>' . $error['message'] . '</p>';
                 }
                 $this->Flash->error($errorMsg, ['escape' => false]);

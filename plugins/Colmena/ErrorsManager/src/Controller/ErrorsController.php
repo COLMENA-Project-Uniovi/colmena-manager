@@ -202,7 +202,7 @@ class ErrorsController extends AppController
     {
         $errorMsg = '<p>La sesión no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
 
-        foreach ($entity->errors() as $error) {
+        foreach ($entity->getErrors() as $error) {
             $errorMsg .= '<p>' . $error['message'] . '</p>';
         }
 

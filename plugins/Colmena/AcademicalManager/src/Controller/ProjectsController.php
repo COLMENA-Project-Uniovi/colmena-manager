@@ -150,7 +150,7 @@ class ProjectsController extends AppController
             }
 
             $errorMsg = '<p>El proyecto no se ha guardado. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-            foreach ($entity->errors() as $error) {
+            foreach ($entity->getErrors() as $error) {
                 $errorMsg .= '<p>' . $error['message'] . '</p>';
             }
             $this->Flash->error($errorMsg, ['escape' => false]);
@@ -180,7 +180,7 @@ class ProjectsController extends AppController
             }
 
             $errorMsg = '<p>el proyecto no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-            foreach ($entity->errors() as $error) {
+            foreach ($entity->getErrors() as $error) {
                 $errorMsg .= '<p>' . $error['message'] . '</p>';
             }
             $this->Flash->error($errorMsg, ['escape' => false]);
