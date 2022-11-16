@@ -125,7 +125,7 @@ class LanguagesController extends AppController
                 return $this->redirect(['action' => 'edit', $entity->id]);
             } else {
                 $error_msg = '<p>El lenguaje de programación no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($entity->errors() as $field => $error) {
+                foreach ($entity->getErrors() as $field => $error) {
                     $error_msg .= '<p>' . $error['message'] . '</p>';
                 }
                 $this->Flash->error($error_msg, ['escape' => false]);
@@ -154,7 +154,7 @@ class LanguagesController extends AppController
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
             } else {
                 $error_msg = '<p>El lenguaje de programación no se ha guardado correctamente. Por favor, revisa los datos e inténtalo de nuevo.</p>';
-                foreach ($entity->errors() as $field => $error) {
+                foreach ($entity->getErrors() as $field => $error) {
                     $error_msg .= '<p>' . $error['message'] . '</p>';
                 }
                 $this->Flash->error($error_msg, ['escape' => false]);
