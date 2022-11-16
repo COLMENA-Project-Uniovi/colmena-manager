@@ -146,7 +146,7 @@ class SubjectsController extends AppController
             $entity = $this->{$this->getName()}->patchEntity($entity, $data);
 
             if ($this->{$this->getName()}->save($entity)) {
-                $this->Flash->success('la asignatura se ha guardado correctamente.');
+                $this->Flash->success('La asignatura se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id]);
             }
 
@@ -175,7 +175,7 @@ class SubjectsController extends AppController
             $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
 
             if ($this->{$this->getName()}->save($entity)) {
-                $this->Flash->success('la asignatura se ha guardado correctamente.');
+                $this->Flash->success('La asignatura se ha guardado correctamente.');
                 return $this->redirect(['action' => 'edit', $entity->id, $locale]);
             }
 
@@ -198,9 +198,9 @@ class SubjectsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $entity = $this->{$this->getName()}->get($id);
         if ($this->{$this->getName()}->delete($entity)) {
-            $this->Flash->success('la asignatura se ha borrado correctamente.');
+            $this->Flash->success('La asignatura se ha borrado correctamente.');
         } else {
-            $this->Flash->error('la asignatura no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
+            $this->Flash->error('La asignatura no se ha borrado correctamente. Por favor, inténtalo de nuevo más tarde.');
         }
         return $this->redirect(['action' => 'index']);
     }
