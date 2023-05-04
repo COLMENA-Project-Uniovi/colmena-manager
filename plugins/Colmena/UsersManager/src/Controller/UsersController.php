@@ -115,14 +115,16 @@ class UsersController extends AppController
 
         $data = $this->request->getData();
         $response = $this->response->withType('json');
-
+        
         $entity = $this->{$this->getName()}->newEntity($data);
-        $user = $this->{$this->getName()}->save($data);
+        $user = $this->{$this->getName()}->save($entity);
 
-        if (isset($user)) {
-            $response = $response->withStringBody(json_encode($user));
+        if (!$user) {
+            $response = $response->withStringBody('El usuario ya estaba registrado');
+            $response = $response->withType('json');
         } else {
-            throw new UnauthorizedException("Incorrect login data");
+            $response = $response->withStringBody($user);
+            $response = $response->withType('json');
         }
 
         return $response;
@@ -179,7 +181,7 @@ class UsersController extends AppController
         $session = $this->request->getSession();
         $projectID = $session->read('Projectid');
 
-        return $projectID['projectID'];
+        return $projectID;
     }
     /**
      * Add method

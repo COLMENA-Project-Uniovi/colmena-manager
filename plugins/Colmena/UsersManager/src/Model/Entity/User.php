@@ -42,4 +42,20 @@ class User extends Entity
     protected $_hidden = [
         'password'
     ];
+
+    /**
+     * Changes the password using the hashing string to store secure passwords
+     *
+     * @param string $value to be hashed
+     *
+     * @return the new hashed password
+     */
+    protected function _setPassword($value)
+    {
+        if ($value != '') {
+            $hasher = new DefaultPasswordHasher();
+            return $hasher->hash($value);
+        }
+        return $value;
+    }
 }
