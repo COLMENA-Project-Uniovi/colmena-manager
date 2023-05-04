@@ -28,7 +28,7 @@ class Language extends Entity
      * @var array
      */
     protected $_accessible = [
-        'id' => false,
+        'id' => true,
         '*' => true
     ];
 
@@ -38,6 +38,5 @@ class Language extends Entity
      * @var array
      */
     protected $_hidden = [
-        'id'
     ];
 }

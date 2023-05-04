@@ -61,7 +61,7 @@ class UsersTable extends AppTable
         if (!isset($data) || empty($data)) {
             throw new InvalidArgumentException('Invalid login data');
         }
-        $user = $this->find('all')->where(['email' => $data])->first();
+        $user = $this->find('all')->where(['email' => $data])->contain(['Groups'])->first();
 
         return $user;
     }
