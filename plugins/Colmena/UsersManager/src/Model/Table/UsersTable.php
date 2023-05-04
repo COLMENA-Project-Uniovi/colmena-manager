@@ -8,6 +8,7 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\ORM\TableRegistry;
 use App\Encryption\EncryptTrait;
+use Cake\Auth\DefaultPasswordHasher;
 
 /**
  * Student Model.
@@ -16,7 +17,7 @@ use App\Encryption\EncryptTrait;
 class UsersTable extends AppTable
 {
     use EncryptTrait;
-    
+
     /**
      * Initialize method.
      *
@@ -55,14 +56,26 @@ class UsersTable extends AppTable
         return $validator;
     }
 
-
     public function login($data = null)
     {
         if (!isset($data) || empty($data)) {
             throw new InvalidArgumentException('Invalid login data');
         }
-        $user = $this->find('all')->where(['email' => $data])->contain(['Groups'])->first();
 
-        return $user;
+        $hasher = new DefaultPasswordHasher();
+
+        $user = null;
+        switch ($data['type']) {
+            case 'student':
+                $user = $this->find('all')->where(['email' => $data['username']])->contain(['Groups'])->first();
+                return isset($user) && $hasher->check($data['password'], $user['password']) ? $user : null;
+                
+                break;
+            case 'teacher':
+                $user = TableRegistry::getTableLocator()->get('AdminUsers')->find('all')->where(['username' => $data['username']])->first();
+                return isset($user) && $hasher->check($data['password'], $user['password']) ? $user : null;
+            
+                break;
+        }
     }
 }

@@ -92,10 +92,9 @@ class UsersController extends AppController
         $data = $this->request->getData();
         $response = $this->response->withType('json');
 
-        $user = $this->{$this->getName()}->login($data['username']);
-        $passUser = $this->decrypt($user['password']);
+        $user = $this->{$this->getName()}->login($data);
 
-        if ($data['password'] == $passUser) {
+        if (isset($user)) {
             $response = $response->withStringBody(json_encode($user));
         } else {
             throw new UnauthorizedException("Incorrect login data");
