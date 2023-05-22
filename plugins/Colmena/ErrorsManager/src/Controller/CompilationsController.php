@@ -292,6 +292,6 @@ class CompilationsController extends AppController
         $session = $this->request->getSession();
         $projectID = $session->read('Projectid');
 
-        return $projectID['projectID'];
+        return $projectID;
     }
 }

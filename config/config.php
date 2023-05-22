@@ -8,7 +8,7 @@ Configure::write('Cookie.name', 'COLMENA');
 $serverName = $_SERVER['SERVER_NAME'];
 $arrayServerName = explode('.', $_SERVER['SERVER_NAME']);
 
-if (in_array('beta', $arrayServerName)) {
+if (in_array('dev', $arrayServerName)) {
     $path = '';
     $adminFolder = 'admin';
     $frontFolder = '';
@@ -37,13 +37,13 @@ if (in_array('beta', $arrayServerName)) {
     $adminFolder = '';
     $frontFolder = '';
 
-    //Production Config
-    $user = '';
-    $pass = '';
-    $database = '';
-    $host = '';
+    //Beta Config
+    $user = 'colmena_admin';
+    $pass = '9W$ecd709';
+    $database = 'colmena_bd';
+    $host = 'localhost';
 
-    $debug = false;
+    $debug = true;
 }
 
 if (!empty($frontFolder)) {

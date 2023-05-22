@@ -30,7 +30,7 @@ class User extends Entity
      * @var array
      */
     protected $_accessible = [
-        'id' => false,
+        'id' => true,
         '*' => true
     ];
 
@@ -40,6 +40,22 @@ class User extends Entity
      * @var array
      */
     protected $_hidden = [
-        'id','password'
+        'password'
     ];
+
+    /**
+     * Changes the password using the hashing string to store secure passwords
+     *
+     * @param string $value to be hashed
+     *
+     * @return the new hashed password
+     */
+    protected function _setPassword($value)
+    {
+        if ($value != '') {
+            $hasher = new DefaultPasswordHasher();
+            return $hasher->hash($value);
+        }
+        return $value;
+    }
 }
