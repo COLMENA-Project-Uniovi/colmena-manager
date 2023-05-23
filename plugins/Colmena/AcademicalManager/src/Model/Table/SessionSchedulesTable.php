@@ -12,31 +12,31 @@ use App\Encryption\EncryptTrait;
  */
 class SessionSchedulesTable extends AppTable
 {
-    use EncryptTrait;
+  use EncryptTrait;
 
-    /**
-     * Initialize method.
-     *
-     * @param array $config the configuration for the Table
-     */
-    public function initialize(array $config): void
-    {
-        parent::initialize($config);
+  /**
+   * Initialize method.
+   *
+   * @param array $config the configuration for the Table
+   */
+  public function initialize(array $config): void
+  {
+    parent::initialize($config);
 
-        $this->setTable('acm_session_shedules');
-        $this->setPrimaryKey('id');
+    $this->setTable('acm_session_shedules');
+    $this->setPrimaryKey('id');
 
-        $this->addBehavior('Timestamp');
+    $this->addBehavior('Timestamp');
 
-        $this->belongsTo(
-            'Sessions',
-            [
-                'className' => 'Colmena/AcademicalManager.Sessions',
-            ]
-        );
+    $this->belongsTo(
+      'Sessions',
+      [
+        'className' => 'Colmena/AcademicalManager.Sessions',
+      ]
+    );
 
-        $this->belongsTo('PracticeGroups', [
-            'className' => 'Colmena/UsersManager.PracticeGroups'
-        ])->setForeignKey('practice_group_id');
-    }
+    $this->belongsTo('PracticeGroups', [
+      'className' => 'Colmena/UsersManager.PracticeGroups'
+    ])->setForeignKey('practice_group_id');
+  }
 }
