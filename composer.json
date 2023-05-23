@@ -18,7 +18,8 @@
         "tinify/tinify": "^1.5",
         "friendsofcake/cakepdf": "^4.1",
         "narendravaghela/cakephp-mailgun": "^5.0",
-        "cakephp/migrations": "^3.1"
+        "cakephp/migrations": "^3.1",
+        "cakephp/debug_kit": "^4.0"
     },
     "require-dev": {
         "psy/psysh": "@stable",
@@ -32,24 +33,22 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src",
-            "Colmena\\UsersManager\\": "./plugins/Colmena/UsersManager/src",
-            "Colmena\\AcademicalManager\\": "./plugins/Colmena/AcademicalManager/src",
-            "Colmena\\MailManager\\": "./plugins/Colmena/MailManager/src/",
-            "Colmena\\MailingManager\\": "./plugins/Colmena/MailingManager/src/",
-            "Colmena\\MediaManager\\": "./plugins/Colmena/MediaManager/src"
+					"App\\": "src",
+					"Colmena\\UsersManager\\": "./plugins/Colmena/UsersManager/src",
+					"Colmena\\AcademicalManager\\": "./plugins/Colmena/AcademicalManager/src",
+					"Colmena\\ErrorsManager\\": "./plugins/Colmena/ErrorsManager/src",
+					"Colmena\\MailManager\\": "./plugins/Colmena/MailManager/src/",
+					"Colmena\\MailingManager\\": "./plugins/Colmena/MailingManager/src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Test\\": "tests",
-            "Colmena\\MediaManager\\Test\\": "./plugins/Colmena/MediaManager/tests",
-            "Colmena\\UsersManager\\Test\\": "./plugins/Colmena/UsersManager/tests",
-            "Colmena\\ExternalApiManager\\Test\\": "./plugins/Colmena/ExternalApiManager/tests",
-            "Colmena\\WebUsersManager\\Test\\": "./plugins/Colmena/WebUsersManager/tests",
-            "Colmena\\SchedulesManager\\Test\\": "./plugins/Colmena/SchedulesManager/tests/",
-            "Colmena\\ReservationsManager\\Test\\": "./plugins/Colmena/ReservationsManager/tests/",
-            "Colmena\\MailManager\\Test\\": "./plugins/Colmena/MailManager/tests/"
+					"App\\Test\\": "tests",
+					"Colmena\\MediaManager\\Test\\": "./plugins/Colmena/MediaManager/tests",
+					"Colmena\\UsersManager\\Test\\": "./plugins/Colmena/UsersManager/tests",
+					"Colmena\\AcademicalManager\\Test\\": "./plugins/Colmena/AcademicalManager/tests",
+					"Colmena\\ErrorsManager\\Test\\": "./plugins/Colmena/ErrorsManager/tests",
+					"Colmena\\MailManager\\Test\\": "./plugins/Colmena/MailManager/tests/"
         }
     },
     "scripts": {
