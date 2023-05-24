@@ -5,6 +5,7 @@ namespace Colmena\AcademicalManager\Controller;
 use Colmena\AcademicalManager\Controller\AppController;
 use App\Encryption\EncryptTrait;
 use Cake\Core\Configure;
+use InvalidArgumentException;
 
 class ProjectsController extends AppController
 {
@@ -70,7 +71,7 @@ class ProjectsController extends AppController
 	public function beforeFilter(\Cake\Event\EventInterface $event)
 	{
 		parent::beforeFilter($event);
-		$this->Auth->allow(['list']);
+		$this->Auth->allow(['list', 'create', 'editProject']);
 	}
 
 	/**
@@ -257,5 +258,53 @@ class ProjectsController extends AppController
 
 		Configure::write('Session.project', $projectID);
 		return $response->withStringBody(json_encode($projectID));
+	}
+
+	/**
+	 * CRUD method which creates a new project
+	 *
+	 * @return a json response with the project created or an exception if the project could not be created
+	 */
+	public function create(){
+		$data = $this->request->getData();
+		$entity = $this->{$this->getName()}->newEmptyEntity();
+
+		$entity = $this->{$this->getName()}->patchEntity($entity, $data);
+		$project = $this->{$this->getName()}->save($entity);
+
+		if(!isset($project)){
+			throw new InvalidArgumentException("Entity could not be saved. Check the data and retry.");
+		}
+
+		$content = json_encode($project);
+
+    $this->response = $this->response->withStringBody($content);
+    $this->response = $this->response->withType('json');
+
+    return $this->response;
+	}
+
+	/**
+	 * CRUD method which edits a project by its id
+	 *
+	 * @return a json response with the project edited or an exception if the project could not be edited
+	 */
+	public function editProject(){
+		$data = $this->request->getData();
+		$entity = $this->{$this->getName()}->get($data['project_id']);
+
+		$entity = $this->{$this->getName()}->patchEntity($entity, $data);
+		$project = $this->{$this->getName()}->save($entity);
+
+		if(!isset($project)){
+			throw new InvalidArgumentException("Entity could not be edited. Check the data and retry.");
+		}
+
+		$content = json_encode($project);
+
+    $this->response = $this->response->withStringBody($content);
+    $this->response = $this->response->withType('json');
+
+    return $this->response;
 	}
 }
