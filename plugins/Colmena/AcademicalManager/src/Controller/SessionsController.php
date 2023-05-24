@@ -3,11 +3,10 @@
 namespace Colmena\AcademicalManager\Controller;
 
 use Colmena\AcademicalManager\Controller\AppController;
-use App\Encryption\EncryptTrait;
+use InvalidArgumentException;
 
 class SessionsController extends AppController
 {
-  use EncryptTrait;
 
   public $entityName = 'sesión';
   public $entityNamePlural = 'sesiones';
@@ -282,5 +281,76 @@ class SessionsController extends AppController
 
     $this->set(compact('entities', 'session', 'subject'));
     $this->set('entities', $entities);
+  }
+
+  /**
+   * CRUD method which creates a new session
+   *
+   * @return a json response with the session created or an exception if the session could not be created
+   */
+  public function create()
+  {
+    $data = $this->request->getData();
+    $entity = $this->{$this->getName()}->newEmptyEntity();
+
+    $entity = $this->{$this->getName()}->patchEntity($entity, $data);
+
+    try {
+      $subject = $this->{$this->getName()}->save($entity);
+    } catch (\Throwable $th) {
+      throw new InvalidArgumentException("Entity could not be saved. Check the data and retry.");
+    }
+
+    $content = json_encode($subject);
+
+    $this->response = $this->response->withStringBody($content);
+    $this->response = $this->response->withType('json');
+
+    return $this->response;
+  }
+
+  /**
+   * CRUD method which edits a subject by its id
+   *
+   * @return a json response with the subject edited or an exception if the subject could not be edited
+   */
+  public function editSession()
+  {
+    $data = $this->request->getData();
+
+    try {
+      # We need to get the session to check if the session exists
+      $entity = $this->{$this->getName()}->get($data['session_id']);
+    } catch (\Throwable $th) {
+      throw new InvalidArgumentException("Session does not exist.");
+    }
+
+    if (isset($data['project_id']) && !empty($data['project_id'])) {
+      try {
+        # We need to get the project to check if the project exists
+        $this->{$this->getName()}->Projects->get($data['project_id']);
+      } catch (\Throwable $th) {
+        throw new InvalidArgumentException("Project does not exist.");
+      }
+    }
+
+    if (isset($data['language_id']) && !empty($data['language_id'])) {
+      try {
+        # We need to check if the language exists
+        $this->{$this->getName()}->Languages->get($data['language_id']);
+      } catch (\Throwable $th) {
+        throw new InvalidArgumentException("Academical year does not exist.");
+      }
+    }
+
+    $entity = $this->{$this->getName()}->patchEntity($entity, $data);
+    $subject = $this->{$this->getName()}->save($entity);
+
+    $content = json_encode($subject);
+
+    $this->response = $this->response->withStringBody($content);
+    $this->response = $this->response->withType('json');
+
+    return $this->response;
   }
 }
