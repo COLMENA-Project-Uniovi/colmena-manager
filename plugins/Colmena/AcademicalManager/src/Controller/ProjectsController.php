@@ -265,23 +265,25 @@ class ProjectsController extends AppController
 	 *
 	 * @return a json response with the project created or an exception if the project could not be created
 	 */
-	public function create(){
+	public function create()
+	{
 		$data = $this->request->getData();
 		$entity = $this->{$this->getName()}->newEmptyEntity();
 
 		$entity = $this->{$this->getName()}->patchEntity($entity, $data);
-		$project = $this->{$this->getName()}->save($entity);
 
-		if(!isset($project)){
+		try {
+			$project = $this->{$this->getName()}->save($entity);
+		} catch (\Throwable $th) {
 			throw new InvalidArgumentException("Entity could not be saved. Check the data and retry.");
 		}
 
 		$content = json_encode($project);
 
-    $this->response = $this->response->withStringBody($content);
-    $this->response = $this->response->withType('json');
+		$this->response = $this->response->withStringBody($content);
+		$this->response = $this->response->withType('json');
 
-    return $this->response;
+		return $this->response;
 	}
 
 	/**
@@ -289,22 +291,23 @@ class ProjectsController extends AppController
 	 *
 	 * @return a json response with the project edited or an exception if the project could not be edited
 	 */
-	public function editProject(){
+	public function editProject()
+	{
 		$data = $this->request->getData();
-		$entity = $this->{$this->getName()}->get($data['project_id']);
 
-		$entity = $this->{$this->getName()}->patchEntity($entity, $data);
-		$project = $this->{$this->getName()}->save($entity);
-
-		if(!isset($project)){
+		try {
+			$entity = $this->{$this->getName()}->get($data['project_id']);
+			$entity = $this->{$this->getName()}->patchEntity($entity, $data);
+			$project = $this->{$this->getName()}->save($entity);
+		} catch (\Throwable $th) {
 			throw new InvalidArgumentException("Entity could not be edited. Check the data and retry.");
 		}
 
 		$content = json_encode($project);
 
-    $this->response = $this->response->withStringBody($content);
-    $this->response = $this->response->withType('json');
+		$this->response = $this->response->withStringBody($content);
+		$this->response = $this->response->withType('json');
 
-    return $this->response;
+		return $this->response;
 	}
 }
