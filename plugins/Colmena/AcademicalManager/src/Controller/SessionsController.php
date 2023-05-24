@@ -310,9 +310,9 @@ class SessionsController extends AppController
   }
 
   /**
-   * CRUD method which edits a subject by its id
+   * CRUD method which edits a session by its id
    *
-   * @return a json response with the subject edited or an exception if the subject could not be edited
+   * @return a json response with the session edited or an exception if the session could not be edited
    */
   public function editSession()
   {
