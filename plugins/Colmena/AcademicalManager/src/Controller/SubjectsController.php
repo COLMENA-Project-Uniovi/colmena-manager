@@ -345,40 +345,40 @@ class SubjectsController extends AppController
     $this->Flash->error($errorMsg, ['escape' => false]);
   }
 
-  	/**
-	 * CRUD method which creates a new subject
-	 *
-	 * @return a json response with the subject created or an exception if the subject could not be created
-	 */
-	public function create()
-	{
-		$data = $this->request->getData();
-		$entity = $this->{$this->getName()}->newEmptyEntity();
+  /**
+   * CRUD method which creates a new subject
+   *
+   * @return a json response with the subject created or an exception if the subject could not be created
+   */
+  public function create()
+  {
+    $data = $this->request->getData();
+    $entity = $this->{$this->getName()}->newEmptyEntity();
 
-		$entity = $this->{$this->getName()}->patchEntity($entity, $data);
+    $entity = $this->{$this->getName()}->patchEntity($entity, $data);
 
-		try {
-			$subject = $this->{$this->getName()}->save($entity);
-		} catch (\Throwable $th) {
-			throw new InvalidArgumentException("Entity could not be saved. Check the data and retry.");
-		}
+    try {
+      $subject = $this->{$this->getName()}->save($entity);
+    } catch (\Throwable $th) {
+      throw new InvalidArgumentException("Entity could not be saved. Check the data and retry.");
+    }
 
-		$content = json_encode($subject);
+    $content = json_encode($subject);
 
-		$this->response = $this->response->withStringBody($content);
-		$this->response = $this->response->withType('json');
+    $this->response = $this->response->withStringBody($content);
+    $this->response = $this->response->withType('json');
 
-		return $this->response;
-	}
+    return $this->response;
+  }
 
-	/**
-	 * CRUD method which edits a subject by its id
-	 *
-	 * @return a json response with the subject edited or an exception if the subject could not be edited
-	 */
-	public function editSubject()
-	{
-		$data = $this->request->getData();
+  /**
+   * CRUD method which edits a subject by its id
+   *
+   * @return a json response with the subject edited or an exception if the subject could not be edited
+   */
+  public function editSubject()
+  {
+    $data = $this->request->getData();
 
     try {
       # We need to get the subject to check if the subject exists
@@ -387,28 +387,32 @@ class SubjectsController extends AppController
       throw new InvalidArgumentException("Subject does not exist.");
     }
 
-    try {
-      # We need to get the project to check if the project exists
-			$this->{$this->getName()}->Projects->get($data['project_id']);
-    } catch (\Throwable $th) {
-      throw new InvalidArgumentException("Project does not exist.");
+    if (isset($data['project_id']) && !empty($data['project_id'])) {
+      try {
+        # We need to get the project to check if the project exists
+        $this->{$this->getName()}->Projects->get($data['project_id']);
+      } catch (\Throwable $th) {
+        throw new InvalidArgumentException("Project does not exist.");
+      }
     }
-
-		try {
-      # We need to check if the academic year exists
-      $this->{$this->getName()}->AcademicalYear->get($data['academical_year_id']);
-		} catch (\Throwable $th) {
-			throw new InvalidArgumentException("Academical year does not exist.");
-		}
+    
+    if (isset($data['academical_year_id']) && !empty($data['academical_year_id'])) {
+      try {
+        # We need to check if the academic year exists
+        $this->{$this->getName()}->AcademicalYear->get($data['academical_year_id']);
+      } catch (\Throwable $th) {
+        throw new InvalidArgumentException("Academical year does not exist.");
+      }
+    }
 
     $entity = $this->{$this->getName()}->patchEntity($entity, $data);
     $subject = $this->{$this->getName()}->save($entity);
 
-		$content = json_encode($subject);
+    $content = json_encode($subject);
 
-		$this->response = $this->response->withStringBody($content);
-		$this->response = $this->response->withType('json');
+    $this->response = $this->response->withStringBody($content);
+    $this->response = $this->response->withType('json');
 
-		return $this->response;
-	}
+    return $this->response;
+  }
 }
