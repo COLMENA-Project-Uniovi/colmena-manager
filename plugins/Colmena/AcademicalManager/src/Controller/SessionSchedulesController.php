@@ -3,14 +3,10 @@
 namespace Colmena\AcademicalManager\Controller;
 
 use Colmena\AcademicalManager\Controller\AppController;
-use App\Encryption\EncryptTrait;
-use Cake\Core\Configure;
-use Cake\Http\Session;
+use InvalidArgumentException;
 
 class SessionSchedulesController extends AppController
 {
-  use EncryptTrait;
-
   public $entityName = 'horario de sesión';
   public $entityNamePlural = 'horarios de sesión';
 
@@ -64,6 +60,18 @@ class SessionSchedulesController extends AppController
   ];
 
   protected $tabActions = [];
+
+  /**
+   * Before filter
+   *
+   * @param \Cake\Event\Event $event The beforeFilter event.
+   *
+   */
+  public function beforeFilter(\Cake\Event\EventInterface $event)
+  {
+    parent::beforeFilter($event);
+    $this->Auth->allow(['create', 'editSessionSchedule']);
+  }
 
   /**
    * Index method
@@ -184,5 +192,76 @@ class SessionSchedulesController extends AppController
     }
 
     $this->Flash->error($errorMsg, ['escape' => false]);
+  }
+
+  /**
+   * CRUD method which creates a new session schedule
+   *
+   * @return a json response with the session schedule created or an exception if the session schedule could not be created
+   */
+  public function create()
+  {
+    $data = $this->request->getData();
+    $entity = $this->{$this->getName()}->newEmptyEntity();
+
+    $entity = $this->{$this->getName()}->patchEntity($entity, $data);
+
+    try {
+      $subject = $this->{$this->getName()}->save($entity);
+    } catch (\Throwable $th) {
+      throw new InvalidArgumentException("Entity could not be saved. Check the data and retry.");
+    }
+
+    $content = json_encode($subject);
+
+    $this->response = $this->response->withStringBody($content);
+    $this->response = $this->response->withType('json');
+
+    return $this->response;
+  }
+
+  /**
+   * CRUD method which edits a session schedule by its id
+   *
+   * @return a json response with the session schedule edited or an exception if the session schedule could not be edited
+   */
+  public function editSessionSchedule()
+  {
+    $data = $this->request->getData();
+
+    try {
+      # We need to get the session schedule to check if the session schedule exists
+      $entity = $this->{$this->getName()}->get($data['schedule_id']);
+    } catch (\Throwable $th) {
+      throw new InvalidArgumentException("Session schedule does not exist.");
+    }
+
+    if (isset($data['session_id']) && !empty($data['session_id'])) {
+      try {
+        # We need to get the session to check if the session exists
+        $this->{$this->getName()}->Sessions->get($data['session_id']);
+      } catch (\Throwable $th) {
+        throw new InvalidArgumentException("Session does not exist.");
+      }
+    }
+
+    if (isset($data['practice_group_id']) && !empty($data['practice_group_id'])) {
+      try {
+        # We need to check if the practice group exists
+        $this->{$this->getName()}->PracticeGroups->get($data['practice_group_id']);
+      } catch (\Throwable $th) {
+        throw new InvalidArgumentException("Practice group does not exist.");
+      }
+    }
+
+    $entity = $this->{$this->getName()}->patchEntity($entity, $data);
+    $subject = $this->{$this->getName()}->save($entity);
+
+    $content = json_encode($subject);
+
+    $this->response = $this->response->withStringBody($content);
+    $this->response = $this->response->withType('json');
+
+    return $this->response;
   }
 }

@@ -209,10 +209,7 @@ class SubjectsController extends AppController
 
   private function getSessionProject()
   {
-    $session = $this->request->getSession();
-    $projectID = $session->read('Projectid');
-
-    return $projectID;
+    return $this->request->getSession()->read('Projectid')['projectID'];
   }
 
   /**

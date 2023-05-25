@@ -91,6 +91,9 @@ Configure::write('Colmena/AcademicalManager.api_entities', [
     'Colmena/AcademicalManager.Subjects' => [
         'order' => 2,
     ],
+    'Colmena/AcademicalManager.SessionSchedules' => [
+      'order' => 3,
+  ],
 ]);
 
 /*
