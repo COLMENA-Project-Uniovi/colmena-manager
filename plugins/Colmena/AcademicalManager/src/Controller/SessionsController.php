@@ -84,6 +84,18 @@ class SessionsController extends AppController
   protected $tabActions = [];
 
   /**
+   * Before filter
+   *
+   * @param \Cake\Event\Event $event The beforeFilter event.
+   *
+   */
+  public function beforeFilter(\Cake\Event\EventInterface $event)
+  {
+    parent::beforeFilter($event);
+    $this->Auth->allow(['create', 'editSession']);
+  }
+
+  /**
    * Index method
    *
    * @return void
@@ -325,12 +337,12 @@ class SessionsController extends AppController
       throw new InvalidArgumentException("Session does not exist.");
     }
 
-    if (isset($data['project_id']) && !empty($data['project_id'])) {
+    if (isset($data['subject_id']) && !empty($data['subject_id'])) {
       try {
-        # We need to get the project to check if the project exists
-        $this->{$this->getName()}->Projects->get($data['project_id']);
+        # We need to get the subject to check if the subject exists
+        $this->{$this->getName()}->Subjects->get($data['subject_id']);
       } catch (\Throwable $th) {
-        throw new InvalidArgumentException("Project does not exist.");
+        throw new InvalidArgumentException("Subject does not exist.");
       }
     }
 
@@ -339,7 +351,7 @@ class SessionsController extends AppController
         # We need to check if the language exists
         $this->{$this->getName()}->Languages->get($data['language_id']);
       } catch (\Throwable $th) {
-        throw new InvalidArgumentException("Academical year does not exist.");
+        throw new InvalidArgumentException("Language does not exist.");
       }
     }
 

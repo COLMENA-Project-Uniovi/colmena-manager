@@ -7,50 +7,50 @@ use Cake\Core\Configure;
  */
 
 Configure::write('Colmena/AcademicalManager.menuItems', [
-    'Gestión académica' => [
-        'order' => 1,
-        'items' => [
-            'Asignaturas' => [
-                'icon' => '<i class="far fa-books"></i>',
-                'link' => [
-                    'controller' => 'Subjects',
-                    'action' => 'index',
-                    'plugin' => 'Colmena/AcademicalManager',
-                ],
-                'extra' => [
-                    'class' => 'menu-item',
-                    'escape' => false
-                ],
-            ],
-            'Proyectos' => [
-                'icon' => '<i class="far fa-project-diagram"></i>',
-                'link' => [
-                    'controller' => 'Projects',
-                    'action' => 'index',
-                    'plugin' => 'Colmena/AcademicalManager',
-                ],
-                'extra' => [
-                    'class' => 'menu-item',
-                    'escape' => false
-                ],
-            ],
-            'Años académicos' => [
-                'icon' => '<i class="far fa-calendar"></i>',
-                'link' => [
-                    'controller' => 'AcademicalYears',
-                    'action' => 'index',
-                    'plugin' => 'Colmena/AcademicalManager',
-                ],
-                'extra' => [
-                    'class' => 'menu-item',
-                    'escape' => false
-                ],
-            ],
+  'Gestión académica' => [
+    'order' => 1,
+    'items' => [
+      'Asignaturas' => [
+        'icon' => '<i class="far fa-books"></i>',
+        'link' => [
+          'controller' => 'Subjects',
+          'action' => 'index',
+          'plugin' => 'Colmena/AcademicalManager',
         ],
         'extra' => [
-            'ico' => '<i class="fas fa-books"></i>',
+          'class' => 'menu-item',
+          'escape' => false
         ],
+      ],
+      'Proyectos' => [
+        'icon' => '<i class="far fa-project-diagram"></i>',
+        'link' => [
+          'controller' => 'Projects',
+          'action' => 'index',
+          'plugin' => 'Colmena/AcademicalManager',
+        ],
+        'extra' => [
+          'class' => 'menu-item',
+          'escape' => false
+        ],
+      ],
+      'Años académicos' => [
+        'icon' => '<i class="far fa-calendar"></i>',
+        'link' => [
+          'controller' => 'AcademicalYears',
+          'action' => 'index',
+          'plugin' => 'Colmena/AcademicalManager',
+        ],
+        'extra' => [
+          'class' => 'menu-item',
+          'escape' => false
+        ],
+      ],
     ],
+    'extra' => [
+      'ico' => '<i class="fas fa-books"></i>',
+    ],
+  ],
 ]);
 
 /*
@@ -67,16 +67,16 @@ Configure::write('Colmena/AcademicalManager.home_blocks', []);
  * Set the searchable entities for this plugin
  */
 Configure::write(
-    'Colmena/AcademicalManager.searchable_entities',
-    []
+  'Colmena/AcademicalManager.searchable_entities',
+  []
 );
 
 /*
  * Generate rolable entities array
  */
 Configure::write('Colmena/AcademicalManager.rolable_entities', [
-    'Subjects' => 'Asignaturas',
-    'Projects' => 'Proyectos',
+  'Subjects' => 'Asignaturas',
+  'Projects' => 'Proyectos',
 ]);
 
 /*
@@ -85,25 +85,28 @@ Configure::write('Colmena/AcademicalManager.rolable_entities', [
 Configure::write('Colmena/AcademicalManager.special_method_entity_roles', []);
 
 Configure::write('Colmena/AcademicalManager.api_entities', [
-    'Colmena/AcademicalManager.Projects' => [
-        'order' => 1,
-    ],
-    'Colmena/AcademicalManager.Subjects' => [
-        'order' => 2,
-    ],
-    'Colmena/AcademicalManager.SessionSchedules' => [
-      'order' => 3,
+  'Colmena/AcademicalManager.Projects' => [
+    'order' => 1,
   ],
+  'Colmena/AcademicalManager.Subjects' => [
+    'order' => 2,
+  ],
+  'Colmena/AcademicalManager.Sessions' => [
+    'order' => 3,
+  ],
+  'Colmena/AcademicalManager.SessionSchedules' => [
+    'order' => 4,
+  ]
 ]);
 
 /*
  * Configure Products Manager API routing
  */
 Configure::write('Colmena/AcademicalManager.routes', [
-    '/:version/academic/:controller/:action' => [
-        'defaults' => [
-            'plugin' => 'Colmena/AcademicalManager',
-        ],
-        'options' => [],
+  '/:version/academic/:controller/:action' => [
+    'defaults' => [
+      'plugin' => 'Colmena/AcademicalManager',
     ],
+    'options' => [],
+  ],
 ]);
