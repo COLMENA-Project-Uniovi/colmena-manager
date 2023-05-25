@@ -12,53 +12,53 @@ use App\Encryption\EncryptTrait;
  */
 class ErrorExamplesTable extends AppTable
 {
-    use EncryptTrait;
+  use EncryptTrait;
 
-    /**
-     * Initialize method.
-     *
-     * @param array $config the configuration for the Table
-     */
-    public function initialize(array $config): void
-    {
-        parent::initialize($config);
+  /**
+   * Initialize method.
+   *
+   * @param array $config the configuration for the Table
+   */
+  public function initialize(array $config): void
+  {
+    parent::initialize($config);
 
-        $this->setTable('em_error_examples');
-        $this->setDisplayField('name');
-        $this->setPrimaryKey('id');
+    $this->setTable('em_error_examples');
+    $this->setDisplayField('name');
+    $this->setPrimaryKey('id');
 
-        $this->belongsTo(
-            'Users',
-            [
-                'className' => 'AdminUsers',
-            ]
-        );
+    $this->belongsTo(
+      'Users',
+      [
+        'className' => 'AdminUsers',
+      ]
+    );
 
-        $this->belongsTo(
-            'Sessions',
-            [
-                'className' => 'Colmena/AcademicalManager.Sessions',
-            ]
-        );
+    $this->belongsTo(
+      'Sessions',
+      [
+        'className' => 'Colmena/AcademicalManager.Sessions',
+      ]
+    );
 
-        $this->belongsTo(
-            'Errors',
-            [
-                'className' => 'Colmena/ErrorsManager.Errors',
-            ]
-        );
-    }
+    $this->belongsTo(
+      'Errors',
+      [
+        'className' => 'Colmena/ErrorsManager.Errors',
+      ]
+    );
+  }
 
-    /**
-     * Default validation rules.
-     *
-     * @param \Cake\Validation\Validator $validator validator instance
-     *
-     * @return \Cake\Validation\Validator
-     */
-    public function validationDefault(Validator $validator): Validator
-    {
-        $validator = parent::validateId($validator);
-        return $validator;
-    }
+  /**
+   * Default validation rules.
+   *
+   * @param \Cake\Validation\Validator $validator validator instance
+   *
+   * @return \Cake\Validation\Validator
+   */
+  public function validationDefault(Validator $validator): Validator
+  {
+    $validator = parent::validateId($validator);
+    return $validator;
+  }
 }
